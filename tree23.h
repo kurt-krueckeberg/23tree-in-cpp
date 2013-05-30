@@ -568,8 +568,8 @@ template<typename K> Node23<K> *Tree23<K>::FindNextLargest(K key, Node23<K> *loc
  } 
  // Continue down left branches until we encounter a leaf.
  while (!next->isLeafNode()) {
-   
-      next->leftChild;
+     
+      next = next->leftChild;
  }
  
  return next;
