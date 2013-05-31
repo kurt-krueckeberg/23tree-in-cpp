@@ -577,9 +577,6 @@ template<typename K> Node23<K> *Tree23<K>::FindNextLargest(K key, Node23<K> *loc
 /*
  * preconditions: node points to an empty node.
  * returns: true if it could successfully redistributed values; otherwise, returns false.
- * TODO: 1. The current code only handles the leaf node case. For an internal node, a child of the sibling chosen for redistribution must become
- * a child of node. I could return a reference to that child or a reference to a pointer to that child. 
- *       2. Should the code first check for a right-most sibling before a left-most sibling?
  */ 
 template<typename K> bool Tree23<K>::Redistribute(Node23<K> *node, int& situation)
 { 
