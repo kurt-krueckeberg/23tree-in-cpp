@@ -838,7 +838,6 @@ template<typename K> void Tree23<K>::fix(Node23<K> *node, Node23<K> *pChildOfNod
 
           }  else { /* parent is a two node and its other child is a two node  */ 
               
-              // We ignore largeValue. This is two node.
                 if (parent->rightChild == node) {
 
 		       pSibling = parent->leftChild;
