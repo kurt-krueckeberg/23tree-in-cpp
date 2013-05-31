@@ -31,22 +31,28 @@ int main(int argc, char** argv)
        10 30 35 37 50 70  90 */
        
     for(int i = 0; i < size; i++) {
-            
-        /* 
-         * TODO: Tested successfully through 10. 
-         * Create a test case with two internal nodes and a leaf three node. Do it on paper, consulting Walls or others, then 
-         * run the code and see if the tree links are correct. 
-         */ 
+        
         inserted_node = tree.insert(v[i]);
-    
-       
     }
     
+    TreePrinter tree_printer(cout);
+    tree.Traverse(tree_printer); 
+    cout << endl;
+    
     tree.remove(10);
+     /* Leaves this tree:
+
+            (36,     60)
+          /      |    \
+         34      40    80  
+        / \      / \   / \
+  (20,30) 35    37 50 70  90 */
+         
     
-    TreePrinter outputter(cout);
+    tree.remove(36);  
     
-    tree.Traverse(outputter); 
+    tree.Traverse(tree_printer); // This blows up because we do not have a proper tree.
+    cout << "------------" << endl;
     cout << endl;
     return 0;
 }

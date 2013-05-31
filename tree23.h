@@ -588,6 +588,7 @@ Node23<K> *parent = node->parent;
 
   if (parent->isThreeNode()) {
 
+    /* parent is three node. Look for a three node sibling. */
     if (node == parent->leftChild) { // left
 
          if (parent->middleChild->isThreeNode()) { // case 1
@@ -690,13 +691,12 @@ Node23<K> *parent = node->parent;
          } 
     } // end else 
     
-  } else { // parent is two node
+  } else { // parent is a two node
 
-    // double check this.		
     if (parent->leftChild == node) {
    
-     // Can I generalize both cases below with pointers to smallest, middle, largest, and deference these pointers?     
         if (parent->rightChild->isThreeNode()) {    
+
 	      node->smallValue = parent->smallValue;
               parent->smallValue = parent->rightChild->smallValue;
               parent->rightChild->smallValue = parent->rightChild->largeValue; // Is this necessary if parent is a two node?
@@ -715,9 +715,7 @@ Node23<K> *parent = node->parent;
 
 	      node->smallValue = parent->smallValue;
               parent->smallValue = parent->leftChild->largeValue;
-              parent->rightChild->smallValue;
               parent->rightChild->setThreeNode(false);  
-
               situation = 8;
 
         } else {
@@ -746,19 +744,21 @@ fix(Node23<K> *node, Node23<K> *pChildOfNode)
 
      if ( some sibling of node has two items ) { 
 
-        redistribute the items appopriately among node, the sibling and the parent.
+        redistribute the items appropriately among node, the sibling and the parent.
 
-        if (node is internal) { // See Figure 12-19 (c)
+        if (node is internal) { // See http://www.cs.mtsu.edu/~jhankins/files/3110/presentations/2-3Trees.ppt
 
-	   Move the appropriate child from sibling to node. What this means is, after we distribute, if the node is internal, one of the children
-           of the sibling used in the redistribution has to be moved, to become a child of node.
+	   Move the appropriate child from sibling to node. What this means is, after we distribute values, if the node
+           is internal, some silbings, along with node, no longer have the proper parent because the values in the parent
+           have changed. 
          }
 
      } else {
+
 	  To merge nodes...
 
           Choose an adjacent sibling s of node.
-          Bring the appropriate item dowm from p into s 
+          Bring the appropriate item down from p into s 
 
           if (node is internal) {
                 Move node's child to s 
@@ -801,6 +801,7 @@ template<typename K> void Tree23<K>::fix(Node23<K> *node, Node23<K> *pChildOfNod
 
          Node23<K> *middleChild;
          Node23<K> *Node23<K>::*Ptr2newParentOfChild; // Pointer to member variable (of type Node23<K> *)
+         bool parentIsEmpty = false; // If parent is a two node, it will be flagged empty after merge.
 
 	 /* Merge nodes by bringing down parent's value to sibling of node.  */ 
                   
@@ -835,6 +836,9 @@ template<typename K> void Tree23<K>::fix(Node23<K> *node, Node23<K> *pChildOfNod
 		  Ptr2newParentOfChild = &Node23<K>::leftChild;
               } 
 
+              // parent is now a two node
+              parent->setThreeNode(false);
+
           }  else { /* parent is a two node and its other child is a two node  */ 
               
               // We ignore largeValue. This is two node.
@@ -857,6 +861,8 @@ template<typename K> void Tree23<K>::fix(Node23<K> *node, Node23<K> *pChildOfNod
                         middleChild = pSibling->leftChild;
 			Ptr2newParentOfChild = &Node23<K>::leftChild;
                  }      
+
+                 parentIsEmpty = true;
           } 
 
           pSibling->setThreeNode(true);  
@@ -872,7 +878,7 @@ template<typename K> void Tree23<K>::fix(Node23<K> *node, Node23<K> *pChildOfNod
 	  // Remove node...
 	  delete node;
 
-	  if (!parent->isThreeNode()) { // if p  is now empty 
+	  if (parentIsEmpty) { 
 
 	      fix(parent, pSibling); 
 	  }
