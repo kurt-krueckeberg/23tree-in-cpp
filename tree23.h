@@ -59,12 +59,12 @@ template<typename K> class Node23 {
 };  
 
 /* 
- * If both the left and right pointers in a 2-node are 0, it is a leaf; the same is true for a 3-node, and
- * the middle node never needs to be checked.     
+ * It is sufficient to just check the leaf pointer. Internal nodes will have at minimun bot leftChild
+ * and rightChild set.
  */   
 template<typename K> inline  bool Node23<K>::isLeafNode()  
 { 
-   return  !(leftChild && rightChild); 
+   return !leftChild ? true : false;
 }
 
 template<typename K> inline bool Node23<K>::isThreeNode() 
