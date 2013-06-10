@@ -889,21 +889,12 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23<K> *node, Node23<K>
        switch (situation) {
 
             case 1:
-            /*  Redistribute did this
-              (20,      40)          (30,     40)
-             /      |     \    =>    /     |    \
-          Hole   (30,35)   50       20    35     50
-            |    /  | \    /\       |    / | \   /\
-            C   29 32  37 60 70     C  29 32 37 45 70
-                
-                We now must reassign the children to get this
-
-                 (30,     40)          (30,     40)        
-                 /     |    \      =>  /     |    \     
-                20    35     50       20    35    50      
-                |    / | \   /\       /\    / \   /\      
-                C  29 32 37 45 70    C 29 32  37 45 70 
-             */
+            /*  Redistribute did (a). We must do (b)
+              (20,      40)    (a)   (30,     40)     (b)   (30,     40)        
+             /      |     \     =>   /     |    \     =>    /     |    \     
+          Hole   (30,35)   50       20    35     50        20    35    50      
+            |    /  | \    /\       |    / | \   /\        /\    / \   /\      
+            C   29 32  37 60 70     C  29 32 37 45 70     C 29 32  37 45 70 */
                  node->leftChild = pChildOfNode;
                  node->rightChild = parent->middleChild->leftChild; 
                  parent->middleChild->leftChild = parent->middleChild->middleChild; 
@@ -911,19 +902,12 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23<K> *node, Node23<K>
                  break;
             case 2:
 
-           /*      (10,       20)     Redist.    (15,   30)   
-                   /       |     \       =>     /     |    \   
-                 Hole     15    (30,40)        10    20     40 
-                   |      / \    / | \          |    / \   / | \        
-                   5    12 17  32 35 70         5   12 17 32 35 70      
-                                                                                     
-              We now shift the children left, so we have a proper tree
-                                                                                     
-                         (15,   30)   
-             Reassign   /    |    \   
-                =>     10    20    40 
-           Children   / \   / \   / \        
-                     5  12 17 32 35 70      */
+           /*      (10,       20)     Redist.    (15,   30)                                                                                     
+                   /       |     \       =>     /     |    \                   (15,   30)   
+                 Hole     15    (30,40)        10    20     40      Reassign    /    |  \   
+                   |      / \    / | \          |    / \   / | \       =>     10   20     40                                                  
+                   5    12 17  32 35 70         5   12 17 32 35 70   Children / \   / \   / \                                                  
+                                                                             5  12 17 32 35 70      */                                                      
                    node->leftChild = pChildOfNode;
 
                    node->rightChild = parent->middleChild->leftChild;
@@ -957,10 +941,10 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23<K> *node, Node23<K>
 
             case 5:
        /* We redistribute value of siblings, but we do not reassign here their children 
-          (10,       25)              (10,      19)   Reassign       (10,       19)
-         /       |     \       =>    /      |      \  Children      /      |       \                              
-        5    (15, 19)   Hole        5       15      25  =>         5       15       25     
-       / \    /  |  \    |         / \     / | \     |             / \    /  \     /  \    
+          (10,       25)              (10,      19)    Reassign      (10,       19)
+         /       |     \       =>    /      |      \   Children     /      |       \                              
+        5    (15, 19)   Hole        5       15      25    =>       5       15       25     
+       / \    /  |  \    |         / \     / | \     |            / \     /  \     /  \    
       1   7  12 17  22  60        1   7  12  17 18  60           1   7  12    17  22   60   */
             
                    // If the sole child of node is the leftChild, move it to the rightChild.
@@ -971,20 +955,12 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23<K> *node, Node23<K>
 
               case 6:
 
-       /*  Redistribute() redistributed node values but did not reassign their child. So we have this 
-                  (20,       40)               (18,   30)   
-                  /       |     \      =>     /     |   \   
-              (10, 18)   30     Hole        10     20    40 
-               /  | \    /  \    /         / | \   / \   /  
-              5  12  19 25  32  55        5  7 19 25 32 55  
-
-         We now shift the children right, so we have a proper tree
-
-                 (18,   30)            (18,    30)    
-                /     |   \            /     |    \                
-              10     20    40  =>     10     20     40                         
-             / | \   / \   /         /  \   / \    / \
-            5 12 19 25 32 55        5   12 19 25  32 55  
+       /*  Redistribute() redistributed node values (a) but did not reassign their childa(b)
+                  (20,       40)               (18,   30)           (18,    30)    
+                  /       |     \    Redist   /     |   \   Shift   /     |    \                
+              (10, 18)   30     Hole   =>   10     20    40   =>   10     20     40                         
+               /  | \    /  \    /    (a)  / | \   / \   /   (b)  /  \   / \    / \
+              5  12  19 25  32  55        5 12 19 25 32 55       5   12 19 25  32 55  
               */
 
                    // If the sole child of node is the leftChild, move it to the rightChild.
@@ -998,12 +974,12 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23<K> *node, Node23<K>
                    break;
 
             case 7:
-                         /* parent is a two node and right Child is three node
-                             20                              30                    30
-                            /  \         Redistribute       /  \      Reassign    /   \               
-                         Hole  (30, 40)     =>             20    40     =>       20     40    
-                           |    /  |  \                    |    / | \           / \    / \
-                           5  25  35  50                   5  25  35  50       5  25 35  50 */
+             /* parent is a two node and right Child is three node
+                    20                            30                    30
+                   /  \         Redistribute     /  \      Reassign    /   \               
+                Hole  (30, 40)     =>           20    40     =>       20     40    
+                  |    /  |  \                  |    / | \           / \    / \
+                  5  25  35  50                 5  25  35  50       5  25 35  50 */
 
 
                   node->leftChild = pChildOfNode;
