@@ -235,8 +235,6 @@ template<typename K> void Tree23<K>::DestroyTree(Node23<K> *p)
 
         delete p; 
 
-        p = 0;
-
   } else { // descend two node
 
         DestroyTree(p->leftChild);
@@ -245,8 +243,6 @@ template<typename K> void Tree23<K>::DestroyTree(Node23<K> *p)
 
         delete p; 
 
-        p = 0; 
-  }
 }
 
 template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse(Functor f) 
