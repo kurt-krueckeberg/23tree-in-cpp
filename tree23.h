@@ -194,6 +194,7 @@ template<typename K> class Tree23 {
     Node23<K> *Split(Node23<K> *p, K key, Node23<K> *pLeftChildOfNewKey = 0, Node23<K> *pRightChildOfNewKey = 0);
 
     template<typename Functor> void DoTraverse(Functor f, Node23<K> *root);
+    void DestroyTree(Node23<K> *root);
     
      // Find in order successor
     Node23<K> *FindNextLargest(K key, Node23<K> *location);
@@ -203,6 +204,7 @@ template<typename K> class Tree23 {
 
   public:    
      Tree23() { root = 0; } 
+    ~Tree23();
      template<typename Functor> void Traverse(Functor f);
      bool Search(K key, Node23<K> *&location);
      bool remove(K key, Node23<K> *location=0);
@@ -210,6 +212,43 @@ template<typename K> class Tree23 {
      Node23<K> *insert(K key, Node23<K> *location=0) throw(duplicatekey);
 };
 	
+template<typename K>  inline Tree23<K>::~Tree23()
+{
+  DestroyTree(root);
+}
+/*
+ * Post order Traversal, deleting nodes.
+ */ 
+template<typename K> void Tree23<K>::DestroyTree(Node23<K> *p)
+{
+  if (p == 0) {
+	return;
+  }
+	 
+  if (p->isThreeNode()) { // descend three node
+
+        DestroyTree(p->leftChild);
+
+        DestroyTree(p->middleChild);
+
+        DestroyTree(p->rightChild);
+
+        delete p; 
+
+        p = 0;
+
+  } else { // descend two node
+
+        DestroyTree(p->leftChild);
+
+        DestroyTree(p->rightChild);
+
+        delete p; 
+
+        p = 0; 
+  }
+}
+
 template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse(Functor f) 
 {
     return DoTraverse(f, root); 
@@ -217,6 +256,7 @@ template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse
 
 template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Functor f, Node23<K> *p)
 {
+  // Since the tree is always balanced, it is sufficient to check just one p
   if (p == 0) {
 	return;
   }
@@ -467,7 +507,7 @@ template<typename K> Node23<K>* Tree23<K>::Split(Node23<K> *location, K new_key,
 /*
  * pseudo code from: http://www.cs.ucr.edu/cs14/cs14_06win/slides/2-3_trees_covered.pdf
  *
- * if (node is node 0) {
+ * if (node is not 0) {
  *
  *      if (item is not in leaf node) {  
  *
