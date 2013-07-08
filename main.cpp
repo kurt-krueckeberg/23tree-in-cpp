@@ -7,10 +7,10 @@
 
 #include <cstdlib>
 #include "tree23.h"
-#include "TreePrinter.h"
 #include <iostream>
 
 using namespace std;
+
 
 int main(int argc, char** argv) 
 {
@@ -34,11 +34,16 @@ int main(int argc, char** argv)
         
         inserted_node = tree.insert(v[i]);
     }
-    
-    TreePrinter tree_printer(cout);
-    tree.Traverse(tree_printer); 
-    cout << endl;
-    
+   
+    /* lambda code fails to compile, be sure -std=c++11 is being used, or
+     * use 
+     *  void print_int(int x) { cout << x << ' '; }
+     *  //...snip
+     *  tree.traverse(print_int);
+     * instead.
+     */ 
+    tree.Traverse([](int x){ cout << x << ' '; }); 
+            
     tree.remove(10);
      /* Leaves this tree:
 
@@ -49,11 +54,13 @@ int main(int argc, char** argv)
   (20,30) 35    37 50 70  90 */
          
     
-    tree.remove(36);  
+   tree.remove(36);  
+   
+   tree.Traverse([](int x){ cout << x << ' '; }); // This blows up because we do not have a proper tree.
+     
+   cout << "------------" << endl;
+   cout << endl;
+   return 0;
     
-    tree.Traverse(tree_printer); // This blows up because we do not have a proper tree.
-    cout << "------------" << endl;
-    cout << endl;
-    return 0;
 }
 
