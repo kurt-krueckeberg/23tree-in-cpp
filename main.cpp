@@ -20,7 +20,7 @@ int main(int argc, char** argv)
     
     Tree23<int> tree;
         
-    Node23<int> *inserted_node = 0;
+    Tree23<int>::Node *inserted_node = 0;
 
     /* Build this tree:
 
