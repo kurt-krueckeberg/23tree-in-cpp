@@ -8,18 +8,14 @@
 #include <cstdlib>
 #include "tree23.h"
 #include <iostream>
-#include <vector>
-#include <functional>
+
 using namespace std;
 
 
 int main(int argc, char** argv) 
 {
-    /*
-    int v[] = { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
-     */
-    vector<int> v { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
     
+    int v[] = { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
     int size = sizeof(v)/sizeof(int);
     
     Tree23<int> tree;
@@ -33,12 +29,12 @@ int main(int argc, char** argv)
          20    36    (60,80)  
         / \    / \   /  | \
        10 30 35 37 50 70  90 */
-  
-    for(auto iter = v.begin(); iter != v.end(); ++iter) {
+       
+    for(int i = 0; i < size; i++) {
         
-        inserted_node = tree.insert(*iter);
+        inserted_node = tree.insert(v[i]);
     }
-      
+   
     /* lambda code fails to compile, be sure -std=c++11 is being used, or
      * use 
      *  void print_int(int x) { cout << x << ' '; }
