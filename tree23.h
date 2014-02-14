@@ -235,7 +235,7 @@ template<typename K>  inline Tree23<K>::~Tree23()
  */ 
 template<typename K> void Tree23<K>::DestroyTree(Node23 *p)
 {
-  if (p == 0) {
+  if (p == nullptr) {
 	return;
   }
 	 
@@ -268,7 +268,7 @@ template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse
 template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Functor f, Node23 *p)
 {
   // Since the tree is always balanced, it is sufficient to check just one p
-  if (p == 0) {
+  if (p == nullptr) {
 	return;
   }
 	 
@@ -297,9 +297,9 @@ template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Func
 template<typename K> bool Tree23<K>::Search(K key, Node23 *&location)
 {
     // make sure tree has at least one element    
-    if (root == 0) {
+    if (root == nullptr) {
     
-        location = 0;
+        location = nullptr;
         return false;
         
     } else {
@@ -356,21 +356,21 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
 template<typename K> typename Tree23<K>::Node23 *Tree23<K>::insert(K key, Tree23<K>::Node23 *location)  throw(duplicatekey)
 {
     // root case
-    if (root == 0) {
+    if (root == nullptr) {
 
          root = new Node23(key);
 	 return root;
     } 
 
     // Test that location is 0, which suggests the root, or if it truly is a leaf.
-    if (location == 0 || !location->isLeafNode()) {
+    if (location == nullptr || !location->isLeafNode()) {
         
         Node23 *leaf; 
         bool bRc = DoSearch(key, root, leaf); 
 	return insert(key, leaf);
     }
     
-    Node23 *result = 0;
+    Node23 *result = nullptr;
     
     // If the leaf node is a two node, insert the key, and we are done.
     if (!location->isThreeNode()) {
@@ -437,7 +437,7 @@ split(Node23<K>* n, K new_key)
 */
 template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *location, K new_key, Node23 *pLeftChildOfNewKey, Node23 *pRightChildOfNewKey)
 {
-    Node23* parent = 0;
+    Node23* parent = nullptr;
 
     bool isLeaf = location->isLeafNode();
     bool bRootIsNew = false;
@@ -537,7 +537,7 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
  */
 template<typename K> bool Tree23<K>::remove(K key, Node23 *location)
 {
-  if (location == 0) {
+  if (location == nullptr) {
       
         bool bFound = DoSearch(key, root, location); 
 
@@ -559,7 +559,7 @@ template<typename K> bool Tree23<K>::remove(K key, Node23 *location)
   /*
    * If item is not a leaf, swap item with inorder successor (always leaf)
    */
-  Node23 *leafNode = 0;
+  Node23 *leafNode = nullptr;
 
   bool isInternalNode = !location->isLeafNode();
   
@@ -603,7 +603,7 @@ template<typename K> bool Tree23<K>::remove(K key, Node23 *location)
  */
 template<typename K> typename Tree23<K>::Node23 *Tree23<K>::FindNextLargest(K key, Tree23<K>::Node23 *location)
 {
- Node23 *next = 0;
+ Node23 *next = nullptr;
 
  // When this method is called, key will equal smallValue or largeValue, and we must do a comparison.
  // We check if location is a three node and, if it is, we compare key to smallValue. If equal, go down middleChild.

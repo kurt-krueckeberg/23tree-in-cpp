@@ -15,16 +15,13 @@ using namespace std;
 
 int main(int argc, char** argv) 
 {
-    /*
-    int v[] = { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
-     */
     vector<int> v { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
     
     int size = sizeof(v)/sizeof(int);
     
     Tree23<int> tree;
         
-    Tree23<int>::Node *inserted_node = 0;
+    Tree23<int>::Node *inserted_node = nullptr;
 
     /* Build this tree:
 
