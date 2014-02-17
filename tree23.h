@@ -92,8 +92,8 @@ public:
        public:
     
 	 /* Using default values allows us to generalize both leaf node and internal node cases. */
-	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=0,
-                                                  Tree23<K>::Node23 *rightChildOfNewValue=0);
+	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
+                                                  Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
          
          K  getSmallValue()  { return smallValue; }
          K  getMiddleValue() { return middleValue; }
@@ -111,25 +111,25 @@ public:
     bool DoSearch(K key, Node23 *root, Node23 *&location);
 
     // Called by insert to split three nodes receiving a new value 
-    Node23 *Split(Node23 *p, K key, Node23 *pLeftChildOfNewKey = 0, Node23 *pRightChildOfNewKey = 0);
+    Node23 *Split(Node23 *p, K key, Node23 *pLeftChildOfNewKey = nullptr, Node23 *pRightChildOfNewKey = nullptr);
 
     template<typename Functor> void DoTraverse(Functor f, Node23 *root);
     void DestroyTree(Node23 *root);
     
      // Find in order successor
     Node23 *FindNextLargest(K key, Node23 *location);
-    void fix(Node23 *location, Node23 *pAdoptee=0);
+    void fix(Node23 *location, Node23 *pAdoptee=nullptr);
     bool Redistribute(Node23 *node, int& situation_designator);
     void ReassignChildren(Node23 *node, Node23* pChildOfNode, int situation);
 
   public:    
-     Tree23() { root = 0; } 
+     Tree23() { root = nullptr; } 
     ~Tree23();
      template<typename Functor> void Traverse(Functor f);
      bool Search(K key, Node23 *&location);
-     bool remove(K key, Node23 *location=0);
+     bool remove(K key, Node23 *location=nullptr);
            
-     Tree23<K>::Node23 *insert(K key, Node23 *location=0) throw(duplicatekey);
+     Tree23<K>::Node23 *insert(K key, Node23 *location=nullptr) throw(duplicatekey);
 };
 /* 
  * It is sufficient to just check the leaf pointer. Internal nodes will have at minimun bot leftChild
