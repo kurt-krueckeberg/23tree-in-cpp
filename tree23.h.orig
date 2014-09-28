@@ -87,6 +87,7 @@ public:
     
           Tree23<K>::Node23 *rightMiddleChild;
           Tree23<K>::Node23 *rightChild;
+             
           
           /* Note: Their is no parent node pointer. */
        public:
@@ -184,47 +185,6 @@ template<typename K> typename Tree23<K>::Node23& Tree23<K>::Node23::makeTwoNode(
   return *this;
 }
 
-template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Node23 *leftChildOfNewValue, Node23 *rightChildOfNewValue)
-{
-    /*
-     * Sort to find smallValue, middleValue and largeValue. Assign child pointers appropriately.
-     */
-    if (new_key < threeNode->smallValue) { // new_key is smallest value
-     	
- 	smallValue = new_key;
- 	middleValue = threeNode->smallValue;
- 	largeValue = threeNode->largeValue;
-
-        leftChild = leftChildOfNewValue;
-        leftMiddleChild = rightChildOfNewValue;
-        rightMiddleChild = threeNode->middleChild;
-     	rightChild = threeNode->rightChild;
-             		
-     } else if (new_key > threeNode->largeValue) { // new_key is largest value
-     
- 	smallValue = threeNode->smallValue;
- 	middleValue = threeNode->largeValue;
- 	largeValue = new_key;
-     
-        leftChild = threeNode->leftChild;
-        leftMiddleChild = threeNode->middleChild;
-        rightMiddleChild = leftChildOfNewValue;
-     	rightChild = rightChildOfNewValue;
-
-     } else { // new_key is the middle value
-     
- 	smallValue = threeNode->smallValue;		    
- 	middleValue = new_key;
- 	largeValue = threeNode->largeValue;		    
-
-        leftChild = threeNode->leftChild;
-        leftMiddleChild = leftChildOfNewValue;
-        rightMiddleChild = rightChildOfNewValue;
-     	rightChild = threeNode->rightChild;
-     }
-}
-
-
 	
 template<typename K>  inline Tree23<K>::~Tree23()
 {
@@ -310,8 +270,7 @@ template<typename K> bool Tree23<K>::Search(K key, Node23 *&location)
 
 template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&location)
 {
-  bool bRc;
-
+    bool bRc;
     /*
      * Is key in current?
      */
@@ -335,7 +294,7 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
             
         }  else if (key < current->largeValue) {
             
-            DoSearch(key, current->middleChild, location); 
+            bRc = DoSearch(key, current->middleChild, location); 
             
         } else {
             
@@ -1054,5 +1013,45 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
                   parent->leftChild->rightChild = parent->rightChild->middleChild;
                   break;
        }
+}
+
+template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Node23 *leftChildOfNewValue, Node23 *rightChildOfNewValue)
+{
+    /*
+     * Sort to find smallValue, middleValue and largeValue. Assign child pointers appropriately.
+     */
+    if (new_key < threeNode->smallValue) { // new_key is smallest value
+     	
+ 	smallValue = new_key;
+ 	middleValue = threeNode->smallValue;
+ 	largeValue = threeNode->largeValue;
+
+        leftChild = leftChildOfNewValue;
+        leftMiddleChild = rightChildOfNewValue;
+        rightMiddleChild = threeNode->middleChild;
+     	rightChild = threeNode->rightChild;
+             		
+     } else if (new_key > threeNode->largeValue) { // new_key is largest value
+     
+ 	smallValue = threeNode->smallValue;
+ 	middleValue = threeNode->largeValue;
+ 	largeValue = new_key;
+     
+        leftChild = threeNode->leftChild;
+        leftMiddleChild = threeNode->middleChild;
+        rightMiddleChild = leftChildOfNewValue;
+     	rightChild = rightChildOfNewValue;
+
+     } else { // new_key is the middle value
+     
+ 	smallValue = threeNode->smallValue;		    
+ 	middleValue = new_key;
+ 	largeValue = threeNode->largeValue;		    
+
+        leftChild = threeNode->leftChild;
+        leftMiddleChild = leftChildOfNewValue;
+        rightMiddleChild = rightChildOfNewValue;
+     	rightChild = threeNode->rightChild;
+     }
 }
 #endif	
