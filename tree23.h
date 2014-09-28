@@ -80,9 +80,12 @@ public:
       friend class Tree23<K>; 
       
        private:
+          /*
           K smallValue;
           K middleValue;
           K largeValue;
+           */ 
+          K keys[3];
     
           Tree23<K>::Node23 *leftChild;    
           Tree23<K>::Node23 *leftMiddleChild;	
@@ -98,9 +101,9 @@ public:
 	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
                                                   Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
          
-         K  getSmallValue()  { return smallValue; }
-         K  getMiddleValue() { return middleValue; }
-         K  getLargeValue()  { return largeValue;  }
+         K  getSmallValue()  { return keys[0]; }
+         K  getMiddleValue() { return keys[1]; }
+         K  getLargeValue()  { return keys[2];  }
     	 Tree23<K>::Node23 *getLeftChild()        { return leftChild; }
 	 Tree23<K>::Node23 *getLeftMiddleChild()  { return leftMiddleChild; }	
 	 Tree23<K>::Node23 *getRightMiddleChild() { return rightMiddleChild; }	
@@ -1021,13 +1024,13 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
 template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Node23 *leftChildOfNewValue, Node23 *rightChildOfNewValue)
 {
     /*
-     * Sort to find keys[0], middleValue and largeValue. Assign child pointers appropriately.
+     * Sort to find keys[0], keys[1] and keys[2]. Assign child pointers appropriately.
      */
     if (new_key < threeNode->keys[0]) { // new_key is smallest value
      	
- 	smallValue = new_key;
- 	middleValue = threeNode->keys[0];
- 	largeValue = threeNode->keys[1];
+ 	keys[0] = new_key;
+ 	keys[1] = threeNode->keys[0];
+ 	keys[2] = threeNode->keys[1];
 
         leftChild = leftChildOfNewValue;
         leftMiddleChild = rightChildOfNewValue;
@@ -1036,9 +1039,9 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
              		
      } else if (new_key > threeNode->keys[1]) { // new_key is largest value
      
- 	smallValue = threeNode->keys[0];
- 	middleValue = threeNode->keys[1];
- 	largeValue = new_key;
+ 	keys[0] = threeNode->keys[0];
+ 	keys[1] = threeNode->keys[1];
+ 	keys[2] = new_key;
      
         leftChild = threeNode->leftChild;
         leftMiddleChild = threeNode->middleChild;
@@ -1047,9 +1050,9 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
 
      } else { // new_key is the middle value
      
- 	smallValue = threeNode->keys[0];		    
- 	middleValue = new_key;
- 	largeValue = threeNode->keys[1];		    
+ 	keys[0] = threeNode->keys[0];		    
+ 	keys[1] = new_key;
+ 	keys[2] = threeNode->keys[1];		    
 
         leftChild = threeNode->leftChild;
         leftMiddleChild = leftChildOfNewValue;
