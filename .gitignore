@@ -6,3 +6,4 @@ build/
 nbproject/
 newtree23.h
 *.mk
+*.orig
