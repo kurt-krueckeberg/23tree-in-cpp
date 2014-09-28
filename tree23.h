@@ -87,6 +87,7 @@ public:
     
           Tree23<K>::Node23 *rightMiddleChild;
           Tree23<K>::Node23 *rightChild;
+             
           
           /* Note: Their is no parent node pointer. */
        public:
@@ -310,8 +311,6 @@ template<typename K> bool Tree23<K>::Search(K key, Node23 *&location)
 
 template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&location)
 {
-  bool bRc;
-
     /*
      * Is key in current?
      */
@@ -331,7 +330,7 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
         
         if (key < current->smallValue) {
             
-            bRc = DoSearch(key, current->leftChild, location); 
+            DoSearch(key, current->leftChild, location); 
             
         }  else if (key < current->largeValue) {
             
@@ -339,21 +338,20 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
             
         } else {
             
-            bRc = DoSearch(key, current->rightChild, location); 
+            DoSearch(key, current->rightChild, location); 
         }
       
     } else { // ...or only one?
         
          if (key < current->smallValue) {
             
-            bRc = DoSearch(key, current->leftChild, location); 
+            DoSearch(key, current->leftChild, location); 
             
         }  else {
             
-            bRc = DoSearch(key, current->rightChild, location);  
+            DoSearch(key, current->rightChild, location);  
         }    
     }
-    return bRc;
 }
 
 template<typename K> typename Tree23<K>::Node23 *Tree23<K>::insert(K key, Tree23<K>::Node23 *location)  throw(duplicatekey)
