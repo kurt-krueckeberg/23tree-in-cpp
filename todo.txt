@@ -1,0 +1,5 @@
+The code could be greatly simplified by putting the right child of a 2-node in children[1] instead of children[2], which is what the code currently does, which
+is confusing.  Then the Redistribute() and ReassignChildren() code could be simplified into one routine called, say, Rotate().
+
+To do this, it would probably be best to simply rewrite from scratch those sections of code rather than try to change them, as this would in the long run
+be simpler.

@@ -49,11 +49,6 @@ public:
            
            K getSmallValue() { return keys[0]; }
            K getLargeValue() { return keys[1]; }
-           /* 
-           Node23 *leftChild;
-           Node23 *rightChild;
-           Node23 *middleChild;
-            */
            Node23 *children[3];
 
            Node23 *parent;
