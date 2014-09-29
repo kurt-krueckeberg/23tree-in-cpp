@@ -59,7 +59,7 @@ int main(int argc, char** argv)
    
    tree.Traverse([](int x){ cout << x << ' '; }); // This blows up because we do not have a proper tree.
      
-   cout << "------------" << endl;
+   cout << "\n------------\n" << endl;
    cout << endl;
    return 0;
     
