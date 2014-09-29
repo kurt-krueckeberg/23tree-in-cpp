@@ -30,16 +30,13 @@ public:
       private: 
            friend class Tree23<K>;             
            friend class Node34;
-           Node23(bool three_node=false) : isThreeNodeFlag(three_node), leftChild(0), rightChild(0), parent(0) { }
+           Node23(bool three_node=false);
            
-           Node23& operator =(Node23& rhs);
-           
+           Node23& operator=(Node23& rhs);
            Node23(K key);
     
            Node23(K small, K large);
-    
            Node23(K small, Node23 *pParent, Node23 *pleftChild, Node23 *prightChild);
-           
            Node23(const Node23& n);
     
            Node23& makeTwoNode(K value, Node23 *pParent, Node23 *left, Node23 *right);                
@@ -52,17 +49,15 @@ public:
            
            K getSmallValue() { return keys[0]; }
            K getLargeValue() { return keys[1]; }
-    
+           /* 
            Node23 *leftChild;
            Node23 *rightChild;
            Node23 *middleChild;
-           
+            */
+           Node23 *children[3];
+
            Node23 *parent;
                
-           /*
-           K smallValue;
-           K largeValue;
-            */
            K keys[2];
                    
            bool isThreeNodeFlag;
@@ -80,11 +75,7 @@ public:
       friend class Tree23<K>; 
       
        private:
-          /*
-          K smallValue;
-          K middleValue;
-          K largeValue;
-           */ 
+          
           K keys[3];
     
           Tree23<K>::Node23 *leftChild;    
@@ -104,6 +95,7 @@ public:
          K  getSmallValue()  { return keys[0]; }
          K  getMiddleValue() { return keys[1]; }
          K  getLargeValue()  { return keys[2];  }
+
     	 Tree23<K>::Node23 *getLeftChild()        { return leftChild; }
 	 Tree23<K>::Node23 *getLeftMiddleChild()  { return leftMiddleChild; }	
 	 Tree23<K>::Node23 *getRightMiddleChild() { return rightMiddleChild; }	
@@ -138,12 +130,12 @@ public:
      Tree23<K>::Node23 *insert(K key, Node23 *location=nullptr) throw(duplicatekey);
 };
 /* 
- * It is sufficient to just check the leaf pointer. Internal nodes will have at minimun bot leftChild
- * and rightChild set.
+ * It is sufficient to just check the leaf pointer. Internal nodes will have at minimun bot children[0]
+ * and children[2] set.
  */   
 template<typename K> inline  bool Tree23<K>::Node23::isLeafNode()  
 { 
-   return !leftChild ? true : false;
+   return !children[0] ? true : false;
 }
 
 template<typename K> inline bool Tree23<K>::Node23::isThreeNode() 
@@ -156,26 +148,39 @@ template<typename K> inline void Tree23<K>::Node23::setThreeNode(bool flag)
   this->isThreeNodeFlag = flag; 
 }
 
-template<typename K> inline Tree23<K>::Node23::Node23(K key) : isThreeNodeFlag(false), leftChild(0), rightChild(0) 
+template<typename K> inline Tree23<K>::Node23::Node23(K key) : isThreeNodeFlag(false)
 { 
    keys[0] = key; 
+   children[0] = 0;
+   children[2] = 0; 
 }
 
-template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThreeNodeFlag(false), leftChild(0), rightChild(0) 
+template<typename K> inline Tree23<K>::Node23::Node23(bool three_node) : isThreeNodeFlag(three_node), parent(0) 
+{ 
+     children[0] = 0;
+     children[1] = 0;
+}
+
+template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThreeNodeFlag(false), parent(0)
 { 
     keys[0] = small;
     keys[1] = large; 
+    children[0] = 0;
+    children[2] = 0;
 }
 
 template<typename K> inline Tree23<K>::Node23::Node23(K small, Tree23<K>::Node23 *pParent, Tree23<K>::Node23 *pleftChild,
-              Tree23<K>::Node23 *prightChild) : isThreeNodeFlag(false), parent(pParent), leftChild(pleftChild), rightChild(prightChild) 
+              Tree23<K>::Node23 *prightChild) : isThreeNodeFlag(false), parent(pParent)
 { 
     keys[0] = small; 
+    children[0] = pleftChild;
+    children[2] = prightChild; // TODO: Change this to be: children[1] = rightChild;
 } 
 
-template<typename K> inline Tree23<K>::Node23::Node23(const Tree23<K>::Node23& n) : isThreeNodeFlag(n.isThreeNodeFlag),
-        leftChild(n.leftChild), rightChild(n.rightChild), parent(n.parent) 
+template<typename K> inline Tree23<K>::Node23::Node23(const Tree23<K>::Node23& n) : isThreeNodeFlag(n.isThreeNodeFlag), parent(n.parent) 
 { 
+   children[0] = n.children[0];
+   children[2] = n.children[2];
 }
 
 
@@ -183,8 +188,8 @@ template<typename K> typename Tree23<K>::Node23& Tree23<K>::Node23::makeTwoNode(
         Tree23<K>::Node23 *left, Tree23<K>::Node23 *right)                
 {
   keys[0] = value;
-  leftChild = left;
-  rightChild = right;
+  children[0] = left;
+  children[2] = right;
   isThreeNodeFlag = false; 
   parent =  pParent;
   return *this;
@@ -206,19 +211,19 @@ template<typename K> void Tree23<K>::DestroyTree(Node23 *p)
 	 
   if (p->isThreeNode()) { // descend three node
 
-        DestroyTree(p->leftChild);
+        DestroyTree(p->children[0]);
 
-        DestroyTree(p->middleChild);
+        DestroyTree(p->children[1]);
 
-        DestroyTree(p->rightChild);
+        DestroyTree(p->children[2]);
 
         delete p; 
 
   } else { // descend two node
 
-        DestroyTree(p->leftChild);
+        DestroyTree(p->children[0]);
 
-        DestroyTree(p->rightChild);
+        DestroyTree(p->children[2]);
 
         delete p; 
   }
@@ -239,23 +244,23 @@ template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Func
 	 
   if (p->isThreeNode()) { // descend three node
 
-        DoTraverse(f, p->leftChild);
+        DoTraverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        DoTraverse(f, p->middleChild);
+        DoTraverse(f, p->children[1]);
 
         f(p->keys[1]);
 
-        DoTraverse(f, p->rightChild);
+        DoTraverse(f, p->children[2]);
 
   } else { // descend two node
 
-        DoTraverse(f, p->leftChild);
+        DoTraverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        DoTraverse(f, p->rightChild);
+        DoTraverse(f, p->children[2]);
   }
 }
 
@@ -295,26 +300,26 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
         
         if (key < current->keys[0]) {
             
-            bRc = DoSearch(key, current->leftChild, location); 
+            bRc = DoSearch(key, current->children[0], location); 
             
         }  else if (key < current->keys[1]) {
             
-            bRc = DoSearch(key, current->middleChild, location); 
+            bRc = DoSearch(key, current->children[1], location); 
             
         } else {
             
-            bRc = DoSearch(key, current->rightChild, location); 
+            bRc = DoSearch(key, current->children[2], location); 
         }
       
     } else { // ...or only one?
         
          if (key < current->keys[0]) {
             
-            bRc = DoSearch(key, current->leftChild, location); 
+            bRc = DoSearch(key, current->children[0], location); 
             
         }  else {
             
-            bRc = DoSearch(key, current->rightChild, location);  
+            bRc = DoSearch(key, current->children[2], location);  
         }    
     }
     return bRc;
@@ -421,10 +426,10 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
     }    
     
     /*
-     We pass the current node, location, plus the middle value to the four node ctor. It automatically set the leftChild, leftMiddleChild, rightMiddleChild, and the 
-     rightChild. We then build two two-nodes, one with the smallest value, which will have its leftChild and rightChild set to the four node's leftChild and 
-     leftMiddleChild, respectively; the other two node will contain the largest value in the four node, and it twill have leftChild and rightChild set to
-     leftMiddleChild and rightChild, respectively. We will allocated smallest on the heap, and convert location, the original three node, to be largest.  
+     We pass the current node, location, plus the middle value to the four node ctor. It automatically set the children[0], leftMiddleChild, rightMiddleChild, and the 
+     children[2]. We then build two two-nodes, one with the smallest value, which will have its children[0] and children[2] set to the four node's children[0] and 
+     leftMiddleChild, respectively; the other two node will contain the largest value in the four node, and it twill have children[0] and children[2] set to
+     leftMiddleChild and children[2], respectively. We will allocated smallest on the heap, and convert location, the original three node, to be largest.  
     */ 
     Node34 node34(location, new_key, pLeftChildOfNewKey, pRightChildOfNewKey); // defaults handles leaf node case. 
     
@@ -452,8 +457,8 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
   
 	// If we allocated a new root, then it is empty and it will be two node.
 	parent->keys[0] = middle;
-        parent->leftChild = pSmallest; 
-        parent->rightChild = pLargest; 
+        parent->children[0] = pSmallest; 
+        parent->children[2] = pLargest; 
         root = parent;
 
     } else if (parent->isThreeNode()) { // if middle value would cause parent to have three values, then split it.
@@ -469,15 +474,15 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
 
 		parent->keys[1] = parent->keys[0];
 		parent->keys[0] = middle;
-		parent->leftChild = pSmallest; 
-		parent->middleChild = pLargest;
-                // Note: parent->rightChild does not need to be changed.
+		parent->children[0] = pSmallest; 
+		parent->children[1] = pLargest;
+                // Note: parent->children[2] does not need to be changed.
 
         }  else { 
 
 		parent->keys[1] = middle;
-		parent->middleChild = pSmallest;
-		// parent->rightChild =  pLargest; This is redundant because pLargest is location, which already is the rightChild.
+		parent->children[1] = pSmallest;
+		// parent->children[2] =  pLargest; This is redundant because pLargest is location, which already is the children[2].
         }   
     } 
     
@@ -574,21 +579,21 @@ template<typename K> typename Tree23<K>::Node23 *Tree23<K>::FindNextLargest(K ke
  Node23 *next = nullptr;
 
  // When this method is called, key will equal keys[0] or keys[1], and we must do a comparison.
- // We check if location is a three node and, if it is, we compare key to keys[0]. If equal, go down middleChild.
+ // We check if location is a three node and, if it is, we compare key to keys[0]. If equal, go down children[1].
  if (location->isThreeNode() && location->keys[0] == key) {
    
-          next = location->middleChild;
+          next = location->children[1];
    
  } else { 
  // If it is a two node, there is never a need to do a comparison. We always go down right child.  Likewise, if it is a three node and key
  // is not keys[0], go down right child (because it is equal to the keys[1]).
    
-          next = location->rightChild;
+          next = location->children[2];
  } 
  // Continue down left branches until we encounter a leaf.
  while (!next->isLeafNode()) {
      
-      next = next->leftChild;
+      next = next->children[0];
  }
  
  return next;
@@ -605,9 +610,9 @@ Node23 *parent = node->parent;
   if (parent->isThreeNode()) {
 
     /* parent is three node. Look for a three node sibling. */
-    if (node == parent->leftChild) { // left
+    if (node == parent->children[0]) { // left
 
-         if (parent->middleChild->isThreeNode()) { // case 1
+         if (parent->children[1]->isThreeNode()) { // case 1
             /* 
               (20,      40)          (30,     40)
              /      |     \    =>    /     |    \
@@ -616,63 +621,63 @@ Node23 *parent = node->parent;
             C   29 32  37 60 70     C  29 32 37 45 70
              */
               node->keys[0] = parent->keys[0]; 
-              parent->keys[0] = parent->middleChild->keys[0]; 
-              parent->middleChild->keys[0] = parent->middleChild->keys[1]; 
-              parent->middleChild->setThreeNode(false);
+              parent->keys[0] = parent->children[1]->keys[0]; 
+              parent->children[1]->keys[0] = parent->children[1]->keys[1]; 
+              parent->children[1]->setThreeNode(false);
 
               situation = 1;
 
-         } else if (parent->rightChild->isThreeNode()) {
+         } else if (parent->children[2]->isThreeNode()) {
            /*
                (10,  20)                  (15,  30)    
               /    |    \          =>    /    |    \
             Hole   15    (30, 40)      10    20     40 */
 
               node->keys[0] = parent->keys[0]; 
-              parent->keys[0] = parent->middleChild->keys[0]; 
+              parent->keys[0] = parent->children[1]->keys[0]; 
               
-              parent->middleChild->keys[0] = parent->keys[1]; 
-              parent->keys[1] = parent->rightChild->keys[0];
-              parent->rightChild->keys[0] = parent->rightChild->keys[1]; 
-              parent->rightChild->setThreeNode(false);
+              parent->children[1]->keys[0] = parent->keys[1]; 
+              parent->keys[1] = parent->children[2]->keys[0];
+              parent->children[2]->keys[0] = parent->children[2]->keys[1]; 
+              parent->children[2]->setThreeNode(false);
               situation = 2;
 
          } else {
 	     bRc = false; 
 	 }
 
-    } else if (node == parent->middleChild) { // middle
+    } else if (node == parent->children[1]) { // middle
 
-         if (parent->leftChild->isThreeNode()) {
+         if (parent->children[0]->isThreeNode()) {
            /* 
                (10, 20)                   (5, 20)
               /    |  \             =>   /   |  \
            (1, 5) Hole (30, 40)        1    10  (30, 40) */
 
             node->keys[0] = parent->keys[0];
-            parent->keys[0] = parent->leftChild->keys[1];
-            parent->leftChild->setThreeNode(false);
+            parent->keys[0] = parent->children[0]->keys[1];
+            parent->children[0]->setThreeNode(false);
 		
             situation = 3;
 
-         } else if (parent->rightChild->isThreeNode()) {
+         } else if (parent->children[2]->isThreeNode()) {
            /*
               (10, 20)                 (10,  30)
              /    |  \           =>    /    |   \
            1     Hole  (30, 40)       1    20   40
            */
             node->keys[0] = parent->keys[1];
-            parent->keys[1] = parent->rightChild->keys[0];
-            parent->rightChild->setThreeNode(false);
+            parent->keys[1] = parent->children[2]->keys[0];
+            parent->children[2]->setThreeNode(false);
             
             situation = 4;
          } else {
 	   bRc = false;
          } 
 
-    } else /*(node == parent->rightChild)*/ {  //rightChild is the only case left 
+    } else /*(node == parent->children[2])*/ {  //children[2] is the only case left 
 
-         if (parent->middleChild->isThreeNode()) {
+         if (parent->children[1]->isThreeNode()) {
            /* We redistribute value of siblings, but we do not reassign here their children 
               (10,       25)              (10,       19)
              /       |     \       =>    /      |       \
@@ -681,12 +686,12 @@ Node23 *parent = node->parent;
           1   7  12 17  22  60        1   7  12  17 18  60       */
               
               node->keys[0] = parent->keys[1]; 
-              parent->keys[1] = parent->middleChild->keys[1]; 
-              parent->middleChild->setThreeNode(false);
+              parent->keys[1] = parent->children[1]->keys[1]; 
+              parent->children[1]->setThreeNode(false);
 
               situation = 5;
 
-         } else if (parent->leftChild->isThreeNode()) {
+         } else if (parent->children[0]->isThreeNode()) {
 
            /*  Redistribute() redistributes node values but not their child. 
            (20,       40)               (18,   30)   
@@ -696,10 +701,10 @@ Node23 *parent = node->parent;
        5  12  19 25  32  55        5  7 19 25 32 55      */
  
              node->keys[0] =  parent->keys[1];
-              parent->keys[1] = parent->middleChild->keys[0];
-              parent->middleChild->keys[0] =  parent->keys[0];
-              parent->keys[0] = parent->leftChild->keys[1];
-              parent->leftChild->setThreeNode(false);
+              parent->keys[1] = parent->children[1]->keys[0];
+              parent->children[1]->keys[0] =  parent->keys[0];
+              parent->keys[0] = parent->children[0]->keys[1];
+              parent->children[0]->setThreeNode(false);
               situation = 6;
 
          } else {
@@ -709,14 +714,14 @@ Node23 *parent = node->parent;
     
   } else { // parent is a two node
 
-    if (parent->leftChild == node) {
+    if (parent->children[0] == node) {
    
-        if (parent->rightChild->isThreeNode()) {    
+        if (parent->children[2]->isThreeNode()) {    
 
 	      node->keys[0] = parent->keys[0];
-              parent->keys[0] = parent->rightChild->keys[0];
-              parent->rightChild->keys[0] = parent->rightChild->keys[1]; // Is this necessary if parent is a two node?
-              parent->rightChild->setThreeNode(false);  
+              parent->keys[0] = parent->children[2]->keys[0];
+              parent->children[2]->keys[0] = parent->children[2]->keys[1]; // Is this necessary if parent is a two node?
+              parent->children[2]->setThreeNode(false);  
               situation = 7;
               
         }  else {
@@ -724,14 +729,14 @@ Node23 *parent = node->parent;
 	   bRc = false;	
         }
         
-     } else {  // node is rightChild
+     } else {  // node is children[2]
         
      
-        if (parent->leftChild->isThreeNode()) {    
+        if (parent->children[0]->isThreeNode()) {    
 
 	      node->keys[0] = parent->keys[0];
-              parent->keys[0] = parent->leftChild->keys[1];
-              parent->rightChild->setThreeNode(false);  
+              parent->keys[0] = parent->children[0]->keys[1];
+              parent->children[2]->setThreeNode(false);  
               situation = 8;
 
         } else {
@@ -817,39 +822,44 @@ template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
 
          Node23 *middleChild;
          Node23 *Node23::*Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
+         int index;
+         //Node23 *Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
          bool parentIsEmpty = false; // If parent is a two node, it will be flagged empty after merge.
 
 	 /* Merge nodes by bringing down parent's value to sibling of node.  */ 
                   
           if (parent->isThreeNode()) {
 
-              if (parent->rightChild == node) {
+              if (parent->children[2] == node) {
 
-                  pSibling = parent->middleChild; 
+                  pSibling = parent->children[1]; 
                   pSibling->keys[1] = parent->keys[1];
 
-                  middleChild = pSibling->rightChild;
-		  Ptr2newParentOfChild = &Node23::rightChild;
+                  middleChild = pSibling->children[2];
+		  //--Ptr2newParentOfChild = &(Node23::children[2]);
+		  index = 2;
                   
-              } else if (parent->middleChild == node) {
+              } else if (parent->children[1] == node) {
 
-                  pSibling = parent->rightChild; 
-
-                  pSibling->keys[1] = pSibling->keys[0];
-                  pSibling->keys[0] = parent->keys[1];
-
-                  middleChild = pSibling->leftChild;
-		  Ptr2newParentOfChild = &Node23::leftChild;
-
-              } else { // node is leftChild
-
-                  pSibling = parent->middleChild; 
+                  pSibling = parent->children[2]; 
 
                   pSibling->keys[1] = pSibling->keys[0];
                   pSibling->keys[0] = parent->keys[1];
 
-                  middleChild = pSibling->leftChild;   
-		  Ptr2newParentOfChild = &Node23::leftChild;
+                  middleChild = pSibling->children[0];
+		  //--Ptr2newParentOfChild = &Node23::children[0];
+		  index = 0;
+
+              } else { // node is children[0]
+
+                  pSibling = parent->children[1]; 
+
+                  pSibling->keys[1] = pSibling->keys[0];
+                  pSibling->keys[0] = parent->keys[1];
+
+                  middleChild = pSibling->children[0];   
+		  //--Ptr2newParentOfChild = &(Node23::children[0]);
+		  index = 0;
               } 
 
               // parent is now a two node
@@ -857,24 +867,26 @@ template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
 
           }  else { /* parent is a two node and its other child is a two node  */ 
               
-                if (parent->rightChild == node) {
+                if (parent->children[2] == node) {
 
-		       pSibling = parent->leftChild;
+		       pSibling = parent->children[0];
 
                        pSibling->keys[1] = parent->keys[0];
 
-                       middleChild = pSibling->rightChild;
-                       Ptr2newParentOfChild =  &Node23::rightChild;
+                       middleChild = pSibling->children[2];
+                       //--Ptr2newParentOfChild =  &Node23::children[2];
+                       index = 2;
            
                  } else {
 
-			pSibling = parent->rightChild;
+			pSibling = parent->children[2];
 
 	                pSibling->keys[1] = pSibling->keys[0];
         	        pSibling->keys[0] = parent->keys[0];
 
-                        middleChild = pSibling->leftChild;
-			Ptr2newParentOfChild = &Node23::leftChild;
+                        middleChild = pSibling->children[0];
+			//--Ptr2newParentOfChild = &(Node23::children[0]);
+			index = 0;
                  }      
 
                  parentIsEmpty = true;
@@ -884,10 +896,11 @@ template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
 
 	  if (!node->isLeafNode()) {
 	           
-              pSibling->middleChild = middleChild;
+              pSibling->children[1] =  middleChild;
               
               // Move node's child pChildOfNode to sibling 
-	      pSibling->*Ptr2newParentOfChild  =  pChildOfNode;
+	      //--pSibling->*Ptr2newParentOfChild  =  pChildOfNode;
+	      pSibling->children[index] =  pChildOfNode;
 	  }
 
 	  // Remove node...
@@ -914,9 +927,9 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
           Hole   (30,35)   50       20    35     50        20    35    50      
             |    /  | \    /\       |    / | \   /\        /\    / \   /\      
             C   29 32  37 60 70     C  29 32 37 45 70     C 29 32  37 45 70 */
-                 node->leftChild = pChildOfNode;
-                 node->rightChild = parent->middleChild->leftChild; 
-                 parent->middleChild->leftChild = parent->middleChild->middleChild; 
+                 node->children[0] = pChildOfNode;
+                 node->children[2] = parent->children[1]->children[0]; 
+                 parent->children[1]->children[0] = parent->children[1]->children[1]; 
 
                  break;
             case 2:
@@ -927,13 +940,13 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
                    |      / \    / | \          |    / \   / | \       =>     10   20     40                                                  
                    5    12 17  32 35 70         5   12 17 32 35 70   Children / \   / \   / \                                                  
                                                                              5  12 17 32 35 70      */                                                      
-                   node->leftChild = pChildOfNode;
+                   node->children[0] = pChildOfNode;
 
-                   node->rightChild = parent->middleChild->leftChild;
+                   node->children[2] = parent->children[1]->children[0];
 
-                   parent->middleChild->leftChild = parent->middleChild->rightChild;
-                   parent->middleChild->rightChild = parent->rightChild->leftChild;
-                   parent->rightChild->leftChild = parent->rightChild->middleChild; 
+                   parent->children[1]->children[0] = parent->children[1]->children[2];
+                   parent->children[1]->children[2] = parent->children[2]->children[0];
+                   parent->children[2]->children[0] = parent->children[2]->children[1]; 
                    break;
                    
             case 3: 
@@ -953,9 +966,9 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
               /  | \    |   /   |  \          /  | \    |   / | \              / | \    /\    / \  
              1   7  9  17  32  35  70        1   7  9  17  32 35  70          1  7  9 17  32 35  70 */
 
-                    node->leftChild = pChildOfNode;
-                    node->rightChild = parent->rightChild->leftChild;
-                    parent->rightChild->leftChild = parent->rightChild->middleChild;
+                    node->children[0] = pChildOfNode;
+                    node->children[2] = parent->children[2]->children[0];
+                    parent->children[2]->children[0] = parent->children[2]->children[1];
                     break;
 
             case 5:
@@ -966,10 +979,10 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
        / \    /  |  \    |         / \     / | \     |            / \     /  \     /  \    
       1   7  12 17  22  60        1   7  12  17 18  60           1   7  12    17  22   60   */
             
-                   // If the sole child of node is the leftChild, move it to the rightChild.
-                   node->rightChild = pChildOfNode;
-                   node->leftChild = parent->middleChild->rightChild;
-                   parent->middleChild->rightChild = parent->middleChild->middleChild;
+                   // If the sole child of node is the children[0], move it to the children[2].
+                   node->children[2] = pChildOfNode;
+                   node->children[0] = parent->children[1]->children[2];
+                   parent->children[1]->children[2] = parent->children[1]->children[1];
                    
 
               case 6:
@@ -982,14 +995,14 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
               5  12  19 25  32  55        5 12 19 25 32 55       5   12 19 25  32 55  
               */
 
-                   // If the sole child of node is the leftChild, move it to the rightChild.
-                   node->rightChild = (node->leftChild = pChildOfNode) ? node->leftChild : node->rightChild;
+                   // If the sole child of node is the children[0], move it to the children[2].
+                   node->children[2] = (node->children[0] = pChildOfNode) ? node->children[0] : node->children[2];
 
-                   node->leftChild = parent->middleChild->rightChild;
+                   node->children[0] = parent->children[1]->children[2];
 
-                   parent->middleChild->rightChild = parent->middleChild->leftChild;
-                   parent->middleChild->leftChild = parent->leftChild->rightChild;
-                   parent->leftChild->rightChild = parent->leftChild->middleChild; 
+                   parent->children[1]->children[2] = parent->children[1]->children[0];
+                   parent->children[1]->children[0] = parent->children[0]->children[2];
+                   parent->children[0]->children[2] = parent->children[0]->children[1]; 
                    break;
 
             case 7:
@@ -1001,9 +1014,9 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
                   5  25  35  50                 5  25  35  50       5  25 35  50 */
 
 
-                  node->leftChild = pChildOfNode;
-                  node->rightChild = parent->rightChild->leftChild; 
-                  parent->rightChild->leftChild = parent->rightChild->middleChild;
+                  node->children[0] = pChildOfNode;
+                  node->children[2] = parent->children[2]->children[0]; 
+                  parent->children[2]->children[0] = parent->children[2]->children[1];
                   break;
 
 
@@ -1014,9 +1027,9 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
                   /  |  \   |                   / | \    |    Children     / \   / \  
                 25  35  45  60                 25 35 45  60               25 35 45 60   */ 
 
-                  node->rightChild = pChildOfNode;
-                  node->leftChild = parent->leftChild->rightChild; 
-                  parent->leftChild->rightChild = parent->rightChild->middleChild;
+                  node->children[2] = pChildOfNode;
+                  node->children[0] = parent->children[0]->children[2]; 
+                  parent->children[0]->children[2] = parent->children[2]->children[1];
                   break;
        }
 }
@@ -1034,8 +1047,8 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
 
         leftChild = leftChildOfNewValue;
         leftMiddleChild = rightChildOfNewValue;
-        rightMiddleChild = threeNode->middleChild;
-     	rightChild = threeNode->rightChild;
+        rightMiddleChild = threeNode->children[1];
+     	rightChild = threeNode->children[2];
              		
      } else if (new_key > threeNode->keys[1]) { // new_key is largest value
      
@@ -1043,8 +1056,8 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = threeNode->keys[1];
  	keys[2] = new_key;
      
-        leftChild = threeNode->leftChild;
-        leftMiddleChild = threeNode->middleChild;
+        leftChild = threeNode->children[0];
+        leftMiddleChild = threeNode->children[1];
         rightMiddleChild = leftChildOfNewValue;
      	rightChild = rightChildOfNewValue;
 
@@ -1054,10 +1067,10 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = new_key;
  	keys[2] = threeNode->keys[1];		    
 
-        leftChild = threeNode->leftChild;
+        leftChild = threeNode->children[0];
         leftMiddleChild = leftChildOfNewValue;
         rightMiddleChild = rightChildOfNewValue;
-     	rightChild = threeNode->rightChild;
+     	rightChild = threeNode->children[2];
      }
 }
 #endif	
