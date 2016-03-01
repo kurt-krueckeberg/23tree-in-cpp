@@ -1,7 +1,6 @@
 #ifndef  TREE23_H // new version
 #define	TREE23_H
 
-
 #include <utility>
 #include <iostream>
 #include <exception>
@@ -47,10 +46,8 @@ protected:
            bool isThreeNode();
            
            void setThreeNode(bool flag);
-           
-           K getSmallValue() { return keys[0]; }
-
-           K getLargeValue() { return keys[1]; }
+          
+           K operator[](int index) const { return keys[index]; }
 
       private:
            Node23 *parent;

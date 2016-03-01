@@ -12,4 +12,4 @@ The code could also be changed to use
 3. array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the keys
 
 
-Only change the Node34 code for now. Remove the introduction of unique_ptr in Node23.
+The code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1].
