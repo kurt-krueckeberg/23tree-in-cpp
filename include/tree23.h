@@ -1,4 +1,4 @@
-#ifndef  TREE23_H
+#ifndef TREE23_H
 #define	TREE23_H
 
 
@@ -22,17 +22,18 @@ template<typename K> class Tree23 {
     
 protected:       
     
-   class Node34; // fwd declaration of protected class
+   class Node34; // fwd declaration of protected class.
+  
+public:
    
    class Node23 {
-      public: 
+      private: 
            friend class Tree23<K>;             
            friend class Node34;
-
-           explicit Node23(bool three_node=false);
+           Node23(bool three_node=false);
            
            Node23& operator=(Node23& rhs);
-           explicit Node23(K key);
+           Node23(K key);
     
            Node23(K small, K large);
            Node23(K small, Node23 *pParent, Node23 *pleftChild, Node23 *prightChild);
@@ -47,20 +48,18 @@ protected:
            void setThreeNode(bool flag);
            
            K getSmallValue() { return keys[0]; }
-
            K getLargeValue() { return keys[1]; }
+           Node23 *children[3];
 
-      private:
            Node23 *parent;
                
-           K keys[2]; // TODO: Change to std::array<K, 2>
-
-           Node23 *children[3]; // TODO: Change to std::array<Node23*, 3>
+           K keys[2];
                    
            bool isThreeNodeFlag;
    };  
-  
-  
+
+   typedef Node23 Node;
+   
   protected:
     /* 
      * This class' constructor sorts the values of the Node23 and new_value into small, middle and large. For a leaf node, all child pointers will be zero.
@@ -107,25 +106,19 @@ protected:
     // Called by insert to split three nodes receiving a new value 
     Node23 *Split(Node23 *p, K key, Node23 *pLeftChildOfNewKey = nullptr, Node23 *pRightChildOfNewKey = nullptr);
 
-    template<typename Functor> void traverse(Functor f, Node23 *root);
+    template<typename Functor> void DoTraverse(Functor f, Node23 *root);
     void DestroyTree(Node23 *root);
     
      // Find in order successor
     Node23 *FindNextLargest(K key, Node23 *location);
-
     void fix(Node23 *location, Node23 *pAdoptee=nullptr);
-
     bool Redistribute(Node23 *node, int& situation_designator);
-
     void ReassignChildren(Node23 *node, Node23* pChildOfNode, int situation);
 
-public:
-
-   typedef Node23 Node;
- 
+  public:    
      Tree23() { root = nullptr; } 
     ~Tree23();
-     template<typename Functor> void traverse(Functor f);
+     template<typename Functor> void Traverse(Functor f);
      bool Search(K key, Node23 *&location);
      bool remove(K key, Node23 *location=nullptr);
            
@@ -229,14 +222,15 @@ template<typename K> void Tree23<K>::DestroyTree(Node23 *p)
 
         delete p; 
   }
+
 }
 
-template<typename K> template<typename Functor>  inline void Tree23<K>::traverse(Functor f) 
+template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse(Functor f) 
 {
-    return traverse(f, root); 
+    return DoTraverse(f, root); 
 }
 
-template<typename K> template<typename Functor>  void Tree23<K>::traverse(Functor f, Node23 *p)
+template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Functor f, Node23 *p)
 {
   // Since the tree is always balanced, it is sufficient to check just one p
   if (p == nullptr) {
@@ -245,23 +239,23 @@ template<typename K> template<typename Functor>  void Tree23<K>::traverse(Functo
 	 
   if (p->isThreeNode()) { // descend three node
 
-        traverse(f, p->children[0]);
+        DoTraverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        traverse(f, p->children[1]);
+        DoTraverse(f, p->children[1]);
 
         f(p->keys[1]);
 
-        traverse(f, p->children[2]);
+        DoTraverse(f, p->children[2]);
 
   } else { // descend two node
 
-        traverse(f, p->children[0]);
+        DoTraverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        traverse(f, p->children[2]);
+        DoTraverse(f, p->children[2]);
   }
 }
 
@@ -562,7 +556,6 @@ template<typename K> bool Tree23<K>::remove(K key, Node23 *location)
 
             leafNode->keys[0] = leafNode->keys[1];
        }   
-
        leafNode->setThreeNode(false);
 
   } else { 

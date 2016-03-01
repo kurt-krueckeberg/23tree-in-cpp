@@ -1,4 +1,4 @@
-#ifndef  TREE23_H
+#ifndef  TREE23_H // new version
 #define	TREE23_H
 
 
@@ -55,13 +55,11 @@ protected:
       private:
            Node23 *parent;
                
-           //--K keys[2]; 
-           std::array<K, 2> keys; 
+           K keys[2]; 
 
-           //--Node23 *children[3]; 
-           std::array<std::unique_ptr<Node23>, 3> children; 
+           Node23 *children[3]; 
                    
-           bool isThreeNodeFlag;
+           bool isThreeNodeFlag; // or could use totalItems 
    };  
   
   
@@ -76,17 +74,9 @@ protected:
       
        private:
           
-          //-- K keys[3];
           std::array<K, 3> keys;
    
           std::array<Node23 *, 4> children;
-          /*-- 
-          Tree23<K>::Node23 *leftChild;    
-          Tree23<K>::Node23 *leftMiddleChild;	
-    
-          Tree23<K>::Node23 *rightMiddleChild;
-          Tree23<K>::Node23 *rightChild;
-          */
           
           /* Note: Their is no parent node pointer. */
        public:
@@ -94,21 +84,9 @@ protected:
 	 /* Using default values allows us to generalize both leaf node and internal node cases. */
 	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
                                                   Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
-        /*-- 
-         K  getSmallValue()  { return keys[0]; }
-         K  getMiddleValue() { return keys[1]; }
-         K  getLargeValue()  { return keys[2];  }
-         */
-         //--K getKey(int index) const { return keys[index]; } 
-         K operator[](int index) const { return keys[index]; } 
+        K operator[](int index) const { return keys[index]; } 
 
-         Tree23<K>::Node23 *getChild(int index) { return children[index]; }
-         /*--
-    	 Tree23<K>::Node23 *getChild(0)        { return leftChild; }
-	 Tree23<K>::Node23 *getChild(1)  { return leftMiddleChild; }	
-	 Tree23<K>::Node23 *getChild(2) { return rightMiddleChild; }	
-	 Tree23<K>::Node23 *getChild(3)   { return rightChild; } 
-         */ 
+        Tree23<K>::Node23 *getChild(int index) { return children[index]; }
     };
 
    protected:
@@ -180,6 +158,7 @@ template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThre
 { 
     keys[0] = small;
     keys[1] = large; 
+   
     children[0] = 0;
     children[2] = 0;
 }
@@ -821,7 +800,7 @@ template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
      Node23 *parent = node->parent;
 
      int situation;
-  
+     // TODO: merge the Redistribute() and ReassignChildren() into one method. 
      // try to redistribute.. 
      if (Redistribute(node, situation)) { 
 
@@ -833,11 +812,13 @@ template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
 
      } else { // ...we could not redistribute because all siblings are two nodes, so we merge the parent with a sibling. 
 
+         // TODO: make this else case a separate method or several separate methods.
 	 Node23 *pSibling;
 
          Node23 *middleChild;
          Node23 *Node23::*Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
          int index;
+
          //Node23 *Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
          bool parentIsEmpty = false; // If parent is a two node, it will be flagged empty after merge.
 
