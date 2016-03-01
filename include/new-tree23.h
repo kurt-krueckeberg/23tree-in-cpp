@@ -76,14 +76,17 @@ protected:
       
        private:
           
-          K keys[3];
-    
+          //-- K keys[3];
+          std::array<K, 3> keys;
+   
+          std::array<Node23 *, 4> children;
+          /*-- 
           Tree23<K>::Node23 *leftChild;    
           Tree23<K>::Node23 *leftMiddleChild;	
     
           Tree23<K>::Node23 *rightMiddleChild;
           Tree23<K>::Node23 *rightChild;
-             
+          */
           
           /* Note: Their is no parent node pointer. */
        public:
@@ -91,15 +94,21 @@ protected:
 	 /* Using default values allows us to generalize both leaf node and internal node cases. */
 	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
                                                   Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
-         
+        /*-- 
          K  getSmallValue()  { return keys[0]; }
          K  getMiddleValue() { return keys[1]; }
          K  getLargeValue()  { return keys[2];  }
+         */
+         //--K getKey(int index) const { return keys[index]; } 
+         K operator[int index] const { return keys[index]; } 
 
-    	 Tree23<K>::Node23 *getLeftChild()        { return leftChild; }
-	 Tree23<K>::Node23 *getLeftMiddleChild()  { return leftMiddleChild; }	
-	 Tree23<K>::Node23 *getRightMiddleChild() { return rightMiddleChild; }	
-	 Tree23<K>::Node23 *getRightChild()   { return rightChild; } 
+         Tree23<K>::Node23 *getChild(int index) { return children[index]; }
+         /*--
+    	 Tree23<K>::Node23 *getChild(0)        { return leftChild; }
+	 Tree23<K>::Node23 *getChild(1)  { return leftMiddleChild; }	
+	 Tree23<K>::Node23 *getChild(2) { return rightMiddleChild; }	
+	 Tree23<K>::Node23 *getChild(3)   { return rightChild; } 
+         */ 
     };
 
    protected:
@@ -438,24 +447,24 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
     */ 
     Node34 node34(location, new_key, pLeftChildOfNewKey, pRightChildOfNewKey); // defaults handles leaf node case. 
     
-    Node23 *pSmallest = new Node23(node34.getSmallValue(), parent, node34.getLeftChild(), node34.getLeftMiddleChild());
+    Node23 *pSmallest = new Node23(node34[0], parent, node34.getChild(0), node34.getChild(1));
 
-    location->makeTwoNode(node34.getLargeValue(), parent, node34.getRightMiddleChild(), node34.getRightChild());
+    location->makeTwoNode(node34[2], parent, node34.getChild(2), node34.getChild(3));
 
     Node23 *pLargest = location; 
    
     if (!isLeaf) { 
         
         // Make pSmallest the parent of the two leftmost children. 
-        node34.getLeftChild()->parent  = pSmallest; 
-        node34.getLeftMiddleChild()->parent  = pSmallest;
+        node34.getChild(0)->parent  = pSmallest; 
+        node34.getChild(1)->parent  = pSmallest;
 
 	// Make pLargest the parent of the two rightmost children. 
-        node34.getRightMiddleChild()->parent  = pLargest; 
-        node34.getRightChild()->parent  = pLargest;
+        node34.getChild(2)->parent  = pLargest; 
+        node34.getChild(3)->parent  = pLargest;
     }
 
-    K middle = node34.getMiddleValue(); 
+    K middle = node34[1]; 
 
     // add middle value to parent. But we must decide if a new root was allocated, to which we are adding the middle value.
     if (bRootIsNew) { 
