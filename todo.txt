@@ -13,3 +13,6 @@ The code could also be changed to use
 
 
 The code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1].
+
+Look at:
+https://github.com/awm086/2-3-tree/blob/master/2_3_tree.cpp
