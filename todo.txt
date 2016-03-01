@@ -1,6 +1,10 @@
-The code could be simplified by merging Redistribute() and ReassignChildren() into one routine called perhaps Rotate(). This routine could perhaps be modeled after
-part of the insersion logic of the 2 3 4 code, which uses helper methods like insertChild() connectChild() and disconnectChild().
+The code could be changed to work more like the 234 code. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have
+two separate routines. Redistribute() seems to do either a left or right rotation. So I could instead create leftRotate() and rightRotate(). I could also add 
+similar helper methods to the 2 3 4 code: insertChild(), connectChild() and disconnectChild(). 
 
+Of course, the 2 3 rotation logic may not be identical to the 2 3 4 code, as the 2 3 code also uses a 4 node in some cases. So any change would first require 
+understanding again what the 2 3 insertion code actually does.
+  
 The code could also be changed to use
 
 1. unique_ptr<Node23>
