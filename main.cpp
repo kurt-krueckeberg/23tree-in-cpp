@@ -6,7 +6,7 @@
  */
 
 #include <cstdlib>
-#include "tree23.h"
+#include "include/tree23.h"
 #include <iostream>
 #include <vector>
 #include <functional>
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
      *  tree.traverse(print_int);
      * instead.
      */ 
-    tree.Traverse([](int x){ cout << x << ' '; }); 
+    tree.traverse([](int x){ cout << x << ' '; }); 
             
     tree.remove(10);
      /* Leaves this tree:
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
     
    tree.remove(36);  
    
-   tree.Traverse([](int x){ cout << x << ' '; }); // This blows up because we do not have a proper tree.
+   tree.traverse([](int x){ cout << x << ' '; }); // This blows up because we do not have a proper tree.
      
    cout << "\n------------\n" << endl;
    cout << endl;
