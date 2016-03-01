@@ -100,7 +100,7 @@ protected:
          K  getLargeValue()  { return keys[2];  }
          */
          //--K getKey(int index) const { return keys[index]; } 
-         K operator[int index] const { return keys[index]; } 
+         K operator[](int index) const { return keys[index]; } 
 
          Tree23<K>::Node23 *getChild(int index) { return children[index]; }
          /*--
@@ -1060,10 +1060,10 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = threeNode->keys[0];
  	keys[2] = threeNode->keys[1];
 
-        leftChild = leftChildOfNewValue;
-        leftMiddleChild = rightChildOfNewValue;
-        rightMiddleChild = threeNode->children[1];
-     	rightChild = threeNode->children[2];
+        children[0] = leftChildOfNewValue;
+        children[1] = rightChildOfNewValue;
+        children[2] = threeNode->children[1];
+     	children[3] = threeNode->children[2];
              		
      } else if (new_key > threeNode->keys[1]) { // new_key is largest value
      
@@ -1071,10 +1071,10 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = threeNode->keys[1];
  	keys[2] = new_key;
      
-        leftChild = threeNode->children[0];
-        leftMiddleChild = threeNode->children[1];
-        rightMiddleChild = leftChildOfNewValue;
-     	rightChild = rightChildOfNewValue;
+        children[0] = threeNode->children[0];
+        children[1] = threeNode->children[1];
+        children[2] = leftChildOfNewValue;
+     	children[3] = rightChildOfNewValue;
 
      } else { // new_key is the middle value
      
@@ -1082,10 +1082,10 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = new_key;
  	keys[2] = threeNode->keys[1];		    
 
-        leftChild = threeNode->children[0];
-        leftMiddleChild = leftChildOfNewValue;
-        rightMiddleChild = rightChildOfNewValue;
-     	rightChild = threeNode->children[2];
+        children[0] = threeNode->children[0];
+        children[1] = leftChildOfNewValue;
+        children[2] = rightChildOfNewValue;
+     	children[3] = threeNode->children[2];
      }
 }
 #endif	

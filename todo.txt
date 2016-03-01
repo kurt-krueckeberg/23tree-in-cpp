@@ -10,3 +10,6 @@ The code could also be changed to use
 1. unique_ptr<Node23>
 2. array<K, 2> for the keys
 3. array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the keys
+
+
+Only change the Node34 code for now. Remove the introduction of unique_ptr in Node23.
