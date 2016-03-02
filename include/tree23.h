@@ -160,22 +160,22 @@ template<typename K> inline void Tree23<K>::Node23::setThreeNode(bool flag)
 template<typename K> inline Tree23<K>::Node23::Node23(K key) : isThreeNodeFlag(false)
 { 
    keys[0] = key; 
-   children[0] = 0;
-   children[2] = 0; 
+   children[0] = nullptr;
+   children[2] = nullptr; 
 }
 
-template<typename K> inline Tree23<K>::Node23::Node23(bool three_node) : isThreeNodeFlag(three_node), parent(0) 
+template<typename K> inline Tree23<K>::Node23::Node23(bool three_node) : isThreeNodeFlag(three_node), parent(nullptr) 
 { 
-     children[0] = 0;
-     children[1] = 0;
+     children[0] = nullptr;
+     children[1] = nullptr;
 }
 
-template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThreeNodeFlag(false), parent(0)
+template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThreeNodeFlag(false), parent(nullptr)
 { 
     keys[0] = small;
     keys[1] = large; 
-    children[0] = 0;
-    children[2] = 0;
+    children[0] = nullptr;
+    children[2] = nullptr;
 }
 
 template<typename K> inline Tree23<K>::Node23::Node23(K small, Tree23<K>::Node23 *pParent, Tree23<K>::Node23 *pleftChild,
