@@ -3,9 +3,16 @@ Explanations of 2 3 Trees and their insertion and deletion algorithms
 
 1. http://algs4.cs.princeton.edu/33balanced/
 2. http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf
-3. http://cs.engr.uky.edu/~lewis/essays/algorithms/2-3trees/trees2-3.html
-4. www.cs.duke.edu/courses/cps100e/spring99/lects/sect1623treeH.pdf
-5. http://web.cs.ucla.edu/classes/spring04/cs32/lectures/t23tips.html
+3. www-bcf.usc.edu/~dkempe/CS104/11-14.pdf
+4. http://cs.engr.uky.edu/~lewis/essays/algorithms/2-3trees/trees2-3.html
+5. www.cs.duke.edu/courses/cps100e/spring99/lects/sect1623treeH.pdf
+6. http://web.cs.ucla.edu/classes/spring04/cs32/lectures/t23tips.html
+
+Implementations
+===============
+
+1. Java implementation that uses arrays for keys and children: http://www.cs.nyu.edu/courses/summer04/G22.1170-001/2_3code_ofer.txt
+
 
 Notes on Reimplementation
 =========================
