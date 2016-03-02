@@ -1,10 +1,11 @@
-#ifndef TREE23_H
+#ifndef  TREE23_H
 #define	TREE23_H
 
 
 #include <utility>
 #include <iostream>
 #include <exception>
+#include <array>
 
 // fwd declarations
 template<typename T> class Tree23;    
@@ -49,6 +50,7 @@ public:
            
            K getSmallValue() { return keys[0]; }
            K getLargeValue() { return keys[1]; }
+
            Node23 *children[3];
 
            Node23 *parent;
@@ -70,7 +72,7 @@ public:
       friend class Tree23<K>; 
       
        private:
-          
+         /*-- 
           K keys[3];
     
           Tree23<K>::Node23 *leftChild;    
@@ -78,23 +80,35 @@ public:
     
           Tree23<K>::Node23 *rightMiddleChild;
           Tree23<K>::Node23 *rightChild;
-             
-          
+         */    
+           
+          std::array<K, 3> keys;
+   
+          std::array<Node23 *, 4> children;
+
           /* Note: Their is no parent node pointer. */
        public:
     
 	 /* Using default values allows us to generalize both leaf node and internal node cases. */
 	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
                                                   Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
-         
+        /* 
          K  getSmallValue()  { return keys[0]; }
          K  getMiddleValue() { return keys[1]; }
          K  getLargeValue()  { return keys[2];  }
+         */
+         const K& operator[](int i) const { return keys.at(i); }  // at() range checks
 
+         Tree23<K>::Node23 *&getChild(int i) { return children.at(i); }
+         
+         const Tree23<K>::Node23 *getChild(int i) const { return children.at(i); }
+         
+         /*
     	 Tree23<K>::Node23 *getLeftChild()        { return leftChild; }
 	 Tree23<K>::Node23 *getLeftMiddleChild()  { return leftMiddleChild; }	
 	 Tree23<K>::Node23 *getRightMiddleChild() { return rightMiddleChild; }	
 	 Tree23<K>::Node23 *getRightChild()   { return rightChild; } 
+         */
     };
 
    protected:
@@ -106,7 +120,7 @@ public:
     // Called by insert to split three nodes receiving a new value 
     Node23 *Split(Node23 *p, K key, Node23 *pLeftChildOfNewKey = nullptr, Node23 *pRightChildOfNewKey = nullptr);
 
-    template<typename Functor> void DoTraverse(Functor f, Node23 *root);
+    template<typename Functor> void traverse(Functor f, Node23 *root);
     void DestroyTree(Node23 *root);
     
      // Find in order successor
@@ -118,7 +132,7 @@ public:
   public:    
      Tree23() { root = nullptr; } 
     ~Tree23();
-     template<typename Functor> void Traverse(Functor f);
+     template<typename Functor> void traverse(Functor f);
      bool Search(K key, Node23 *&location);
      bool remove(K key, Node23 *location=nullptr);
            
@@ -225,12 +239,12 @@ template<typename K> void Tree23<K>::DestroyTree(Node23 *p)
 
 }
 
-template<typename K> template<typename Functor>  inline void Tree23<K>::Traverse(Functor f) 
+template<typename K> template<typename Functor>  inline void Tree23<K>::traverse(Functor f) 
 {
-    return DoTraverse(f, root); 
+    return traverse(f, root); 
 }
 
-template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Functor f, Node23 *p)
+template<typename K> template<typename Functor>  void Tree23<K>::traverse(Functor f, Node23 *p)
 {
   // Since the tree is always balanced, it is sufficient to check just one p
   if (p == nullptr) {
@@ -239,23 +253,23 @@ template<typename K> template<typename Functor>  void Tree23<K>::DoTraverse(Func
 	 
   if (p->isThreeNode()) { // descend three node
 
-        DoTraverse(f, p->children[0]);
+        traverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        DoTraverse(f, p->children[1]);
+        traverse(f, p->children[1]);
 
         f(p->keys[1]);
 
-        DoTraverse(f, p->children[2]);
+        traverse(f, p->children[2]);
 
   } else { // descend two node
 
-        DoTraverse(f, p->children[0]);
+        traverse(f, p->children[0]);
 
         f(p->keys[0]);
 
-        DoTraverse(f, p->children[2]);
+        traverse(f, p->children[2]);
   }
 }
 
@@ -428,24 +442,24 @@ template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *locati
     */ 
     Node34 node34(location, new_key, pLeftChildOfNewKey, pRightChildOfNewKey); // defaults handles leaf node case. 
     
-    Node23 *pSmallest = new Node23(node34.getSmallValue(), parent, node34.getLeftChild(), node34.getLeftMiddleChild());
+    Node23 *pSmallest = new Node23(node34[0], parent, node34.getChild(0), node34.getChild(1));
 
-    location->makeTwoNode(node34.getLargeValue(), parent, node34.getRightMiddleChild(), node34.getRightChild());
+    location->makeTwoNode(node34[2], parent, node34.getChild(2), node34.getChild(3));
 
     Node23 *pLargest = location; 
    
     if (!isLeaf) { 
         
         // Make pSmallest the parent of the two leftmost children. 
-        node34.getLeftChild()->parent  = pSmallest; 
-        node34.getLeftMiddleChild()->parent  = pSmallest;
+        node34.getChild(0)->parent  = pSmallest; 
+        node34.getChild(1)->parent  = pSmallest;
 
 	// Make pLargest the parent of the two rightmost children. 
-        node34.getRightMiddleChild()->parent  = pLargest; 
-        node34.getRightChild()->parent  = pLargest;
+        node34.getChild(2)->parent  = pLargest; 
+        node34.getChild(3)->parent  = pLargest;
     }
 
-    K middle = node34.getMiddleValue(); 
+    K middle = node34[1]; 
 
     // add middle value to parent. But we must decide if a new root was allocated, to which we are adding the middle value.
     if (bRootIsNew) { 
@@ -1031,30 +1045,30 @@ template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChi
 
 template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Node23 *leftChildOfNewValue, Node23 *rightChildOfNewValue)
 {
-    /*
-     * Sort to find keys[0], keys[1] and keys[2]. Assign child pointers appropriately.
-     */
+    //
+    // Sort to find keys[0], keys[1] and keys[2]. Assign child pointers appropriately.
+    //
     if (new_key < threeNode->keys[0]) { // new_key is smallest value
      	
  	keys[0] = new_key;
  	keys[1] = threeNode->keys[0];
  	keys[2] = threeNode->keys[1];
-
-        leftChild = leftChildOfNewValue;
-        leftMiddleChild = rightChildOfNewValue;
-        rightMiddleChild = threeNode->children[1];
-     	rightChild = threeNode->children[2];
              		
+        children[0] = leftChildOfNewValue;
+        children[1] = rightChildOfNewValue;
+        children[2] = threeNode->children[1];
+     	children[3] = threeNode->children[2];
+
      } else if (new_key > threeNode->keys[1]) { // new_key is largest value
      
  	keys[0] = threeNode->keys[0];
  	keys[1] = threeNode->keys[1];
  	keys[2] = new_key;
      
-        leftChild = threeNode->children[0];
-        leftMiddleChild = threeNode->children[1];
-        rightMiddleChild = leftChildOfNewValue;
-     	rightChild = rightChildOfNewValue;
+       children[0] = threeNode->children[0];
+       children[1] = threeNode->children[1];
+       children[2] = leftChildOfNewValue;
+       children[3] = rightChildOfNewValue;
 
      } else { // new_key is the middle value
      
@@ -1062,10 +1076,10 @@ template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Nod
  	keys[1] = new_key;
  	keys[2] = threeNode->keys[1];		    
 
-        leftChild = threeNode->children[0];
-        leftMiddleChild = leftChildOfNewValue;
-        rightMiddleChild = rightChildOfNewValue;
-     	rightChild = threeNode->children[2];
+        children[0] = threeNode->children[0];
+        children[1] = leftChildOfNewValue;
+        children[2] = rightChildOfNewValue;
+     	children[3] = threeNode->children[2];
      }
 }
 #endif	

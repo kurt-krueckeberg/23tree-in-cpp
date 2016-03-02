@@ -81,6 +81,7 @@ protected:
 	 /* Using default values allows us to generalize both leaf node and internal node cases. */
 	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
                                                   Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
+
         K operator[](int index) const { return keys[index]; } 
 
         Tree23<K>::Node23 *getChild(int index) { return children[index]; }

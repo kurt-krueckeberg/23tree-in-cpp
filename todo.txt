@@ -1,18 +1,16 @@
-The code could be changed to work more like the 234 code. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have
+1. The code could be changed to work more like the 234 code. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have
 two separate routines. Redistribute() seems to do either a left or right rotation. So I could instead create leftRotate() and rightRotate(). I could also add 
 similar helper methods to the 2 3 4 code: insertChild(), connectChild() and disconnectChild(). 
 
 Of course, the 2 3 rotation logic may not be identical to the 2 3 4 code, as the 2 3 code also uses a 4 node in some cases. So any change would first require 
 understanding again what the 2 3 insertion code actually does.
+
+2. The code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1]. This seems confusing.
   
-The code could also be changed to use
+3. The code could also be changed to use
 
 1. unique_ptr<Node23>
 2. array<K, 2> for the keys
 3. array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the keys
 
 
-The code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1].
-
-Look at:
-https://github.com/awm086/2-3-tree/blob/master/2_3_tree.cpp
