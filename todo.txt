@@ -13,4 +13,11 @@ understanding again what the 2 3 insertion code actually does.
 2. array<K, 2> for the keys
 3. array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the keys
 
+Sources of Info on 2 3 Trees
+============================
 
+1. http://algs4.cs.princeton.edu/33balanced/
+2. http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf
+3. http://cs.engr.uky.edu/~lewis/essays/algorithms/2-3trees/trees2-3.html
+4. www.cs.duke.edu/courses/cps100e/spring99/lects/sect1623treeH.pdf
+5. http://web.cs.ucla.edu/classes/spring04/cs32/lectures/t23tips.html

@@ -331,6 +331,7 @@ template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&
             bRc = DoSearch(key, current->children[2], location);  
         }    
     }
+
     return bRc;
 }
 
@@ -343,7 +344,7 @@ template<typename K> typename Tree23<K>::Node23 *Tree23<K>::insert(K key, Tree23
 	 return root;
     } 
 
-    // Test that location is 0, which suggests the root, or if it truly is a leaf.
+    // Test that location is nullptr, which suggests the root, or if it truly is a leaf.
     if (location == nullptr || !location->isLeafNode()) {
         
         Node23 *leaf; 
