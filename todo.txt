@@ -1,23 +1,26 @@
-1. The code could be changed to work more like the 234 code. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have
-two separate routines. Redistribute() seems to do either a left or right rotation. So I could instead create leftRotate() and rightRotate(). I could also add 
-similar helper methods to the 2 3 4 code: insertChild(), connectChild() and disconnectChild(). 
-
-Of course, the 2 3 rotation logic may not be identical to the 2 3 4 code, as the 2 3 code also uses a 4 node in some cases. So any change would first require 
-understanding again what the 2 3 insertion code actually does.
-
-2. The code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1]. This seems confusing.
-  
-3. The code could also be changed to use
-
-1. unique_ptr<Node23>
-2. array<K, 2> for the keys
-3. array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the keys
-
-Sources of Info on 2 3 Trees
-============================
+Explanations of 2 3 Trees and their insertion and deletion algorithms
+=====================================================================
 
 1. http://algs4.cs.princeton.edu/33balanced/
 2. http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf
 3. http://cs.engr.uky.edu/~lewis/essays/algorithms/2-3trees/trees2-3.html
 4. www.cs.duke.edu/courses/cps100e/spring99/lects/sect1623treeH.pdf
 5. http://web.cs.ucla.edu/classes/spring04/cs32/lectures/t23tips.html
+
+Notes on Reimplementation
+=========================
+
+1. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have two separate routines. Redistribute() seems to do either a left
+or right rotation. Could I create leftRotate() and rightRotate() routines like a 2 3 4 tree? Could I also add similar helper methods to the 2 3 4 code:
+insertChild(), connectChild() and disconnectChild(). Can I use an array of child pointers in class Node23 rather than smallest-, middle, and largest-child.
+Currently, the code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1]. This seems confusing.
+
+Of course, the 2 3 rotation logic may not be identical to the 2 3 4 code, as the 2 3 code also uses a 4 node in some cases. So any change would first require 
+understanding again what the 2 3 insertion code actually does.
+
+  
+2. The code could also be changed to use
+
+1. unique_ptr<Node23>
+2. array<K, 2> for the keys
+3. Possibly array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the children
