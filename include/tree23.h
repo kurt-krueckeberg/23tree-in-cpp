@@ -1,1086 +1,2476 @@
-#ifndef  TREE23_H
-#define	TREE23_H
+#ifndef tree23_h_18932492374
+#define tree23_h_18932492374
 
-
-#include <utility>
-#include <iostream>
-#include <exception>
 #include <array>
+#include <memory>
+#include <queue>
+#include <utility>
+#include <stack>
+#include <sstream>
+#include <ostream>  
+#include <exception>
+#include "debug.h"
+#include "level-order-invariant-report.h"
 
-// fwd declarations
-template<typename T> class Tree23;    
+template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
-class duplicatekey :  public std::exception {
-public:
-    
-  virtual const char* what() const throw()
-  {
-    return "Attempting to insert duplicate key ";
-  }
-};
+//...that is required by these friend functions
+template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node23& node23); 
+template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node4& node4); 
 
-template<typename K> class Tree23 {
+template<class Key, class Value> class tree23 {
     
-protected:       
-    
-   class Node34; // fwd declaration of protected class.
+  private:
+  class Node4;    
   
-public:
-   
-   class Node23 {
-      private: 
-           friend class Tree23<K>;             
-           friend class Node34;
-           Node23(bool three_node=false);
-           
-           Node23& operator=(Node23& rhs);
-           Node23(K key);
-    
-           Node23(K small, K large);
-           Node23(K small, Node23 *pParent, Node23 *pleftChild, Node23 *prightChild);
-           Node23(const Node23& n);
-    
-           Node23& makeTwoNode(K value, Node23 *pParent, Node23 *left, Node23 *right);                
-    
-           bool isLeafNode(); 
-           
-           bool isThreeNode();
-           
-           void setThreeNode(bool flag);
-           
-           K getSmallValue() { return keys[0]; }
-           K getLargeValue() { return keys[1]; }
+  public:
 
-           Node23 *children[3];
+  class KeyValue { 
+    public:
+     Key   key;
+     Value value;
+     KeyValue() = default;
+     KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
+     KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
+
+     KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} 
+
+     KeyValue& operator=(KeyValue&& lhs)
+     {
+        key = lhs.key;
+        value = std::move(lhs.value);
+     }
+ 
+     KeyValue& operator=(KeyValue& lhs) = default; 
+   };
+ 
+   class Node23 {
+
+        friend class tree23<Key, Value>;             
+
+     public:   
+        Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
+        Node23(Node4&);
+        Node23(const Node23&) = delete;// All nodes in the tree are of type unique_ptr<Node23>; therefore, we disallow assignment and copy construction...
+        Node23& operator=(const Node23&) = delete; 
+
+        Node23(Node23&&); // ...but we allow move assignment and move construction.
+        Node23& operator=(Node23&&);
+
+        constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
+        constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
+
+        constexpr bool isThreeNode() const noexcept { return (totalItems == Node23::ThreeNodeItems) ? true : false; }
+        constexpr bool isTwoNode() const noexcept { return (totalItems == Node23::TwoNodeItems) ? true : false; }
+        
+        constexpr int getTotalItems() const noexcept { return totalItems; }
+        constexpr int getChildCount() const noexcept { return totalItems + 1; }
+        constexpr std::unique_ptr<Node23>& getNonNullChild() noexcept;
+
+	std::ostream& test_parent_ptr(std::ostream& ostr, const Node23 *root) const noexcept;
+
+        bool siblingHasTwoItems(int child_index, int& sibling_index) const noexcept;
+
+        std::ostream& test_keys_ordering(std::ostream& ostr) const noexcept;
+
+        std::ostream& test_remove_invariant(std::ostream& ostr) const noexcept; 
+
+        std::ostream& test_2node_invariant(std::ostream& ostr, const Node23 *root) const noexcept;
+
+        std::ostream& test_3node_invariant(std::ostream& ostr, const Node23 *root) const noexcept;
+
+        std::ostream& debug_print(std::ostream& ostr, bool show_addresses=false) const;
+
+        std::ostream& print(std::ostream& ostr) const noexcept;
+   
+        friend std::ostream& operator<<(std::ostream& ostr, const Node23& node23)
+        { 
+	   return node23.print(ostr);
+        }
+
+        private:
 
            Node23 *parent;
+
+           static const int TwoNodeItems = 1;
+           static const int TwoNodeChildren = 2;
+           static const int ThreeNodeItems = 2;
+           static const int ThreeNodeChildren = 3;
+           static const int NotFoundIndex = -1;
                
-           K keys[2];
-                   
-           bool isThreeNodeFlag;
-   };  
+           std::array<KeyValue, 2> keys_values;
 
-   typedef Node23 Node;
-   
-  protected:
-    /* 
-     * This class' constructor sorts the values of the Node23 and new_value into small, middle and large. For a leaf node, all child pointers will be zero.
-     * For an internal node, they are assigned into two left-most and two right-most child pointers.
-     */
-     class Node34 {
-         
-      friend class Tree23<K>; 
+           std::array<std::unique_ptr<Node23>, 3> children;
+
+           void move_keys_values(std::array<std::unique_ptr<KeyValue>, 2>&& lhs);
+
+           void move_children(std::array<std::unique_ptr<Node23>, 3>&& lhs);
+
+           void removeLeafKey(Key key) noexcept;
+       
+           int totalItems; // set to either Node23::TwoNodeItems or Node23::ThreeNodeItems
+
+           void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
+           void connectChild(std::unique_ptr<Node23>& dest, std::unique_ptr<Node23> src)  noexcept;
+          
+           void convertTo2Node(Node4& node4) noexcept; 
+
+           void convertTo3Node(Key key, const Value& value, std::unique_ptr<Node23> pnode23) noexcept; 
+
+           bool NodeDescentSearch(Key value, int& index, Node23 *next) noexcept;          // called during find()  
+           bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
+
+           void insertKeyInLeaf(Key key, const Value& value);
+           void insertKeyInLeaf(Key key, Value&& new_value);
+      }; 
+
+  using node23_type = tree23<Key, Value>::Node23;
       
-       private:
-         /*-- 
-          K keys[3];
-    
-          Tree23<K>::Node23 *leftChild;    
-          Tree23<K>::Node23 *leftMiddleChild;	
-    
-          Tree23<K>::Node23 *rightMiddleChild;
-          Tree23<K>::Node23 *rightChild;
-         */    
-           
-          std::array<K, 3> keys;
-   
-          std::array<Node23 *, 4> children;
+  private: 
+    class Node4 { // Class Node4 is used during insert().
 
-          /* Note: Their is no parent node pointer. */
-       public:
-    
-	 /* Using default values allows us to generalize both leaf node and internal node cases. */
-	 Node34(Node23 *threeNode, K new_value, Tree23<K>::Node23 *leftChildOfNewValue=nullptr,
-                                                  Tree23<K>::Node23 *rightChildOfNewValue=nullptr);
-        /* 
-         K  getSmallValue()  { return keys[0]; }
-         K  getMiddleValue() { return keys[1]; }
-         K  getLargeValue()  { return keys[2];  }
-         */
-         const K& operator[](int i) const { return keys.at(i); }  // at() range checks
+       // Always hold three keys and four children. 
+      friend class tree23<Key, Value>; 
+     
+      private:
+         std::array<KeyValue, 3> keys_values;
 
-         Tree23<K>::Node23 *&getChild(int i) { return children.at(i); }
-         
-         const Tree23<K>::Node23 *getChild(int i) const { return children.at(i); }
-         
-         /*
-    	 Tree23<K>::Node23 *getLeftChild()        { return leftChild; }
-	 Tree23<K>::Node23 *getLeftMiddleChild()  { return leftMiddleChild; }	
-	 Tree23<K>::Node23 *getRightMiddleChild() { return rightMiddleChild; }	
-	 Tree23<K>::Node23 *getRightChild()   { return rightChild; } 
-         */
+         // Takes ownership of four 23-nodes 
+         std::array<std::unique_ptr<Node23>, 4> children; 
+
+         Node23 *parent; // Set to the parent of the 3-node passed to its constructor 
+
+         static const int FourNodeItems = 3;
+         static const int FourNodeChildren = 4;
+
+         void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
+                      
+    public: 
+        Node4() noexcept {}
+
+        /* Constructor that takes an internal 3-node */
+        Node4(Node23 *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
+
+        /* Constructor for a leaf node, all child pointers will be zero. */
+        Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept;
+
+        Node4& operator=(Node4&& lhs) noexcept;
+        Node4& operator=(const Node4& lhs) = delete;
+
+        const Key& operator[](int i) const noexcept { return keys_values[i].key; }  
+
+        std::ostream& print(std::ostream& ostr) const noexcept;
+        std::ostream& debug_print(std::ostream& ostr) const noexcept;
+
+        constexpr bool isLeaf() const noexcept { return (children[0] == nullptr) ? true : false; } 
+
+        friend std::ostream& operator<<(std::ostream& ostr, const Node4& node4) 
+        { 
+            return node4.print(ostr); 
+        }
     };
 
-   protected:
+    std::unique_ptr<Node23> root;
+    int height;
 
-    Node23 *root; 
-    
-    bool DoSearch(K key, Node23 *root, Node23 *&location);
+    // insert() subroutines
+    int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node23 *&pinsert_start) const noexcept;
 
-    // Called by insert to split three nodes receiving a new value 
-    Node23 *Split(Node23 *p, K key, Node23 *pLeftChildOfNewKey = nullptr, Node23 *pRightChildOfNewKey = nullptr);
+    void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node23> leftChild, std::unique_ptr<Node23> rightChild) noexcept;  
+   
+    void CreateRoot(Key key, const Value& value) noexcept;
 
-    template<typename Functor> void traverse(Functor f, Node23 *root);
-    void DestroyTree(Node23 *root);
-    
-     // Find in order successor
-    Node23 *FindNextLargest(K key, Node23 *location);
-    void fix(Node23 *location, Node23 *pAdoptee=nullptr);
-    bool Redistribute(Node23 *node, int& situation_designator);
-    void ReassignChildren(Node23 *node, Node23* pChildOfNode, int situation);
+    void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
+            std::unique_ptr<Node23> heap_2node) noexcept;
 
-  public:    
-     Tree23() { root = nullptr; } 
-    ~Tree23();
-     template<typename Functor> void traverse(Functor f);
-     bool Search(K key, Node23 *&location);
-     bool remove(K key, Node23 *location=nullptr);
-           
-     Tree23<K>::Node23 *insert(K key, Node23 *location=nullptr) throw(duplicatekey);
+    // remove() subroutines
+    Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
+
+    Node23 *getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+
+    void fixTree(Node23 *pnode, std::stack<int>& child_indecies) noexcept;
+
+    void reassignRoot() noexcept;
+
+    void barrowSiblingKey(Node23 *pnode, int child_index, int sibling_index) noexcept;
+ 
+    // called by barrowSiblingKey
+    void shiftChildrenRight(Node23 *node, Node23 *sibling) noexcept;
+    void shiftChildrenRight(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
+
+    void shiftChildrenLeft(Node23 *node, Node23 *sibling) noexcept;
+    void shiftChildrenLeft(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
+
+    std::unique_ptr<Node23> mergeNodes(Node23 *pnode, int child_index) noexcept;
+
+    std::unique_ptr<Node23> merge2Nodes(Node23 *pnode, int child_index) noexcept;
+    std::unique_ptr<Node23> merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept;
+
+    void shiftChildren(Node23 *node, Node23 *sibling, int node_index, int sibling_index) noexcept;
+     
+    // traversal subroutines
+    template<typename Functor> void DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
+
+    template<typename Functor> void DoPostOrderTraverse(Functor f,  const std::unique_ptr<Node23>& root) const noexcept;
+
+    template<typename Functor> void DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
+
+  public:
+    // Implement this later
+    /*
+    class iterator { // in order iterator
+         const tree<Key, Value>& tree;
+         //std::stack<Node23 *>  stack;
+         iterator(const tree<Key, Value)& lhs) : tree{lhs} {}
+         Node23<Key, Value> *current;
+      public:
+         bool operator==(const iterator& lhs) const;
+         bool operator!=(const iterator& lhs) const;
+         iterator& operator++();
+         iterator operator++(int);
+         Value& operator*();
+    };
+    */
+    tree23() noexcept;
+
+    void test_invariant() const noexcept;
+
+    std::ostream& test_height(std::ostream& ostr) const noexcept;
+
+    std::string test_invariant(const Node23& p) const noexcept; // new
+
+    tree23(const tree23&) noexcept; // TODO: Not implemented
+    tree23& operator=(const tree23&) noexcept; // TODO: Implemented?
+
+    tree23(tree23&&);
+
+    tree23& operator=(tree23&&);
+
+    int getHeight() const noexcept;
+    void insert(Key key, const Value& value);
+    bool isEmpty() const noexcept;
+
+    /* 
+    TODO: implement later
+    void insert(Key key, Value&& value);
+    */
+    bool find(Key key) const noexcept;
+
+    const Value& operator[](Key key) const;
+
+    Value& operator[](Key key);
+
+    void remove(Key key);
+
+    // Breadth-first traversal
+    template<class Functor> void levelOrderTraverse(Functor f) const noexcept;
+
+    // Depth-first traversals
+    template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
+
+    // traverse() is synonymous with inOrderTraverse()
+    template<typename Functor> void traverse(Functor f) const noexcept { DoInOrderTraverse(f, root); }
+
+    template<typename Functor> void postOrderTraverse(Functor f) const noexcept;
+    template<typename Functor> void preOrderTraverse(Functor f) const noexcept;
 };
-/* 
- * It is sufficient to just check the leaf pointer. Internal nodes will have at minimun bot children[0]
- * and children[2] set.
- */   
-template<typename K> inline  bool Tree23<K>::Node23::isLeafNode()  
-{ 
-   return !children[0] ? true : false;
-}
 
-template<typename K> inline bool Tree23<K>::Node23::isThreeNode() 
-{ 
-   return this->isThreeNodeFlag; 
-}
-
-template<typename K> inline void Tree23<K>::Node23::setThreeNode(bool flag) 
+/*
+  Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
+  Its children become the former the two tight most children of node4. Their ownership is transferred to the 2-node.
+ */
+template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4) : totalItems{Node23::TwoNodeItems}, parent{node4.parent}
 {
-  this->isThreeNodeFlag = flag; 
+  keys_values[0] = std::move(node4.keys_values[2]); // Prefer move() to default copy assignment.
+
+  connectChild(0, std::move(node4.children[2]));
+  connectChild(1, std::move(node4.children[3]));
 }
 
-template<typename K> inline Tree23<K>::Node23::Node23(K key) : isThreeNodeFlag(false)
-{ 
-   keys[0] = key; 
-   children[0] = nullptr;
-   children[2] = nullptr; 
-}
-
-template<typename K> inline Tree23<K>::Node23::Node23(bool three_node) : isThreeNodeFlag(three_node), parent(nullptr) 
-{ 
-     children[0] = nullptr;
-     children[1] = nullptr;
-}
-
-template<typename K> inline Tree23<K>::Node23::Node23(K small, K large) : isThreeNodeFlag(false), parent(nullptr)
-{ 
-    keys[0] = small;
-    keys[1] = large; 
-    children[0] = nullptr;
-    children[2] = nullptr;
-}
-
-template<typename K> inline Tree23<K>::Node23::Node23(K small, Tree23<K>::Node23 *pParent, Tree23<K>::Node23 *pleftChild,
-              Tree23<K>::Node23 *prightChild) : isThreeNodeFlag(false), parent(pParent)
-{ 
-    keys[0] = small; 
-    children[0] = pleftChild;
-    children[2] = prightChild; // TODO: Change this to be: children[1] = rightChild;
-} 
-
-template<typename K> inline Tree23<K>::Node23::Node23(const Tree23<K>::Node23& n) : isThreeNodeFlag(n.isThreeNodeFlag), parent(n.parent) 
-{ 
-   children[0] = n.children[0];
-   children[2] = n.children[2];
-}
-
-
-template<typename K> typename Tree23<K>::Node23& Tree23<K>::Node23::makeTwoNode(K value, Tree23<K>::Node23 *pParent,
-        Tree23<K>::Node23 *left, Tree23<K>::Node23 *right)                
+/*
+  Constructs a new 2-node that is a leaf node; i.e., its children are nullptr.
+ */
+template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, const Value& value, Node23 *ptr2parent) : \
+          parent{ptr2parent}, totalItems{Node23::TwoNodeItems}
 {
-  keys[0] = value;
-  children[0] = left;
-  children[2] = right;
-  isThreeNodeFlag = false; 
-  parent =  pParent;
-  return *this;
-}
+  keys_values[0].key = key;
+  keys_values[0].value = value;
+ 
+  for(auto& child : children) {
 
-	
-template<typename K>  inline Tree23<K>::~Tree23()
-{
-  DestroyTree(root);
+       child = nullptr; 
+  } 
 }
 /*
- * Post order Traversal, deleting nodes.
- */ 
-template<typename K> void Tree23<K>::DestroyTree(Node23 *p)
+ "this" must be 2-node with only one non-nullptr child
+ */
+template<class Key, class Value> inline constexpr std::unique_ptr<typename tree23<Key, Value>::Node23>& tree23<Key, Value>::Node23::getNonNullChild() noexcept
 {
-  if (p == nullptr) {
-	return;
+  return (children[0] == nullptr) ?  children[1] : children[0];
+}
+
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_keys_values(std::array<std::unique_ptr<KeyValue>, 2>&& lhs)
+{
+  for (auto i = 0; i < totalItems; ++i) {
+
+     keys_values[i] = std::move(lhs.keys_values[i]); 
   }
+}
+
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_children(std::array<std::unique_ptr<Node23>, 3>&& lhs)
+{
+  for (auto i = 0; i < getChildCount(); ++i) {
+
+     connectChild(i, std::move(lhs[i]));
+  }
+}
+
+// move constructor
+template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node23&& node23) : parent{node23.parent}, totalItems{node23.totalItems}
+{
+  move_keys_values(node23);
+  
+  move_children(node23); 
+}
+// move assignment operator
+template<class Key, class Value> typename tree23<Key, Value>::Node23& tree23<Key, Value>::Node23::operator=(Node23&& node23)
+{
+  if (this == &node23) {
+
+       return *this;
+  }
+
+  parent = node23.parent;
+  totalItems = node23.totalItems;
+
+  move_keys_values(node23);
+
+  move_children(node23); 
+
+}
+
+template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node23::test_keys_ordering(std::ostream& ostr) const noexcept
+{
+ if (totalItems == Node23::ThreeNodeItems) {
+
+     if (keys_values[0].key >= keys_values[1].key) {
+
+        ostr << "error: " << keys_values[0].key << " is not less than " << keys_values[1].key << "\n";
+        return ostr;
+     }
+  }
+  return ostr;
+}
+
+template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node23::test_parent_ptr(std::ostream& ostr, const Node23 *root) const noexcept
+{
+   if (this == root) { // If this is the root...
+       
+        if (parent != nullptr) {
+
+ 	  ostr << " node is root and parent is not nullptr ";
+        }
+
+   } else if (this == parent || parent == nullptr) { // ...otherwise, just check that it is not nullptr or this.
+
+	ostr << " parent pointer wrong ";
+   }	   
+   return ostr;
+}	
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_remove_invariant(std::ostream& ostr) const noexcept
+{
+  if (isLeaf()) {
+
+     ostr << " empty leaf node implies key was removed.";
+     return ostr;
+  }
+
+  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty 2-node leaf is itself
+  // also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one non-nullptr child.
+  int count = 0;
+
+  for(auto i = 0; i < TwoNodeChildren; ++i) {
+
+      if (children[i] == nullptr) ++count;
+  } 
+
+  ostr <<  " is an internal node recursive remove case. The node has " << count << " children. ";  
+
+  if (count != 1) {
+
+     ostr << "It should only have one."; 
+  }	  
+
+  for(auto i = 0; i < TwoNodeChildren; ++i) {
+
+      if (children[i] != nullptr) {
+
+	  if (children[i]->parent != this) {
+ 
+              ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+	  }
+      }
+  } 
+
+  return ostr;
+} 
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_2node_invariant(std::ostream& ostr, const Node23 *root) const noexcept
+{
+ //  test parent pointer	
+  test_parent_ptr(ostr, root);
 	 
-  if (p->isThreeNode()) { // descend three node
+  if (isLeaf()) return ostr;
 
-        DestroyTree(p->children[0]);
+  // check ordering of children's keys with respect to parent. 
+  for (int child_index = 0; child_index < Node23::TwoNodeChildren; ++child_index) {
 
-        DestroyTree(p->children[1]);
+       if (children[child_index] == nullptr) {
+     
+            ostr << "error: children[" << child_index << "] is nullptr\n";
+            continue;
+       } 
 
-        DestroyTree(p->children[2]);
+       for (auto i = 0; i < children[child_index]->totalItems; ++i) {
+          
+           switch (child_index) {
 
-        delete p; 
+             case 0:
 
-  } else { // descend two node
+              if (children[0]->keys_values[i].key >= keys_values[0].key) { // If any are greater than or equal to keys_values.keys[0], then it is an error.
+              
+                 ostr << "error: children[0]->keys_values[" << i << "].key = " << children[0]->keys_values[i].key << " is not less than " << keys_values[0].key << ".\n";
+              }  
 
-        DestroyTree(p->children[0]);
+              break;
 
-        DestroyTree(p->children[2]);
+              case 1:
 
-        delete p; 
+                if (children[1]->keys_values[i].key <= keys_values[0].key) { // are any less than or equal to keys_values.keys[0], then it is an error.
+          
+                   ostr << "error: children[1]->keys_values[" << i << "].key = " << children[1]->keys_values[i].key << " is not greater than " << keys_values[0].key << ".\n";
+                }
+
+                break;
+  
+              default:
+                ostr << "error: totalItems = " << totalItems << ".\n";
+                break;
+
+          } // end switch 
+       }  // end inner for    
+  } // end outer for
+          
+  const Node23 *child; 
+
+  // test children's parent point. 
+  for (auto i = 0; i < TwoNodeChildren; ++i) {
+
+       if (children[i] == nullptr) continue; // skip if nullptr 
+      
+       child = children[i].get();   
+       
+       if (child->parent != this)	 {
+
+            ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+       } 
+  }
+}
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_3node_invariant(std::ostream& ostr, const Node23 *root) const noexcept
+{
+  // If node is a 3-node, so we test keys[] ordering.
+  test_keys_ordering(ostr);
+  
+  //  test parent pointer	
+  test_parent_ptr(ostr, root);
+
+  // Test keys ordering
+  if (keys_values[0].key  >= keys_values[1].key) {
+
+      ostr <<  keys_values[0].key << " is greater than " <<keys_values[1].key;
   }
 
+  if (isLeaf()) return ostr; 
+
+  for (int child_index = 0; child_index < Node23::ThreeNodeChildren; ++child_index) {
+
+     if (children[child_index] == nullptr) {
+   
+          ostr << "error: children[" << child_index << "] is nullptr\n";
+          continue;
+     }
+
+    for (auto i = 0; i < children[child_index]->totalItems; ++i) {
+
+      switch (child_index) {
+
+       case 0:  
+       // Test that all left child's keys are less than node's keys_values.keys[0]
+     
+           if (children[0]->keys_values[i].key >= keys_values[0].key) { // If any are greater than or equal to keys_values.keys[0], it is an error
+     
+              // problem
+              ostr << "error: children[0]->keys_values[" << i << "].key = " << children[0]->keys_values[i].key << " is not less than " << keys_values[0].key << ".\n";
+           }  
+       break; 
+
+       case 1:
+ 
+       // Test middle child's keys, key, are such that: keys_values.keys[0] < key < keys_values.keys[1]
+           if (!(children[1]->keys_values[i].key > keys_values[0].key && children[1]->keys_values[i].key < keys_values[1].key)) {
+     
+              // problem
+              ostr << "error: children[1]->keys_values[" << i << "].key = " << children[1]->keys_values[i].key << " is not between " << keys_values[0].key << " and " << keys_values[1].key << ".\n";
+           }
+
+       break;
+
+      case 2:     
+       // Test right child's keys are all greater than nodes sole key
+     
+           if (children[2]->keys_values[i].key <= keys_values[1].key) { // If any are less than or equal to keys_values.keys[1], it is an error.
+     
+              // problem
+              ostr << "error: children[2]->keys_values[" << i << "].key = " << children[2]->keys_values[i].key << " is not greater than " << keys_values[1].key << ".\n";
+           }
+
+       break;
+
+      default:
+         ostr << "error: totalItems = " << totalItems << ".\n";
+         break;
+     } // end switch
+   } // end inner for
+ } // end outer for
+     
+ // test children's parent point. 
+ for (auto i = 0; i < ThreeNodeChildren; ++i) {
+
+    if (children[i] == nullptr) continue; // skip if nullptr 
+
+    if (children[i]->parent != this)	 {
+
+        ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+    } 
+ }
+
+  return ostr; 
 }
 
-template<typename K> template<typename Functor>  inline void Tree23<K>::traverse(Functor f) 
+template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept
 {
-    return traverse(f, root); 
+  return root == nullptr ? true : false;
 }
 
-template<typename K> template<typename Functor>  void Tree23<K>::traverse(Functor f, Node23 *p)
+template<class Key, class Value> inline void tree23<Key, Value>::test_invariant() const noexcept
 {
+  levelOrderInvariantReport<tree23<Key, Value>> reporter(const_cast<const tree23<Key,Value>&>(*this), std::cout);
+
+  levelOrderTraverse(reporter); 
+}
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::test_height(std::ostream& ostr) const noexcept
+{
+  // Test that height is correct
+  int depth = 0;
+
+  for (auto current = root.get(); current != nullptr; current = current->children[0].get()) {
+
+       ++depth;
+  }
+
+  if (height != depth) {
+     ostr << "error: The height is " << height << " but actual calculated height is " << depth << ".\n";
+  }
+}
+
+template<class Key, class Value> std::string tree23<Key, Value>::test_invariant(const Node23& const_node) const noexcept
+{
+  std::ostringstream oss;
+
+  Node23& node = const_cast<Node23&>(const_node);
+
+  switch(node.totalItems) {
+
+      case 0:
+         node.test_remove_invariant(oss);
+         break;
+
+      case Node23::TwoNodeItems:
+
+         node.test_2node_invariant(oss, root.get());
+         break;   
+      
+      case Node23::ThreeNodeItems:
+
+         node.test_3node_invariant(oss, root.get());
+         break;   
+    
+      default:
+         // If we come here, then node.totalItems is wrong.
+         oss << " error: node.totalItems is " << node.totalItems << ".\n"; 
+         break;
+  }
+
+  std::string msg;
+
+  if (oss.str().length() > 0) { 
+
+     msg = " --> " + oss.str();
+  } 
+
+  return msg; 
+}
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug_print(std::ostream& ostr, bool show_addresses) const 
+{
+   ostr << " { ["; 
+   
+   if (totalItems == 0) { // remove() situation when merge2Nodes() is called
+
+       ostr << "empty"; 
+
+   } else {
+
+        for (auto i = 0; i < totalItems; ++i) {
+
+            ostr << keys_values[i].key;
+
+            if (i + 1 == totalItems)  {
+                continue;
+
+            } else { 
+                ostr << ", ";
+            }
+        }
+   }
+
+   ostr << "] : parent(" << parent << "), " << this;
+
+   if (parent == this) { 
+      
+      ostr << " BUG: parent == this " << std::flush;
+      
+      std::ostringstream oss;
+      
+      oss << "parent == this for node [";
+      
+      for (auto i = 0; i < totalItems; ++i) {
+
+    
+         ostr << "{" << keys_values[i].key << "}, ";
+       }
+      
+      oss << "]";
+   } 
+
+   if (show_addresses) {
+
+      ostr << ' ';
+
+      for (auto i = 0; i < getChildCount(); ++i) {
+          
+   
+               if (children[i] == nullptr) {
+   
+                    ostr <<  "nullptr" << ", ";
+   
+               } else {
+     
+                   ostr <<  children[i].get() << ", ";
+               }
+      }
+   
+   }
+   ostr << "] }";
+
+   return ostr;
+}
+
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print(std::ostream& ostr) const noexcept
+{
+   ostr << "[";
+
+   if (totalItems == 0) { // remove() situation when merge2Nodes() is called
+
+       ostr << "empty"; 
+
+   } else {
+
+        for (auto i = 0; i < totalItems; ++i) {
+
+            ostr << keys_values[i].key;
+
+            if (i + 1 == totalItems)  {
+                continue;
+
+            } else { 
+                ostr << ", ";
+            }
+        }
+   }
+
+   ostr << "]";
+   return ostr;
+/*
+   for (auto& pChild : children) {
+       
+       if (pChild == nullptr) {
+           
+           ostr << "nullptr, ";   
+           
+       } else {
+           
+         for (auto i = 0; i < pChild->totalItems; ++i) {  
+            
+            ostr << "{ " << pChild->keys[i] << ", " << pChild->values[i] << "}, ";
+         } 
+       }
+   }
+   ostr << std::endl; 
+   return ostr;
+*/
+}
+
+/*
+ Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
+
+ Parameters
+ ==========
+
+ 1. child_index is such that: parent->children[child_index] == this
+ 2. If any sibling is found that is a 3-node, parent->children[silbing_index] = the 3-node sibling
+
+ */
+template<class Key, class Value> bool tree23<Key, Value>::Node23::siblingHasTwoItems(int child_index, int& sibling_index) const noexcept
+{
+
+ if (parent->isTwoNode()) { // Bug: In a recursive case, the parent has 0 totalItems. It also has only one non-nullptr child.
+
+     sibling_index = !child_index;
+     
+     if (parent->children[sibling_index]->isThreeNode()) { // toggle between 0 or 1
+
+        return true;
+
+     } else {
+
+        return false;
+     } 
+ } 
+
+ /* 
+   3-node parent cases below. Determine if any immediate sibling is a 3-node. There will only be two children to inspect when the parent is a 3-node and child_index is 1.
+   */
+  switch (child_index) {
+      case 0:
+
+        if (parent->children[1]->isThreeNode()) {
+  
+            sibling_index = 1;  
+  
+        } else if (parent->children[2]->isThreeNode()) {
+  
+            sibling_index = 2;  
+  
+        } else {
+
+	    return false;
+  
+        }
+        break;
+
+      case 1:
+        if (parent->children[0]->isThreeNode()) {
+  
+            sibling_index = 0;  
+  
+        } else if (parent->children[2]->isThreeNode()) {
+  
+            sibling_index = 2;  
+  
+        } else {
+	    return false;
+        }
+        break;
+  
+      case 2:
+        if (parent->children[1]->isThreeNode()) {
+  
+            sibling_index = 1;  
+  
+        } else if (parent->children[0]->isThreeNode()) {
+  
+            sibling_index = 0;  
+  
+        } else {
+  
+	    return false;
+        }
+        break;
+
+      default:
+       break; 
+  }
+  return true;   
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}, height{0} 
+{
+
+}   
+/*
+  Parameters:
+
+1. p3node is a leaf 3-node. 
+2. new_key and new_value are the new key and value passed to insert().
+
+  Overview:
+
+ */
+template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept : parent{p3node->parent} 
+{
+   bool copied = false;
+   int dest = 0;
+   int src = 0;
+
+   while (src < Node23::ThreeNodeItems) {
+  
+         if (!copied && new_key < p3node->keys_values[src].key) {
+
+               copied = true;
+               keys_values[dest].key = new_key; 
+               keys_values[dest].value = new_value; 
+               ++dest;
+
+         }  else {
+
+               keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
+               ++dest;
+               ++src;
+         } 
+   }
+   
+   if (!copied) {
+        keys_values[dest].key = new_key; 
+        keys_values[dest].value = new_value; 
+   }
+     
+   for(auto& child : children) {
+      child = nullptr;
+   }
+}
+
+/*
+Parameter requirements:
+
+1. p3node is an internal node created during a recursive call to split(), not during the initial call to split when a leaf node is passed.
+
+2. child_index is such that
+
+   p3node->children[child_index].get() == "the lower prior 3-node that was downsized to a 2-node (holding the smallest value of the paralell 4-node).
+
+3. new_key (and new_value) pushed up from the prior call to split.
+
+   new_key == node4.keys_values[1].key
+   new_value == node4.keys_values[1].value
+
+4. heap_2node is the 2-node allocated on the heap in the prior call to split. 
+
+Overview:
+
+child_index is such that
+
+   p3node->children[child_index].get() == "the lower prior 3-node that was downsized to a 2-node (holding the smallest value of the paralell 4-node).
+
+p3node is an internal 3-node that is the parent of the prior 3-node--initially either a leaf 3-node or later another internal 3-node child in the chain of 3-nodes 
+children already processed by split(). p3node is an internal node, and child_index is used to:
+
+1.) determine the index to use in inserting new_key into Node4::keys[], and 
+2.) to maintain the same general child relationships in the 4-node that existed within the 3-node. We know, for example, that heap_2node will always be to the 
+right the previous p3node. We also use child_index to determine where heap_2node should be placed in Node4::children[]. 
+
+new_key (and new_value) are pushed these values
+
+   new_key == node4.keys_values[1].key
+   new_value == node4.keys_values[1].value
+
+pushed up from the prior call to split()
+
+heap_2node is the 2-node allocated on the heap in the prior call to split when the 4-node created on the stack was split into two 2-nodes. heap_2node is the
+larger of those two 2-nodes. 
+*/
+
+template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, \
+  std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
+{
+  switch(child_index) {
+ 
+      case 0:
+
+      {
+        keys_values[0].key = new_key; // new_key is the smallest value, so we put in the first position... 
+        keys_values[0].value = new_value;
+
+        //...followed by the current p3node's keys and values
+        for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {
+ 
+              keys_values[i + 1] = p3node->keys_values[i]; // TODO: Can move assignment be used safely to increase code efficiency? 
+        } 
+  
+        connectChild(0, std::move(p3node->children[0])); // This is still the smallest child. It is the converted 3-node downsize to a 2-node
+                                                            
+        connectChild(1, std::move(heap_2node));   // This is the next smallest child.
+
+        connectChild(2, std::move(p3node->children[1])); // The others just sort of shift into the final two slots.  
+        connectChild(3, std::move(p3node->children[2]));   
+
+      }
+      break;
+      
+      case 1: // If child_index = 1, then new_key < p3node.keys_values[1].key && new_key > p3node.keys_values[0].key
+
+      {  
+        keys_values[0] = p3node->keys_values[0];
+ 
+        keys_values[1].key = new_key;
+        keys_values[1].value = new_value; 
+        
+        keys_values[2] = p3node->keys_values[1];
+
+        // children get moved in this manner to maintain the same relationships as those that existed in p3node
+        connectChild(0, std::move(p3node->children[0]));
+        connectChild(1, std::move(p3node->children[1]));
+        connectChild(3, std::move(p3node->children[2]));
+    
+        connectChild(2, std::move(heap_2node)); // heap_2node's key is larger than the downsized 3-node in p3node->children[0], but less than its next child.
+      }
+      break;
+
+      case 2: // If child_index == 2, then new_key > p3node->keys_values[1].key and so...
+
+      { 
+         for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {   
+                               
+               keys_values[i] = p3node->keys_values[i]; 
+         } 
+    
+         keys_values[2].key = new_key; // new_key is the largest value in 4-node
+         keys_values[2].value = new_value;
+    
+         for(auto i = 0; i < Node23::ThreeNodeChildren; ++i) { // connect p3node's current children in the same order 
+    
+            connectChild(i, std::move(p3node->children[i]));
+         }
+    
+         children[3] = std::move(heap_2node); // heap_2node's key is larger the p3node's largest key: p3node->keys_values[1].key 
+      }
+      break; 
+
+      default:
+        break; 
+  }
+}
+
+template<class Key, class Value> typename tree23<Key, Value>::Node4& tree23<Key, Value>::Node4::operator=(Node4&& lhs) noexcept
+{
+  if (this == &lhs) return *this;
+
+  keys_values = std::move(lhs.keys_values);
+
+  children = std::move(lhs.children); /* This invokes std::array<Node23>'s move assignment operater. For Node23 copy or move construction one must not do this,
+                           but rather call Node23::connectChild() for each child, which properly sets the parent pointer in the node; but for Node4 construction
+                         the parent pointer does not need to be properly set--I believe--because Node4 is only owns the children temporarily, until it is split
+                         into two Node23s, at which time Node23::connectChild() is call to properly set the node's parent pointer. */
+                                     
+  parent = lhs.parent;
+
+  lhs.parent = nullptr; 
+  
+  return *this; 
+}
+
+template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectChild(int childIndex, std::unique_ptr<typename tree23<Key, Value>::Node23> child) noexcept 
+{
+ /*
+  Because Node4::parent is of type Node23 *, we cannot do
+
+        parent = this;
+
+  since 'this' is of type Node4 *. 
+  */
+
+  Node23 *parent_of_node23 = (child == nullptr) ? nullptr : child->parent; 
+  
+  children[childIndex] = std::move(child); // invokes move assignment of std::unique_ptr<Node23>.
+
+  parent = parent_of_node23;
+}            
+
+template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node4::debug_print(std::ostream& ostr) const noexcept
+{
+  return this->print(ostr);
+}
+
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(std::ostream& ostr) const noexcept
+{
+   ostr << this << " [";
+
+   for (auto i = 0; i < Node4::FourNodeItems; ++i) {
+
+       ostr << "{ " << keys_values[i].key << ", " << keys_values[i].values << "}, "; 
+   }
+   
+   ostr << "] children:  [ ";  
+   
+   for (auto& pChild : children) {
+       
+       if (pChild == nullptr) {
+           
+           ostr << "nullptr, ";   
+           
+       } else {
+
+         for (auto i = 0; i < pChild->totalItems; ++i) {  
+            
+            ostr << "{ " << pChild->keys_values[i].key << ", " << pChild->keys_values[i].value << "}, ";
+         } 
+
+       }
+   }
+   ostr << "]" << std::endl;
+   return ostr;
+}
+
+template<class Key, class Value> inline int tree23<Key, Value>::getHeight() const noexcept
+{
+  return height;
+
+  /* This is a double check, a sort of assertion  
+  int depth = 0;
+
+  for (auto current = root.get(); current != nullptr; current = current->children[0].get()) {
+
+       ++depth;
+  }
+
+  return depth;
+  */
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
+{
+   DoInOrderTraverse(f, root);
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::postOrderTraverse(Functor f) const noexcept
+{
+   DoPostOrderTraverse(f, root);
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::preOrderTraverse(Functor f) const noexcept
+{
+   DoPreOrderTraverse(f, root);
+}
+
+template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
+{
+   if (current == nullptr) {
+
+      return;
+   }
+
+   switch (current->getTotalItems()) {
+
+      case 1: // two node
+            DoInOrderTraverse(f, current->children[0]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+
+            DoInOrderTraverse(f, current->children[1]);
+            break;
+
+      case 2: // three node
+            DoInOrderTraverse(f, current->children[0]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+
+            DoInOrderTraverse(f, current->children[1]);
+ 
+            f(const_cast<const KeyValue&>(current->keys_values[1]));
+
+            DoInOrderTraverse(f, current->children[2]);
+            break;
+   }
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::DoPostOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
+{
+   if (current == nullptr) {
+
+        return;
+   }
+
+   switch (current->totalItems) {
+
+      case 1: // two node
+            DoPostOrderTraverse(f, current->children[0]);
+
+            DoPostOrderTraverse(f, current->children[1]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+            break;
+
+      case 2: // three node
+            DoPostOrderTraverse(f, current->children[0]);
+
+            DoPostOrderTraverse(f, current->children[1]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+
+            DoPostOrderTraverse(f, current->children[2]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[1]));
+            break;
+   }
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
+{
+  if (current == nullptr) {
+
+        return;
+   }
+
+   switch (current->totalItems) {
+
+      case 1: // two node
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+
+            DoPreOrderTraverse(f, current->children[0]);
+
+            DoPreOrderTraverse(f, current->children[1]);
+
+            break;
+
+      case 2: // three node
+            f(const_cast<const KeyValue&>(current->keys_values[0]));
+
+            DoPreOrderTraverse(f, current->children[0]);
+
+            DoPreOrderTraverse(f, current->children[1]);
+
+            f(const_cast<const KeyValue&>(current->keys_values[1]));
+
+            DoPreOrderTraverse(f, current->children[2]);
+
+            break;
+   }
+}
+
+template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
+{
+   std::queue< std::pair<const Node23*, int> > queue; 
+
+   Node23 *proot = root.get();
+
+   if (proot == nullptr) return;
+      
+   auto initial_level = 1; // initial, top level is 1, the root.
+   
+   // 1. pair.first  is: const tree<Key, Value>::Node23*
+   // 2. pair.second is: current level of tree.
+   queue.push(std::make_pair(proot, initial_level));
+
+   while (!queue.empty()) {
+
+        std::pair<const Node23 *, int> pair_ = queue.front();
+
+        const tree23<Key, Value>::Node23 *current = pair_.first;
+
+        int current_tree_level = pair_.second;
+
+        f(*current, current_tree_level);  
+        
+        //--if (!current->isLeaf()) {
+        if (current != nullptr && !current->isLeaf()) {
+
+            if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily...
+
+                   //...when only and only one of the empty 2-nodes children will be nullptr. 
+                   queue.push( std::make_pair( (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1) ); 
+                   queue.push( std::make_pair( (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1) ); 
+
+	    } else {
+            
+                for(auto i = 0; i < current->getChildCount(); ++i) {
+    
+                   queue.push(std::make_pair(current->children[i].get(), current_tree_level + 1));  
+                }
+	    }
+        }
+
+        queue.pop(); 
+   }
+}
+
+template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
+{
+  if (root == nullptr) {
+      return false;
+  }
+
+  Node23 *current = root.get();
+
+  while (current != nullptr) {
+      
+       auto totalItems = current->totalItems;   
+       auto i = 0;
+
+       for(; i < totalItems; ++i) {
+
+           if (key < current->keys_values[i].key) {
+
+                current = current->children[i].get();
+                break;
+
+           } else if (key == current->keys_values[i].key) {
+
+                return true;
+           } 
+       }
+
+       if (i == totalItems) {
+
+           current = current->children[totalItems].get(); // key > largest key
+       } 
+  }
+
+  return false;
+/*
+  int found_index = Node23::NotFoundIndex;
+  Node23 *pnode; 
+  Node23 *next = root.get();
+
+  do { // Search for new_key until we encounter a leaf
+
+    pnode = next;
+
+    if (pnode->NodeDescentSearch(key, found_index, next)) 
+        return true;
+
+  } while (!pnode->isLeaf());
+
+  return false;
+*/
+}
+
+template<class Key, class Value> inline void tree23<Key, Value>::CreateRoot(Key key, const Value& value) noexcept
+{
+   root = std::make_unique<Node23>(key, value);
+   height = 1; // first node added to tree, the root.
+}
+/* 
+   If new_key is already in the tree, we overwrite its associate value with new_value. If it is not in the tree, we descend to the leaf where the
+   insertion should begin. If the leaf is a 2-node, we insert the new key. If it is a 3-node we call split(), passing a throw away unique_ptr<Node23> that
+   holds a nullptr.
+ 
+ */
+template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, const Value& new_value)
+{
+  if (root == nullptr) {
+      
+      // Create the initial unique_ptr<Node23> in the tree.
+      CreateRoot(new_key, new_value);
+      return;
+  }
+
+/*
+  new_key will be inserted between the next largest value in the tree and the next smallest:
+
+        in order predecessor key < new_key < in order successor key
+
+   "stack<int> child_indecies" tracks each branch taken descending to the leaf where new_key should be inserted. This aids in creating 4-nodes
+   from internal 3-nodes. child_indecies tells us the branches take from the root to pinsert_start. 
+
+   Thus, for example, the code such as that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
+   branches.  "branches" can then be used to duplicate the exact descent braches take root leaf where new_key insertion should begin:
+
+       // convert stack to deque
+       deque<int> branches;
+
+       while (!child_indecies.empty()) {
+              branches.push_back(stk.top());
+              child_indecies.pop();
+       }
+ 
+       Node23 *current = root.get();
+       
+       for (auto branch : branches) { // descend to pinsert_start from root
+            current = current->children[branch]; 
+       } 
+*/
+
+  std::stack<int> child_indecies; 
+
+  Node23 *pinsert_start;
+
+  int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
+
+  if (found_index != Node23::NotFoundIndex) {
+
+      // The new_key already exists. Overwrite its associated value with the new value.
+       pinsert_start->keys_values[found_index].value = new_value;
+       return;  
+  }
+
+  // new_key was not found in the tree; therefore we know pinsert_start is a leaf.
+  if (pinsert_start->isThreeNode()) { 
+    
+      // Converts pinsert_start from a 3-node to a 2-node.
+      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
+
+  } else { // else we have room to insert new_new_key/new_value into leaf node.
+      
+     pinsert_start->insertKeyInLeaf(new_key, new_value);
+  }
+}
+/*
+ Requires:
+ ========= 
+ 1. new_key is the new key to be inserted.  
+ 2. pinsert_start will be the leaf node where insertion should start, if new_key is not found in the tree; otherwise, it will be the node where new_key was found.
+ 3. descent_indecies is a stack<int> that will hold the child branches taken descending to pinsert_start
+
+ Promises:
+ =========
+ 1. Returns the index into pinsert_start->keys_values[] such that, if new_key already exists in the tree
+    new_key == pinsert_start->keys[found_index]. However, if new_key is not in the tree, then the return value is Node23::NotFoundIndex.
+ 2. pinsert_start will be the node where new_key was found, if it already exists in the tree; otherwise, it will be the leaf node where insertion should
+    begin.
+ 3. descent_indecies will hold the child branches take to descend to pinsert_start.
+
+ */
+
+template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_key, std::stack<int>& child_indecies, \
+                                                           typename tree23<Key, Value>::Node23 *&pinsert_start) const noexcept
+{
+   int found_index = Node23::NotFoundIndex;
+
+   pinsert_start = root.get();
+
+   while(1) { // Search for new_key until found or if we search a leaf node and didn't find the key.
+   
+      int child_index; 
+      
+      bool found = pinsert_start->NodeDescentSearch(new_key, found_index, child_index); 
+   
+      if (found || pinsert_start->isLeaf()) {
+          break;  
+   
+      } else { 
+          
+         child_indecies.push(child_index); // remember which child node branch we took. Note: If the node is a leaf, nothing will be pushed onto the stack. 
+         
+         pinsert_start = pinsert_start->children[child_index].get();
+      }
+   }
+
+   return found_index;
+}
+/*
+ Advances cursor next if key not found in current node. If found sets found_index.
+ */
+template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDescentSearch(Key new_key, int& found_index, Node23 *next) noexcept
+{
+  for(auto i = 0; i < totalItems; ++i) {
+
+     if (new_key < keys_values[i].key) {
+            
+         next = children[i].get(); 
+         return false;
+
+     } else if (keys_values[i].key == new_key) {
+
+         found_index = i;
+         return true;
+     }
+  }
+
+  // It must be greater than the last key (because it is not less than or equal to it).
+  next = children[totalItems].get(); 
+
+  return false;
+}
+/*
+ Advances cursor next if key not found in current node. If found sets found_index.
+ */
+template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDescentSearch(Key new_key, int& found_index, int& next_child_index) noexcept
+{
+  for(auto i = 0; i < totalItems; ++i) {
+
+     if (new_key < keys_values[i].key) {
+            
+         next_child_index = i; 
+         return false;
+
+     } else if (keys_values[i].key == new_key) {
+
+         found_index = i;
+         return true;
+     }
+  }
+
+  // It must be greater than the last key (because it is not less than or equal to it). 
+  next_child_index = totalItems;  // 
+
+  return false;
+}
+/*
+Pseudo code: From:  http://staff.columbiacollege.bc.ca/neng/CSC%20225/Chapter19-BalancedSearchTrees.ppt
+and http://algs4.cs.princeton.edu/33balanced/
+
+Parameters:
+
+1. child_indecies holds the indecies use by the 4-node constructor
+
+    Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, std::unique_ptr<Node23> heap_2node)
+
+where child_child is such that
+
+    p3node->children[child_index].get() == "the prior 3-node into which a value was inserted."
+
+It is now a 2-node holding the smallest value of its paralell 4-node, node4.keys_values[0].key.
+ 
+2. heap_2node is either nullptr or a newly allocated 2-node created in a prior call to split(). On the initial call it will hold nullptr
+   and will not be used.  
+
+Algorithm overview:
+
+split() is a recursive method. It terrminates when a 2-node is encountered, or a 3-node root is eventually split, causing the tree to grow upward
+one level.  We split a 3-node by creating a 4-node on the stack. It holds both the 3-node's keys and values and the new key and value inserted. If
+p3node is a leaf, node4's children are all nullptrs. If p3node is an internal node, we pop its child index from the child_indecies stack<in>. "child
+index" is the index such that 
+  
+    p3node->children[child_index].get() == "the previous level's 3-node that was just processed by split into which a new key and value were also
+                                            inserted."
+   
+After creating the 4-node, we "split" it into two 2-nodes:  
+
+  1. We convert the 3-node p3node into a 2-node holding only node4.keys_values[0].key and node4.keys_values[0].value, and whose children were the
+     two left most children of node4.
+
+  2. We create a new 2-node on the heap holding node4.keys_values[2].key and node4.keys_values[2].value, and whose children were the two right most
+     children of node4.
+
+Next, we attempt to insert keys_values[1].key, the middle value, in the parent. If the parent is a 2-node, this works: we convert it to a 3-node and connect the heap_2node child,
+and we are done. If the parent is a 3-node, we recurse, which may ulimately result in splitting the root, creating a new node above the current root.
+
+ split(Node23 *pnode, Key new_key, const Value& new_value)
+ {
+     if (pnode is the root) 
+        Create a new node p and insert the item
+        return
+     else 
+        Let p be the parent of p3node
+     
+       Create a 4-node node4 on the stack representing the inserted key and value and transferred ownership of pnode's three children. 
+ 
+       From the 4-node create two nodes n1 and n2, so that p is the parent.
+ 
+       Downsize p3node from a 3-node to a 2-node. It will hold the smallest key in node4.
+       Give n2 the item  wth the large value in node4. n2 is allocated on the heap.
+ 
+       Connect the two left most children of node4 to n1
+       Connect the two right most children of node4 to n2
+     
+       Move the item with the middle value in p4node up to p
+ 
+       if (p now has three items) {
+ 
+          split(p);
+       }
+ }
+*/
+template<class Key, class Value> void tree23<Key, Value>::split(Node23 *p3node, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
+    std::unique_ptr<Node23> heap_2node)  noexcept
+{
+  // get the actual parent              
+  Node23 *parent = p3node->parent;
+  
+  // Debug only next line:
+  Node23 *pheap_2node = heap_2node.get(); // debug-only line?
+      
+  // Create 4-node on stack that will aid in splitting the 3-node that receives new_key (and new_value).
+  Node4 node4;
+
+  int child_index;
+ 
+  if (p3node->isLeaf()) { // p3node->isLeaf() if and only if heap_2node == nullptr
+
+      node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
+
+  } else { // It is an internal leaf, so we need to get its child_index such that:
+           // p3node == p3node->parent->children[child_index].
+
+      child_index = child_indecies.top();
+      child_indecies.pop();
+
+      node4 = Node4{p3node, new_key, new_value, child_index, std::move(heap_2node)}; 
+  }
+   
+  /* 
+     Next we check if the 3-node, p3node, is the root. If so, we create a new top level Node23 and make it the new root.
+     If not, we use node4 to 
+    
+      1.) We downsize p3node to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
+          children of node4 as the two children of p3node. The code to do this is
+    
+             p3node->convertTo2Node(node4); 
+    
+      2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.keys_values[2]. Its two children will be the
+          two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input.
+
+          std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+   */
+  p3node->convertTo2Node(node4); 
+
+  // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key, and whose children are the two right most children of node4
+  //    the children of p3node. This is what the Node23 constructor that takes a Node4 does.
+  std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+  
+  if (p3node == root.get()) {
+
+       // We pass node4.keys_values[1].key and node4.keys_values[1].value as the key and value for the new root.
+       // p3node == root.get(), and p3node is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key.
+        
+       CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
+
+  } else if (parent->isTwoNode()) { // Since p3node is not the root, it has a parent that is an internal node. We check if is a 2-node.
+
+      // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
+      parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
+
+  } else { // parent is a 3-node, so we recurse.
+
+     // parent now has three items, so we can't insert the middle item. We recurse to split it.
+     split(parent, node4.keys_values[1].key, new_value, child_indecies, std::move(larger_2node)); 
+  } 
+
+  return;
+}
+
+/*
+  Requires: currentRoot is the root. tree::root was moved to the parameter currentRoot by the caller. currentRoot has been down sized to a 2-node.
+            rightChild is a heap allocated 2-node unique_ptr<Node23> holding the largest key (and its associated value) in the formerly 3-node root.   
+            new_key is such that pCurrentRoot->keys_values[0].key < new_key < leftChild->keys_values[0].key, and will be added above the current root, growing the tree upward
+            one level. 
+  Promises: A new root is added growing the tree upward one level.
+ */
+template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node23> currentRoot, \
+                  std::unique_ptr<Node23> rightChild) noexcept
+{
+   // 1. create new root node.
+   std::unique_ptr<Node23> new_root = std::make_unique<Node23>(new_key, new_value);
+
+   //2. Release the current root, so that it does not inadvertanely get deleted during a move(). It will be the leftChild or new_root.
+   std::unique_ptr<Node23> leftChild { currentRoot.release() };
+ 
+   //3. connect left and right children.
+   new_root->connectChild(0, std::move(leftChild));
+   new_root->connectChild(1, std::move(rightChild));
+
+   //4. Make new_root the actual root.
+   root = std::move(new_root);
+
+   //5. increase tree's height
+   ++height;
+    
+  // DEBUG
+  /*
+  std::cout << "Doing printlevelOrder after splitting of the root. Should see at least two levels to tree\n";
+  printlevelOrder(std::cout);
+  std::cout << std::flush; 
+  */ 
+}
+
+/*
+  This method converts a 3-node into a 2-node
+  Note: parent node is already correct and does not need to be set.
+*/
+template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo2Node(Node4& node4) noexcept
+{ 
+  keys_values[0] = std::move(node4.keys_values[0]);
+
+  totalItems = Node23::TwoNodeItems; 
+
+  // Take ownership of the two left most children of node4 
+  connectChild(0, std::move(node4.children[0]));
+  connectChild(1, std::move(node4.children[1]));
+} 
+/*
+ Requires: this must be a 2-node
+ Promises: creates a 3-node.
+ */
+template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo3Node(Key new_key, const Value& new_value, std::unique_ptr<Node23> newChild) noexcept
+{ 
+  if (keys_values[0].key > new_key) {
+
+      keys_values[1] = std::move(keys_values[0]);  
+
+      keys_values[0].key = new_key;
+      keys_values[0].value = new_value; 
+
+  } else {
+
+      keys_values[1].key = new_key;
+      keys_values[1].value = new_value;
+
+      // Note: This tells us that newChild will be the right most child, and the existing children do not need to move.
+  }
+
+  // Determine where newChild should be inserted.
+  int child_index = 0;
+
+  for (; child_index < Node23::TwoNodeChildren; ++child_index) {
+       
+       if (newChild->keys_values[0].key < children[child_index]->keys_values[0].key) { // Do I need to worry about children[child_index]->keys_values[1].key ever?
+           break;
+       }
+  }
+
+  if (child_index == Node23::TwoNodeChildren) {
+       child_index = 2; 
+  }
+
+  // shift children to right as needed 
+  for (auto i = Node23::TwoNodeChildren - 1; i >= child_index; --i) {
+
+        connectChild(i + 1, std::move(children[i]));
+  }
+  // insert newChild
+  connectChild(child_index, std::move(newChild));
+
+  totalItems = Node23::ThreeNodeItems; 
+} 
+
+template<class Key, class Value> void  tree23<Key, Value>::Node23::connectChild(int childIndex, std::unique_ptr<typename tree23<Key, Value>::Node23> child) noexcept 
+{
+  children[childIndex] = std::move(child); 
+  
+  if (children[childIndex] != nullptr) { 
+
+       children[childIndex]->parent = this; 
+  }
+}
+
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::connectChild(std::unique_ptr<typename tree23<Key, Value>::Node23>& dest,\
+                                                                                     std::unique_ptr<typename tree23<Key, Value>::Node23> src) noexcept 
+{  
+  dest = std::move(src); 
+  
+  if (dest != nullptr) { 
+
+      dest->parent = this; 
+  }
+}            
+
+/*
+ Requires: this is a 2-node leaf
+ Promises: To insert key in the right position
+ */
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertKeyInLeaf(Key key, const Value& new_value)
+{
+   if (key < keys_values[0].key) {
+
+       keys_values[1]= std::move(keys_values[0]);
+
+       keys_values[0].key = key;
+       keys_values[0].value = new_value;
+
+   } else { // key > keys_values[0].key
+
+       keys_values[1].key = key;
+       keys_values[1].value = new_value;  
+   }
+
+   ++totalItems;
+   return;
+}
+/*
+  Requires: this is a 2-node, ie, this->totalItems == Node23::TwoNodeItems
+  rvalue or universal reference version.
+ */
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertKeyInLeaf(Key key, Value&& new_value)
+{
+   if (key < keys_values[0].key) {
+
+       keys_values[1] = std::move(keys_values[0]); 
+
+       keys_values[0].key = key;
+       keys_values[0].value = std::move(new_value);
+
+   } else { // key > keys_values[0].key
+
+       keys_values[1].key = key;
+       keys_values[1].value = std::move(new_value);  
+   }
+
+   totalItems = Node23::ThreeNodeItems; 
+   return;
+}
+/*
+ remove pseudo code:
+
+ If key does not exist
+    return
+ else
+    save its node pointer and the index within keys[].
+
+ If it is an internal node
+    swap the key with the key's in order successor's, which will always be in a leaf. Thus deletion always starts at a leaf node.
+    
+ delete swapped key from leaf node 
+
+ if leaf is now empty
+     fixTree(empty_leaf_node)  
+
+ Comment: A a stack of indecies records the route taken descending.
+ */
+template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
+{
+  if (isEmpty()) {
+
+     return;
+  }
+
+  std::stack<int> descent_indecies; 
+
+  int found_index = Node23::NotFoundIndex;
+  
+  Node23 *premove_start = findRemovalStartNode(key, descent_indecies, found_index);
+
+  if (premove_start == nullptr) return;
+
+  Node23 *pLeaf;
+ 
+  if (!premove_start->isLeaf()) { // If it is an internal node...
+
+      // ...get its in order successor, which will be keys_values[0].key of a leaf node.
+      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+          
+      /*  
+       * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
+       * keys_values[0].key.
+       */
+      std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
+        
+  } else { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+      
+      pLeaf = premove_start;
+  } 
+  
+  pLeaf->removeLeafKey(key); // remove key from leaf         
+  
+  // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
+  if (pLeaf->isEmpty()) { 
+      
+      fixTree(pLeaf, descent_indecies);  
+  }
+
+  return;
+}
+/*
+ * Assume tree is not empty. root is not nullptr.
+ */ 
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tree23<Key, Value>::findRemovalStartNode(Key key, std::stack<int>& child_indecies,\
+                                                                                                                 int& found_index) const noexcept
+{
+    
+  found_index = Node23::NotFoundIndex;
+  Node23 *premove_start = root.get();
+  
+  while(1) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
+
+    int child_index; 
+    
+    bool found = premove_start->NodeDescentSearch(key, found_index, child_index); 
+
+    if (found) {
+
+        break;  
+
+    } else if (premove_start->isLeaf()) {
+
+        return nullptr;
+
+    } else {  // continue looking...
+        
+       child_indecies.push(child_index); // ...remembering which child node branch we took.
+
+       premove_start = premove_start->children[child_index].get();
+    }
+  }  
+
+  return premove_start;
+}
+/*
+ Finds the in order successor of pnode, which must be an internal node.
+ 
+ Input:
+ 1. pnode must be an internal node.
+ 2. found_index is the index of the key being removed within pnode->keys[]
+ 3. child_indecies is the stack of indecies into keys[] tracing the descent to the internal node pnode. 
+
+ Output:
+ 1. pointer to leaf node of in order successor
+ 2. child_indecies traces the descent route to the in order successor.
+*/
+
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::getSuccessor(Node23 *pnode, int found_index, \
+                                                                                                  std::stack<int>& child_indecies) const noexcept
+{
+  int child_index = found_index + 1;
+
+  child_indecies.push(child_index);
+
+  pnode = pnode->children[child_index].get();
+
+  child_index = 0;
+
+  while(!pnode->isLeaf()) {
+       
+      child_indecies.push(child_index);
+      pnode = pnode->children[child_index].get();
+  }
+  
+  return pnode;
+}
+/*
+ Requires: Called only by a leaf not. 
+ */
+template<class Key, class Value> inline void tree23<Key, Value>::Node23::removeLeafKey(Key key) noexcept
+{
+  
+  if (isThreeNode() && key == keys_values[0].key) {
+
+      keys_values[0] = std::move(keys_values[1]);   // removes keys_values[0].key
+      
+  }  // ...otherwise, we don't need to overwrite keys_values[0].key; we just decrease totalItems. 
+
+  --totalItems;
+}
+/*
+ Overview
+ ======== 
+ fixTree is called when a node has become empty, and the tree needs to be rebalanced. It is initially called when a leaf node becomes empty. It first attempts
+ to barrow a key from a 3-node sibling. silbingHasTwoItems() is called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(), which will supply a
+ remove a key/value from sibling, and then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
+
+ If no adjacent sibling is a 3-node, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
+ sibling. Upon return, pnode is deleted from the tree by a calling to unique_ptr<Node23>::reset().  
+
+ If the parent of pnode has now become empty (because merge2Nodes was called), a recursive call to fixTree is made.
+
+ Parameters
+ ==========
+ 1. pnode: an empty node, initially a leaf. During recursive calls, pnode is an empty internal 2-node with only one non-nullptr child.  
+ 2. child_index: The child index in the parent such that 
+
+       pnode->parent->children[child_index] == pnode 
+*/
+
+template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree23<Key, Value>::Node23 *pnode, std::stack<int>& descent_indecies) noexcept
+{
+  if (pnode == root.get()) {
+
+     // make the merged sibling the root.
+     reassignRoot(); // This decrease the tree height--I believe.
+
+     // delete the root and make its only non-empty child the new root.
+     return;
+  }
+
+  int child_index = descent_indecies.top();
+  descent_indecies.pop();
+
+  // case 1. If the empty node has a sibling with two keys, then we can shift keys and barrow a key for pnode from its parent. 
+  int sibling_index;
+
+  if (pnode->siblingHasTwoItems(child_index, sibling_index)) { 
+
+      barrowSiblingKey(pnode, child_index, sibling_index);
+     
+  } else  { // No sibling has two items, so we merge a key/value from pnode's parent with the appropriate sibling. 
+
+      Node23 *parent = pnode->parent;
+
+      //DEBUG START
+      
+       std::cout << "\ntest_invariant() called. mergeNodes() will be called.\n";
+       test_invariant();
+       std::cout << std::flush;
+       
+       //END DEBUG   
+
+      // child_index is such that: parent->children[child_index] == pnode
+
+      std::unique_ptr<Node23> node2Delete = mergeNodes(pnode, child_index); 
+
+      node2Delete.reset(); 
+
+       if (parent->isEmpty()) { 
+
+          //DEBUG START
+          
+          std::cout << "\n\nCalling test_invariant() after return from mergeNodes() because node's parent is now empty, too.\n" << std::endl;
+
+          test_invariant(); 
+          std::cout << std::flush;
+          
+          //DEBUG END     
+
+          // recurse. parent is an internal empty 2-node with only one non-nullptr child.
+          fixTree(parent, descent_indecies);
+      }
+  }   
+}
+// TODO: Does this method also need to adopt a sole child of the now empty root, as is done in barrowSilbingKey() and merge3NodeWith2Node()? 
+template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
+{
+   // case 1: If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
+   // node pointer.
+   // In the case that the root is a leaf node, we simply assign
+   if (root->isLeaf()){
+
+      root = nullptr;
+
+   } else {
+
+      root = std::move(root->getNonNullChild());  // recursive remove() case
+      root->parent = nullptr;   
+   }
+   
+   if (height > 0 ) {
+      --height;
+   }
+}
+
+/* Parameters 
+ * ==========
+ * 
+ *  1. node is the empty 2-node that needs a key/value.
+ *  2. child_index is such that node->parent->children[child_index] == node.
+ *  3. silbing_index is the sibling with two keys/values from which we barrow key/value.
+ *
+
+    Comments:
+    ---------
+    If the node parameter is not a leaf node, then barrowSiblingKey() was called during a recursive call to fixTree(), and node is an internal node.
+    A recursive call only occurs after a 2-node is merged with one of its 2-node children. Its other child was deleted from the tree in the previous
+    call to fixTree.  This means node has only one non-nullptr child, namely, the merged node created by merge2Nodes() in the prior call to fixTree(). 
+
+    Recursion can be checked by testing if node is a leaf node (as remove always starts with a leaf). If it is an internal node, this is a recursive call,
+    and we determine which child--0 or 1--is the non-nullptr child of node. This is done in the shiftChildrenXXX() routines. 
+ *
+ */                                                              
+template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node23 *node, int child_index, int sibling_index) noexcept
+{
+  Node23 *parent = node->parent; 
+  Node23 *sibling = parent->children[sibling_index].get();
+ // TODO: If node is an internal node, this implies fixTree has recursed, and node will have one non-nullptr child--right?
+ // Question: There if node is an internal node, doesn't its sole non-nullptr child need to adopted?
+ if (parent->isTwoNode()) {
+
+     // barrowSiblingKey keys and their associated values. 
+     node->keys_values[0] = std::move(parent->keys_values[0]);  
+
+     if (sibling_index < child_index) {  // sibling is to left of node
+
+        parent->keys_values[0] = std::move(sibling->keys_values[1]);
+
+     } else { // sibling is to the right
+
+        parent->keys_values[0] = std::move(sibling->keys_values[0]);
+
+        sibling->keys_values[0] = std::move(sibling->keys_values[1]);
+     } 
+
+     node->totalItems = Node23::TwoNodeItems;
+     sibling->totalItems = Node23::TwoNodeItems;
+
+     // Check if this is a recursive case or leaf node case. 
+     if (node->isLeaf()) return;
+
+     if (sibling_index < child_index) {  // If sibling is to left of node...
+
+         // ...detemine if the left child is the non-nullptr child, make it the right child; otherwise, 
+	 // leave it alone.
+         if (node->children[0] != nullptr) {
+ 
+            node->connectChild(1, std::move(node->children[0])); // Shift the non-nullptr child, the sole child of node, to be the right child of
+	                                                         // node.
+         }
+
+         node->connectChild(0, std::move(sibling->children[2])); // Make the left sibling's right child the left child of node. 
+
+     } else { // it is to the right of node
+
+	 // ...determine if the right child of node is the sole child. If so, make it the left child.    
+         if (node->children[1] != nullptr) {
+		 
+            // Shift the non-nullptr child, the sole child of node, to position 0.
+            node->connectChild(0, std::move(node->children[1]));
+         }   
+
+         node->connectChild(1, std::move(sibling->children[0])); // Make the right sibling's left child the right child of node.
+
+         // Shift its two right most children left one slot.
+         sibling->connectChild(0, std::move(sibling->children[1]));
+         sibling->connectChild(1, std::move(sibling->children[2]));
+     }
+
+  } else { // parent is a 3-node
+     // TODO: Double check the 3-node parent case code below. 
+     /*
+        Determine if there are two hops to the sibling from which we will barrow a key. Two hops can only occurs when child_index is 0, and the sibling_index is 2,
+        or vice versa. 
+      */
+
+        Node23 *middleChild = node->parent->children[1].get();
+
+        if (child_index == 0 && sibling_index == 2) {
+
+            // handles two hops left
+            node->keys_values[0] = std::move(parent->keys_values[0]);
+
+            node->totalItems = Node23::TwoNodeItems;
+
+            parent->keys_values[0]= std::move(middleChild->keys_values[0]);
+
+            middleChild->keys_values[0] = std::move(parent->keys_values[1]); 
+
+            parent->keys_values[1] = std::move(sibling->keys_values[0]);
+
+            sibling->keys_values[0] = std::move(sibling->keys_values[1]);              
+
+            sibling->totalItems = Node23::TwoNodeItems;
+
+            // Shift the children appropriately below.
+            shiftChildrenLeft(node, middleChild, sibling);
+            return;
+
+        } else if (child_index == 2 && sibling_index == 0) {
+
+            // handle two hops
+            node->keys_values[0] = std::move(parent->keys_values[1]);
+            node->totalItems = Node23::TwoNodeItems;
+
+            parent->keys_values[1]= std::move(middleChild->keys_values[0]);
+            middleChild->keys_values[0] = std::move(parent->keys_values[0]); 
+
+            parent->keys_values[0] = std::move(sibling->keys_values[1]);
+
+            sibling->totalItems = Node23::TwoNodeItems;
+
+            // Shift the children appropriately below.
+            shiftChildrenRight(node, middleChild, sibling);
+            return;
+        }  
+     
+     // All one hop causes are handled below, like this one hop example:     
+            /* 
+              (20,      40)            (30,     40)
+             /      |     \    ==>     /     |    \
+          Hole   (30,35)   50         20    35     50
+            |    /  | \    /\        / \   /  \    /\
+            C   29 32  37 60 70     C  29 32   37 60 70
+
+          where C is the sole child */
+
+     switch (sibling_index) { 
+
+        case 0:
+           
+           node->keys_values[0] = std::move(parent->keys_values[0]); 
+           parent->keys_values[0] = std::move(sibling->keys_values[1]); 
+           sibling->totalItems = Node23::TwoNodeItems;
+
+           shiftChildrenRight(node, sibling);
+           break;      
+
+         case 1: // If sibling_index == 1, then child_index == 0 or child_index == 2/ 
+
+           if (child_index == 0) {
+
+               node->keys_values[0] = std::move(parent->keys_values[0]); 
+               parent->keys_values[0] = std::move(sibling->keys_values[0]); 
+               
+               shiftChildrenLeft(node, sibling); 
+
+            } else { // child_index == 2
+
+               node->keys_values[0]= std::move(parent->keys_values[1]);  
+               parent->keys_values[1]= std::move(sibling->keys_values[1]); 
+               
+               shiftChildrenRight(node, sibling); 
+            }
+           
+            sibling->totalItems = Node23::TwoNodeItems;
+            break;
+
+         case 2: 
+
+           node->keys_values[0] = std::move(parent->keys_values[1]); 
+           parent->keys_values[1] = std::move(sibling->keys_values[0]); 
+           sibling->keys_values[0] = std::move(sibling->keys_values[1]);
+           sibling->totalItems = Node23::TwoNodeItems;
+           
+           shiftChildrenLeft(node, sibling); 
+           break;
+    }
+  }
+
+  node->totalItems = Node23::TwoNodeItems; 
+  sibling->totalItems = Node23::TwoNodeItems;
+  return;
+}
+/*
+ * Does shifting of children left for the one hop case
+ * Assumes node and sibling are not leaf nodes. Therefore this is a recurisve call to fixTree()
+ */
+template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node23 *node, Node23 *sibling) noexcept
+{
+  // If node is a leaf, then return.
+  if (node->isLeaf()) return;
+
+  // Determine which child of node is non-nullptr.
+  int sole_child = node->children[0] != nullptr ? 0 : 1;
+
+  // If sole_child is 1, then shift it left.
+  if (sole_child == 1) {
+
+      node->connectChild(0, std::move(node->children[1]));  
+   }
+
+   node->connectChild(1, std::move(sibling->children[0]));  
+
+   sibling->connectChild(0, std::move(sibling->children[1]));  
+   sibling->connectChild(1, std::move(sibling->children[2]));  
+}
+/*
+ * Does shifting of children right for the one hop case
+ * Assumes node and sibling are not leaf nodes. Therefore this is a recurisve call to fixTree()
+ */
+template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Node23 *node, Node23 *sibling) noexcept
+{
+  if (node->isLeaf()) return;
+
+  // Determine which child of node is non-nullptr.
+  int sole_child = node->children[0] != nullptr ? 0 : 1;
+
+  if (sole_child == 0) {
+
+     node->connectChild(1, std::move(node->children[0]));  
+  }
+
+  node->connectChild(0, std::move(sibling->children[2]));  
+}
+/*
+ * Does shifting of children left for the two hop case
+ * Assumes node and sibling are not leaf nodes. Therefore this is a recurisve call to fixTree()
+ */
+template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept
+{
+  if (node->isLeaf()) return;
+
+  // Determine which child of node is non-nullptr.
+  int sole_child = node->children[0] != nullptr ? 0 : 1;
+
+  // If sole_child is 1, then shift it left.
+  if (sole_child == 1) {
+
+      node->connectChild(0, std::move(node->children[1]));  
+   }
+
+   node->connectChild(1, std::move(middleChild->children[0]));
+
+   middleChild->connectChild(0, std::move(middleChild->children[1]));
+   middleChild->connectChild(1, std::move(sibling->children[0]));
+
+   sibling->connectChild(0, std::move(sibling->children[1]));
+   sibling->connectChild(1, std::move(sibling->children[2]));
+}
+/*
+ * Does shifting of children right for the two hop case
+ * Assumes node and sibling are not leaf nodes. Therefore this is a recurisve call to fixTree()
+ */
+template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept
+{
+  if (node->isLeaf()) return;
+
+  // Determine which child of node is non-nullptr.
+  int sole_child = node->children[0] != nullptr ? 0 : 1;
+
+  if (sole_child == 0) {
+
+     node->connectChild(1, std::move(node->children[0]));  
+  }
+
+  node->connectChild(0, std::move(middleChild->children[1]));
+
+  middleChild->connectChild(1 , std::move(middleChild->children[0]));
+  middleChild->connectChild(0 , std::move(sibling->children[2]));
+}
+/*
+ requires: 
+ 1. pnode is empty. 
+ 2. All siblings of pnode are 2-nodes. 
+ 3. child_index is such that: pnode == pnode->parent->children[child_index] 
+
+ Upon return: Either the parent is empty or the tree is rebalanced tree.
+ returns:  the std::unique_ptr<Node23> to be deleted.
+  
+ */
+template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node23> tree23<Key, Value>::mergeNodes(Node23 *pnode, int child_index) noexcept
+{
+  if (pnode->parent->isTwoNode()) { 
+      /* 
+         When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the sole parent key/value with
+         pnode's sibling, which is in pnode->parent->children[!child_index]. This leaves the parent empty, which we solve recursively,
+         by calling fixTree() again. 
+       */
+       return merge2Nodes(pnode, !child_index); 
+
+
+  } else { // parent is a 3-node, but has only 2-node children. 
+
+      /* 
+         In this case, we can successfully rebalance the tree. We merge one of the parent keys (and its associated value) with a sibling. This now makes the parent
+         into a 2-node. We move the effected children involved appropriately.  We can then safely delete pnode from the tree.
+         
+         There are three cases to consider in choosing which sibling to chose with which the parent will merge one of its keys( and the key's associated value). 
+       */
+
+    // The  "the sole child of the previously empty 2-node". In the recursive case, the previously empty node was a 2-node
+
+    // The line below if only needed if pnode is not a leaf, i.e., this is not a recursive case. 
+    std::unique_ptr<Node23> node2Delete = merge3NodeWith2Node(pnode, child_index);
+    return node2Delete;
+  }
+}
+/*
+ Overview
+ ========
+ 
+ Parameters:
+ 1. pnode is empty 2-node. If it is not a leaf node, it has one child, one subtree; the other child, when pnode is an internal node, is nullptr.
+ 2. child_index is such that pnode->parent->children[child_index] == pnode
+
+ Requires: The pnode->parent is a 3-node, and all pnode's siblings are 2-nodes.
+
+ Promises: Merges one of the keys/values of pnode->parent with one of pnode's 2-node siblings to rebalance the tree. It shifts the children of the
+ effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node (which only occurs during a recursive call to
+ fixTree()). 
+ 
+ */
+template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node23> \
+tree23<Key, Value>::merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept
+{
+    Node23 *parent = pnode->parent;
+
+    // If pnode is a leaf, then all children are nullptrs. soleChild is only needed when pnode is an internal node.
+    std::unique_ptr<Node23> soleChild = (!pnode->isLeaf()) ? std::move(pnode->getNonNullChild()) : nullptr; 
+
+    std::unique_ptr<Node23> node2Delete;
+
+    // TODO: In all three cases below, we are only moving the parent's grandchildren. We also need to move the immediate children of the
+    // parent.  The parent had three children. It needs to now only have two children. So we must move the 2nd and 3rd child left one 
+    // position.
+    switch (child_index) {// is the index of node in parent's children. It is not the sibling's index.
+         
+         case 0: 
+	 // pnode->parent->children[0].get() == pnode 
+         {
+          // First, move children[1]->keys_values[0] to children[1]->keys_values[1], then move parent's key_values[0] into children[1]->keys_values[0].
+          parent->children[1]->keys_values[1] = std::move(parent->children[1]->keys_values[0]); 
+          parent->children[1]->keys_values[0] = std::move(parent->keys_values[0]);
+
+          parent->keys_values[0] = std::move(parent->keys_values[1]);
+          
+          parent->children[1]->totalItems = Node23::ThreeNodeItems;
+          parent->totalItems = Node23::TwoNodeItems;
+
+          node2Delete = std::move(parent->children[0]); 
+
+          if (!parent->children[1]->isLeaf()) { // We need to shift the 2 right-most children (of the former 3-node) left since their
+		                               // parent is now a 2-node.
+	       // move children appropriately. This is the recursive case when pnode is an internal node.
+               parent->children[1]->connectChild(2, std::move(parent->children[1]->children[1])); 
+               parent->children[1]->connectChild(1, std::move(parent->children[1]->children[0])); 
+               parent->children[1]->connectChild(0, std::move(soleChild)); 
+	  }
+          
+          // Move the parent's children left one position so the parent has only two children.
+          parent->connectChild(0, std::move(parent->children[1]));
+          parent->connectChild(1, std::move(parent->children[2]));
+         }
+         break;  
+         
+         case 1:
+	 // pnode->parent->children[1].get() == pnode 
+         {
+          // First, move parent's key_values[0] into children[0]->keys_values[1], then move parent's keys_values[1] to keys_values[0].
+          parent->children[0]->keys_values[1] = std::move(parent->keys_values[0]);
+          parent->keys_values[0] = std::move(parent->keys_values[1]);
+
+          parent->children[0]->totalItems = Node23::ThreeNodeItems;
+          parent->totalItems = Node23::TwoNodeItems;
+
+          node2Delete = std::move(parent->children[1]); 
+
+          if (!parent->children[0]->isLeaf()) {// We still need to shift the children[2] to be children[1] because its parent is now a 2-node.		  
+
+	      // This is the recursive case when pnode is an internal node. We move the sole child of the empty node to the parent's first child,
+	      // making it the 3rd child. 
+              parent->children[0]->connectChild(2, std::move(soleChild)); 
+	  }
+          // Move the parent's right children one position left, so the parent has only two children.
+          parent->connectChild(1, std::move(parent->children[2]));
+         } 
+         break;  
+         
+         case 2:
+	 // pnode->parent->children[2].get() == pnode 
+         {
+          // Move parent's key_values[1] into children[1]->keys_values[1].
+          parent->children[1]->keys_values[1] = std::move(parent->keys_values[1]);
+
+          parent->children[1]->totalItems = Node23::ThreeNodeItems;
+          parent->totalItems = Node23::TwoNodeItems;
+    
+          node2Delete = std::move(parent->children[2]); 
+
+          if (!parent->children[1]->isLeaf()) {// If it is a leaf, we don't need to shift the existing children of children[1] because there is no "gap"
+                                               // to fill.
+
+             // Adopt sole child of pnode.  This is the recursive case when pnode is an internal node.
+             parent->children[1]->connectChild(2,  std::move(soleChild)); 
+          }
+         // We do not need to move any children of the parent. The third child is node2Delete, which the caller will delete, setting
+         // the third child to nullptr.
+         }
+         break;  
+    }
+
+    return node2Delete;
+}
+/*
+
+requires
+1. pnode is an empty 2-node, and its parent is a 2-node. 
+2. sibling_index is the index of pnode's sibling in parent->children[].
+
+overview:
+
+Its sibling will accept its parent's key and associated value.
+
+promises:
+1. the sibling of pnode will accept the parent's key and associated value, and it will adopt, if pnode is not a leaf, the sole non-empty
+   child of pnode.
+2. parent will become empty, too.
+ */
+template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Value>::Node23> tree23<Key, Value>::merge2Nodes(Node23 *pnode, int sibling_index) noexcept
+{
+  Node23 *parent = pnode->parent;
+   
+  Node23 *sibling = parent->children[sibling_index].get();
+
+  std::unique_ptr<Node23> node2Delete = std::move(parent->children[!sibling_index]); 
+
+  if (sibling_index == 1) { // sibling is right child.
+
+      sibling->keys_values[1] = std::move(sibling->keys_values[0]);
+      sibling->keys_values[0] = std::move(parent->keys_values[0]);
+
+  } else { // sibling is the left child.
+
+      sibling->keys_values[1] = std::move(parent->keys_values[0]);
+  } 
+
+  parent->totalItems = 0;
+  
+  sibling->totalItems = Node23::ThreeNodeItems;
+
+  if (sibling->isLeaf()) {
+
+      return node2Delete; 
+  } 
+
+  // Recursive case: we adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
+  std::unique_ptr<Node23>& nonemptyChild = pnode->getNonNullChild();
+
+  // Is sibling to the left? 
+  if (sibling_index == 0) {
+        
+      sibling->connectChild(2, std::move(nonemptyChild));    
+
+  } else { // no, it is to the right.
+
+      sibling->connectChild(2, std::move(sibling->children[1]));
+      sibling->connectChild(1, std::move(sibling->children[0]));
+      sibling->connectChild(0, std::move(nonemptyChild));    
+  }
+
+  return node2Delete;
+}
+/* rvalue version  TODO: finish later
+template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
+{
+  int index;
+  if (root == nullptr) {
+      return;
+  }
+  Node23 *pleaf = find(key, index, root.get()); // How do we determine if it wasn't in tree? Should I return pair<bool, Node23 *>.
+  if (!pleaf->isLeaf()) {
+       return;  // already exists.
+  }
+  // Further test that it is not in the leaf
+}
+*/
+
+/* External iterator code
+   TODO: finish later
+template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() 
+{
+   if (current == nullptr) {
+       return *this;
+   }
+   
+}
+template<class Key, class Value>  tree23<Key, Value>::iterator::advance() 
+{
+  // in order traversal using stack.
   // Since the tree is always balanced, it is sufficient to check just one p
   if (p == nullptr) {
 	return;
   }
 	 
-  if (p->isThreeNode()) { // descend three node
-
+  if (p->isThreeNode()) { // Needed? descend three node
         traverse(f, p->children[0]);
-
-        f(p->keys[0]);
-
+        f(p->keys_values[0].key);
         traverse(f, p->children[1]);
-
-        f(p->keys[1]);
-
+        f(p->keys_values[1].key);
         traverse(f, p->children[2]);
-
-  } else { // descend two node
-
+  } else { // Needed? descend two node
         traverse(f, p->children[0]);
-
-        f(p->keys[0]);
-
-        traverse(f, p->children[2]);
+        f(p->keys_values[0].key);
+        traverse(f, p->children[1]);
   }
-}
-
-template<typename K> bool Tree23<K>::Search(K key, Node23 *&location)
-{
-    // make sure tree has at least one element    
-    if (root == nullptr) {
-    
-        location = nullptr;
-        return false;
-        
-    } else {
-          
-        return DoSearch(key, root, location);
-    }
-}   
-
-template<typename K>  bool Tree23<K>::DoSearch(K key, Node23 *current, Node23 *&location)
-{
-    bool bRc;
-    /*
-     * Is key in current?
-     */
-    if (current->keys[0] == key || (current->isThreeNode() && current->keys[1] == key)) {
-        
-	location = current;
-        return true; 
-                
-    } else if ((current->isLeafNode())) { 
-        
-        location = current;
-	return false; 
-     /*
-      *  Does current have two keys?
-      */ 
-    } else if (current->isThreeNode()){
-        
-        if (key < current->keys[0]) {
-            
-            bRc = DoSearch(key, current->children[0], location); 
-            
-        }  else if (key < current->keys[1]) {
-            
-            bRc = DoSearch(key, current->children[1], location); 
-            
-        } else {
-            
-            bRc = DoSearch(key, current->children[2], location); 
-        }
-      
-    } else { // ...or only one?
-        
-         if (key < current->keys[0]) {
-            
-            bRc = DoSearch(key, current->children[0], location); 
-            
-        }  else {
-            
-            bRc = DoSearch(key, current->children[2], location);  
-        }    
-    }
-
-    return bRc;
-}
-
-template<typename K> typename Tree23<K>::Node23 *Tree23<K>::insert(K key, Tree23<K>::Node23 *location)  throw(duplicatekey)
-{
-    // root case
-    if (root == nullptr) {
-
-         root = new Node23(key);
-	 return root;
-    } 
-
-    // Test that location is nullptr, which suggests the root, or if it truly is a leaf.
-    if (location == nullptr || !location->isLeafNode()) {
-        
-        Node23 *leaf; 
-        bool bRc = DoSearch(key, root, leaf); 
-	return insert(key, leaf);
-    }
-    
-    Node23 *result = nullptr;
-    
-    // If the leaf node is a two node, insert the key, and we are done.
-    if (!location->isThreeNode()) {
-        
-        result = location;             
-        
-        if (key > location->keys[0]) {
-            
-            location->keys[1] = key;
-            location->setThreeNode(true);
-            
-        } else if (key < location->keys[0]) {
-            
-            location->keys[1] = location->keys[0];
-            location->keys[0] = key;
-            location->setThreeNode(true);
-                    
-        } else {   
-            // throw duplication found. They are equal, so throw exception.
-            throw duplicatekey(); 
-        }
-        
-    } else {
-       
-        // ... else it is a three node and cannot contain three items, so split it into two two-nodes.
-        result = Split(location, key); 
-    }
-    
-    return result;
-}  
-
-/*
- * Some of the logic is the same. Just used a sheet a paper and work through a example by hand, using the pseudo code at
- * http://www.cs.ucr.edu/cs14/cs14_06win/slides/2-3_trees_covered.pdf
-
-split(Node23<K>* n, K new_key)
-{
- if (n is the root) {
-
-    create a new node p
-
- } else {
-
-    let p be the parent of n
- }
-
- Replace n with two nodes n1 and n2, so that p is their parent, giving n1 the smallest value
- and n2 the largest value. (Pass in Node34?)
- 
- if (n is not a leaf) {
-   // n had three children since it was a three node. One of its children was split in the prior call to split, so
-   // there are four children. 
-    
-	Make n1 the parent of the two leftmost children. 
-	Make n2 the parent of the two rightmost children. 
-  }
-
-  middle = be the item in n that has the middle value
-
-  if (adding middle to p would cause it to has three values)
-           split(p, middle)
-  else 
-	   add middle to p
-} 
-*/
-template<typename K> typename Tree23<K>::Node23* Tree23<K>::Split(Node23 *location, K new_key, Node23 *pLeftChildOfNewKey, Node23 *pRightChildOfNewKey)
-{
-    Node23* parent = nullptr;
-
-    bool isLeaf = location->isLeafNode();
-    bool bRootIsNew = false;
-    
-    if (location == root) { // This is one case: splitting the root.
-
-	parent = new Node23;
-        bRootIsNew = true;
-
-    } else  {
-        
-        parent = location->parent;
-    }    
-    
-    /*
-     We pass the current node, location, plus the middle value to the four node ctor. It automatically set the children[0], leftMiddleChild, rightMiddleChild, and the 
-     children[2]. We then build two two-nodes, one with the smallest value, which will have its children[0] and children[2] set to the four node's children[0] and 
-     leftMiddleChild, respectively; the other two node will contain the largest value in the four node, and it twill have children[0] and children[2] set to
-     leftMiddleChild and children[2], respectively. We will allocated smallest on the heap, and convert location, the original three node, to be largest.  
-    */ 
-    Node34 node34(location, new_key, pLeftChildOfNewKey, pRightChildOfNewKey); // defaults handles leaf node case. 
-    
-    Node23 *pSmallest = new Node23(node34[0], parent, node34.getChild(0), node34.getChild(1));
-
-    location->makeTwoNode(node34[2], parent, node34.getChild(2), node34.getChild(3));
-
-    Node23 *pLargest = location; 
-   
-    if (!isLeaf) { 
-        
-        // Make pSmallest the parent of the two leftmost children. 
-        node34.getChild(0)->parent  = pSmallest; 
-        node34.getChild(1)->parent  = pSmallest;
-
-	// Make pLargest the parent of the two rightmost children. 
-        node34.getChild(2)->parent  = pLargest; 
-        node34.getChild(3)->parent  = pLargest;
-    }
-
-    K middle = node34[1]; 
-
-    // add middle value to parent. But we must decide if a new root was allocated, to which we are adding the middle value.
-    if (bRootIsNew) { 
-  
-	// If we allocated a new root, then it is empty and it will be two node.
-	parent->keys[0] = middle;
-        parent->children[0] = pSmallest; 
-        parent->children[2] = pLargest; 
-        root = parent;
-
-    } else if (parent->isThreeNode()) { // if middle value would cause parent to have three values, then split it.
-
-	Split(parent, middle, pSmallest, pLargest);
-
-    } else { // otherwise it is a two node and can accept the middle value
-        
-        parent->setThreeNode(true); 
-        
-        // We compare middle to parent->keys[0]
-        if (middle < parent->keys[0]) {
-
-		parent->keys[1] = parent->keys[0];
-		parent->keys[0] = middle;
-		parent->children[0] = pSmallest; 
-		parent->children[1] = pLargest;
-                // Note: parent->children[2] does not need to be changed.
-
-        }  else { 
-
-		parent->keys[1] = middle;
-		parent->children[1] = pSmallest;
-		// parent->children[2] =  pLargest; This is redundant because pLargest is location, which already is the children[2].
-        }   
-    } 
-    
-    return parent; 
-}
-/*
- * pseudo code from: http://www.cs.ucr.edu/cs14/cs14_06win/slides/2-3_trees_covered.pdf
- *
- * if (node is not 0) {
- *
- *      if (item is not in leaf node) {  
- *
- *            swap item with in-order successor (always leaf)
- *            leafNode = new location of item to delete
-
- *       } else {
- *             leafNode = node  
- *       }
- *
- *       delete item from leaf  
- *            
- *       if (leafNode now contains no items) {
- *           fix(leafNode) // may need other parameters
- * }
- */
-template<typename K> bool Tree23<K>::remove(K key, Node23 *location)
-{
-  if (location == nullptr) {
-      
-        bool bFound = DoSearch(key, root, location); 
-
-        if (bFound == false) {
-
-           // if not found, do what?
-            return false;
-        } 
-        
-        bool bRc = remove(key, location);
-        return bRc;
-        
-      // check that key is in location; if not, return false?
-  } else if (key != location->keys[0] && key != location->keys[1]) {
-      
-       return false;
-  }
-
-  /*
-   * If item is not a leaf, swap item with inorder successor (always leaf)
-   */
-  Node23 *leafNode = nullptr;
-
-  bool isInternalNode = !location->isLeafNode();
-  
-  if (isInternalNode) { // internal node
-
-      // find in order successor
-      leafNode = FindNextLargest(key, location);
-          
-      /*  
-       * Swap value with in order successor node. The in order successor will always be
-       * keys[0].
-       */
-
-        std::swap(location->keys[0], leafNode->keys[0]);
-        
-  } else {
-      
-      leafNode = location;
-  }
-
-  // "delete" item from leafNode.
-
-  if (leafNode->isThreeNode()) { // Simply make three node into a two node to delete. 
-           
-       if (key == leafNode->keys[0]) {
-
-            leafNode->keys[0] = leafNode->keys[1];
-       }   
-       leafNode->setThreeNode(false);
-
-  } else { 
-         // leaf is empty two node.
-         fix(leafNode);
-  }
-  
-  return true;
-}
-/*
- *  Precondition: location is an internal node, not a leaf, and key is in the node.
- *  Returns: Node of in-order successor node, always a leaf. This nodes' keys[0] is the in-order successor to key.
- */
-template<typename K> typename Tree23<K>::Node23 *Tree23<K>::FindNextLargest(K key, Tree23<K>::Node23 *location)
-{
- Node23 *next = nullptr;
-
- // When this method is called, key will equal keys[0] or keys[1], and we must do a comparison.
- // We check if location is a three node and, if it is, we compare key to keys[0]. If equal, go down children[1].
- if (location->isThreeNode() && location->keys[0] == key) {
-   
-          next = location->children[1];
-   
- } else { 
- // If it is a two node, there is never a need to do a comparison. We always go down right child.  Likewise, if it is a three node and key
- // is not keys[0], go down right child (because it is equal to the keys[1]).
-   
-          next = location->children[2];
- } 
- // Continue down left branches until we encounter a leaf.
- while (!next->isLeafNode()) {
-     
-      next = next->children[0];
- }
- 
- return next;
-}
-/*
- * preconditions: node points to an empty node.
- * returns: true if it could successfully redistributed values; otherwise, returns false.
- */ 
-template<typename K> bool Tree23<K>::Redistribute(Node23 *node, int& situation)
-{ 
-bool bRc = true;
-Node23 *parent = node->parent;
-
-  if (parent->isThreeNode()) {
-
-    /* parent is three node. Look for a three node sibling. */
-    if (node == parent->children[0]) { // left
-
-         if (parent->children[1]->isThreeNode()) { // case 1
-            /* 
-              (20,      40)          (30,     40)
-             /      |     \    =>    /     |    \
-          Hole   (30,35)   50       20    35     50
-            |    /  | \    /\       |    / | \   /\
-            C   29 32  37 60 70     C  29 32 37 45 70
-             */
-              node->keys[0] = parent->keys[0]; 
-              parent->keys[0] = parent->children[1]->keys[0]; 
-              parent->children[1]->keys[0] = parent->children[1]->keys[1]; 
-              parent->children[1]->setThreeNode(false);
-
-              situation = 1;
-
-         } else if (parent->children[2]->isThreeNode()) {
-           /*
-               (10,  20)                  (15,  30)    
-              /    |    \          =>    /    |    \
-            Hole   15    (30, 40)      10    20     40 */
-
-              node->keys[0] = parent->keys[0]; 
-              parent->keys[0] = parent->children[1]->keys[0]; 
-              
-              parent->children[1]->keys[0] = parent->keys[1]; 
-              parent->keys[1] = parent->children[2]->keys[0];
-              parent->children[2]->keys[0] = parent->children[2]->keys[1]; 
-              parent->children[2]->setThreeNode(false);
-              situation = 2;
-
-         } else {
-	     bRc = false; 
-	 }
-
-    } else if (node == parent->children[1]) { // middle
-
-         if (parent->children[0]->isThreeNode()) {
-           /* 
-               (10, 20)                   (5, 20)
-              /    |  \             =>   /   |  \
-           (1, 5) Hole (30, 40)        1    10  (30, 40) */
-
-            node->keys[0] = parent->keys[0];
-            parent->keys[0] = parent->children[0]->keys[1];
-            parent->children[0]->setThreeNode(false);
-		
-            situation = 3;
-
-         } else if (parent->children[2]->isThreeNode()) {
-           /*
-              (10, 20)                 (10,  30)
-             /    |  \           =>    /    |   \
-           1     Hole  (30, 40)       1    20   40
-           */
-            node->keys[0] = parent->keys[1];
-            parent->keys[1] = parent->children[2]->keys[0];
-            parent->children[2]->setThreeNode(false);
-            
-            situation = 4;
-         } else {
-	   bRc = false;
-         } 
-
-    } else /*(node == parent->children[2])*/ {  //children[2] is the only case left 
-
-         if (parent->children[1]->isThreeNode()) {
-           /* We redistribute value of siblings, but we do not reassign here their children 
-              (10,       25)              (10,       19)
-             /       |     \       =>    /      |       \
-            5    (15, 19)   Hole        5       15       25     
-           / \    /  |  \    /         / \     / | \     /      
-          1   7  12 17  22  60        1   7  12  17 18  60       */
-              
-              node->keys[0] = parent->keys[1]; 
-              parent->keys[1] = parent->children[1]->keys[1]; 
-              parent->children[1]->setThreeNode(false);
-
-              situation = 5;
-
-         } else if (parent->children[0]->isThreeNode()) {
-
-           /*  Redistribute() redistributes node values but not their child. 
-           (20,       40)               (18,   30)   
-           /       |     \      =>     /     |   \   
-       (10, 18)   30     Hole        10     20    40 
-        /  | \    /  \    /         / | \   / \   /  
-       5  12  19 25  32  55        5  7 19 25 32 55      */
- 
-             node->keys[0] =  parent->keys[1];
-              parent->keys[1] = parent->children[1]->keys[0];
-              parent->children[1]->keys[0] =  parent->keys[0];
-              parent->keys[0] = parent->children[0]->keys[1];
-              parent->children[0]->setThreeNode(false);
-              situation = 6;
-
-         } else {
-	      bRc = false;
-         } 
-    } // end else 
-    
-  } else { // parent is a two node
-
-    if (parent->children[0] == node) {
-   
-        if (parent->children[2]->isThreeNode()) {    
-
-	      node->keys[0] = parent->keys[0];
-              parent->keys[0] = parent->children[2]->keys[0];
-              parent->children[2]->keys[0] = parent->children[2]->keys[1]; // Is this necessary if parent is a two node?
-              parent->children[2]->setThreeNode(false);  
-              situation = 7;
-              
-        }  else {
-
-	   bRc = false;	
-        }
-        
-     } else {  // node is children[2]
-        
-     
-        if (parent->children[0]->isThreeNode()) {    
-
-	      node->keys[0] = parent->keys[0];
-              parent->keys[0] = parent->children[0]->keys[1];
-              parent->children[2]->setThreeNode(false);  
-              situation = 8;
-
-        } else {
-	      bRc = false;	
-        } 
-    } 
-  }
-  return bRc;
-}
-
-/*
- * pseudo code base on: http://www.cs.mtsu.edu/~jhankins/files/3110/presentations/2-3Trees.ppt
- * similar pseudo code: http://www.cs.ucr.edu/cs14/cs14_06win/slides/2-3_trees_covered.pdf
- * Delete applet at: http://slady.net/java/bt/view.php applet for delete operation.
- *
-fix(Node23 *node, Node23 *pChildOfNode)
-{
- if (node is the root) {
-
-      delete root
-      set new root pointer to pChildOfNode 
-
- } else {
-
-     Let p be the parent of node
-
-     if ( some sibling of node has two items ) { 
-
-        redistribute the items appropriately among node, the sibling and the parent.
-
-        if (node is internal) { // See http://www.cs.mtsu.edu/~jhankins/files/3110/presentations/2-3Trees.ppt
-
-	   Move the appropriate child from sibling to node. What this means is, after we distribute values, if the node
-           is internal, some silbings, along with node, no longer have the proper parent because the values in the parent
-           have changed. 
-         }
-
-     } else {
-
-	  To merge nodes...
-
-          Choose an adjacent sibling s of node.
-          Bring the appropriate item down from p into s 
-
-          if (node is internal) {
-                Move node's child to s 
-          }
-
-          Remove node
-
-          if (p is now empty) {
-
-              fix(p, s)
-          }
-     }
 }
 */
-template<typename K> void Tree23<K>::fix(Node23 *node, Node23 *pChildOfNode)
-{
- if (node  == root) {
-      /* delete root */ 
-      delete root;
-      root = pChildOfNode; 
-
- } else {
-
-     Node23 *parent = node->parent;
-
-     int situation;
-  
-     // try to redistribute.. 
-     if (Redistribute(node, situation)) { 
-
-        // We could redistribute. If node is a internal node, we need to reassign the children appropriately among the siblings. 	   
-	if (!node->isLeafNode()) {  
-
-              ReassignChildren(node, pChildOfNode, situation);
-	 }
-
-     } else { // ...we could not redistribute because all siblings are two nodes, so we merge the parent with a sibling. 
-
-	 Node23 *pSibling;
-
-         Node23 *middleChild;
-         Node23 *Node23::*Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
-         int index;
-         //Node23 *Ptr2newParentOfChild; // Pointer to member variable (of type Node23 *)
-         bool parentIsEmpty = false; // If parent is a two node, it will be flagged empty after merge.
-
-	 /* Merge nodes by bringing down parent's value to sibling of node.  */ 
-                  
-          if (parent->isThreeNode()) {
-
-              if (parent->children[2] == node) {
-
-                  pSibling = parent->children[1]; 
-                  pSibling->keys[1] = parent->keys[1];
-
-                  middleChild = pSibling->children[2];
-		  //--Ptr2newParentOfChild = &(Node23::children[2]);
-		  index = 2;
-                  
-              } else if (parent->children[1] == node) {
-
-                  pSibling = parent->children[2]; 
-
-                  pSibling->keys[1] = pSibling->keys[0];
-                  pSibling->keys[0] = parent->keys[1];
-
-                  middleChild = pSibling->children[0];
-		  //--Ptr2newParentOfChild = &Node23::children[0];
-		  index = 0;
-
-              } else { // node is children[0]
-
-                  pSibling = parent->children[1]; 
-
-                  pSibling->keys[1] = pSibling->keys[0];
-                  pSibling->keys[0] = parent->keys[1];
-
-                  middleChild = pSibling->children[0];   
-		  //--Ptr2newParentOfChild = &(Node23::children[0]);
-		  index = 0;
-              } 
-
-              // parent is now a two node
-              parent->setThreeNode(false);
-
-          }  else { /* parent is a two node and its other child is a two node  */ 
-              
-                if (parent->children[2] == node) {
-
-		       pSibling = parent->children[0];
-
-                       pSibling->keys[1] = parent->keys[0];
-
-                       middleChild = pSibling->children[2];
-                       //--Ptr2newParentOfChild =  &Node23::children[2];
-                       index = 2;
-           
-                 } else {
-
-			pSibling = parent->children[2];
-
-	                pSibling->keys[1] = pSibling->keys[0];
-        	        pSibling->keys[0] = parent->keys[0];
-
-                        middleChild = pSibling->children[0];
-			//--Ptr2newParentOfChild = &(Node23::children[0]);
-			index = 0;
-                 }      
-
-                 parentIsEmpty = true;
-          } 
-
-          pSibling->setThreeNode(true);  
-
-	  if (!node->isLeafNode()) {
-	           
-              pSibling->children[1] =  middleChild;
-              
-              // Move node's child pChildOfNode to sibling 
-	      //--pSibling->*Ptr2newParentOfChild  =  pChildOfNode;
-	      pSibling->children[index] =  pChildOfNode;
-	  }
-
-	  // Remove node...
-	  delete node;
-
-	  if (parentIsEmpty) { 
-
-	      fix(parent, pSibling); 
-	  }
-     }
-   } // end main if/else
-}
-
-template<typename K> void Tree23<K>::ReassignChildren(Node23 *node, Node23* pChildOfNode, int situation)
-{
-    Node23 *parent = node->parent;
-    
-       switch (situation) {
-
-            case 1:
-            /*  Redistribute did (a). We must do (b)
-              (20,      40)    (a)   (30,     40)     (b)   (30,     40)        
-             /      |     \     =>   /     |    \     =>    /     |    \     
-          Hole   (30,35)   50       20    35     50        20    35    50      
-            |    /  | \    /\       |    / | \   /\        /\    / \   /\      
-            C   29 32  37 60 70     C  29 32 37 45 70     C 29 32  37 45 70 */
-                 node->children[0] = pChildOfNode;
-                 node->children[2] = parent->children[1]->children[0]; 
-                 parent->children[1]->children[0] = parent->children[1]->children[1]; 
-
-                 break;
-            case 2:
-
-           /*      (10,       20)     Redist.    (15,   30)                                                                                     
-                   /       |     \       =>     /     |    \                   (15,   30)   
-                 Hole     15    (30,40)        10    20     40      Reassign    /    |  \   
-                   |      / \    / | \          |    / \   / | \       =>     10   20     40                                                  
-                   5    12 17  32 35 70         5   12 17 32 35 70   Children / \   / \   / \                                                  
-                                                                             5  12 17 32 35 70      */                                                      
-                   node->children[0] = pChildOfNode;
-
-                   node->children[2] = parent->children[1]->children[0];
-
-                   parent->children[1]->children[0] = parent->children[1]->children[2];
-                   parent->children[1]->children[2] = parent->children[2]->children[0];
-                   parent->children[2]->children[0] = parent->children[2]->children[1]; 
-                   break;
-                   
-            case 3: 
-             
-
-           /* 
-               (10,  20)          Redist.     (10,  30)       Reassign  (10,    30)          
-              /     |  \             =>      /     |   \      Children  /     |   \         
-             7    Hole (30, 40)             7     20    40       =>    7     20    40  
-            / \     |   /  |  \            / \     |   / | \          / \    /\    / \
-           1   5   17  32 35  70          1   5   17  32 35  70      1   5 17  32 35  70 */
-
-            case 4: // case 4 is identical to case 3.
-              /*     (10,  20)          Redist.    (10,  30)       Reassign      (10,     30)  
-                   /    |    \             =>      /    |    \     Children      /      |   \      
-               (5,8)   Hole  (30, 40)         (5,8)    20    40      =>        (5,8)    20    40   
-              /  | \    |   /   |  \          /  | \    |   / | \              / | \    /\    / \  
-             1   7  9  17  32  35  70        1   7  9  17  32 35  70          1  7  9 17  32 35  70 */
-
-                    node->children[0] = pChildOfNode;
-                    node->children[2] = parent->children[2]->children[0];
-                    parent->children[2]->children[0] = parent->children[2]->children[1];
-                    break;
-
-            case 5:
-       /* We redistribute value of siblings, but we do not reassign here their children 
-          (10,       25)              (10,      19)    Reassign      (10,       19)
-         /       |     \       =>    /      |      \   Children     /      |       \                              
-        5    (15, 19)   Hole        5       15      25    =>       5       15       25     
-       / \    /  |  \    |         / \     / | \     |            / \     /  \     /  \    
-      1   7  12 17  22  60        1   7  12  17 18  60           1   7  12    17  22   60   */
-            
-                   // If the sole child of node is the children[0], move it to the children[2].
-                   node->children[2] = pChildOfNode;
-                   node->children[0] = parent->children[1]->children[2];
-                   parent->children[1]->children[2] = parent->children[1]->children[1];
-                   
-
-              case 6:
-
-       /*  Redistribute() redistributed node values (a) but did not reassign their childa(b)
-                  (20,       40)               (18,   30)           (18,    30)    
-                  /       |     \    Redist   /     |   \   Shift   /     |    \                
-              (10, 18)   30     Hole   =>   10     20    40   =>   10     20     40                         
-               /  | \    /  \    /    (a)  / | \   / \   /   (b)  /  \   / \    / \
-              5  12  19 25  32  55        5 12 19 25 32 55       5   12 19 25  32 55  
-              */
-
-                   // If the sole child of node is the children[0], move it to the children[2].
-                   node->children[2] = (node->children[0] = pChildOfNode) ? node->children[0] : node->children[2];
-
-                   node->children[0] = parent->children[1]->children[2];
-
-                   parent->children[1]->children[2] = parent->children[1]->children[0];
-                   parent->children[1]->children[0] = parent->children[0]->children[2];
-                   parent->children[0]->children[2] = parent->children[0]->children[1]; 
-                   break;
-
-            case 7:
-             /* parent is a two node and right Child is three node
-                    20                            30                    30
-                   /  \         Redistribute     /  \      Reassign    /   \               
-                Hole  (30, 40)     =>           20    40     =>       20     40    
-                  |    /  |  \                  |    / | \           / \    / \
-                  5  25  35  50                 5  25  35  50       5  25 35  50 */
-
-
-                  node->children[0] = pChildOfNode;
-                  node->children[2] = parent->children[2]->children[0]; 
-                  parent->children[2]->children[0] = parent->children[2]->children[1];
-                  break;
-
-
-            case 8: /* parent is a two node and right Child is three node
-                       50        After              40                        40        
-                      /   \      Redistribute      /   \      Reassign       /  \     
-                  (30, 40) Hole     =>           30     50       =>         30   50   
-                  /  |  \   |                   / | \    |    Children     / \   / \  
-                25  35  45  60                 25 35 45  60               25 35 45 60   */ 
-
-                  node->children[2] = pChildOfNode;
-                  node->children[0] = parent->children[0]->children[2]; 
-                  parent->children[0]->children[2] = parent->children[2]->children[1];
-                  break;
-       }
-}
-
-template<typename K> Tree23<K>::Node34::Node34(Node23 *threeNode, K new_key, Node23 *leftChildOfNewValue, Node23 *rightChildOfNewValue)
-{
-    //
-    // Sort to find keys[0], keys[1] and keys[2]. Assign child pointers appropriately.
-    //
-    if (new_key < threeNode->keys[0]) { // new_key is smallest value
-     	
- 	keys[0] = new_key;
- 	keys[1] = threeNode->keys[0];
- 	keys[2] = threeNode->keys[1];
-             		
-        children[0] = leftChildOfNewValue;
-        children[1] = rightChildOfNewValue;
-        children[2] = threeNode->children[1];
-     	children[3] = threeNode->children[2];
-
-     } else if (new_key > threeNode->keys[1]) { // new_key is largest value
-     
- 	keys[0] = threeNode->keys[0];
- 	keys[1] = threeNode->keys[1];
- 	keys[2] = new_key;
-     
-       children[0] = threeNode->children[0];
-       children[1] = threeNode->children[1];
-       children[2] = leftChildOfNewValue;
-       children[3] = rightChildOfNewValue;
-
-     } else { // new_key is the middle value
-     
- 	keys[0] = threeNode->keys[0];		    
- 	keys[1] = new_key;
- 	keys[2] = threeNode->keys[1];		    
-
-        children[0] = threeNode->children[0];
-        children[1] = leftChildOfNewValue;
-        children[2] = rightChildOfNewValue;
-     	children[3] = threeNode->children[2];
-     }
-}
-#endif	
+#endif

@@ -1,33 +1,19 @@
-Explanations of 2 3 Trees and their insertion and deletion algorithms
-=====================================================================
+Documentation
+-------------
 
-1. http://algs4.cs.princeton.edu/33balanced/
-2. http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf
-3. www-bcf.usc.edu/~dkempe/CS104/11-14.pdf
-4. http://cs.engr.uky.edu/~lewis/essays/algorithms/2-3trees/trees2-3.html
-5. www.cs.duke.edu/courses/cps100e/spring99/lects/sect1623treeH.pdf
-6. http://web.cs.ucla.edu/classes/spring04/cs32/lectures/t23tips.html
-
-Implementations
-===============
-
-1. Java implementation that uses arrays for keys and children: http://www.cs.nyu.edu/courses/summer04/G22.1170-001/2_3code_ofer.txt
+https://www.cs.usfca.edu/~galles/visualization/BTree.html lets you demo insert
+and delete.
 
 
-Notes on Reimplementation
-=========================
+remove()
+========
 
-1. Since ReassignChildren() is always called after Redistribute(), it doesn't make sense to have two separate routines. Redistribute() seems to do either a left
-or right rotation. Could I create leftRotate() and rightRotate() routines like a 2 3 4 tree? Could I also add similar helper methods to the 2 3 4 code:
-insertChild(), connectChild() and disconnectChild(). Can I use an array of child pointers in class Node23 rather than smallest-, middle, and largest-child.
-Currently, the code has a weird implementation in that Node23, if a 2-node, saves the right child in children[2] and not children[1]. This seems confusing.
+Test remove() further. All known bugs to date have been fixed, but more
+testing is needed.
+ 
+Question
+--------
 
-Of course, the 2 3 rotation logic may not be identical to the 2 3 4 code, as the 2 3 code also uses a 4 node in some cases. So any change would first require 
-understanding again what the 2 3 insertion code actually does.
+Does the value objects dtor need to be manually invoked:
 
-  
-2. The code could also be changed to use
-
-1. unique_ptr<Node23>
-2. array<K, 2> for the keys
-3. Possibly array<Node23*, 3> or array<unique_ptr<Mode23>, 3> for the children
+   object_instance.~ValueClassName();when a key is removed.

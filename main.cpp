@@ -1,68 +1,61 @@
-/* 
- * File:   main.cpp
- * Author: kurt
- *
- * Created on April 22, 2013, 6:56 PM
- */
-
 #include <cstdlib>
-//#include "include/new-tree23.h"
-#include "include/tree23.h"
-#include <iostream>
 #include <vector>
-#include <functional>
+#include <algorithm>
+#include <iterator>
+#include <exception>
+#include "include/tree23.h"
+#include "include/test.h"
 using namespace std;
-
 
 int main(int argc, char** argv) 
 {
-   
-    vector<int> v { 10, 20, 30, 40, 50 ,60, 70 , 80, 90, 37, 36, 35, 34 };
-    
-    int size = sizeof(v)/sizeof(int);
-    
-    Tree23<int> tree;
-        
-    Tree23<int>::Node *inserted_node = nullptr;
+  tree23<int, int> tree;
 
-    /* Build this tree:
+  vector<int> test_case {50, 39, 15, 65, 69, 150, 125, 20, 70, 100, 40, 34, 37, 30, 10, 33, 36, 38, 85, 90, 60, 35, 80, 89};
+  vector<int> v2;
 
-            (34,  40)
-           /    |    \
-         20    36    (60,80)  
-        / \    / \   /  | \
-       10 30 35 37 50 70  90 */
+  transform(test_case.begin(), test_case.end(), back_inserter(v2), [=](int element) { return element * -1; });
+
+  copy(v2.begin(), v2.end(), back_inserter(test_case));
+
+  random_shuffle(test_case.begin(), test_case.end());
+       
+  vector<int> base_case { 10, 20, 30, 40, 50, 60, 70 , 80, 90, 100, 39 };
+
+  // The last sub-vector combines all the others.
+  vector<vector<int>> other_cases { vector<int>{ 15 }, vector<int>{ 89, 85 }, vector<int>{ 69, 65 }, vector<int>{ 150, 125 } ,\
+
+  vector<int>{ 38, 37, 36, 35, 34, 33}, vector<int> { 15, 89, 85, 69, 65, 150, 125, 38, 37, 36, 35, 34, 33} };
+
+  cout << "\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nRemove Tests\n";
   
-    for(auto iter = v.begin(); iter != v.end(); ++iter) {
-        
-        inserted_node = tree.insert(*iter);
-    }
-      
-    /* lambda code fails to compile, be sure -std=c++11 is being used, or
-     * use 
-     *  void print_int(int x) { cout << x << ' '; }
-     *  //...snip
-     *  tree.traverse(print_int);
-     * instead.
-     */ 
-    tree.traverse([](int x){ cout << x << ' '; }); 
-            
-    tree.remove(10);
-     /* Leaves this tree:
+  for( const auto& append_vec : other_cases) {
 
-            (36,     60)
-          /      |    \
-         34      40    80  
-        / \      / \   / \
-  (20,30) 35    37 50 70  90 */
-         
-    
-   tree.remove(36);  
-   
-   tree.traverse([](int x){ cout << x << ' '; }); // This blows up because we do not have a proper tree.
-     
-   cout << "\n------------\n" << endl;
-   cout << endl;
+       vector<int> test_case {base_case};
+
+       auto key_break = test_case.size();
+
+       copy(append_vec.begin(), append_vec.end(), back_inserter(test_case));
+
+       random_shuffle(test_case.begin(), test_case.end());
+
+       cout << "Input to next case is: ";
+
+       copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
+
+       cout << endl;
+       
+       try {
+      
+            run_tests(other_cases, base_case, &test_remove, 39);
+              
+       } catch(std::exception& e) { 
+      
+           cerr << "An exception occured:\n" << e.what() << endl;
+       }
+       
+       cout << "\n================================" << endl; 
+   }
+
    return 0;
 }
-
