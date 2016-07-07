@@ -9,3 +9,5 @@ newtree23.h
 *.orig
 xxx.txt
 *.java
+*~
+.*~

@@ -1,21 +1,59 @@
+KeysValues
+----------
+
+Has a move constructor
+
+
+Node23
+------
+
 Insertion
 ---------
 
-Insertion begins at the root node where the search for the key terminated. If the leaf is a 2-node, we simply insert the new key and value into the leaf,
-and we are done. If it is a 3-node, we create a 4-node on the stack from the 3-node leaf and the new key. The 4-node ctor automatically sorts
-all three keys. We then "split" the 4-node into two 2-nodes: the smaller node holding the keys_values[0], the larger holding kyes_values[2].
+TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
+that is relies on the 4-node technique described by Sedgwich at <link here>
+
+Insertion begins at the leaf node where the search for the new key terminated. 
+
+<example>
 
 
-Only the large 2-node, however, is allocated from the heap. For the other, smaller 2-node we simply downsize the leaf node from a 3-node to a 2-node.
-This is done by the method ...
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create
+a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input. The 4-node ctor automatically sorts
+all three keys.
 
-<show code>
+<show 4-node ctor here>
 
-The 4-node constructor creates the heap-allocated 2-node.
+We then "split" the 4-node into two 2-nodes: the smaller node holding the keys_values[0], the larger holding kyes_values[2]. This is done in 
+split(...).
+
+<show split code here>
+
+
+The code to downsize the leaf node is the convertTo2Node
+
+<show convertTo2Node here>
+
+Only the large 2-node, however, is allocated from the heap. The other, smaller 2-node is simply the leaf node downsized from a 3-node to a 2-node.
+
+<show 3-node downsize method here>
+
+
+Next split() considers three cases...If the parent is a 2-node, we convert it to a 3-node. This rebalances the tree
+
+<show the convertTo3Node() method here>
+
+If the parent is an internal 3-node (as will be the case as long a the parent is not the root), we recurse by calling split() again, passing...
+
+[describe parameters passed to split() here...describe the use use of the descend stack as well
+
+Finally, there is one other case: when the parent is the root. In this case CreateNewRoot() is called.
+
+[describe CreateNewRoot here]
 
 
 
-<show the split() method here>
+
 
 
 
