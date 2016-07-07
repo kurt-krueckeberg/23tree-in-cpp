@@ -8,19 +8,26 @@ and delete.
 remove()
 ========
 
-Do the documentation for insertion, after doing the documentation for the nested classes. Use a working
-example and print out steps during insertion--or just use slides made using:
+Do the documentation for insertion, after doing the documentation for the
+nested classes. Use the working examples from the Walls and Mirrors ppt. Use
+its pseudo code with my modifications. Use its diagrams that illustrate the
+pseudo code. Also provide 4-node diagram of an insertion use case that
+illustrates all insertion use cases--recursive splits of 3-nodes, splitting
+the root, etc. For slides use eith dia or google drawing app or draw.io
 
-1. yEd
-2. Gliffy
-3. Inkscape
-4. libreoffice draw
-5. vym 
-6. lucidchart
- 
-Question
---------
+TODO
+----
 
-Does the value objects dtor need to be manually invoked:
+Double check this:
 
-   object_instance.~ValueClassName();when a key is removed.
+When 
+
+   node2Delete.reset();
+
+is called in fixTree(), it invokes the delete operator on the underlying raw
+Node23 pointer, which in term invokes the destructors for the members of
+Node23, which are 
+
+       std::array<KeyValue, 2> keys_values;
+
+This in turn invokes the destructor for each KeyValue within the std::array.
