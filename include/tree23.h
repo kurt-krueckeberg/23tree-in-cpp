@@ -1577,25 +1577,18 @@ template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_
    // 1. create new root node.
    std::unique_ptr<Node23> new_root = std::make_unique<Node23>(new_key, new_value);
 
-   //2. Release the current root, so that it does not inadvertanely get deleted during a move(). It will be the leftChild or new_root.
+   // 2. Release the current root, so that it does not inadvertanely get deleted during a move(). It will be the leftChild or new_root.
    std::unique_ptr<Node23> leftChild { currentRoot.release() };
  
-   //3. connect left and right children.
+   // 3. connect left and right children.
    new_root->connectChild(0, std::move(leftChild));
    new_root->connectChild(1, std::move(rightChild));
 
-   //4. Make new_root the actual root.
+   // 4. Make new_root the actual root.
    root = std::move(new_root);
 
-   //5. increase tree's height
+   // 5. increase tree's height
    ++height;
-    
-  // DEBUG
-  /*
-  std::cout << "Doing printlevelOrder after splitting of the root. Should see at least two levels to tree\n";
-  printlevelOrder(std::cout);
-  std::cout << std::flush; 
-  */ 
 }
 
 /*
@@ -1612,6 +1605,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo2Node
   connectChild(0, std::move(node4.children[0]));
   connectChild(1, std::move(node4.children[1]));
 } 
+
 /*
  Requires: this must be a 2-node
  Promises: creates a 3-node.
@@ -1965,8 +1959,8 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
 {
   Node23 *parent = node->parent; 
   Node23 *sibling = parent->children[sibling_index].get();
- // TODO: If node is an internal node, this implies fixTree has recursed, and node will have one non-nullptr child--right?
- // Question: There if node is an internal node, doesn't its sole non-nullptr child need to adopted?
+
+ // If node is an internal node, this implies fixTree() has recursed, and node will have only subtree, one non-nullptr child.
  if (parent->isTwoNode()) {
 
      // barrowSiblingKey keys and their associated values. 
@@ -2018,10 +2012,9 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
      }
 
   } else { // parent is a 3-node
-     // TODO: Double check the 3-node parent case code below. 
      /*
-        Determine if there are two hops to the sibling from which we will barrow a key. Two hops can only occurs when child_index is 0, and the sibling_index is 2,
-        or vice versa. 
+        First, determine if there are two hops to the sibling from which we will barrow a key. Two hops can only occurs when child_index is 0, and
+       	the sibling_index is 2, or vice versa. 
       */
 
         Node23 *middleChild = node->parent->children[1].get();
@@ -2210,7 +2203,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
   middleChild->connectChild(0 , std::move(sibling->children[2]));
 }
 /*
- requires: 
+ Requires: 
  1. pnode is empty. 
  2. All siblings of pnode are 2-nodes. 
  3. child_index is such that: pnode == pnode->parent->children[child_index] 
