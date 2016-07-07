@@ -9,8 +9,14 @@ remove()
 ========
 
 Do the documentation for insertion, after doing the documentation for the nested classes. Use a working
-example and print out steps during insertion--or just use slides made using Lucidchart or similar 
-software.
+example and print out steps during insertion--or just use slides made using:
+
+1. yEd
+2. Gliffy
+3. Inkscape
+4. libreoffice draw
+5. vym 
+6. lucidchart
  
 Question
 --------
