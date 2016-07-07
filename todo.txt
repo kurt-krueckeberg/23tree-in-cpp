@@ -8,8 +8,9 @@ and delete.
 remove()
 ========
 
-Test remove() further. All known bugs to date have been fixed, but more
-testing is needed.
+Do the documentation for insertion, after doing the documentation for the nested classes. Use a working
+example and print out steps during insertion--or just use slides made using Lucidchart or similar 
+software.
  
 Question
 --------

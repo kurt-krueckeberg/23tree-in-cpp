@@ -1,10 +1,16 @@
 KeysValues
 ----------
 
-Has a move constructor
+Has a move constructor to make it efficient.
 
 
-Node23
+Node23 nested class
+--------------------
+
+Node4 nested class
+------------------
+
+Search
 ------
 
 Insertion
@@ -58,4 +64,9 @@ Finally, there is one other case: when the parent is the root. In this case Crea
 
 
 The middle value from the 4-node is next pushed up to the parent node. If it is a 3-node 
+
+
+
+Deletion
+--------
 

@@ -1909,14 +1909,6 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
       Node23 *parent = pnode->parent;
 
-      //DEBUG START
-      
-       std::cout << "\ntest_invariant() called. mergeNodes() will be called.\n";
-       test_invariant();
-       std::cout << std::flush;
-       
-       //END DEBUG   
-
       // child_index is such that: parent->children[child_index] == pnode
 
       std::unique_ptr<Node23> node2Delete = mergeNodes(pnode, child_index); 
@@ -1925,33 +1917,24 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
        if (parent->isEmpty()) { 
 
-          //DEBUG START
-          
-          std::cout << "\n\nCalling test_invariant() after return from mergeNodes() because node's parent is now empty, too.\n" << std::endl;
-
-          test_invariant(); 
-          std::cout << std::flush;
-          
-          //DEBUG END     
-
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
       }
   }   
 }
-// TODO: Does this method also need to adopt a sole child of the now empty root, as is done in barrowSilbingKey() and merge3NodeWith2Node()? 
+
 template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
 {
-   // case 1: If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
-   // node pointer.
-   // In the case that the root is a leaf node, we simply assign
+   // case 1: The root is a leaf
    if (root->isLeaf()){
 
-      root = nullptr;
+      root = nullptr; // deletes the memory held by the unique_ptr<Node>.
 
    } else {
-
-      root = std::move(root->getNonNullChild());  // recursive remove() case
+   // case 2: recursive remove() case
+   // If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
+   // node pointer before doing the assignment.
+      root = std::move(root->getNonNullChild());  
       root->parent = nullptr;   
    }
    
