@@ -10,4 +10,4 @@ newtree23.h
 xxx.txt
 *.java
 *~
-.*~
+.*.un~
