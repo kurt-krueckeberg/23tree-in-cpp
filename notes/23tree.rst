@@ -245,7 +245,8 @@ Only the in order travesal algorithm is shown below
        }
     }
  
-There is also a level order traversal template method
+There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
+a `const Node23&` and an `int`, indicating the current level of the tree.
  
     template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
     {
@@ -299,20 +300,18 @@ Insertion
 TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
 that is relies on the 4-node technique described by Sedgwich at <link here>
 
-Insertion begins at the leaf node where the search for the new key terminated. As the tree is descended to the leaf, the branches taken at each node are pushed on
-`std::stack<int> child_indecies`, which is used if `split()` is called. 
+Insertion begins at the leaf node where the search for the new key terminated. As the tree is descended to the leaf, the index of child branches taken at
+each node are pushed on `std::stack<int> child_indecies`, which is later passed to `split()` should it be called. 
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input. The 4-node
-ctor automatically sorts all three keys.
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input.
+The 4-node coonstructor automatically sorts all three keys.  If the leaf node is a 3-node, we call split() to "split" the 4-node into two 2-nodes: the
+smaller node holding the keys_values[0], the larger holding kyes_values[2].
 
-If the leaf node is a 3-node, we create a 4-node on the stack. The 4-node constructor takes the 3-node leaf and the new key as input and places them in sorted order in
-its std::array<KeyValue, 3>. It sets its four children to be nullptr.
 
-<show 4-node ctor here>
+split()
++++++++
 
-<show 4-node ctor here>
-
-insert() then calls split() to "split" the 4-node into two 2-nodes: the smaller node holding the keys_values[0], the larger holding kyes_values[2]. 
+Parameters to split: the leaf node, the new key and its associated value, the stack of child indecies, and the rvalue `unique_ptr<Node23>{nullptr}`.
 
 .. code-block:: cpp
 
