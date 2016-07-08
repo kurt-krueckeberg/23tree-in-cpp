@@ -2,23 +2,25 @@
 
 .. role:: kurt-code
 
-Implementing a 2 3 Tree in C++
-===============================
+Implementing a 2 3 Tree in C++14
+================================
 
 2 3 Tree Discussions
 --------------------
 
-The C++ implementation below is based on the 2 3 Tree explanations at
+The following sources provide discuss 2 3 Trees: 
 
 1. `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_ 
 2. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
 3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
 4. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
 
+The insertion algorithm uses the 4-node technique discuss in #1. The delete algorithm is base on #2 and #3.
+
 Nested Class tree23<Key, Value>::KeyValue
 -------------------------------------------
 
-The key and value data is stored a class KeyValue, which has a move assignement and move constructor to improve the efficiency of the tree insertion
+The key and value are stored in a KeyValue, which has both a move assignement and move constructor to improve the efficiency of the tree insertion
 algorithm.
 
 .. code-block:: cpp 
@@ -46,8 +48,9 @@ algorithm.
 Node23 nested class
 --------------------
 
-The tree nodes are of `unique_ptr<Node23>`, where Node23 is a nested class, which contains two the two arrays `std::array<KeyValue, 2> keys_values` and
-`std::array<std::unique_ptr<Node23>, 3> children`.
+The tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two arrays: `std::array<KeyValue, 2> keys_values` and
+`std::array<std::unique_ptr<Node23>, 3> children`.  When Node23 represents a 2-node, the left subtree is `children[0]` and the right subtree is
+`children[1]`. When Node23 functions as a 3-node, `children[1]` is the middle subtree `children[2]` is the right subtree.
 
 .. code-block:: cpp 
  
@@ -131,23 +134,14 @@ The tree nodes are of `unique_ptr<Node23>`, where Node23 is a nested class, whic
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-When Node23 represents a 2-node, the left subtree is `children[0]` and the right subtree is `children[1]`. When Node23 functions as a 3-node, the middle
-subtree is `children[1]` and the right subtree is `children[2]`.
-
-The methods are self explanatory for the most part. To test where a node is a leaf node, isLeaf()
-
-.. code-block:: cpp
-
-    constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
-
-compares both children[0] and children[1] for nullptr. The reason is that during the deletion algorithm, a node might have only one subtree, and the other
-child may be nullptr.
-  
+The methods are the most part self explanatory. isLeaf() 
+`constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; }` compares both children[0] and
+children[1] for nullptr because during the deletion algorithm, a node might have only one subtree, with the other child being nullptr.
   
 Node4 nested class
 ------------------
 
-The nested Node4 class is used during the insertion algorithm
+The nested Node4 class is used to aid insertion of new keys.
 
 .. code-block:: cpp
 
@@ -193,10 +187,13 @@ The nested Node4 class is used during the insertion algorithm
             return node4.print(ostr); 
         }
     };
-
  
 Search
 ------
+ 
+ 
+Traversal
+---------
  
 Insertion
 ---------
