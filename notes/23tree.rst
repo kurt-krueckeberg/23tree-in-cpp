@@ -8,19 +8,19 @@ Implementing a 2 3 Tree in C++14
 2 3 Tree Discussions
 --------------------
 
-The following sources provide discuss 2 3 Trees: 
+The following sources discuss 2 3 Trees: 
 
 1. `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_ 
 2. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
 3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
 4. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
 
-The insertion algorithm uses the 4-node technique discuss in #1. The delete algorithm is base on #2 and #3.
+The insertion algorithm is based on the 4-node technique discussed in #1. The delete algorithm is based on #2 and #3.
 
 Nested Class tree23<Key, Value>::KeyValue
 -------------------------------------------
 
-The key and value are stored in a KeyValue, which has both a move assignement and move constructor to improve the efficiency of the tree insertion
+The key and value are stored in a KeyValue object. KeyValue has both a move assignement and move constructor to improve the efficiency of the tree insertion
 algorithm.
 
 .. code-block:: cpp 
@@ -48,9 +48,11 @@ algorithm.
 Node23 nested class
 --------------------
 
-The tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two arrays: `std::array<KeyValue, 2> keys_values` and
-`std::array<std::unique_ptr<Node23>, 3> children`.  When Node23 represents a 2-node, the left subtree is `children[0]` and the right subtree is
-`children[1]`. When Node23 functions as a 3-node, `children[1]` is the middle subtree `children[2]` is the right subtree.
+2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two stdLLarrays: `std::array<KeyValue, 2> keys_values` and
+`std::array<std::unique_ptr<Node23>, 3> children`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
+`children[0]` and the right subtree of larger keys is rooted at `children[1]`. When a Node23 represent a 3-node, `children[0]` is the left subtree, `children[1]` is the middle subtree
+containing keys greater than `keys_values[0].key` but less than `keys_values[2].key`, and `children[2]` is the right subtree containing all keys
+greater than `keys_values[2].key`.
 
 .. code-block:: cpp 
  
@@ -134,69 +136,48 @@ The tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class 
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-The methods are the most part self explanatory. isLeaf() 
-`constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; }` compares both children[0] and
-children[1] for nullptr because during the deletion algorithm, a node might have only one subtree, with the other child being nullptr.
+isLeaf() compares both children[0] and children[1] for nullptr. Both comparisons are needed because during the deletion algorithm, a node might have
+only one subtree, with the other child being set to nullptr.
   
 Node4 nested class
 ------------------
 
-The nested Node4 class is used to aid insertion of new keys.
+The nested Node4 class is used to aid insertion of new keys. Its constructor 
 
-.. code-block:: cpp
+<show here its ctor>
 
-    class Node4 { // Class Node4 is used during insert().
+automatically sorts the keys of a 3-node and a new key being insert into the 3-node. The Node4 is later "split" during `split(...)`.
 
-       // Always hold three keys and four children. 
-      friend class tree23<Key, Value>; 
-     
-      private:
-         std::array<KeyValue, 3> keys_values;
+test_invariant
+--------------
 
-         // Takes ownership of four 2 3-nodes 
-         std::array<std::unique_ptr<Node23>, 4> children; 
-
-         Node23 *parent; // Set to the parent of the 3-node passed to its constructor 
-
-         static const int FourNodeItems = 3;
-         static const int FourNodeChildren = 4;
-
-         void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
-                      
-    public: 
-        Node4() noexcept {}
-
-        /* Constructor that takes an internal 3-node */
-        Node4(Node23 *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
-
-        /* Constructor for a leaf node, all child pointers will be zero. */
-        Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept;
-
-        Node4& operator=(Node4&& lhs) noexcept;
-        Node4& operator=(const Node4& lhs) = delete;
-
-        const Key& operator[](int i) const noexcept { return keys_values[i].key; }  
-
-        std::ostream& print(std::ostream& ostr) const noexcept;
-        std::ostream& debug_print(std::ostream& ostr) const noexcept;
-
-        constexpr bool isLeaf() const noexcept { return (children[0] == nullptr) ? true : false; } 
-
-        friend std::ostream& operator<<(std::ostream& ostr, const Node4& node4) 
-        { 
-            return node4.print(ostr); 
-        }
-    };
+The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3-nodes, as well as the parent pointer in
+each node. Any violations result in a message following the display of the node's keys. It call severl `test_xxx_invariant()` methods of Node23.
  
 Search
 ------
+
+An iterative algorithm is used for search.
+
+<show search code>
  
  
 Traversal
 ---------
+
+Recursive algorithms are used to search in pre order, in order and post order. They are template methods that take a functor that overloads the function
+call operator.
+
+<show code>
+
+There is also a level order traversal teampltate methods
+
+<show code>
  
 Insertion
 ---------
+
+Make it short an sweet
  
 TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
 that is relies on the 4-node technique described by Sedgwich at <link here>

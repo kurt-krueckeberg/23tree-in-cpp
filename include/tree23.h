@@ -2216,25 +2216,21 @@ template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::No
 {
   if (pnode->parent->isTwoNode()) { 
       /* 
-         When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the sole parent key/value with
-         pnode's sibling, which is in pnode->parent->children[!child_index]. This leaves the parent empty, which we solve recursively,
-         by calling fixTree() again. 
+         When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
+         pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively by calling
+	 fixTree() again. 
        */
        return merge2Nodes(pnode, !child_index); 
 
 
-  } else { // parent is a 3-node, but has only 2-node children. 
+  } else { // 
 
       /* 
-         In this case, we can successfully rebalance the tree. We merge one of the parent keys (and its associated value) with a sibling. This now makes the parent
-         into a 2-node. We move the effected children involved appropriately.  We can then safely delete pnode from the tree.
-         
-         There are three cases to consider in choosing which sibling to chose with which the parent will merge one of its keys( and the key's associated value). 
+       * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
+       * its associated value) with a sibling. This now makes the parent a 2-node. We move the effected children involved appropriately.  We can then
+       * safely delete pnode from the tree.
        */
 
-    // The  "the sole child of the previously empty 2-node". In the recursive case, the previously empty node was a 2-node
-
-    // The line below if only needed if pnode is not a leaf, i.e., this is not a recursive case. 
     std::unique_ptr<Node23> node2Delete = merge3NodeWith2Node(pnode, child_index);
     return node2Delete;
   }
