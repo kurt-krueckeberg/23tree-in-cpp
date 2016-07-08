@@ -296,17 +296,19 @@ There is also a level order traversal template method
 Insertion
 ---------
     
- 
 TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
 that is relies on the 4-node technique described by Sedgwich at <link here>
 
-Insertion begins at the leaf node where the search for the new key terminates. 
+Insertion begins at the leaf node where the search for the new key terminated. As the tree is descended to the leaf, the branches taken at each node are pushed on
+`std::stack<int> child_indecies`, which is used if `split()` is called. 
 
-<example>
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input. The 4-node
+ctor automatically sorts all three keys.
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create
-a 4-node on the stack. The 4-node constructor takes the 3-node leaf and the new key as input and places them in sorted order in
+If the leaf node is a 3-node, we create a 4-node on the stack. The 4-node constructor takes the 3-node leaf and the new key as input and places them in sorted order in
 its std::array<KeyValue, 3>. It sets its four children to be nullptr.
+
+<show 4-node ctor here>
 
 <show 4-node ctor here>
 
