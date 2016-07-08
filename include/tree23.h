@@ -1196,12 +1196,11 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
         f(*current, current_tree_level);  
         
-        //--if (!current->isLeaf()) {
         if (current != nullptr && !current->isLeaf()) {
 
             if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily...
 
-                   //...when only and only one of the empty 2-nodes children will be nullptr. 
+                   //...when only and only one of the empty 2-node's children will be nullptr. 
                    queue.push( std::make_pair( (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1) ); 
                    queue.push( std::make_pair( (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1) ); 
 
@@ -1220,7 +1219,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
 template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
 {
-  if (root == nullptr) {
+  if (isEmpty()) {
       return false;
   }
 
@@ -1251,22 +1250,6 @@ template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) c
   }
 
   return false;
-/*
-  int found_index = Node23::NotFoundIndex;
-  Node23 *pnode; 
-  Node23 *next = root.get();
-
-  do { // Search for new_key until we encounter a leaf
-
-    pnode = next;
-
-    if (pnode->NodeDescentSearch(key, found_index, next)) 
-        return true;
-
-  } while (!pnode->isLeaf());
-
-  return false;
-*/
 }
 
 template<class Key, class Value> inline void tree23<Key, Value>::CreateRoot(Key key, const Value& value) noexcept

@@ -159,24 +159,138 @@ Search
 
 An iterative algorithm is used for search.
 
-<show search code>
+    template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
+    {
+      if (isEmpty()) {
+
+          return false;
+      }
+    
+      Node23 *current = root.get();
+    
+      while (current != nullptr) {
+          
+           auto totalItems = current->totalItems;   
+           auto i = 0;
+    
+           for(; i < totalItems; ++i) {
+    
+               if (key < current->keys_values[i].key) {
+    
+                    current = current->children[i].get();
+                    break;
+    
+               } else if (key == current->keys_values[i].key) {
+    
+                    return true;
+               } 
+           }
+    
+           if (i == totalItems) {
+    
+               current = current->children[totalItems].get(); // key > largest key
+           } 
+      }
+    
+      return false;
+    }
+     
+Traversal Algorithms
+--------------------
+
+Recursive algorithms are used to traverse the tree in pre order, in order and post order. Each is a template method that take a functor that overloads the function
+call operator, and each is an inline method that calls a private method to do the actual work. Only the in order travesal algorithm is show below
+
+.. code-block:: cpp
+
+
+    template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
+    {
+       DoInOrderTraverse(f, root);
+    }
+    
+    template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
+    {
+       if (current == nullptr) { // base case for recursion
+    
+          return;
+       }
+    
+       switch (current->getTotalItems()) {
+    
+          case 1: // two node
+                DoInOrderTraverse(f, current->children[0]);
+    
+                f(const_cast<const KeyValue&>(current->keys_values[0]));
+    
+                DoInOrderTraverse(f, current->children[1]);
+                break;
+    
+          case 2: // three node
+                DoInOrderTraverse(f, current->children[0]);
+    
+                f(const_cast<const KeyValue&>(current->keys_values[0]));
+    
+                DoInOrderTraverse(f, current->children[1]);
+     
+                f(const_cast<const KeyValue&>(current->keys_values[1]));
+    
+                DoInOrderTraverse(f, current->children[2]);
+                break;
+       }
+    }
  
+There is also a level order traversal template method
  
-Traversal
----------
-
-Recursive algorithms are used to search in pre order, in order and post order. They are template methods that take a functor that overloads the function
-call operator.
-
-<show code>
-
-There is also a level order traversal teampltate methods
-
-<show code>
- 
+    template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
+    {
+       std::queue< std::pair<const Node23*, int> > queue; 
+    
+       Node23 *proot = root.get();
+    
+       if (proot == nullptr) return;
+          
+       auto initial_level = 1; // initial, top level is 1, the root.
+       
+       // 1. pair.first  is: const tree<Key, Value>::Node23*
+       // 2. pair.second is: current level of tree.
+       queue.push(std::make_pair(proot, initial_level));
+    
+       while (!queue.empty()) {
+    
+            std::pair<const Node23 *, int> pair_ = queue.front();
+    
+            const tree23<Key, Value>::Node23 *current = pair_.first;
+    
+            int current_tree_level = pair_.second;
+    
+            f(*current, current_tree_level);  
+            
+            if (current != nullptr && !current->isLeaf()) {
+    
+                if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node can become empty temporarily...
+    
+                       //...when only and only one of the empty 2-node's children will be nullptr. 
+                       queue.push( std::make_pair( (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1) ); 
+                       queue.push( std::make_pair( (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1) ); 
+    
+	        } else {
+                
+                    for(auto i = 0; i < current->getChildCount(); ++i) {
+        
+                       queue.push(std::make_pair(current->children[i].get(), current_tree_level + 1));  
+                    }
+	        }
+            }
+    
+            queue.pop(); 
+       }
+    }
+    
+     
 Insertion
 ---------
-
+    
 Make it short an sweet
  
 TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
