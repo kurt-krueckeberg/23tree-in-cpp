@@ -199,7 +199,12 @@ Traversal Algorithms
 --------------------
 
 Recursive algorithms are used to traverse the tree in pre order, in order and post order. Each is a template method that take a functor that overloads the function
-call operator, and each is an inline method that calls a private method to do the actual work. Only the in order travesal algorithm is show below
+call operator, and each is an inline method that calls a private method to do the actual work. 
+
+The algorithm is nearly identical to the in order recursive algorithm for a binary tree except when a 3-node is encountered, when the middle child is 
+descended after the left child and before its right child. 
+
+Only the in order travesal algorithm is shown below
 
 .. code-block:: cpp
 
@@ -300,12 +305,11 @@ Insertion begins at the leaf node where the search for the new key terminated.
 
 <example>
 
-
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create
-a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input. The 4-node ctor automatically sorts
-all three keys.
+a 4-node on the stack. The 4-node constructor takes as input the 3-node leaf and the new key as input. It sorts all three keys.
 
 <show 4-node ctor here>
+
 
 We then "split" the 4-node into two 2-nodes: the smaller node holding the keys_values[0], the larger holding kyes_values[2]. This is done in 
 split(...).
@@ -329,6 +333,11 @@ Next split() considers three cases...If the parent is a 2-node, we convert it to
 If the parent is an internal 3-node (as will be the case as long a the parent is not the root), we recurse by calling split() again, passing...
 
 [describe parameters passed to split() here...describe the use use of the descend stack as well
+
+During split() recursion, if an internal node is a 3-node, a 4-node is created on the stack that takes ownership of the 3-node's three children. This
+version of the 4-node constructor is only called if `split(....)` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
+
+<show multi-parameter 4-node ctor here>
 
 Finally, there is one other case: when the parent is the root. In this case CreateNewRoot() is called.
 
