@@ -122,6 +122,7 @@ void test_insert(const vector<int>& v, int break_key)
 
       //print_tree(tree);      
       debug_print_tree(tree);      
+      
     }
 
     cout << flush << "\nTesting find(v) of all keys v inserted so for. First, reprinting the tree.\n" << flush;

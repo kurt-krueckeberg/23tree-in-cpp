@@ -8,15 +8,14 @@ and delete.
 remove()
 ========
 
-Do the documentation for insertion, after doing the documentation for the
-nested classes. Use the working examples from the Walls and Mirrors ppt. Use
-its pseudo code with my modifications. Use its diagrams that illustrate the
-pseudo code. Also provide 4-node diagram of an insertion use case that
-illustrates all insertion use cases--recursive splits of 3-nodes, splitting
-the root, etc. For slides use eith dia or google drawing app or draw.io
+Do the documentation for insertion, after doing the documentation for the nested classes. Use the working examples from the Walls and Mirrors ppt. Use
+its pseudo code with my modifications. Use its diagrams that illustrate the pseudo code. Also provide 4-node diagram of an insertion use case that
+illustrates all insertion use cases--recursive splits of 3-nodes, splitting the root, etc. For slides use eith dia or google drawing app or draw.io
 
 TODO
 ----
+
+See TODO in Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, std::unique_ptr<Node23> heap_2node).
 
 Double check this:
 

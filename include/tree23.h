@@ -965,8 +965,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
     
             connectChild(i, std::move(p3node->children[i]));
          }
-         // TODO: Why is connectChild(3, std::move(heap_2node)) not done? Should the parent pointer in heap_2node not be altered
-	 // by connectChild in this case?
+
+         // invoke Node23's move assignment operator.
          children[3] = std::move(heap_2node); // heap_2node's key is larger the p3node's largest key: p3node->keys_values[1].key 
       }
       break; 
