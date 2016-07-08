@@ -871,7 +871,7 @@ Parameter requirements:
 
 2. child_index is such that
 
-   p3node->children[child_index].get() == "the lower prior 3-node that was downsized to a 2-node (holding the smallest value of the paralell 4-node).
+   p3node->children[child_index].get() == "the lower level prior 3-node that was just downsized to a 2-node (holding the smallest value of the paralell 4-node)."
 
 3. new_key (and new_value) pushed up from the prior call to split.
 
@@ -965,7 +965,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
     
             connectChild(i, std::move(p3node->children[i]));
          }
-    
+         // TODO: Why is connectChild(3, std::move(heap_2node)) not done? Should the parent pointer in heap_2node not be altered
+	 // by connectChild in this case?
          children[3] = std::move(heap_2node); // heap_2node's key is larger the p3node's largest key: p3node->keys_values[1].key 
       }
       break; 
@@ -1419,7 +1420,7 @@ and http://algs4.cs.princeton.edu/33balanced/
 
 Parameters:
 
-1. child_indecies holds the indecies use by the 4-node constructor
+1. child_index is the index indecies use by the 4-node constructor
 
     Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, std::unique_ptr<Node23> heap_2node)
 
