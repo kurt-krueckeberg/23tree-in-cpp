@@ -17,8 +17,11 @@ The following sources discuss 2 3 Trees:
 
 The insertion algorithm is based on the 4-node technique discussed in #1. The delete algorithm is based on #2 and #3.
 
+Overview
+--------
+
 Nested Class tree23<Key, Value>::KeyValue
--------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The key and value are stored in a KeyValue object. KeyValue has both a move assignement and move constructor to improve the efficiency of the tree insertion
 algorithm.
@@ -46,7 +49,7 @@ algorithm.
  
  
 Node23 nested class
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two stdLLarrays: `std::array<KeyValue, 2> keys_values` and
 `std::array<std::unique_ptr<Node23>, 3> children`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
@@ -140,7 +143,7 @@ isLeaf() compares both children[0] and children[1] for nullptr. Both comparisons
 only one subtree, with the other child being set to nullptr.
   
 Node4 nested class
-------------------
+^^^^^^^^^^^^^^^^^^
 
 The nested Node4 class is used to aid insertion of new keys. Its constructor 
 
@@ -149,13 +152,13 @@ The nested Node4 class is used to aid insertion of new keys. Its constructor
 automatically sorts the keys of a 3-node and a new key being insert into the 3-node. The Node4 is later "split" during `split(...)`.
 
 test_invariant
---------------
+^^^^^^^^^^^^^^
 
-The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3-nodes, as well as the parent pointer in
+The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
 each node. Any violations result in a message following the display of the node's keys. It call severl `test_xxx_invariant()` methods of Node23.
  
 Search
-------
+^^^^^^
 
 An iterative algorithm is used for search.
 
@@ -194,9 +197,13 @@ An iterative algorithm is used for search.
     
       return false;
     }
+
+
+Methods
+-------
      
 Traversal Algorithms
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 Recursive algorithms are used to traverse the tree in pre order, in order and post order. Each is a template method that take a functor that overloads the function
 call operator, and each is an inline method that calls a private method to do the actual work. 
@@ -295,7 +302,7 @@ a `const Node23&` and an `int`, indicating the current level of the tree.
     
      
 Insertion
----------
+^^^^^^^^^
     
 Insertion begins at the leaf node where the search for the key to be inserted terminated. As the tree is descended to the leaf, the index of child branches taken
 as the tree is descended are pushed onto `std::stack<int> child_indecies`, which is later passed to `split(..put in parameteres..)` should it be called. 
@@ -325,7 +332,7 @@ smaller node holding the keys_values[0], the larger holding kyes_values[2].
 
 
 split()
-+++++++
+^^^^^^^
 
 Parameters to split: the leaf node, the new key and its associated value, the stack of child indecies, and the rvalue `unique_ptr<Node23>{nullptr}`.
 
@@ -415,7 +422,7 @@ Parameters to split: the leaf node, the new key and its associated value, the st
      
       if (p3node->isLeaf()) { // p3node->isLeaf() if and only if heap_2node == nullptr
     
-          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
+          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment^^right? 
     
       } else { // It is an internal leaf, so we need to get its child_index such that:
                // p3node == p3node->parent->children[child_index].
