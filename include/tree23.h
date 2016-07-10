@@ -1305,9 +1305,8 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 
   int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
 
-  if (found_index != Node23::NotFoundIndex) {
+  if (found_index != Node23::NotFoundIndex) { // new_key already exists. Overwrite its associated value with the new value.
 
-      // The new_key already exists. Overwrite its associated value with the new value.
        pinsert_start->keys_values[found_index].value = new_value;
        return;  
   }

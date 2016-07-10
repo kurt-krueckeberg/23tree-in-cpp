@@ -297,14 +297,30 @@ a `const Node23&` and an `int`, indicating the current level of the tree.
 Insertion
 ---------
     
-TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
-that is relies on the 4-node technique described by Sedgwich at <link here>
+Insertion begins at the leaf node where the search for the key to be inserted terminated. As the tree is descended to the leaf, the index of child branches taken
+as the tree is descended are pushed onto `std::stack<int> child_indecies`, which is later passed to `split(..put in parameteres..)` should it be called. 
 
-Insertion begins at the leaf node where the search for the new key terminated. As the tree is descended to the leaf, the index of child branches taken at
-each node are pushed on `std::stack<int> child_indecies`, which is later passed to `split()` should it be called. 
+<use slide 17 of walls and mirrors ppt>
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input.
-The 4-node coonstructor automatically sorts all three keys.  If the leaf node is a 3-node, we call split() to "split" the 4-node into two 2-nodes: the
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
+into the tree below. The search will terminate at the 2-node containing 40 and into which 39 is then inserted. 
+
+<scan 1. insert 39>
+
+If we next attempt to insert 38 into the tree, the search again terminates at the same leaf node, but now it is a 3-node.
+
+<scan 2. insert 38>
+
+To handle this case, we call split(), and pass it the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending the tree and 
+a rvalue unique_ptr<Node23> whose underlying pointer is nullptr:
+
+      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
+
+<TODO next here: Now describe split>
+
+
+The 4-node constructor takes the 3-node leaf and the new key as input and automatically sorts the keys. 
+.  If the leaf node is a 3-node, we call split() to "split" the 4-node into two 2-nodes: the
 smaller node holding the keys_values[0], the larger holding kyes_values[2].
 
 
