@@ -304,117 +304,35 @@ a `const Node23&` and an `int`, indicating the current level of the tree.
 Insertion
 ^^^^^^^^^
     
-Insertion begins at the leaf node where the search for the key to be inserted terminated. As the tree is descended to the leaf, the index of child branches taken
-as the tree is descended are pushed onto `std::stack<int> child_indecies`, which is later passed to `split(..put in parameteres..)` should it be called. 
+Insertion begins at the leaf node where the search for the key to be inserted ended. As the tree is descended to the leaf, the index of child branches taken
+as the tree is descended are pushed onto `std::stack<int> child_indecies`. 
 
-<use slide 17 of walls and mirrors ppt>
 
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
-into the tree below. The search will terminate at the 2-node containing 40 and into which 39 is then inserted. 
+into the tree below in (a). The search will terminate at the 2-node containing 40 and into which 39 is then inserted. 
 
-<scan 1. insert 39>
+<insert here a scanned figure with four subfigures showing a showing a working example of insert>
 
-If we next attempt to insert 38 into the tree, the search again terminates at the same leaf node, but now it is a 3-node.
+If we next attempt to insert 38 into the tree (figure 1 b.), the search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
+split() to split the 3-node. We pass slit four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending the tree and 
+an rvalue unique_ptr<Node23> whose underlying pointer is nullptr
 
-<scan 2. insert 38>
-
-To handle this case, we call split(), and pass it the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending the tree and 
-a rvalue unique_ptr<Node23> whose underlying pointer is nullptr:
-
-      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
-
-<TODO next here: Now describe split>
-
-
-The 4-node constructor takes the 3-node leaf and the new key as input and automatically sorts the keys. 
-.  If the leaf node is a 3-node, we call split() to "split" the 4-node into two 2-nodes: the
-smaller node holding the keys_values[0], the larger holding kyes_values[2].
-
+    split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
 
 split()
-^^^^^^^
+~~~~~~~
 
-Parameters to split: the leaf node, the new key and its associated value, the stack of child indecies, and the rvalue `unique_ptr<Node23>{nullptr}`.
+Split first constructs a 4-node from the 3-node leaf and the new key. The constructor automatically sorts the keys. Its children, since p3node is a leaf,
+are all **nullptr**. Next, split ....
 
 .. code-block:: cpp
 
-    /*
-    Parameters:
-    
-    1. child_index holds the index into p3node->children[] such that
-
-        p3node->children[child_index].get() == "the lower level prior 3-node in tree that was just downsized to a 2-node (holding the smallest value of
-        the paralell 4-node)."
-          
-        the 4-node constructor uses to determine which child heap_2node should be.
-    
-        Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, std::unique_ptr<Node23> heap_2node)
-    
-    where child_child is such that
-    
-        p3node->children[child_index].get() == "the prior 3-node into which a value was inserted."
-    
-    It is now a 2-node holding the smallest value of its paralell 4-node, node4.keys_values[0].key.
-     
-    2. heap_2node is either nullptr or a newly allocated 2-node created in a prior call to split(). On the initial call it will hold nullptr
-       and will not be used.  
-    
-    Algorithm overview:
-    
-    split() is a recursive method. It terrminates when a 2-node is encountered, or a 3-node root is eventually split, causing the tree to grow upward
-    one level.  We split a 3-node by creating a 4-node on the stack. It holds both the 3-node's keys and values and the new key and value inserted. If
-    p3node is a leaf, node4's children are all nullptrs. If p3node is an internal node, we pop its child index from the child_indecies stack<in>. "child
-    index" is the index such that 
-      
-        p3node->children[child_index].get() == "the previous level's 3-node that was just processed by split into which a new key and value were also
-                                                inserted."
-       
-    After creating the 4-node, we "split" it into two 2-nodes:  
-    
-      1. We convert the 3-node p3node into a 2-node holding only node4.keys_values[0].key and node4.keys_values[0].value, and whose children were the
-         two left most children of node4.
-    
-      2. We create a new 2-node on the heap holding node4.keys_values[2].key and node4.keys_values[2].value, and whose children were the two right most
-         children of node4.
-    
-    Next, we attempt to insert keys_values[1].key, the middle value, in the parent. If the parent is a 2-node, this works: we convert it to a 3-node and connect the heap_2node child,
-    and we are done. If the parent is a 3-node, we recurse, which may ulimately result in splitting the root, creating a new node above the current root.
-    
-     split(Node23 *pnode, Key new_key, const Value& new_value)
-     {
-         if (pnode is the root) 
-            Create a new node p and insert the item
-            return
-         else 
-            Let p be the parent of p3node
-         
-           Create a 4-node node4 on the stack representing the inserted key and value and transferred ownership of pnode's three children. 
-     
-           From the 4-node create two nodes n1 and n2, so that p is the parent.
-     
-           Downsize p3node from a 3-node to a 2-node. It will hold the smallest key in node4.
-           Give n2 the item  wth the large value in node4. n2 is allocated on the heap.
-     
-           Connect the two left most children of node4 to n1
-           Connect the two right most children of node4 to n2
-         
-           Move the item with the middle value in p4node up to p
-     
-           if (p now has three items) {
-     
-              split(p);
-           }
-     }
-    */
     template<class Key, class Value> void tree23<Key, Value>::split(Node23 *p3node, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
         std::unique_ptr<Node23> heap_2node)  noexcept
     {
       // get the actual parent              
       Node23 *parent = p3node->parent;
       
-      // Debug only next line:
-      Node23 *pheap_2node = heap_2node.get(); // debug-only line?
-          
       // Create 4-node on stack that will aid in splitting the 3-node that receives new_key (and new_value).
       Node4 node4;
     
@@ -432,21 +350,20 @@ Parameters to split: the leaf node, the new key and its associated value, the st
     
           node4 = Node4{p3node, new_key, new_value, child_index, std::move(heap_2node)}; 
       }
-       
-      /* 
-         Next we check if the 3-node, p3node, is the root. If so, we create a new top level Node23 and make it the new root.
-         If not, we use node4 to 
+
+Next split() checks if the 3-node, p3node, is the root. If so, we create a new top level Node23 and make it the new root.
+If not, we use node4 to 
         
-          1.) We downsize p3node to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
-              children of node4 as the two children of p3node. The code to do this is
+1.) We downsize p3node to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
+children of node4 as the two children of p3node: 
         
-                 p3node->convertTo2Node(node4); 
+      p3node->convertTo2Node(node4); 
         
-          2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.keys_values[2]. Its two children will be the
-              two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input.
+2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.keys_values[2]. Its two children will be the
+two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input:
     
-              std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
-       */
+std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+
       p3node->convertTo2Node(node4); 
     
       // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key, and whose children are the two right most children of node4
@@ -473,6 +390,7 @@ Parameters to split: the leaf node, the new key and its associated value, the st
     
       return;
     }
+
     
 The code to downsize the leaf node is the convertTo2Node
     
