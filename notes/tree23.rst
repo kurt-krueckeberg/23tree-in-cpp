@@ -5,8 +5,8 @@
 Implementing a 2 3 Tree in C++14
 ================================
 
-2 3 Tree Discussions
---------------------
+2 3 Tree Discussions Links
+--------------------------
 
 The following sources discuss 2 3 Trees: 
 
@@ -21,7 +21,7 @@ Overview
 --------
 
 Nested Class tree23<Key, Value>::KeyValue
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The key and value are stored in a KeyValue object. KeyValue has both a move assignement and move constructor to improve the efficiency of the tree insertion
 algorithm.
@@ -49,7 +49,7 @@ algorithm.
  
  
 Node23 nested class
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two stdLLarrays: `std::array<KeyValue, 2> keys_values` and
 `std::array<std::unique_ptr<Node23>, 3> children`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
@@ -151,16 +151,20 @@ The nested Node4 class is used to aid insertion of new keys. Its constructor
 
 automatically sorts the keys of a 3-node and a new key being insert into the 3-node. The Node4 is later "split" during `split(...)`.
 
+Methods
+-------
+
 test_invariant
 ^^^^^^^^^^^^^^
 
-The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
+The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3-nodes, as well as the parent pointer in
 each node. Any violations result in a message following the display of the node's keys. It call severl `test_xxx_invariant()` methods of Node23.
- 
 Search
 ^^^^^^
 
 An iterative algorithm is used for search.
+
+.. code-block:: cpp
 
     template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
     {
@@ -197,10 +201,6 @@ An iterative algorithm is used for search.
     
       return false;
     }
-
-
-Methods
--------
      
 Traversal Algorithms
 ^^^^^^^^^^^^^^^^^^^^
@@ -214,7 +214,6 @@ descended after the left child and before its right child.
 Only the in order travesal algorithm is shown below
 
 .. code-block:: cpp
-
 
     template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
     {
@@ -252,8 +251,9 @@ Only the in order travesal algorithm is shown below
        }
     }
  
-There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
-a `const Node23&` and an `int`, indicating the current level of the tree.
+There is also a level order traversal template method
+
+.. code-block:: cpp
  
     template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
     {
@@ -304,37 +304,23 @@ a `const Node23&` and an `int`, indicating the current level of the tree.
 Insertion
 ^^^^^^^^^
     
-Insertion begins at the leaf node where the search for the key to be inserted terminated. As the tree is descended to the leaf, the index of child branches taken
-as the tree is descended are pushed onto `std::stack<int> child_indecies`, which is later passed to `split(..put in parameteres..)` should it be called. 
+TODO: Use a working example that is taken from printing the output of insert during various stages to better illustrate the algorithm. Also, mention
+that is relies on the 4-node technique described by Sedgwich at <link here>
 
-<use slide 17 of walls and mirrors ppt>
+Insertion begins at the leaf node where the search for the new key terminated. As the tree is descended to the leaf, the branches taken at each node are pushed on
+`std::stack<int> child_indecies`, which is used if `split()` is called. 
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
-into the tree below. The search will terminate at the 2-node containing 40 and into which 39 is then inserted. 
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. If the leaf node is a 3-node, we create a 4-node on the stack using a constructor that take the 3-node leaf and the new key as input. The 4-node
+ctor automatically sorts all three keys.
 
-<scan 1. insert 39>
+If the leaf node is a 3-node, we create a 4-node on the stack. The 4-node constructor takes the 3-node leaf and the new key as input and places them in sorted order in
+its std::array<KeyValue, 3>. It sets its four children to be nullptr.
 
-If we next attempt to insert 38 into the tree, the search again terminates at the same leaf node, but now it is a 3-node.
+<show 4-node ctor here>
 
-<scan 2. insert 38>
+<show 4-node ctor here>
 
-To handle this case, we call split(), and pass it the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending the tree and 
-a rvalue unique_ptr<Node23> whose underlying pointer is nullptr:
-
-      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
-
-<TODO next here: Now describe split>
-
-
-The 4-node constructor takes the 3-node leaf and the new key as input and automatically sorts the keys. 
-.  If the leaf node is a 3-node, we call split() to "split" the 4-node into two 2-nodes: the
-smaller node holding the keys_values[0], the larger holding kyes_values[2].
-
-
-split()
-^^^^^^^
-
-Parameters to split: the leaf node, the new key and its associated value, the stack of child indecies, and the rvalue `unique_ptr<Node23>{nullptr}`.
+insert() then calls split() to "split" the 4-node into two 2-nodes: the smaller node holding the keys_values[0], the larger holding kyes_values[2]. 
 
 .. code-block:: cpp
 
@@ -422,7 +408,7 @@ Parameters to split: the leaf node, the new key and its associated value, the st
      
       if (p3node->isLeaf()) { // p3node->isLeaf() if and only if heap_2node == nullptr
     
-          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment^^right? 
+          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
     
       } else { // It is an internal leaf, so we need to get its child_index such that:
                // p3node == p3node->parent->children[child_index].
@@ -501,3 +487,7 @@ Finally, there is one other case: when the parent is the root. In this case Crea
 [describe CreateNewRoot here]
 
 The middle value from the 4-node is next pushed up to the parent node. If it is a 3-node 
+
+
+Deletion
+^^^^^^^^
