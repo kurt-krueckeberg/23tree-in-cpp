@@ -322,8 +322,8 @@ an rvalue unique_ptr<Node23> whose underlying pointer is nullptr
 split()
 ~~~~~~~
 
-Split first constructs a 4-node from the 3-node leaf and the new key. The constructor automatically sorts the keys. Its children, since p3node is a leaf,
-are all **nullptr**. Next, split ....
+When split is first called, p3node is a leaf, and the 4-node constructor automatically sorts the keys of p3node and new_key. It sets all four children to
+nullptr:
 
 .. code-block:: cpp
 
@@ -341,23 +341,19 @@ are all **nullptr**. Next, split ....
       if (p3node->isLeaf()) { // p3node->isLeaf() if and only if heap_2node == nullptr
     
           node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment^^right? 
-    
-      } else { // It is an internal leaf, so we need to get its child_index such that:
-               // p3node == p3node->parent->children[child_index].
-    
-          child_index = child_indecies.top();
-          child_indecies.pop();
-    
-          node4 = Node4{p3node, new_key, new_value, child_index, std::move(heap_2node)}; 
+      } else { 
+        //...omitted  
       }
+      //...omitted
+     } 
 
-Next split() checks if the 3-node, p3node, is the root. If so, we create a new top level Node23 and make it the new root.
-If not, we use node4 to 
-        
-1.) We downsize p3node to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
-children of node4 as the two children of p3node: 
-        
+Next the 4-node is "split" into two Node23 nodes: one holding the smallest key of node4, and the other its largest key. Only one new Node23, however, is
+allocated from the heap. The smaller Node23 is p3node converted to a 2-node. 
+
       p3node->convertTo2Node(node4); 
+
+This method also connects the two left most children of node4 are the left and right children of the downsized p3node. The other larger node is     
+        
         
 2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.keys_values[2]. Its two children will be the
 two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input:
