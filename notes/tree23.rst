@@ -319,10 +319,10 @@ an rvalue unique_ptr<Node23> whose underlying pointer is nullptr
 
     split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
 
-split()
-~~~~~~~
+split(..show parameters)
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-When split is first called, p3node is a leaf, and the 4-node constructor automatically sorts the keys of p3node and new_key. It sets all four children to
+``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node. Its constructor automatically sorts the keys of p3node and new_key. It sets all four children to
 nullptr:
 
 .. code-block:: cpp
@@ -347,25 +347,18 @@ nullptr:
       //...omitted
      } 
 
-Next the 4-node is "split" into two Node23 nodes: one holding the smallest key of node4, and the other its largest key. Only one new Node23, however, is
-allocated from the heap. The smaller Node23 is p3node converted to a 2-node. 
+Next the 4-node is "split" into two 2-nodes: one to hold the smallest key of node4, the other the largest. The smaller 2-nodes is simply p3node downsized
+to a 2-node: 
 
-      p3node->convertTo2Node(node4); 
+     p3node->convertTo2Node(node4); 
 
-This method also connects the two left most children of node4 are the left and right children of the downsized p3node. The other larger node is     
-        
-        
-2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.keys_values[2]. Its two children will be the
-two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input:
+convertTo2Node also connects the two left most children of node4 as the left and right children of the downsized p3node. The other larger 2-node is
+allocated on the heap.
     
-std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+    std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
 
-      p3node->convertTo2Node(node4); 
+Its two children are the two right most children of node4. Next, split tests if 
     
-      // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key, and whose children are the two right most children of node4
-      //    the children of p3node. This is what the Node23 constructor that takes a Node4 does.
-      std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
-      
       if (p3node == root.get()) {
     
            // We pass node4.keys_values[1].key and node4.keys_values[1].value as the key and value for the new root.
