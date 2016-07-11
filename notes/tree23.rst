@@ -304,26 +304,25 @@ a `const Node23&` and an `int`, indicating the current level of the tree.
 Insertion
 ^^^^^^^^^
     
-Insertion begins at the leaf node where the search for the key to be inserted ended. As the tree is descended to the leaf, the index of child branches taken
-as the tree is descended are pushed onto `std::stack<int> child_indecies`. 
-
+Insertion begins at the leaf node where the insertion search terminates. As the tree is descended to the leaf, the index of each child branches taken
+is pushed onto a stack. 
 
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
-into the tree below in (a). The search will terminate at the 2-node containing 40 and into which 39 is then inserted. 
+into the tree below in figues XXX (a). The search terminates at the 2-node containing 40 into which 39 is inserted. 
 
 <insert here a scanned figure with four subfigures showing a showing a working example of insert>
 
-If we next attempt to insert 38 into the tree (figure 1 b.), the search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
-split() to split the 3-node. We pass slit four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending the tree and 
-an rvalue unique_ptr<Node23> whose underlying pointer is nullptr
+If we next insert 38 figure XXX (b.), the insertion search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
+split() and pass it four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending
+the tree and an rvalue unique_ptr<Node23> whose underlying pointer is nullptr. Neither the stack nor the unique_ptr<Node23> are used when the first
+parameter is a leaf node.
 
-    split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
 
-split(..show parameters)
-~~~~~~~~~~~~~~~~~~~~~~~~
+split()
+~~~~~~~
 
-``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node. Its constructor automatically sorts the keys of p3node and new_key. It sets all four children to
-nullptr:
+When ``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
+It sets all four children to nullptr:
 
 .. code-block:: cpp
 
@@ -338,17 +337,17 @@ nullptr:
     
       int child_index;
      
-      if (p3node->isLeaf()) { // p3node->isLeaf() if and only if heap_2node == nullptr
+      if (p3node->isLeaf()) { 
     
-          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment^^right? 
+          node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf.
       } else { 
         //...omitted  
       }
       //...omitted
      } 
 
-Next the 4-node is "split" into two 2-nodes: one to hold the smallest key of node4, the other the largest. The smaller 2-nodes is simply p3node downsized
-to a 2-node: 
+Next the 4-node is "split" into two 2-nodes: one to hold the smallest key of node4, the other the largest. The smaller 2-node is simply pnode downsized
+to a 2-node by Node23::convertTo2Node(Node4&&) 
 
      p3node->convertTo2Node(node4); 
 

@@ -113,7 +113,7 @@ template<class Key, class Value> class tree23 {
            void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
            void connectChild(std::unique_ptr<Node23>& dest, std::unique_ptr<Node23> src)  noexcept;
           
-           void convertTo2Node(Node4& node4) noexcept; 
+           void convertTo2Node(Node4&& node4) noexcept; 
 
            void convertTo3Node(Key key, const Value& value, std::unique_ptr<Node23> pnode23) noexcept; 
 
@@ -1511,7 +1511,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
 
           std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
    */
-  pnode->convertTo2Node(node4); 
+  pnode->convertTo2Node(std::move(node4)); 
 
   // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key, and whose children are the two right most children of node4
   //    the children of pnode. This is what the Node23 constructor that takes a Node4 does.
@@ -1569,7 +1569,7 @@ template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_
   This method converts a 3-node into a 2-node
   Note: parent node is already correct and does not need to be set.
 */
-template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo2Node(Node4& node4) noexcept
+template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo2Node(Node4&& node4) noexcept
 { 
   keys_values[0] = std::move(node4.keys_values[0]);
 
