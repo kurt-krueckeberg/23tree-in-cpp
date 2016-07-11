@@ -865,46 +865,39 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
 }
 
 /*
+ * This constructor is called when split() encounters an internal 3-node. 
+ *
 Parameter requirements:
 
-1. p3node is an internal node created during a recursive call to split(), not during the initial call to split when a leaf node is passed.
+1. p3node is an internal 3-node.
 
 2. child_index is such that
 
-   p3node->children[child_index].get() == "the lower level prior 3-node that was just downsized to a 2-node (holding the smallest value of the paralell 4-node)."
+   p3node->children[child_index].get() == the prior lower level 3-node that split just downsized to a 2-node (that holds the smallest value of the stack-based
+   4-node that split() create from the 3-node leaf and the new key being inserted).
 
-3. new_key (and new_value) pushed up from the prior call to split.
-
-   new_key == node4.keys_values[1].key
-   new_value == node4.keys_values[1].value
+3. key (and its associated value) are values split "pushed up" one level when it recursed.
 
 4. heap_2node is the 2-node allocated on the heap in the prior call to split. 
 
-Overview:
+Overview if how it works:
 
 child_index is such that
 
-   p3node->children[child_index].get() == "the lower prior 3-node that was downsized to a 2-node (holding the smallest value of the paralell 4-node).
+   p3node->children[child_index].get() == the prior lower level 3-node that was downsized to a 2-node (now holding the smallest value of the stack-based
+   4-node that split created in its prior invocation).
 
-p3node is an internal 3-node that is the parent of the prior 3-node--initially either a leaf 3-node or later another internal 3-node child in the chain of 3-nodes 
-children already processed by split(). p3node is an internal node, and child_index is used to:
+child_index is used to:
 
-1.) determine the index to use in inserting new_key into Node4::keys[], and 
-2.) to maintain the same general child relationships in the 4-node that existed within the 3-node. We know, for example, that heap_2node will always be to the 
-right the previous p3node. We also use child_index to determine where heap_2node should be placed in Node4::children[]. 
-
-new_key (and new_value) are pushed these values
-
-   new_key == node4.keys_values[1].key
-   new_value == node4.keys_values[1].value
-
-pushed up from the prior call to split()
+1.) determine the index to use in inserting key into Node4::keys[], and 
+2.) to maintain the same general child relationships in the 4-node that existed within the 3-node. We know, for example, that heap_2node will always be
+to the right the previous p3node. We also use child_index to determine where heap_2node should be placed in Node4::children[]. 
 
 heap_2node is the 2-node allocated on the heap in the prior call to split when the 4-node created on the stack was split into two 2-nodes. heap_2node is the
 larger of those two 2-nodes. 
 */
 
-template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value, int child_index, \
+template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, \
   std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
 {
   switch(child_index) {
@@ -912,13 +905,13 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       case 0:
 
       {
-        keys_values[0].key = new_key; // new_key is the smallest value, so we put in the first position... 
-        keys_values[0].value = new_value;
+        keys_values[0].key = key; // key is the smallest value, so we put in the first position... 
+        keys_values[0].value = value;
 
         //...followed by the current p3node's keys and values
         for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {
  
-              keys_values[i + 1] = p3node->keys_values[i]; // TODO: Can move assignment be used safely to increase code efficiency? 
+              keys_values[i + 1] = std::move(p3node->keys_values[i]); // Added move() 07/11/2016
         } 
   
         connectChild(0, std::move(p3node->children[0])); // This is still the smallest child. It is the converted 3-node downsize to a 2-node
@@ -931,13 +924,13 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       }
       break;
       
-      case 1: // If child_index = 1, then new_key < p3node.keys_values[1].key && new_key > p3node.keys_values[0].key
+      case 1: // If child_index = 1, then key < p3node.keys_values[1].key && key > p3node.keys_values[0].key
 
       {  
         keys_values[0] = p3node->keys_values[0];
  
-        keys_values[1].key = new_key;
-        keys_values[1].value = new_value; 
+        keys_values[1].key = key;
+        keys_values[1].value = value; 
         
         keys_values[2] = p3node->keys_values[1];
 
@@ -950,7 +943,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       }
       break;
 
-      case 2: // If child_index == 2, then new_key > p3node->keys_values[1].key and so...
+      case 2: // If child_index == 2, then key > p3node->keys_values[1].key and so...
 
       { 
          for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {   
@@ -958,8 +951,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
                keys_values[i] = p3node->keys_values[i]; 
          } 
     
-         keys_values[2].key = new_key; // new_key is the largest value in 4-node
-         keys_values[2].value = new_value;
+         keys_values[2].key = key; // key is the largest value in 4-node
+         keys_values[2].value = value;
     
          for(auto i = 0; i < Node23::ThreeNodeChildren; ++i) { // connect p3node's current children in the same order 
     
@@ -1496,7 +1489,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
       node4 = Node4{pnode, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
 
   } else { // It is an internal leaf, so we need to get its child_index such that:
-           // pnode == pnode->parent->children[child_index].
+           // pnode == pnode->parent->children[child_index]. TODO: Is this statement correct--double check this fact!!!!
 
       child_index = child_indecies.top();
       child_indecies.pop();
