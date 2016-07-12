@@ -1532,6 +1532,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split it.
+     // TODO: is new_value correct???? Shouldn't the third parameter be node4.keys_values[1].value!!!!!
      split(parent, node4.keys_values[1].key, new_value, child_indecies, std::move(larger_2node)); 
   } 
 

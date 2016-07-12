@@ -346,29 +346,40 @@ It sets all four children to nullptr:
       //...omitted
      } 
 
-Next the 4-node is "split" into two 2-nodes: the smaller 2-node contains the smallest key of node4, the larger 2-node the largest. The smaller 2-node is simply pnode downsized
-from a 3-node to a 2-node by ``Node23::convertTo2Node(Node4&&)``
+Next the 4-node is "split" into two 2-nodes: a 2-node that contains the smallest key in node4, and a 2-node that contains node4's largest key. The smaller 2-node
+is simply pnode downsized from a 3-node to a 2-node by calling `
 
-     p3node->convertTo2Node(node4); 
+     p3node->convertTo2Node(node4); // takes a rvalue: Node4&&
 
-The convertTo2Node methods also connects the two left most children of node4 as the left and right children of the downsized pnode. The other larger
-2-node is allocated on the heap. Its two children are the two right most children of node4. Next, split tests if 
+convertTo2Node also connects node4's two left most children as the left and right children of the downsized pnode. The other larger
+2-node is allocated on the heap:
     
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
-    
-      if (p3node == root.get()) {
+
+Its two children are the two right most children of node4. Next, split tests if whether pnode is the root    
+
+      if (pnode == root.get()) {
     
            // We pass node4.keys_values[1].key and node4.keys_values[1].value as the key and value for the new root.
-           // p3node == root.get(), and p3node is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key.
+           // pnode == root.get(), and p3node is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key.
             
            CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
     
-      } else if (parent->isTwoNode()) { // Since p3node is not the root, it has a parent that is an internal node. We check if is a 2-node.
+      } 
+
+and if it is, it allocates a new root by calling CreateNodeRoot(); otherwise, it tests if pnode->parent is a 2-node. If it is, the tree can be rebalanced,
+which is done by convertTo3Node.
+      
+      else if (parent->isTwoNode()) { // Since p3node is not the root, it has a parent that is an internal node. We check if is a 2-node.
     
           // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
           parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
     
-      } else { // parent is a 3-node, so we recurse.
+      }
+
+Finally, if the parent is not a 2-node, we recurse....      
+
+      else { // parent is a 3-node, so we recurse.
     
          // parent now has three items, so we can't insert the middle item. We recurse to split it.
          split(parent, node4.keys_values[1].key, new_value, child_indecies, std::move(larger_2node)); 
