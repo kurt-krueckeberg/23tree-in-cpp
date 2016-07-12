@@ -42,6 +42,12 @@ template<class Key, class Value> class tree23 {
      }
  
      KeyValue& operator=(KeyValue& lhs) = default; 
+     friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
+     {
+         ostr << "{" << key_value.key << ',' <<  key_value.value <<  "}, ";
+	 return ostr;
+     }
+	     
    };
  
    class Node23 {
@@ -637,6 +643,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug
         for (auto i = 0; i < totalItems; ++i) {
 
             ostr << keys_values[i].key;
+            //--ostr << keys_values[i] << "}, ";
 
             if (i + 1 == totalItems)  {
                 continue;
@@ -659,8 +666,9 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug
       
       for (auto i = 0; i < totalItems; ++i) {
 
-    
          ostr << "{" << keys_values[i].key << "}, ";
+
+         //--ostr << keys_values[i] << "}, ";
        }
       
       oss << "]";
