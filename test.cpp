@@ -71,11 +71,6 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
        
        cout << endl << flush;
    
-       //--vector<int> test_case{ 85, 89, 39, 30, 20, 70, 100, 50, 90, 10, 60, 40, 80}; // This is temp--just to fix a bug.
-       
-       // temp code below
-       //--cout << "Input vector<int> to next case is: ";
-
        copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
        
        cout << endl << flush;
@@ -91,15 +86,12 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
        
        cout << "\n================================" << endl; 
   }
-// BUG CASE
-//vector<int> test_case{ 30, 20, 85, 70, 100, 40, 39, 80, 50, 10, 60, 90, 89}; 
 
 }
 
 void test_insert(const vector<int>& v, int break_key)
 {    
   tree23<int, int> tree;
- 
   
    int i = 0;
     
@@ -113,15 +105,14 @@ void test_insert(const vector<int>& v, int break_key)
          
          ++debug;
          
-         tree.insert(key, ++i);
+         tree.insert(key, key);
          
       } else {
           
-         tree.insert(key, ++i);
+         tree.insert(key, key);
       }
 
-      //print_tree(tree);      
-      debug_print_tree(tree);      
+      print_tree(tree);  // to print debug info do: debug_print_tree(tree);      
       
     }
 
@@ -177,9 +168,7 @@ void test_remove(const std::vector<int>& input, int break_key) //, int break_key
        }
        cout << "\nPrinting tree in order after removal: \n";
                
-       debug_print_tree(tree);      
-       //--print_tree(tree);
-       
+       debug_print_tree(tree);   // to do regular print do: print_tree(tree);
     }
        
     cout << flush << "\nTesting find(v) of all keys v removed so for. First, reprinting the tree.\n" << flush;

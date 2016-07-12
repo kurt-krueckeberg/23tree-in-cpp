@@ -642,8 +642,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug
 
         for (auto i = 0; i < totalItems; ++i) {
 
-            ostr << keys_values[i].key;
-            //--ostr << keys_values[i] << "}, ";
+            ostr << keys_values[i].key; // or to print both keys and values do: ostr << keys_values[i]
 
             if (i + 1 == totalItems)  {
                 continue;
@@ -666,9 +665,9 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug
       
       for (auto i = 0; i < totalItems; ++i) {
 
-         ostr << "{" << keys_values[i].key << "}, ";
+         //--ostr << "{" << keys_values[i].key << "}, ";
 
-         //--ostr << keys_values[i] << "}, ";
+         ostr << keys_values[i] << "}, ";
        }
       
       oss << "]";
@@ -710,7 +709,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 
         for (auto i = 0; i < totalItems; ++i) {
 
-            ostr << keys_values[i].key;
+            ostr << keys_values[i].key; // or to print both keys and values do: ostr << keys_values[i];
 
             if (i + 1 == totalItems)  {
                 continue;
@@ -1540,8 +1539,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split it.
-     // TODO: is new_value correct???? Shouldn't the third parameter be node4.keys_values[1].value!!!!!
-     split(parent, node4.keys_values[1].key, new_value, child_indecies, std::move(larger_2node)); 
+     split(parent, node4.keys_values[1].key, node4.keys_values[1].value, child_indecies, std::move(larger_2node)); 
   } 
 
   return;

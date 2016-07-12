@@ -1,10 +1,1 @@
-There seems to be a bug in split(). When split recurses, it passes
-
-     // parent now has three items, so we can't insert the middle item. We recurse to split it.
-     // TODO: is new_value correct???? Shouldn't the third parameter be node4.keys_values[1].value!!!!!
-     split(parent, node4.keys_values[1].key, new_value, child_indecies, std::move(larger_2node)); 
-
-However, the third parameter seems wrong, as pointed out in the TODO comment
-above. Instead, the line should be 
-
-     split(parent, node4.keys_values[1].key, node4.keys_values[1].value, child_indecies, std::move(larger_2node)); 
+Fixed bug in solit() when it recurses.
