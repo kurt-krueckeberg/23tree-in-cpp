@@ -346,17 +346,15 @@ It sets all four children to nullptr:
       //...omitted
      } 
 
-Next the 4-node is "split" into two 2-nodes: one to hold the smallest key of node4, the other the largest. The smaller 2-node is simply pnode downsized
-to a 2-node by Node23::convertTo2Node(Node4&&) 
+Next the 4-node is "split" into two 2-nodes: the smaller 2-node contains the smallest key of node4, the larger 2-node the largest. The smaller 2-node is simply pnode downsized
+from a 3-node to a 2-node by ``Node23::convertTo2Node(Node4&&)``
 
      p3node->convertTo2Node(node4); 
 
-convertTo2Node also connects the two left most children of node4 as the left and right children of the downsized p3node. The other larger 2-node is
-allocated on the heap.
+The convertTo2Node methods also connects the two left most children of node4 as the left and right children of the downsized pnode. The other larger
+2-node is allocated on the heap. Its two children are the two right most children of node4. Next, split tests if 
     
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
-
-Its two children are the two right most children of node4. Next, split tests if 
     
       if (p3node == root.get()) {
     
