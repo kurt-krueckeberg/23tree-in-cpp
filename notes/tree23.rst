@@ -341,22 +341,31 @@ It sets all four children to nullptr:
     
           node4 = Node4{p3node, new_key, new_value}; // We construct a 4-node from the 3-node leaf.
       } else { 
-        //...omitted  
+        //...omitted. See below  
       }
-      //...omitted
+         //...omitted. See below
      } 
 
 Next the 4-node is "split" into two 2-nodes: a 2-node that contains the smallest key in node4, and a 2-node that contains node4's largest key. The smaller 2-node
-is simply pnode downsized from a 3-node to a 2-node by calling `
+is simply pnode downsized from a 3-node to a 2-node by calling 
 
-     p3node->convertTo2Node(node4); // takes a rvalue: Node4&&
+.. code-block:: cpp
 
-convertTo2Node also connects node4's two left most children as the left and right children of the downsized pnode. The other larger
-2-node is allocated on the heap:
+     pnode->convertTo2Node(node4); // takes a rvalue: Node4&&
+
+convertTo2Node(Node4&&) also connects node4's two left most children as pnode's its left and right children. The other larger 2-node is allocated on the
+heap:
+
+.. code-block:: cpp
     
-    std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+    std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; // puts node4.keys_values[2] into larger_2node's keys_values[0] and
+                                                                           // connects node4's two right most children as its left and right children.
 
-Its two children are the two right most children of node4. Next, split tests if whether pnode is the root    
+Next, split chandles three cases:
+
+1.) when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
+
+.. code-block:: cpp
 
       if (pnode == root.get()) {
     
@@ -367,9 +376,10 @@ Its two children are the two right most children of node4. Next, split tests if 
     
       } 
 
-and if it is, it allocates a new root by calling CreateNodeRoot(); otherwise, it tests if pnode->parent is a 2-node. If it is, the tree can be rebalanced,
-which is done by convertTo3Node.
-      
+2.) when pnode->parent is a 2-node, it calls convertTo3Node to rebalance the tree:
+
+.. code-block:: cpp
+
       else if (parent->isTwoNode()) { // Since p3node is not the root, it has a parent that is an internal node. We check if is a 2-node.
     
           // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
@@ -377,7 +387,9 @@ which is done by convertTo3Node.
     
       }
 
-Finally, if the parent is not a 2-node, we recurse....      
+3.) Finally, if the parent is a 3-node, we recurse....      
+
+.. code-block:: cpp
 
       else { // parent is a 3-node, so we recurse.
     
@@ -386,9 +398,8 @@ Finally, if the parent is not a 2-node, we recurse....
       } 
     
       return;
-    }
+    } // end of split()
 
-    
 The code to downsize the leaf node is the convertTo2Node
     
 <show convertTo2Node here>
