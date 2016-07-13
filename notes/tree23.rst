@@ -139,17 +139,14 @@ greater than `keys_values[2].key`.
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-isLeaf() compares both children[0] and children[1] for nullptr. Both comparisons are needed because during the deletion algorithm, a node might have
-only one subtree, with the other child being set to nullptr.
+The reason isLeaf() checks that both children[0] and children[1] are nullptr is that during the remove() algorithm, a node might have
+only one subtree (while the other subtree is nullptr).
   
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
 
-The nested Node4 class is used to aid insertion of new keys. Its constructor 
-
-<show here its ctor>
-
-automatically sorts the keys of a 3-node and a new key being insert into the 3-node. The Node4 is later "split" during `split(...)`.
+The nested Node4 class is used to simplify the insert() algorithm. Its constructor automatically sorts the keys of the 3-node leaf and the new key being
+insert into the leaf 3-node. The Node4 object is later "split" into two 2-nodes within `split(...)`.
 
 test_invariant
 ^^^^^^^^^^^^^^
