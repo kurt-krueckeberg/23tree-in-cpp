@@ -51,7 +51,7 @@ algorithm.
 Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
-2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two stdLLarrays: `std::array<KeyValue, 2> keys_values` and
+2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two std::arrays: `std::array<KeyValue, 2> keys_values` and
 `std::array<std::unique_ptr<Node23>, 3> children`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
 `children[0]` and the right subtree of larger keys is rooted at `children[1]`. When a Node23 represent a 3-node, `children[0]` is the left subtree, `children[1]` is the middle subtree
 containing keys greater than `keys_values[0].key` but less than `keys_values[2].key`, and `children[2]` is the right subtree containing all keys
