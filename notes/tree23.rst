@@ -145,8 +145,8 @@ only one subtree (while the other subtree is nullptr).
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
 
-The nested Node4 class is used to simplify the insert() algorithm. Its constructor automatically sorts the keys of the 3-node leaf and the new key being
-insert into the leaf 3-node. The Node4 object is later "split" into two 2-nodes within `split(...)`.
+The nested Node4 class is used to simplify the insert() algorithm. Its constructor that takes a 3-node leaf and the new key being inserted sorts the
+keys. ...The Node4 object is later "split" into two 2-nodes within `split(...)`.
 
 test_invariant
 ^^^^^^^^^^^^^^
