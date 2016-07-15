@@ -880,8 +880,8 @@ Parameter requirements:
 
 2. child_index is such that
 
-   p3node->children[child_index].get() == the prior lower level 3-node that split just downsized to a 2-node (that holds the smallest value of the stack-based
-   4-node that split() create from the 3-node leaf and the new key being inserted).
+   p3node->children[child_index].get() == the prior lower level 3-node that split just handled, in which it downsized to this prior level 3-node to a
+   2-node. 
 
 3. key (and its associated value) are values split "pushed up" one level when it recursed.
 
@@ -891,8 +891,7 @@ Overview if how it works:
 
 child_index is such that
 
-   p3node->children[child_index].get() == the prior lower level 3-node that was downsized to a 2-node (now holding the smallest value of the stack-based
-   4-node that split created in its prior invocation).
+   p3node->children[child_index].get() == the prior lower level 3-node that was downsized to a 2-node in the immediately-prior call to split
 
 child_index is used to:
 
@@ -909,7 +908,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
 {
   switch(child_index) {
  
-      case 0:
+      case 0: // key was pushed up from the 4-node constructed from the child at p3node->children[0] (and another key). It will therefore become the
+	     // smallest value in the 4-node.
 
       {
         keys_values[0].key = key; // key is the smallest value, so we put in the first position... 
@@ -931,7 +931,9 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       }
       break;
       
-      case 1: // If child_index = 1, then key < p3node.keys_values[1].key && key > p3node.keys_values[0].key
+      case 1: // If child_index = 1, then key was pushed up from the 4-node constructed from p3node->children[1] (plus an extra key). i.e., from
+              // middle child of the prior, lower-level 3-node that split just handled, and so it will become the middle child of the 4-node since: 
+              // p3node.keys_values[0].key < key && key < p3node.keys_values[1].key
 
       {  
         keys_values[0] = p3node->keys_values[0];
@@ -950,7 +952,9 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       }
       break;
 
-      case 2: // If child_index == 2, then key > p3node->keys_values[1].key and so...
+      case 2: // If child_index == 2, then key was pushed up from the 4-node constructed from p3node->children[2] (plus an extra key), and
+              // therefore key will be larger than all the keys in p3node:
+	      //  key > p3node->keys_values[1].key
 
       { 
          for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {   

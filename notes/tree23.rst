@@ -51,11 +51,11 @@ algorithm.
 Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
-2 3 tree nodes are of type `unique_ptr<Node23>`, where Node23 is a nested class that contains two std::arrays: `std::array<KeyValue, 2> keys_values` and
-`std::array<std::unique_ptr<Node23>, 3> children`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
-`children[0]` and the right subtree of larger keys is rooted at `children[1]`. When a Node23 represent a 3-node, `children[0]` is the left subtree, `children[1]` is the middle subtree
-containing keys greater than `keys_values[0].key` but less than `keys_values[2].key`, and `children[2]` is the right subtree containing all keys
-greater than `keys_values[2].key`.
+2 3 tree nodes are of type :cpp:`unique_ptr<Node23>:cpp:`, where Node23 is a nested class that contains two std::arrays: :cpp:`std::array<KeyValue, 2> keys_values` and
+:cpp:`std::array<std::unique_ptr<Node23>, 3> children:cpp:`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
+:cpp:`children[0]` and the right subtree of larger keys is rooted at :cpp:`children[1]:cpp:`. When a Node23 represent a 3-node, :cpp:`children[0]` is the left subtree, :cpp:`children[1]` is the middle subtree
+containing keys greater than :cpp:`keys_values[0].key` but less than :cpp:`keys_values[2].key:cpp:`, and :cpp:`children[2]` is the right subtree containing all keys
+greater than :cpp:`keys_values[2].key:cpp:`.
 
 .. code-block:: cpp 
  
@@ -139,20 +139,26 @@ greater than `keys_values[2].key`.
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-The reason isLeaf() checks that both children[0] and children[1] are nullptr is that during the remove() algorithm, a node might have
-only one subtree (while the other subtree is nullptr).
+Note: isLeaf() checks that both children[0] and children[1] are nullptr. Just checking children[0] is insufficient during remove() when a node might
+have only one subtree, say, rooted at children[1], while the other subtree is nullptr.
   
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
 
-The nested Node4 class is used to simplify the insert() algorithm. Its constructor that takes a 3-node leaf and the new key being inserted sorts the
-keys. ...The Node4 object is later "split" into two 2-nodes within `split(...)`.
+The nested Node4 class is used during insertion. Its constructor automatically sorts the keys of its input parameters. When input is an internal 3-node, 
+this constructor is used: 
+
+     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, \
+                                          std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
+
+It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
+heap_2node in children[]. child_index is the index of the prior, lower-level 3-node handled in the immediately-prior call to split().
 
 test_invariant
 ^^^^^^^^^^^^^^
 
 The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
-each node. Any violations result in a message following the display of the node's keys. It call severl `test_xxx_invariant()` methods of Node23.
+each node. Any violations result in a message following the display of the node's keys. It call severl :cpp:`test_xxx_invariant()` methods of Node23.
  
 Search
 ^^^^^^
@@ -250,7 +256,7 @@ Only the in order travesal algorithm is shown below
     }
  
 There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
-a `const Node23&` and an `int`, indicating the current level of the tree.
+a :cpp:`const Node23&` and an :cpp:`int:cpp:`, indicating the current level of the tree.
  
     template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
     {
@@ -318,7 +324,7 @@ parameter is a leaf node.
 split()
 ~~~~~~~
 
-When ``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
+When :cpp:`split` is first called by :cpp:`remove:cpp:`. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
 It sets all four children to nullptr:
 
 .. code-block:: cpp
@@ -415,7 +421,7 @@ If the parent is an internal 3-node (as will be the case as long a the parent is
 [describe parameters passed to split() here...describe the use use of the descend stack as well
 
 During split() recursion, if an internal node is a 3-node, a 4-node is created on the stack that takes ownership of the 3-node's three children. This
-version of the 4-node constructor is only called if `split(....)` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
+version of the 4-node constructor is only called if :cpp:`split(....)` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
 
 <show multi-parameter 4-node ctor here>
 
