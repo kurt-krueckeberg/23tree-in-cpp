@@ -10,10 +10,10 @@ Implementing a 2 3 Tree in C++14
 
 The following sources discuss 2 3 Trees: 
 
-1. `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_ 
-2. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
-3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
-4. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
+1. ``Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>``_ 
+2. ``Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>``_ 
+3. ``Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>``_
+4. ``Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>``_
 
 The insertion algorithm is based on the 4-node technique discussed in #1. The delete algorithm is based on #2 and #3.
 
@@ -51,11 +51,11 @@ algorithm.
 Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
-2 3 tree nodes are of type :cpp:`unique_ptr<Node23>:cpp:`, where Node23 is a nested class that contains two std::arrays: :cpp:`std::array<KeyValue, 2> keys_values` and
-:cpp:`std::array<std::unique_ptr<Node23>, 3> children:cpp:`.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
-:cpp:`children[0]` and the right subtree of larger keys is rooted at :cpp:`children[1]:cpp:`. When a Node23 represent a 3-node, :cpp:`children[0]` is the left subtree, :cpp:`children[1]` is the middle subtree
-containing keys greater than :cpp:`keys_values[0].key` but less than :cpp:`keys_values[2].key:cpp:`, and :cpp:`children[2]` is the right subtree containing all keys
-greater than :cpp:`keys_values[2].key:cpp:`.
+2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is a nested class that contains two std::arrays: ``std::array<KeyValue, 2> keys_values`` and
+`std::array<std::unique_ptr<Node23>, 3> children``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
+`children[0]`` and the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` is the middle subtree
+containing keys greater than ``keys_values[0].key`` but less than ``keys_values[2].key``, and ``children[2]`` is the right subtree containing all keys
+greater than ``keys_values[2].key``.
 
 .. code-block:: cpp 
  
@@ -158,12 +158,14 @@ test_invariant
 ^^^^^^^^^^^^^^
 
 The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
-each node. Any violations result in a message following the display of the node's keys. It call severl :cpp:`test_xxx_invariant()` methods of Node23.
+each node. Any violations result in a message following the display of the node's keys. It call severl ``test_xxx_invariant()`` methods of Node23.
  
 Search
 ^^^^^^
 
 An iterative algorithm is used for search.
+
+.. code-block:: cpp
 
     template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
     {
@@ -218,7 +220,6 @@ Only the in order travesal algorithm is shown below
 
 .. code-block:: cpp
 
-
     template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
     {
        DoInOrderTraverse(f, root);
@@ -256,7 +257,7 @@ Only the in order travesal algorithm is shown below
     }
  
 There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
-a :cpp:`const Node23&` and an :cpp:`int:cpp:`, indicating the current level of the tree.
+a ``const Node23&`` and an ``int``, indicating the current level of the tree.
  
     template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
     {
@@ -324,7 +325,7 @@ parameter is a leaf node.
 split()
 ~~~~~~~
 
-When :cpp:`split` is first called by :cpp:`remove:cpp:`. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
+When ``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
 It sets all four children to nullptr:
 
 .. code-block:: cpp
@@ -421,7 +422,7 @@ If the parent is an internal 3-node (as will be the case as long a the parent is
 [describe parameters passed to split() here...describe the use use of the descend stack as well
 
 During split() recursion, if an internal node is a 3-node, a 4-node is created on the stack that takes ownership of the 3-node's three children. This
-version of the 4-node constructor is only called if :cpp:`split(....)` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
+version of the 4-node constructor is only called if ``split(....)`` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
 
 <show multi-parameter 4-node ctor here>
 
