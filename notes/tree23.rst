@@ -148,6 +148,8 @@ Node4 nested class
 The nested Node4 class is used during insertion. Its constructor automatically sorts the keys of its input parameters. When input is an internal 3-node, 
 this constructor is used: 
 
+.. code-block:: cpp:function
+
      template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
 
 It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
