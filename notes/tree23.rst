@@ -10,10 +10,10 @@ Implementing a 2 3 Tree in C++14
 
 The following sources discuss 2 3 Trees: 
 
-1. ``Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>``_ 
-2. ``Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>``_ 
-3. ``Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>``_
-4. ``Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>``_
+1. `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_ 
+2. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
+3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
+4. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
 
 The insertion algorithm is based on the 4-node technique discussed in #1. The delete algorithm is based on #2 and #3.
 
@@ -148,8 +148,7 @@ Node4 nested class
 The nested Node4 class is used during insertion. Its constructor automatically sorts the keys of its input parameters. When input is an internal 3-node, 
 this constructor is used: 
 
-     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, \
-                                          std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
+     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept : parent{p3node->parent} 
 
 It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
 heap_2node in children[]. child_index is the index of the prior, lower-level 3-node handled in the immediately-prior call to split().
