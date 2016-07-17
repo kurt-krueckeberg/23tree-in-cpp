@@ -153,20 +153,23 @@ this constructor is used:
 It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
 heap_2node in children[]. child_index is the index of the prior, lower-level 3-node handled in the immediately-prior call to split().
 
-test_invariant
+Methods
+-------
+
+test\_invariant
 ^^^^^^^^^^^^^^
 
 The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
 each node. Any violations result in a message following the display of the node's keys. It call severl ``test_xxx_invariant()`` methods of Node23.
  
-Search
-^^^^^^
+find(Key key)
+^^^^^^^^^^^^^
 
 An iterative algorithm is used for search.
 
 .. code-block:: cpp
 
-    template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
+    template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const noexcept
     {
       if (isEmpty()) {
 
@@ -202,10 +205,6 @@ An iterative algorithm is used for search.
       return false;
     }
 
-
-Methods
--------
-     
 Traversal Algorithms
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -257,6 +256,8 @@ Only the in order travesal algorithm is shown below
  
 There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
 a ``const Node23&`` and an ``int``, indicating the current level of the tree.
+
+.. code-block:: cpp
  
     template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
     {
@@ -313,7 +314,7 @@ is pushed onto a stack.
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
 into the tree below in figues XXX (a). The search terminates at the 2-node containing 40 into which 39 is inserted. 
 
-<insert here a scanned figure with four subfigures showing a showing a working example of insert>
+    <insert here a scanned figure with four subfigures showing a showing a working example of insert>
 
 If we next insert 38 figure XXX (b.), the insertion search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
 split() and pass it four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending
@@ -324,7 +325,7 @@ parameter is a leaf node.
 split()
 ~~~~~~~
 
-When ``split`` is first called by ``remove``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
+When ``split`` is first called by ``remove()``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
 It sets all four children to nullptr:
 
 .. code-block:: cpp

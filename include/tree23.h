@@ -1222,7 +1222,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
    }
 }
 
-template<class Key, class Value> inline bool tree23<Key, Value>::find(Key key) const noexcept
+template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const noexcept
 {
   if (isEmpty()) {
       return false;
