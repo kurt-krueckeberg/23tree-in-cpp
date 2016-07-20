@@ -148,6 +148,8 @@ Node4 nested class
 The nested Node4 class is used during insertion. Its constructor automatically sorts the keys of its input parameters. When input is an internal 3-node, 
 this constructor is used: 
 
+.. code-block:: cpp
+
     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
 
 It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
@@ -303,7 +305,6 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
             queue.pop(); 
        }
     }
-    
      
 Insertion
 ^^^^^^^^^
@@ -357,17 +358,16 @@ is simply pnode downsized from a 3-node to a 2-node by calling
 
      pnode->convertTo2Node(node4); // takes a rvalue: Node4&&
 
-convertTo2Node(Node4&&) also connects node4's two left most children as pnode's its left and right children. The other larger 2-node is allocated on the
+**convertTo2Node(Node4&&)** also connects node4's two left most children as pnode's left and right children. The other larger 2-node is allocated on the
 heap:
 
 .. code-block:: cpp
     
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; // puts node4.keys_values[2] into larger_2node's keys_values[0] and
                                                                            // connects node4's two right most children as its left and right children.
-
 Next, split chandles three cases:
 
-1.) when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
+1. when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
 
 .. code-block:: cpp
 
@@ -377,10 +377,9 @@ Next, split chandles three cases:
            // pnode == root.get(), and p3node is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key.
             
            CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
-    
       } 
 
-2.) when pnode->parent is a 2-node, it calls convertTo3Node to rebalance the tree:
+2. when pnode->parent is a 2-node, it calls convertTo3Node to rebalance the tree:
 
 .. code-block:: cpp
 
@@ -388,10 +387,9 @@ Next, split chandles three cases:
     
           // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
           parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
-    
       }
 
-3.) Finally, if the parent is a 3-node, we recurse....      
+3. if the parent is a 3-node, we recurse....      
 
 .. code-block:: cpp
 
@@ -404,23 +402,12 @@ Next, split chandles three cases:
       return;
     } // end of split()
 
-The code to downsize the leaf node is the convertTo2Node
+**convertTo2Node** downsizes 3-node to a 2node  
     
 <show convertTo2Node here>
     
-Only the large 2-node, however, is allocated from the heap. The other, smaller 2-node is simply the leaf node downsized from a 3-node to a 2-node.
+Only the larger 2-node is allocated from the heap. The other, smaller 2-node is simply the leaf node downsized from a 3-node to a 2-node.
     
-<show 3-node downsize method here>
-
-
-Next split() considers three cases...If the parent is a 2-node, we convert it to a 3-node. This rebalances the tree
-
-<show the convertTo3Node() method here>
-
-If the parent is an internal 3-node (as will be the case as long a the parent is not the root), we recurse by calling split() again, passing...
-
-[describe parameters passed to split() here...describe the use use of the descend stack as well
-
 During split() recursion, if an internal node is a 3-node, a 4-node is created on the stack that takes ownership of the 3-node's three children. This
 version of the 4-node constructor is only called if ``split(....)`` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
 
