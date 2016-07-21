@@ -123,7 +123,7 @@ greater than ``keys_values[2].key``.
   
              void removeLeafKey(Key key) noexcept;
          
-             int totalItems; // set to either Node23::TwoNodeItems or Node23::ThreeNodeItems
+             int totalItems; // set using either Node23::TwoNodeItems or Node23::ThreeNodeItems
   
              void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
              void connectChild(std::unique_ptr<Node23>& dest, std::unique_ptr<Node23> src)  noexcept;
@@ -139,21 +139,21 @@ greater than ``keys_values[2].key``.
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-Note: isLeaf() checks that both children[0] and children[1] are nullptr. Just checking children[0] is insufficient during remove() when a node might
-have only one subtree, say, rooted at children[1], while the other subtree is nullptr.
+Note: Method ``isLeaf()`` checks that both children[0] and children[1] are nullptr since checking children[0] is insufficient during remove() when a node
+might have only one subtree, for example, rooted at children[1], while the subtree at children[0] is nullptr.
   
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
 
-The nested Node4 class is used during insertion. Its constructor automatically sorts the keys of its input parameters. When input is an internal 3-node, 
-this constructor is used: 
+The nested Node4 class is used during insertion. Its two constructors automatically sorts the keys of its input parameters. When the input parameters are an internal 3-node, 
+this particular constructor is used: 
 
 .. code-block:: cpp
 
     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
 
-It also takes ownership of the p3node's children, in addition to the additional heap_2node child passed as a parameter. child_index is used to determine the position of the
-heap_2node in children[]. child_index is the index of the prior, lower-level 3-node handled in the immediately-prior call to split().
+The constructor also takes ownership of both p3node's children and heap_2node. child_index is used to determine the indecies of each adopted child,
+where child_index is the index of the prior, lower-level 3-node that was processed in the immediately-prior call to split().
 
 Methods
 -------
@@ -161,13 +161,13 @@ Methods
 test\_invariant
 ^^^^^^^^^^^^^^
 
-The test_invariant() methods test both the ordering of the tree, but also the ordering of the keys within 3^nodes, as well as the parent pointer in
-each node. Any violations result in a message following the display of the node's keys. It call severl ``test_xxx_invariant()`` methods of Node23.
+The test_invariant() methods test both the ordering of the tree as well as the parent pointer in each node. Any invariant violations result in a message following the display of the node's keys. 
+It calls several ``test_xxx_invariant()`` methods of Node23.
  
 find(Key key)
 ^^^^^^^^^^^^^
 
-An iterative algorithm is used for search.
+An iterative algorithm rather than a recursive algorithm is used to search for a key.
 
 .. code-block:: cpp
 
