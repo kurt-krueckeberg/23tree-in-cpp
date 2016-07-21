@@ -1,2 +1,1 @@
-Clarify the comments and refer in notes/tree23.rst to the relevant links and
-the clarified code comments.
+Finish tree23.rst

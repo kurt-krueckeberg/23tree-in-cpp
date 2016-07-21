@@ -21,7 +21,7 @@ Overview
 --------
 
 Nested Class tree23<Key, Value>::KeyValue
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The key and value are stored in a KeyValue object. KeyValue has both a move assignement and move constructor to improve the efficiency of the tree insertion
 algorithm.
@@ -52,8 +52,8 @@ Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
 2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is a nested class that contains two std::arrays: ``std::array<KeyValue, 2> keys_values`` and
-`std::array<std::unique_ptr<Node23>, 3> children``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
-`children[0]`` and the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` is the middle subtree
+``std::array<std::unique_ptr<Node23>, 3> children[]``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
+``children[0]`` and the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` is the middle subtree
 containing keys greater than ``keys_values[0].key`` but less than ``keys_values[2].key``, and ``children[2]`` is the right subtree containing all keys
 greater than ``keys_values[2].key``.
 
@@ -139,8 +139,8 @@ greater than ``keys_values[2].key``.
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-Note: Method ``isLeaf()`` checks that both children[0] and children[1] are nullptr since checking children[0] is insufficient during remove() when a node
-might have only one subtree, for example, rooted at children[1], while the subtree at children[0] is nullptr.
+**Note:** Method ``isLeaf()`` checks that both ``children[0]`` and ``children[1]`` are nullptr since checking ``children[0]`` is insufficient during remove() when a node
+might have only one subtree, for example, rooted at ``children[1]``, while the subtree at ``children[0]`` is nullptr.
   
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
@@ -159,9 +159,9 @@ Methods
 -------
 
 test\_invariant
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^
 
-The test_invariant() methods test both the ordering of the tree as well as the parent pointer in each node. Any invariant violations result in a message following the display of the node's keys. 
+The ``test_invariant()`` methods test both the ordering of the tree as well as the parent pointer in each node. Any invariant violations result in a message following the display of the node's keys. 
 It calls several ``test_xxx_invariant()`` methods of Node23.
  
 find(Key key)
@@ -315,7 +315,7 @@ is pushed onto a stack.
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
 into the tree below in figues XXX (a). The search terminates at the 2-node containing 40 into which 39 is inserted. 
 
-    <insert here a scanned figure with four subfigures showing a showing a working example of insert>
+    <TODO: insert here a scanned figure with four subfigures showing a showing a working example of insert>
 
 If we next insert 38 figure XXX (b.), the insertion search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
 split() and pass it four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending
@@ -326,7 +326,7 @@ parameter is a leaf node.
 split()
 ~~~~~~~
 
-When ``split`` is first called by ``remove()``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of p3node and new_key.
+When ``split`` is first called by ``remove()``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of ``p3node`` and ``new_key``.
 It sets all four children to nullptr:
 
 .. code-block:: cpp
@@ -351,7 +351,7 @@ It sets all four children to nullptr:
          //...omitted. See below
      } 
 
-Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in node4, and that will adopt node4's two left most childre; the other will
+Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in ``node4``, and that will adopt node4's two left most childre; the other will
 contains node4's largest key, and it will adopt node4's two right most children. The smaller 2-node is simply pnode downsized from a 3-node to a 2-node.  
 The larger 2-node is allocated on the heap:
 
