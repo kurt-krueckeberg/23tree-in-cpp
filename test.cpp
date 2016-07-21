@@ -9,8 +9,6 @@ using namespace std;
 
 void print_tree(const tree23<int, int>& tree)
 {
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
-
   cout << flush << "Level order print of tree: ";
 
   levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
@@ -20,6 +18,8 @@ void print_tree(const tree23<int, int>& tree)
   cout << flush;
 
   cout << "\n\nIn order print of tree: ";
+  
+  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
 
   tree.inOrderTraverse(lambda_closure);
   
@@ -112,7 +112,7 @@ void test_insert(const vector<int>& v, int break_key)
          tree.insert(key, key);
       }
 
-      print_tree(tree);  // to print debug info do: debug_print_tree(tree);      
+      print_tree(tree);  // or to print debug info change to: debug_print_tree(tree);      
       
     }
 
@@ -138,7 +138,7 @@ void test_remove(const std::vector<int>& input, int break_key) //, int break_key
   
    for(auto& key : input) {
 
-      int debug = 0;
+      int debug = 0;  // used only to set a breakpoint prior to insert call.
          
       tree.insert(key, ++i);
 
@@ -182,4 +182,3 @@ void test_remove(const std::vector<int>& input, int break_key) //, int break_key
          cout << "Key " << key << " was " << result_msg << endl; 
     } 
 }
-  

@@ -351,20 +351,16 @@ It sets all four children to nullptr:
          //...omitted. See below
      } 
 
-Next the 4-node is "split" into two 2-nodes: a 2-node that contains the smallest key in node4, and a 2-node that contains node4's largest key. The smaller 2-node
-is simply pnode downsized from a 3-node to a 2-node by calling 
+Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in node4, and that will adopt node4's two left most childre; the other will
+contains node4's largest key, and it will adopt node4's two right most children. The smaller 2-node is simply pnode downsized from a 3-node to a 2-node.  
+The larger 2-node is allocated on the heap:
 
 .. code-block:: cpp
 
-     pnode->convertTo2Node(node4); // takes a rvalue: Node4&&
+    pnode->convertTo2Node(node4); // takes an rvalue: Node4&&
 
-**convertTo2Node(Node4&&)** also connects node4's two left most children as pnode's left and right children. The other larger 2-node is allocated on the
-heap:
-
-.. code-block:: cpp
-    
-    std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; // puts node4.keys_values[2] into larger_2node's keys_values[0] and
-                                                                           // connects node4's two right most children as its left and right children.
+    std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+                                                                          
 Next, split chandles three cases:
 
 1. when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
@@ -379,17 +375,17 @@ Next, split chandles three cases:
            CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
       } 
 
-2. when pnode->parent is a 2-node, it calls convertTo3Node to rebalance the tree:
+2. when pnode->parent is a 2-node, it calls **convertTo3Node()** to rebalance the tree:
 
 .. code-block:: cpp
 
-      else if (parent->isTwoNode()) { // Since p3node is not the root, it has a parent that is an internal node. We check if is a 2-node.
+      else if (parent->isTwoNode()) { // Since p3node is not the root, its parent is an internal node. If it, too, is a a 2-node,
     
-          // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
+          // we convert it to a 3-node by inserting the middle value of node4 into the parent, and passing it the larger 2-node, which it will adopt.
           parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
       }
 
-3. if the parent is a 3-node, we recurse....      
+3. if the parent is a 3-node, we recurse and again call split. Recursion terminates when either of the two above cases is encountered.      
 
 .. code-block:: cpp
 
@@ -402,19 +398,8 @@ Next, split chandles three cases:
       return;
     } // end of split()
 
-**convertTo2Node** downsizes 3-node to a 2node  
+     
+Deletion
+^^^^^^^^
     
-<show convertTo2Node here>
-    
-Only the larger 2-node is allocated from the heap. The other, smaller 2-node is simply the leaf node downsized from a 3-node to a 2-node.
-    
-During split() recursion, if an internal node is a 3-node, a 4-node is created on the stack that takes ownership of the 3-node's three children. This
-version of the 4-node constructor is only called if ``split(....)`` recurses and... is a 3-node. The constructor also adopts a unique_ptr<Node23> passed to the constructor.  
-
-<show multi-parameter 4-node ctor here>
-
-Finally, there is one other case: when the parent is the root. In this case CreateNewRoot() is called.
-
-[describe CreateNewRoot here]
-
-The middle value from the 4-node is next pushed up to the parent node. If it is a 3-node 
+TODO.

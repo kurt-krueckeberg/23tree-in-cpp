@@ -1535,9 +1535,9 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
         
        CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
 
-  } else if (parent->isTwoNode()) { // Since pnode is not the root, it has a parent that is an internal node. We check if is a 2-node.
+  } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node,
 
-      // If it is, we convert it to a 3-node by inserting the middle value into the parent, and passing it its new third child.
+      // we convert it to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
       parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
 
   } else { // parent is a 3-node, so we recurse.
