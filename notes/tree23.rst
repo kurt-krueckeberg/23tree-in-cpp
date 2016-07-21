@@ -398,6 +398,8 @@ Next, split chandles three cases:
       return;
     } // end of split()
 
+TODO show the code for the subroutines convertTo3Node and CreateNewRoot and give some comments/graphics.     
+
      
 Deletion
 ^^^^^^^^
