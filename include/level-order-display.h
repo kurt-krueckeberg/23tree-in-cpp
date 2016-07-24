@@ -28,7 +28,6 @@ class levelOrderDisplay  {
      int current_level;
 
      std::ostream& ostr;
-  protected:
       
   public:
     levelOrderDisplay(const Tree& tree, std::ostream& ostr_lhs ); 

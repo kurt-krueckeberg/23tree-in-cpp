@@ -320,7 +320,7 @@ To handle this case, we need to split the 3-node, which is what the ``split()`` 
 split
 ~~~~~
 
-split is pass it four paraemeters: 
+split is passed four paraemeters: 
 
 1. a 3-node leaf pointer (which is always a leaf node when invoked by ``insert()``)
 2. the new key and value
@@ -401,8 +401,7 @@ Next, split attempts to "push" or insert the middle key (and its asoociated valu
       return;
     } // end of split()
 
-See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #xx through #xx at
-`2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_.
+See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #xx through #xx at `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
 
 remove
 ^^^^^^
