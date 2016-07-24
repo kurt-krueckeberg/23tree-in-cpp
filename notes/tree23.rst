@@ -313,9 +313,7 @@ along with the 4-node technique discussed in `Balanced Trees <http://algs4.cs.pr
 insertion search terminates. As the algorithm descends the tree to the leaf node, the index of each child branch taken is pushed onto a stack<int>. 
 
 If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if the leaf where the insertion
-is to begin is a 3-node, as is the case when 38 is inserted into the tree below
-
-    <TODO: insert here a scanned figure with four subfigures showing a showing working examples of insert, starting with that of inserting 38 into a 3-node leaf>
+is to begin is a 3-node, as is the case in slide #17 of https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt, when 38 is inserted. 
 
 To handle this case, we need to split the 3-node, which is what the ``split()`` method does.
 
