@@ -365,7 +365,7 @@ The larger 2-node is allocated on the heap:
 
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
                                                                           
-Next, split handles three cases:
+Next, split attempts to "push" or insert the middle key (and its asoociated value) of node4 in the parent node. There are cases it considers:
 
 1. when pnode is the root, ``CreateNewRoot()`` is called to add a new root node above pnode 
 
@@ -403,12 +403,9 @@ Next, split handles three cases:
       return;
     } // end of split()
 
-See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as the 2 3 explanations and slides from these sources:
+See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #xx through #xx at
+`2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_.
 
-1. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_
-2. `2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_
-3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
-     
 remove
 ^^^^^^
     
