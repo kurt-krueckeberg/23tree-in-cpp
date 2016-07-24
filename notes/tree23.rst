@@ -355,19 +355,19 @@ Neither the stack nor the unique_ptr<Node23> are used when the first parameter i
          //...omitted. See below
      } 
 
-Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in ``node4``, and that adopts node4's two left most childre; the other will
+Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in ``node4`` and that adopts node4's two left most childre; the other will
 contains node4's largest key and adopts node4's two right most children. The smaller 2-node is simply pnode downsized from a 3-node to a 2-node.  
 The larger 2-node is allocated on the heap:
 
 .. code-block:: cpp
 
-    pnode->convertTo2Node(node4); // takes an rvalue: Node4&&
+    pnode->convertTo2Node(std::move(node4)); // takes an rvalue: Node4&&
 
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
                                                                           
 Next, split handles three cases:
 
-1. when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
+1. when pnode is the root, ``CreateNewRoot()`` is called to add a new root node above pnode 
 
 .. code-block:: cpp
 
@@ -389,7 +389,8 @@ Next, split handles three cases:
           parent->convertTo3Node(node4.keys_values[1].key, node4.keys_values[1].value, std::move(larger_2node));
       }
 
-3. if the parent is a 3-node, we recurse and again call split. Recursion terminates when either of the two above cases is encountered.      
+3. if the parent is a 3-node, we recurse. The recursion terminates when either of the two above cases is encountered, as will eventually always be the
+   case.
 
 .. code-block:: cpp
 
@@ -402,14 +403,13 @@ Next, split handles three cases:
       return;
     } // end of split()
 
-See the source code comments for details on the subroutines convertTo3Node and CreateNewRoot as well as the 2 3 explanations and slides from these sources:
+See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as the 2 3 explanations and slides from these sources:
 
 1. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_
 2. `2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_
 3. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
-
      
-Deletion
-^^^^^^^^
+remove
+^^^^^^
     
-TODO.
+The deletion algorithm is based on ....
