@@ -8,15 +8,13 @@ Implementing a 2 3 Tree in C++14
 2 3 Tree Discussions
 --------------------
 
-The following sources discuss 2 3 Trees: 
+The following sources discuss 2 3 Trees and their algorithms: 
 
 1. `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_ 
 2. `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
 3. `2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_
 4. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
 5. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
-
-The insertion algorithm is based on the 4-node technique discussed in #1. The delete algorithm is based on #2 and #3.
 
 Overview
 --------
@@ -310,25 +308,30 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
 Insertion
 ^^^^^^^^^
     
-Insertion begins at the leaf node where the insertion search terminates. As the tree is descended to the leaf, the index of each child branches taken
-is pushed onto a stack. 
+The insertion algorithm is based on the pseudo code in slides 25 and 26 of `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_  
+along with the 4-node technique discussed in `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_. Insertion begins at the leaf node where the
+insertion search terminates. As the algorithm descends the tree to the leaf node, the index of each child branch taken is pushed onto a stack<int>. 
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. This is what happens if 39 is inserted 
-into the tree below in figues XXX (a). The search terminates at the 2-node containing 40 into which 39 is inserted. 
+If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if the leaf where the insertion
+is to begin is a 3-node, as is the case when 38 is inserted into the tree below
 
-    <TODO: insert here a scanned figure with four subfigures showing a showing a working example of insert>
+    <TODO: insert here a scanned figure with four subfigures showing a showing working examples of insert, starting with that of inserting 38 into a 3-node leaf>
 
-If we next insert 38 figure XXX (b.), the insertion search again terminates at the same leaf node, but now it is a 3-node. To handle this case, we call
-split() and pass it four paraemeters: the 3-node leaf pointer, the new key and value, the stack of child indecies of the child branches taken descending
-the tree and an rvalue unique_ptr<Node23> whose underlying pointer is nullptr. Neither the stack nor the unique_ptr<Node23> are used when the first
-parameter is a leaf node.
+To handle this case, we need to split the 3-node, which is what the ``split()`` method does.
 
+split
+~~~~~
 
-split()
-~~~~~~~
+split is pass it four paraemeters: 
 
-When ``split`` is first called by ``remove()``. p3node is a leaf. split first creates a 4-node, whose constructor automatically sorts the keys of ``p3node`` and ``new_key``.
-It sets all four children to nullptr:
+1. a 3-node leaf pointer (which is always a leaf node when invoked by ``insert()``)
+2. the new key and value
+3. the stack of child indecies of the child branches taken descending the tree to the leaf node
+4. and an rvalue ``unique_ptr<Node23>`` whose underlying pointer is nullptr. 
+   
+Neither the stack nor the unique_ptr<Node23> are used when the first parameter is a leaf node. 
+
+``split()`` first creates a 4-node, whose constructor automatically sorts the keys of ``p3node`` and ``new_key``. It sets all four children to nullptr:
 
 .. code-block:: cpp
 
@@ -352,8 +355,8 @@ It sets all four children to nullptr:
          //...omitted. See below
      } 
 
-Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in ``node4``, and that will adopt node4's two left most childre; the other will
-contains node4's largest key, and it will adopt node4's two right most children. The smaller 2-node is simply pnode downsized from a 3-node to a 2-node.  
+Next the 4-node is "split" into two 2-nodes: one that contains the smallest key in ``node4``, and that adopts node4's two left most childre; the other will
+contains node4's largest key and adopts node4's two right most children. The smaller 2-node is simply pnode downsized from a 3-node to a 2-node.  
 The larger 2-node is allocated on the heap:
 
 .. code-block:: cpp
@@ -362,7 +365,7 @@ The larger 2-node is allocated on the heap:
 
     std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
                                                                           
-Next, split chandles three cases:
+Next, split handles three cases:
 
 1. when pnode is the root, it calls CreateNewRoot to add a new root node above pnode 
 

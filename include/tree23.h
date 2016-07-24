@@ -1481,8 +1481,7 @@ and we are done. If the parent is a 3-node, we recurse, which may ulimately resu
        }
  }
 */
-template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
-    std::unique_ptr<Node23> heap_2node)  noexcept
+template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, Key new_key, const Value& new_value, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node)  noexcept
 {
   // get the actual parent              
   Node23 *parent = pnode->parent;
