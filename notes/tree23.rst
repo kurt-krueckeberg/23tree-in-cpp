@@ -1,4 +1,4 @@
-.. include:: ../include/html-entities.txt
+ include:: ../include/html-entities.txt
 
 .. role:: kurt-code
 
@@ -50,7 +50,7 @@ algorithm.
 Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
-2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is a nested class that contains two std::arrays: ``std::array<KeyValue, 2> keys_values`` and
+2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is a nested class that contains two **std::arrays**: ``std::array<KeyValue, 2> keys_values`` and
 ``std::array<std::unique_ptr<Node23>, 3> children[]``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
 ``children[0]`` and the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` is the middle subtree
 containing keys greater than ``keys_values[0].key`` but less than ``keys_values[2].key``, and ``children[2]`` is the right subtree containing all keys
@@ -312,7 +312,7 @@ To best understand the algorithm, it helps to follow the Insertion slides exampl
 The insertion algorithm is based on the pseudo code in slides 25 and 26, along with the 4-node technique discussed in `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_.
 
 Insertion begins at the leaf node where the insertion search terminates. As the algorithm descends the tree to the leaf node, the index of each child
-branch taken is pushed onto a stack<int>.  If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if
+branch taken is pushed onto a ``stack<int>``.  If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if
 the leaf where the insertion is to begin is a 3-node, as is the case in slide #17 of https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt, when 38 is
 inserted. 
 

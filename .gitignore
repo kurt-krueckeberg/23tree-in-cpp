@@ -12,3 +12,6 @@ xxx.txt
 *~
 .*~
 .*.un~
+*.cmd
+*.bat
+*.sh
