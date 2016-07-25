@@ -4,18 +4,20 @@
 #include <string>
 
 /* 
- *  base "template design pattern" functor class for displaying tree23<Key, Value>::Node23 instances in level order. Its function call operator
+ *  "template design pattern" functor class for displaying tree23<Key, Value>::Node23 instances in level order. Its function call operator
 
     void operator()(const Tree::Node23& node)
 
-   invokes two virtual methods that derived classes override: 
+   calls two virtual methods that derived classes override: 
 
-   1. display_level(ostream& ostr, int level), which provides a default implementation.
-   2. display_node(ostream& ostr, const Tree::Node& node), which simply calls node.print(ostr).
+     1. display_level(ostream& ostr, int level), which provides a default implementation.
+     2. display_node(ostream& ostr, const Tree::Node& node), which simply calls node.print(ostr).
 
-   A default implementation is provided for display_level(). The constructor takes two parameters: a const Tree& and  an ostream&. Its copy constructor
-   queries and sets the height by calling tree.getHeight(). Is also set (resets) the input copy constructors input parameter's height. This acts like a
-   reset() method to re-query the tree's height, even after its initial constructor was called.
+   A default implementation is provided for display_level().
+
+   The constructor takes two parameters: a const Tree& and  an ostream&. Its copy constructor queries and sets the height by calling tree.getHeight(). Is also sets/
+   resets the input copy constructors input parameter's height. This acts like a sort of reset() method, when the functor is passed by value, that re-queries the
+   tree's height. 
  * 
  */
 
