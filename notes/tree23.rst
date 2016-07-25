@@ -307,18 +307,19 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
      
 Insertion
 ^^^^^^^^^
-    
-The insertion algorithm is based on the pseudo code in slides 25 and 26 of `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_  
-along with the 4-node technique discussed in `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_. Insertion begins at the leaf node where the
-insertion search terminates. As the algorithm descends the tree to the leaf node, the index of each child branch taken is pushed onto a stack<int>. 
 
-If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if the leaf where the insertion
-is to begin is a 3-node, as is the case in slide #17 of https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt, when 38 is inserted. 
+To best understand the algorithm, it helps to follow the Insertion slides examples at `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_.  
+The insertion algorithm is based on the pseudo code in slides 25 and 26, along with the 4-node technique discussed in `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_.
 
-To handle this case, we need to split the 3-node, which is what the ``split()`` method does.
+Insertion begins at the leaf node where the insertion search terminates. As the algorithm descends the tree to the leaf node, the index of each child
+branch taken is pushed onto a stack<int>.  If the leaf is a 2-node, we simply insert the new key and its associated value into the leaf, and we are done. However, if
+the leaf where the insertion is to begin is a 3-node, as is the case in slide #17 of https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt, when 38 is
+inserted. 
 
-split
-~~~~~
+To handle this case, we need to split the 3-node.
+
+split method
+~~~~~~~~~~~~
 
 split is passed four paraemeters: 
 
@@ -403,7 +404,8 @@ Next, split attempts to "push" or insert the middle key (and its asoociated valu
 
 See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #xx through #xx at `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_ 
 
-remove
-^^^^^^
-    
-The deletion algorithm is based on ....
+Deletion
+^^^^^^^^
+
+The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #.   
+TODO: Finish this.
