@@ -57,12 +57,12 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
         Node23(Node4&);
-        //--Node23(const Node23&);// While all nodes in the tree are of type unique_ptr<Node23>, we need to copy them
-	                      // when we clone the tree in the copy constructor and copy assignment operator.
+
         Node23(const Node23&) = delete; 
         Node23& operator=(const Node23&) = delete; 
 
-	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, int lhs_totalItems) noexcept; // just copy the keys and values. Set children to nullptr?
+        // Just copy the keys and values. 
+	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, int lhs_totalItems) noexcept; 
 
         Node23(Node23&&); // ...but we allow move assignment and move construction.
         Node23& operator=(Node23&&) noexcept;
