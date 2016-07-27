@@ -1,7 +1,10 @@
-Implement the code to clone the tree that the tree23 copy constructor and copy assignment operator both call. We will also need to implement a
-DestroyTree method that will need to be first called to free the tree's nodes.
+Test new code
+-------------
 
-CloneTree() is implemented but hasn't been double checked for logic errors, let along tested. 
+tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). They need to be tested, though!!!
+
+Is a functor version possible?
+-------------------------------
 
 Question: Can the copying of each node be implemented as a functor that is passed to the pre-order traversal algorithm? Something like this:
 
