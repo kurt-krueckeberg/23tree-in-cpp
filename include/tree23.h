@@ -24,8 +24,8 @@ template<class Key, class Value> class tree23 {
   class Node4;    
   
   public:
-
-  class KeyValue { 
+  
+  class KeyValue { // Used by nest Node23 class.
     public:
      Key   key;
      Value value;
@@ -157,7 +157,7 @@ template<class Key, class Value> class tree23 {
         /* Constructor that takes an internal 3-node */
         Node4(Node23 *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
 
-        /* Constructor for a leaf node, all child pointers will be zero. */
+        /* Constructor for a leaf 3-node, all child pointers will be zero. */
         Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept;
 
         Node4& operator=(Node4&& lhs) noexcept;
@@ -179,7 +179,7 @@ template<class Key, class Value> class tree23 {
     std::unique_ptr<Node23> root;
     int height;
 
-    // insert() subroutines
+    // subroutines called by insert()
     int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node23 *&pinsert_start) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node23> leftChild, std::unique_ptr<Node23> rightChild) noexcept;  
@@ -189,7 +189,7 @@ template<class Key, class Value> class tree23 {
     void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
             std::unique_ptr<Node23> heap_2node) noexcept;
 
-    // remove() subroutines
+    // subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
     Node23 *getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
@@ -200,7 +200,7 @@ template<class Key, class Value> class tree23 {
 
     void barrowSiblingKey(Node23 *pnode, int child_index, int sibling_index) noexcept;
  
-    // called by barrowSiblingKey
+    // subroutines called by barrowSiblingKey()
     void shiftChildrenRight(Node23 *node, Node23 *sibling) noexcept;
     void shiftChildrenRight(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
 
@@ -208,7 +208,7 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
 
     std::unique_ptr<Node23> mergeNodes(Node23 *pnode, int child_index) noexcept;
-
+    
     std::unique_ptr<Node23> merge2Nodes(Node23 *pnode, int child_index) noexcept;
     std::unique_ptr<Node23> merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept;
 
@@ -220,6 +220,13 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void DoPostOrderTraverse(Functor f,  const std::unique_ptr<Node23>& root) const noexcept;
 
     template<typename Functor> void DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
+
+    /* 
+     * Called by copy constructor and copy assignment operator
+    CloneTreeFunctor()?
+    CloneTree()?
+    */
+	    
 
   public:
     // Implement this later
@@ -829,6 +836,38 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : 
 {
 
 }   
+
+template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept
+{
+  // traverse the tree copying each of its nodes
+ if (root == lhs.root) { // are they the same?
+
+       return *this;
+  }
+
+  DestroyTree(root); // free all the nodes of the current tree 
+
+  height = lhs.height;
+  
+  // Traverse in pre-order using the clone functor. See todo.txt
+
+}   
+
+// Move constructor
+template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)},  
+{
+  height = lhs.height;
+  lhs.height = 0;
+}   
+
+// Move assignment
+template<class Key, class Value> inline tree23<Key, Value>::operator=(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)},  
+{
+  height = lhs.height;
+  lhs.height = 0;
+}   
+
+
 /*
   Parameters:
 
