@@ -222,10 +222,12 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
 
     /* 
-     * Called by copy constructor and copy assignment operator
-    CloneTreeFunctor()?
-    CloneTree()?
+     * Can a functor be used instead along with pre-order traversal to clone the tree: CloneTreeFunctor(...)?
     */
+
+   // Called by copy constructor and copy assignment operators.
+   void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
+   void DestroyTree(std::unique_ptr<Node234> &root) noexcept; 
 	    
 
   public:
@@ -850,8 +852,59 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
   height = lhs.height;
   
   // Traverse in pre-order using the clone functor. See todo.txt
-
+  CloneTree(lhs.root, root);
 }   
+
+/*
+ Does pre-order traversal, copying source node reference in left parameter to node reference in right parameter.
+
+ TODO: We need to changee each make_unique<Node23>(Node2Copy->keys[0], .....) to be something like
+ make_unique<Node23>(Node2Copy), which requires a public copy constructor. So maybe we need friendship of the make_unique workable.
+
+ */
+template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept
+{
+  if (Node2Copy != nullptr) { 
+                              
+   switch (Node2Copy->totalItems) {
+
+      case 1: // two node
+      {    
+            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys[0]); // change to std::make_unique<Node23>(Node2Copy.keys_val); // change to 
+            
+            NodeCopy = std::move(tmp); 
+             
+            NodeCopy->parent = Node2Copy->parent;
+            
+            CloneTree(Node2Copy->children[0], NodeCopy->children[0]); 
+            
+            CloneTree(Node2Copy->children[1], NodeCopy->children[1]); 
+
+            break;
+
+      }   // end case
+      case 2: // three node
+      {
+            std::unique_ptr<Node23> tmp = std::make_unique<Node23>( Node2Copy->keys[0], Node2Copy->keys[1]); 
+            
+            NodeCopy = std::move(tmp); 
+
+            NodeCopy->parent = Node2Copy->parent;
+            
+            CloneTree(Node2Copy->children[0], NodeCopy->children[0]);
+            
+            CloneTree(Node2Copy->children[1], NodeCopy->children[1]);
+            
+            CloneTree(Node2Copy->children[2], NodeCopy->children[2]);
+
+            break;
+      } // end case
+   }  // end switch
+ } else {
+
+    NodeCopy = nullptr;
+ } 
+}
 
 // Move constructor
 template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)},  
