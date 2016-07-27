@@ -1,9 +1,7 @@
-Implement the code to clone the tree that the tree23 copy constructor and copy
-assignment operator both call. We will also need to implement a DestroyTree
-method that will need to be first called to free the tree's nodes.
+Implement the code to clone the tree that the tree23 copy constructor and copy assignment operator both call. We will also need to implement a
+DestroyTree method that will need to be first called to free the tree's nodes.
 
-Can it the copying of each node be implemented as a functor that is
-passed to the pre-order traversal algorithm, something like this?
+Can it the copying of each node be implemented as a functor that is passed to the pre-order traversal algorithm, something like this?
 
 CloneFunctor {
    tree23<Key, Value>& tree;
@@ -20,14 +18,14 @@ CloneFunctor {
         void operator(const tree23<Key, Value>::Node23& node23);
 };
 
+// The code below isn't right. The logic is confused. How do we initially set and then later advance pnode_2clone?
 void CloneFunctor<Key, Value>::operator(const tree23<Key, Value>::Node23& node23)
 {
-   tree23<Key, Value> Node23 tmp = std::make_unique<Node23>(node23); // This would require the copy ctor of
-                                      // node23 to be public       
+   tree23<Key, Value> Node23 tmp = std::make_unique<Node23>(node23); // This would require the copy ctor of node23 to be public       
 
-   *pnode_2clone = std::move(node); // This is confused logic
+   *pnode_2clone = std::move(node); // <-- This is confused logic
 
-   // What should
+   // What should pnode_2clone be advanced to?
 
 }
 
