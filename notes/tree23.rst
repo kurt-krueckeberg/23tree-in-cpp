@@ -402,7 +402,7 @@ Next, split attempts to "push" or insert the middle key (and its asoociated valu
       return;
     } // end of split()
 
-See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #16 through #26x at `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_
+See the source code comments for details on the subroutines ``convertTo3Node()`` and ``CreateNewRoot()`` as well as slides #16 through #26 at `Data Structures Balanced Trees <https://www.cse.unr.edu/~mgunes/cs302/Chapter19-BalancedSearchTrees.ppt>`_
 and the insertion examples at `Balanced Trees <http://algs4.cs.princeton.edu/33balanced/>`_, where the use the 4-node is explained. 
 
 Deletion
