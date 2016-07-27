@@ -882,9 +882,6 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
       case 1: // two node
       {    
             Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
-            //--std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
-            
-            //--NodeCopy = std::move(tmp); 
              
             NodeCopy->parent = Node2Copy->parent;
             
@@ -898,9 +895,6 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
       case 2: // three node
       {
             Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
-            //--std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
-            
-            //--NodeCopy = std::move(tmp); 
 
             NodeCopy->parent = Node2Copy->parent;
             
@@ -917,6 +911,24 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
 
     NodeCopy = nullptr;
  } 
+}
+
+/*
+ * Post order traversal, deleting nodes
+ */
+template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::unique_ptr<Node23> &current) noexcept 
+{
+  if (current == nullptr) {
+
+      return;
+  }
+  
+  for(auto i = 0; i < current->totalItems; ++i) {
+
+        DestroyTree(current->children[i]);
+   }
+
+   current.reset(); // deletes the underlying pointer. 
 }
 
 // Move constructor
