@@ -57,15 +57,15 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
         Node23(Node4&);
-        Node23(const Node23&);// While all nodes in the tree are of type unique_ptr<Node23>, we need to copy them
+        //--Node23(const Node23&);// While all nodes in the tree are of type unique_ptr<Node23>, we need to copy them
 	                      // when we clone the tree in the copy constructor and copy assignment operator.
         Node23(const Node23&) = delete; 
         Node23& operator=(const Node23&) = delete; 
 
-	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 const *lhs_parent, int lhs_totalItems) noexcept; // just copy the keys and values. Set children to nullptr?
+	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, int lhs_totalItems) noexcept; // just copy the keys and values. Set children to nullptr?
 
         Node23(Node23&&); // ...but we allow move assignment and move construction.
-        Node23& operator=(Node23&&);
+        Node23& operator=(Node23&&) noexcept;
 
         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
         constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
@@ -230,8 +230,8 @@ template<class Key, class Value> class tree23 {
     */
 
    // Called by copy constructor and copy assignment operators.
-   void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
-   void DestroyTree(std::unique_ptr<Node234> &root) noexcept; 
+   void CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
+   void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
 	    
 
   public:
@@ -261,9 +261,9 @@ template<class Key, class Value> class tree23 {
     tree23(const tree23&) noexcept; // TODO: Not implemented
     tree23& operator=(const tree23&) noexcept; // TODO: Implemented?
 
-    tree23(tree23&&);
+    tree23(tree23&&) noexcept;
 
-    tree23& operator=(tree23&&);
+    tree23& operator=(tree23&&) noexcept;
 
     int getHeight() const noexcept;
     void insert(Key key, const Value& value);
@@ -348,7 +348,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_ch
  *
      std::array<Node23, 3> children
   */     
-template<class Key, class Value> inline tree23<Key, Value>::Node23::(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 const *lhs_parent, \
+template<class Key, class Value> inline tree23<Key, Value>::Node23::Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, \
 	       	int lhs_totalItems) noexcept : keys_values{lhs_keys_values}, parent{lhs_parent}, totalItems{lhs_totalItems}
 {
   // we don't copy the children.   
@@ -362,7 +362,7 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node23&& nod
   move_children(node23); 
 }
 // move assignment operator
-template<class Key, class Value> typename tree23<Key, Value>::Node23& tree23<Key, Value>::Node23::operator=(Node23&& node23)
+template<class Key, class Value> typename tree23<Key, Value>::Node23& tree23<Key, Value>::Node23::operator=(Node23&& node23) noexcept
 {
   if (this == &node23) {
 
@@ -858,7 +858,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
   // traverse the tree copying each of its nodes
  if (root == lhs.root) { // are they the same?
 
-       return *this;
+       return;
   }
 
   DestroyTree(root); // free all the nodes of the current tree 
@@ -872,7 +872,8 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 /*
  Does pre-order traversal, copying source node reference in left parameter to node reference in right parameter.
  */
-template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept
+template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
+        std::unique_ptr<typename tree23<Key, Value>::Node23>& NodeCopy) noexcept
 {
   if (Node2Copy != nullptr) { 
                               
@@ -917,19 +918,26 @@ template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>
 }
 
 // Move constructor
-template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)},  
+template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)}, height{lhs.height}
 {
-  height = lhs.height;
   lhs.height = 0;
 }   
 
 // Move assignment
-template<class Key, class Value> inline tree23<Key, Value>::operator=(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)},  
+template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::operator=(tree23<Key, Value>&& lhs) noexcept
 {
+  if (this == &lhs)  {
+      
+      return *this;
+  }
+  
+  root = std::move(lhs.root);  
+  
   height = lhs.height;
+  
   lhs.height = 0;
+  return *this;
 }   
-
 
 /*
   Parameters:
