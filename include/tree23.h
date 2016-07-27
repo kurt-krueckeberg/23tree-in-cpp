@@ -57,8 +57,12 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
         Node23(Node4&);
-        Node23(const Node23&) = delete;// All nodes in the tree are of type unique_ptr<Node23>; therefore, we disallow assignment and copy construction...
+        Node23(const Node23&);// While all nodes in the tree are of type unique_ptr<Node23>, we need to copy them
+	                      // when we clone the tree in the copy constructor and copy assignment operator.
+        Node23(const Node23&) = delete; 
         Node23& operator=(const Node23&) = delete; 
+
+	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 const *lhs_parent, int lhs_totalItems) noexcept; // just copy the keys and values. Set children to nullptr?
 
         Node23(Node23&&); // ...but we allow move assignment and move construction.
         Node23& operator=(Node23&&);
@@ -338,6 +342,16 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_ch
 
      connectChild(i, std::move(lhs[i]));
   }
+}
+/*
+ * This ctor is used by Clone Tree. Does the default ctor for
+ *
+     std::array<Node23, 3> children
+  */     
+template<class Key, class Value> inline tree23<Key, Value>::Node23::(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 const *lhs_parent, \
+	       	int lhs_totalItems) noexcept : keys_values{lhs_keys_values}, parent{lhs_parent}, totalItems{lhs_totalItems}
+{
+  // we don't copy the children.   
 }
 
 // move constructor
@@ -857,10 +871,6 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 
 /*
  Does pre-order traversal, copying source node reference in left parameter to node reference in right parameter.
-
- TODO: We need to changee each make_unique<Node23>(Node2Copy->keys[0], .....) to be something like
- make_unique<Node23>(Node2Copy), which requires a public copy constructor. So maybe we need friendship of the make_unique workable.
-
  */
 template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept
 {
@@ -870,7 +880,7 @@ template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>
 
       case 1: // two node
       {    
-            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys[0]); // change to std::make_unique<Node23>(Node2Copy.keys_val); // change to 
+            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
             
             NodeCopy = std::move(tmp); 
              
@@ -885,7 +895,7 @@ template<typename K>  void tree23<Key, Value>::CloneTree(std::unique_ptr<Node23>
       }   // end case
       case 2: // three node
       {
-            std::unique_ptr<Node23> tmp = std::make_unique<Node23>( Node2Copy->keys[0], Node2Copy->keys[1]); 
+            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
             
             NodeCopy = std::move(tmp); 
 

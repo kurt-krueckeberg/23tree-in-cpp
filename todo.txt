@@ -1,9 +1,9 @@
 Implement the code to clone the tree that the tree23 copy constructor and copy assignment operator both call. We will also need to implement a
 DestroyTree method that will need to be first called to free the tree's nodes.
 
-CloneTree() is implemented but hasn't been checked for logic errors, let along tested. 
+CloneTree() is implemented but hasn't been double checked for logic errors, let along tested. 
 
-Can the copying of each node be implemented as a functor that is passed to the pre-order traversal algorithm? Something like this:
+Question: Can the copying of each node be implemented as a functor that is passed to the pre-order traversal algorithm? Something like this:
 
 CloneFunctor {
    tree23<Key, Value>& tree;
@@ -31,6 +31,4 @@ void CloneFunctor<Key, Value>::operator(const tree23<Key, Value>::Node23& node23
 
 }
 
-Using std::copy() would require external iterators, which the code does not presently support.
-
-As a last resort, the CloneTree() method in the tree234 code could be used.
+Note: Using std::copy() would require external iterators, which the code does not presently support.
