@@ -881,9 +881,10 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
 
       case 1: // two node
       {    
-            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
+            Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
+            //--std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
             
-            NodeCopy = std::move(tmp); 
+            //--NodeCopy = std::move(tmp); 
              
             NodeCopy->parent = Node2Copy->parent;
             
@@ -896,9 +897,10 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
       }   // end case
       case 2: // three node
       {
-            std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
+            Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
+            //--std::unique_ptr<Node23> tmp = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
             
-            NodeCopy = std::move(tmp); 
+            //--NodeCopy = std::move(tmp); 
 
             NodeCopy->parent = Node2Copy->parent;
             
