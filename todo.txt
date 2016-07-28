@@ -1,4 +1,5 @@
 Test new code
+
 -------------
 
 tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). 
@@ -19,3 +20,5 @@ HOWTO links:
 
 4. Other 
    http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$
+
+   Once an external iterator has been implemented, we can add begin() and end() methods to class tree23<>.
