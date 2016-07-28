@@ -11,4 +11,6 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
 void test_remove(const std::vector<int>& input, int break_key);
 
+void test_copy_ctor(const std::vector<int>& input, int break_key); 
+
 #endif

@@ -34,6 +34,7 @@ template<class Key, class Value> class tree23 {
      KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
 
      KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} 
+     KeyValue(const KeyValue&) = default;
 
      KeyValue& operator=(KeyValue&& lhs)
      {
@@ -62,7 +63,7 @@ template<class Key, class Value> class tree23 {
         Node23& operator=(const Node23&) = delete; 
 
         // Just copy the keys and values. 
-	Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, int lhs_totalItems) noexcept; 
+	Node23(const std::array<KeyValue, 2>& lhs_keys_values, Node23 * const lhs_parent, int lhs_totalItems) noexcept; 
 
         Node23(Node23&&); // ...but we allow move assignment and move construction.
         Node23& operator=(Node23&&) noexcept;
@@ -230,26 +231,40 @@ template<class Key, class Value> class tree23 {
     */
 
    // Called by copy constructor and copy assignment operators.
-   void CloneTree(std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
+   void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
 	    
 
   public:
     // Implement this later
     /*
-    class iterator { // in order iterator
+    class iterator : public std::iterator<std:forward_iterator_tag, KeyValue> { // in order iterator
+
          const tree<Key, Value>& tree;
-         //std::stack<Node23 *>  stack;
-         iterator(const tree<Key, Value)& lhs) : tree{lhs} {}
-         Node23<Key, Value> *current;
+         std::stack<const Node23 *>  stack;
+
       public:
+         iterator(const tree<Key, Value>& lhs) : tree{lhs} {}
+         iterator(); 
+
          bool operator==(const iterator& lhs) const;
-         bool operator!=(const iterator& lhs) const;
+         
          iterator& operator++();
          iterator operator++(int);
          Value& operator*();
     };
+
+    class const_iterator : public std::interator< > { // in order iterator
+    };
+
+    iterator begin();  
+    iterator end();  
+
+    const_iterator begin() const;  
+    const_iterator end() const;  
     */
+    */
+
     tree23() noexcept;
 
     void test_invariant() const noexcept;
@@ -348,8 +363,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_ch
  *
      std::array<Node23, 3> children
   */     
-template<class Key, class Value> inline tree23<Key, Value>::Node23::Node23(const std::array<KeyValue, 2>& lhs_keys_values, const Node23 *const lhs_parent, \
-	       	int lhs_totalItems) noexcept : keys_values{lhs_keys_values}, parent{lhs_parent}, totalItems{lhs_totalItems}
+template<class Key, class Value> inline tree23<Key, Value>::Node23::Node23(const std::array<KeyValue, 2>& lhs_keys_values,\
+	       	Node23 *const lhs_parent, int lhs_totalItems) noexcept : keys_values{lhs_keys_values}, parent{lhs_parent}, totalItems{lhs_totalItems}
 {
   // we don't copy the children.   
 }
@@ -872,7 +887,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 /*
  Does pre-order traversal, copying source node reference in left parameter to node reference in right parameter.
  */
-template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
+template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
         std::unique_ptr<typename tree23<Key, Value>::Node23>& NodeCopy) noexcept
 {
   if (Node2Copy != nullptr) { 
@@ -881,7 +896,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
 
       case 1: // two node
       {    
-            Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
+            NodeCopy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
              
             NodeCopy->parent = Node2Copy->parent;
             
@@ -894,7 +909,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(std::unique
       }   // end case
       case 2: // three node
       {
-            Node2Copy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
+            NodeCopy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
 
             NodeCopy->parent = Node2Copy->parent;
             

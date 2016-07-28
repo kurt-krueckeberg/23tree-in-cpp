@@ -182,3 +182,29 @@ void test_remove(const std::vector<int>& input, int break_key) //, int break_key
          cout << "Key " << key << " was " << result_msg << endl; 
     } 
 }
+
+void test_copy_ctor(const std::vector<int>& input, int break_key) 
+{
+  tree23<int, int> tree;
+
+  int i = 0;
+  
+  for(auto& key : input) {
+
+     int debug = 0;  
+         
+     tree.insert(key, ++i);
+  }
+
+  tree23<int, int> tree_copy{tree};
+  
+  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  cout << "input tree first followed by its copy" << endl;
+
+  tree.inOrderTraverse(lambda_closure);
+  cout << "\n";
+
+  tree_copy.inOrderTraverse(lambda_closure);
+  cout << "\n---------------------------------\n";
+
+}

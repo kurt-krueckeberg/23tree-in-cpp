@@ -47,7 +47,7 @@ int main(int argc, char** argv)
        
        try {
       
-            run_tests(other_cases, base_case, &test_insert, 0);
+            run_tests(other_cases, base_case, &test_copy_ctor, 0);
               
        } catch(std::exception& e) { 
       
