@@ -263,7 +263,6 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const;  
     const_iterator end() const;  
     */
-    */
 
     tree23() noexcept;
 
