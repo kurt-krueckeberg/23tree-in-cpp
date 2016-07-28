@@ -1,13 +1,12 @@
-Things to work on
-=================
+# Things to work on
 
-Test new code
--------------
+## Test new code
 
 Test tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). 
 
-Implement and External In-Order, STL-like Iterator
---------------------------------------------------
+## Implement and External In-Order, STL-like Iterator
+
+### Implementation Links and Discusssion
 
 1. [odu] - Traversing Trees with Iterators
 2. [geeksforgeeks] - Conceptual Discussion and C code implementation
