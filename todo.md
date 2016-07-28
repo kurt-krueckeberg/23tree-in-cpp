@@ -9,9 +9,6 @@ Test tree23 copy constructor and assignment operator have been implemented using
 Implement and External In-Order, STL-like Iterator
 --------------------------------------------------
 
-HOWTO links:
-~~~~~~~~~~~~
-
 1. [odu] - Traversing Trees with Iterators
 2. [geeksforgeeks] - Conceptual Discussion and C code implementation
 3. [stackoverflow] - Stackoverflow Discussion with a link to SGI implmentation 
