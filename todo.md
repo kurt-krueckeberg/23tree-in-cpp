@@ -2,7 +2,7 @@
 
 ## Test new code
 
-Test tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). 
+Test tree23 copy constructor and assignment operator have been implemented using `CloneTree()` and `DestroyTree()`. They have not been tested.
 
 ## Implement and External In-Order, STL-like Iterator
 
