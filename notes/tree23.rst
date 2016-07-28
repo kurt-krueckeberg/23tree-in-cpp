@@ -321,7 +321,7 @@ To handle this case, we need to split the 3-node.
 split method
 ~~~~~~~~~~~~
 
-split is passed four paraemeters: 
+``split(Node23 *p3node, Key new_key, const Value& new_value, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node)`` is passed four parameters: 
 
 1. a 3-node leaf pointer (which is always a leaf node when invoked by ``insert()``)
 2. the new key and value
@@ -378,7 +378,7 @@ Next, split attempts to "push" or insert the middle key (and its asoociated valu
            CreateNewRoot(node4.keys_values[1].key, node4.keys_values[1].value, std::move(root), std::move(larger_2node)); 
       } 
 
-2. when pnode->parent is a 2-node, it calls **convertTo3Node()** to rebalance the tree:
+2. when pnode->parent is a 2-node, it calls ``convertTo3Node()`` to rebalance the tree:
 
 .. code-block:: cpp
 
