@@ -18,4 +18,4 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [stackoverflow]: <http://stackoverflow.com/questions/12684191/implementing-an-iterator-over-binary-or-arbitrary-tree-using-c-11>
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
 
-Once an external iterator has been implemented, we can add begin() and end() methods to class tree23<Key, Value>.
+Once an external iterator has been implemented, we can add `begin()` and `end()` methods to class tree23\<Key, Value\>.
