@@ -1,37 +1,21 @@
 Test new code
 -------------
 
-tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). They need to be tested, though!!!
+tree23 copy constructor and assignment operator have been implemented using CloneTree() and DestroyTree(). 
 
-Is a functor version possible?
--------------------------------
+Links on HOWTO Implement an External STL-like Iterator
+------------------------------------------------------
 
-Question: Can the copying of each node be implemented as a functor that is passed to the pre-order traversal algorithm? Something like this:
+HOWTO links:
 
-CloneFunctor {
-   tree23<Key, Value>& tree;
+1. Traversing Trees with Iterators. This link has a Q & Q Socratic-type discussion:
+   https://secweb.cs.odu.edu/~zeil/cs361/web/website/Lectures/treetraversal/page/treetraversal.html
 
-   // Notes: references cannot be rebound, so we cannot use them.
-   //--tree23<Key, Value>::Node23 *pnode_2clone; 
+2. Conceptual Discussion and C code:
+   http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/
 
-   std::unique_ptr<typename tree23<Key, Value>::Node23> node_2clone; 
+3. Link to Stackover Discussion involving SGI code: 
+   http://stackoverflow.com/questions/12684191/implementing-an-iterator-over-binary-or-arbitrary-tree-using-c-11
 
-   public:
-        // Function call operator.  
-        CloneFunctor(tree23<Key, Value>& lhs) : tree{lhs}, node_2clone{nullptr};
- 
-        void operator(const tree23<Key, Value>::Node23& node23);
-};
-
-// The code below isn't right. The logic is confused. How do we initially set and then later advance pnode_2clone?
-void CloneFunctor<Key, Value>::operator(const tree23<Key, Value>::Node23& node23)
-{
-   tree23<Key, Value> Node23 tmp = std::make_unique<Node23>(node23); // This would require the copy ctor of node23 to be public       
-
-   *pnode_2clone = std::move(node); // <-- This is confused logic
-
-   // What should pnode_2clone be advanced to?
-
-}
-
-Note: Using std::copy() would require external iterators, which the code does not presently support.
+4. Other 
+   http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$
