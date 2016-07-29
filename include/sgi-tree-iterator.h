@@ -6,44 +6,45 @@ struct tree23_base_iterator
   typedef tree23_node_base::_Base_ptr _Base_ptr;
   typedef bidirectional_iterator_tag iterator_category;
   typedef ptrdiff_t difference_type;
-  _Base_ptr _M_node;
 
-  void _M_increment()
+  _Base_ptr current;
+
+  void increment()
   {
-    if (_M_node->_M_right != 0) {
-      _M_node = _M_node->_M_right;
-      while (_M_node->_M_left != 0)
-        _M_node = _M_node->_M_left;
+    if (current->right != 0) {
+      current = current->right;
+      while (current->left != 0)
+        current = current->left;
     }
     else {
-      _Base_ptr __y = _M_node->_M_parent;
-      while (_M_node == __y->_M_right) {
-        _M_node = __y;
-        __y = __y->_M_parent;
+      _Base_ptr y = current->parent;
+      while (current == y->right) {
+        current = y;
+        y = y->parent;
       }
-      if (_M_node->_M_right != __y)
-        _M_node = __y;
+      if (current->right != y)
+        current = y;
     }
   }
 
-  void _M_decrement()
+  void decrement()
   {
-    if (_M_node->_M_color == _S_rb_tree_red &&
-        _M_node->_M_parent->_M_parent == _M_node)
-      _M_node = _M_node->_M_right;
-    else if (_M_node->_M_left != 0) {
-      _Base_ptr __y = _M_node->_M_left;
-      while (__y->_M_right != 0)
-        __y = __y->_M_right;
-      _M_node = __y;
+    if (current->_M_color == _S_rb_tree_red &&
+        current->parent->parent == current)
+      current = current->right;
+    else if (current->left != 0) {
+      _Base_ptr y = current->left;
+      while (y->right != 0)
+        y = y->right;
+      current = y;
     }
     else {
-      _Base_ptr __y = _M_node->_M_parent;
-      while (_M_node == __y->_M_left) {
-        _M_node = __y;
-        __y = __y->_M_parent;
+      _Base_ptr y = current->parent;
+      while (current == y->left) {
+        current = y;
+        y = y->parent;
       }
-      _M_node = __y;
+      current = y;
     }
   }
 };
@@ -63,35 +64,35 @@ struct tree23_iterator : public tree23_base_iterator
   typedef tree23_node<_Value>* _Link_type;
 
   tree23_iterator() {}
-  tree23_iterator(_Link_type __x) { _M_node = __x; }
-  tree23_iterator(const iterator& __it) { _M_node = __it._M_node; }
+  tree23_iterator(_Link_type __x) { current = __x; }
+  tree23_iterator(const iterator& __it) { current = __it.current; }
 
-  reference operator*() const { return _Link_type(_M_node)->_M_value_field; }
+  reference operator*() const { return _Link_type(current)->_M_value_field; }
 #ifndef __SGI_STL_NO_ARROW_OPERATOR
   pointer operator->() const { return &(operator*()); }
 #endif /* __SGI_STL_NO_ARROW_OPERATOR */
 
-  _Self& operator++() { _M_increment(); return *this; }
+  _Self& operator++() { increment(); return *this; }
   _Self operator++(int) {
     _Self __tmp = *this;
-    _M_increment();
+    increment();
     return __tmp;
   }
     
-  _Self& operator--() { _M_decrement(); return *this; }
+  _Self& operator--() { decrement(); return *this; }
   _Self operator--(int) {
     _Self __tmp = *this;
-    _M_decrement();
+    decrement();
     return __tmp;
   }
 };
 
 inline bool operator==(const tree23_base_iterator& __x,
                        const tree23_base_iterator& __y) {
-  return __x._M_node == __y._M_node;
+  return __x.current == __y.current;
 }
 
 inline bool operator!=(const tree23_base_iterator& __x,
                        const tree23_base_iterator& __y) {
-  return __x._M_node != __y._M_node;
+  return __x.current != __y.current;
 }
