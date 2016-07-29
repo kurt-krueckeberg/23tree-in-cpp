@@ -20,7 +20,7 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [geeksforgeeks]: <http://www.geeksforgeeks.org/inorder-tree-traversal-without-recursion/>
 [stackoverflow]: <http://stackoverflow.com/questions/12684191/implementing-an-iterator-over-binary-or-arbitrary-tree-using-c-11>
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
-[cmd]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
+[cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-26>
 
 Once an external iterator has been implemented, we can add `begin()` and `end()` methods to class tree23\<Key, Value\>.
