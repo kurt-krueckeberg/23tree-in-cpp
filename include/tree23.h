@@ -7,7 +7,7 @@
 #include <utility>
 #include <stack>
 #include <sstream>
-#include <ostream>  
+#include <iostream>  
 #include <exception>
 #include "debug.h"
 #include "level-order-invariant-report.h"
