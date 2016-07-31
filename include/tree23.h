@@ -237,13 +237,17 @@ template<class Key, class Value> class tree23 {
 	    
 
   public:
-    // Implement this later
+    /*
+     * Implementation based on:
+     * https://secweb.cs.odu.edu/~zeil/cs361/web/website/Lectures/treetraversal/page/treetraversal.html
+     */
     class iterator : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue> { // in order iterator
 
+         const tree23<Key, Value> &tree;  // Is this needed? 
          const tree23<Key, Value>::Node23 *current;
-         std::stack<const Node23 *>  stack;
 
 	 void increment();
+	 const tree23<Key, Value>::Node23 *getSuccessor(); // return in-order successor to current.
 
       public:
          iterator(const tree23<Key, Value>& lhs);
@@ -257,6 +261,34 @@ template<class Key, class Value> class tree23 {
          
          iterator& operator++();
          iterator operator++(int);
+
+	 // Q: What should actually be returned? We don't want the user to be able to change the key.
+         tree23<Key, Value>::KeyValue& operator*();
+         tree23<Key, Value>::KeyValue *operator->() { &operator*(); }
+    };
+
+    class const_iterator : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue> { // in order const_iterator
+
+         const tree23<Key, Value> &tree;  // Is this needed? 
+         const tree23<Key, Value>::Node23 *current;
+
+	 void increment();
+	 const tree23<Key, Value>::Node23 *getSuccessor(); // return in-order successor to current.
+
+      public:
+         const_iterator(const tree23<Key, Value>& lhs);
+         const_iterator(const const_iterator& lhs);
+         const_iterator(const_iterator&& lhs);
+
+	 // assignment operators ?
+        
+         bool operator==(const const_iterator& lhs) const;
+         bool operator!=(const const_iterator& lhs) const;
+         
+         const_iterator& operator++();
+         const_iterator operator++(int);
+
+	 // Q: What should actually be returned? We don't want the user to be able to change the key.
          const tree23<Key, Value>::KeyValue& operator*();
          const tree23<Key, Value>::KeyValue *operator->() { &operator*(); }
     };
@@ -264,10 +296,8 @@ template<class Key, class Value> class tree23 {
     iterator begin();  
     iterator end();  
 
-    /*
     const_iterator begin() const;  
     const_iterator end() const;  
-     */
 
     tree23() noexcept;
 
@@ -637,7 +667,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
   return tmp;
 }  
 
-template<class Key, class Value> const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()
+template<class Key, class Value> typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()
 {
   // ????	
 }
