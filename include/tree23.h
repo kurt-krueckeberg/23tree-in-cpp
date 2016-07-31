@@ -9,6 +9,7 @@
 #include <sstream>
 #include <ostream>  
 #include <exception>
+#include <iterator>
 #include "debug.h"
 #include "level-order-invariant-report.h"
 
@@ -237,32 +238,36 @@ template<class Key, class Value> class tree23 {
 
   public:
     // Implement this later
-    /*
-    class iterator : public std::iterator<std:forward_iterator_tag, KeyValue> { // in order iterator
+    class iterator : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue> { // in order iterator
 
-         const tree<Key, Value>& tree;
+         const tree23<Key, Value>::Node23 *current;
          std::stack<const Node23 *>  stack;
 
-      public:
-         iterator(const tree<Key, Value>& lhs) : tree{lhs} {}
-         iterator(); 
+	 void increment();
 
+      public:
+         iterator(const tree23<Key, Value>& lhs);
+         iterator(const iterator& lhs);
+         iterator(iterator&& lhs);
+
+	 // assignment operators ?
+        
          bool operator==(const iterator& lhs) const;
+         bool operator!=(const iterator& lhs) const;
          
          iterator& operator++();
          iterator operator++(int);
-         Value& operator*();
-    };
-
-    class const_iterator : public std::interator< > { // in order iterator
+         const tree23<Key, Value>::KeyValue& operator*();
+         const tree23<Key, Value>::KeyValue *operator->() { &operator*(); }
     };
 
     iterator begin();  
     iterator end();  
 
+    /*
     const_iterator begin() const;  
     const_iterator end() const;  
-    */
+     */
 
     tree23() noexcept;
 
@@ -600,6 +605,41 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_
  }
 
   return ostr; 
+}
+         
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs) : current{lhs.root}
+{
+   increment();
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const typename tree23<Key, Value>::iterator& lhs) : current{lhs.root.get()}
+{
+   increment();
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::iterator&& rvalue) : current{rvalue.root()}
+{
+   // TODO: set lhs to be equal to end() iterator	
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++()
+{
+  increment();
+  return *this;
+}  
+
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::iterator::operator++(int)
+{
+  tree23<Key, Value>::iterator tmp{*this};
+
+  increment();
+
+  return tmp;
+}  
+
+template<class Key, class Value> const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()
+{
+  // ????	
 }
 
 template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept

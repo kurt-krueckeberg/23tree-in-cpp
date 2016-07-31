@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 // Display the stack in "pop" order
 template<> void debug::dump<stack<int>>(const string& msg,  const stack<int>& indecies)  noexcept
 {
