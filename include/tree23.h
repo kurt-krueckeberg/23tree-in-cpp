@@ -238,10 +238,12 @@ template<class Key, class Value> class tree23 {
 
   public:
     // Implement this later
-    class iterator : public std::iterator<std::forward_iterator_tag, tree23<Key, Value>::KeyValue> { // in order iterator
+    class iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
 
          const tree23<Key, Value>& tree;
          const tree23<Key, Value>::Node23 *current;
+         const tree23<Key, Value>::Node23 *getSuccessor();
+         const tree23<Key, Value>::Node23 *getPredecessor();
 
       public:
          iterator(const tree23<Key, Value>& lhs) : tree{lhs}, current{tree.root.get()} {}
@@ -257,7 +259,7 @@ template<class Key, class Value> class tree23 {
          Value *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
-    class const_iterator : std::iterator<std::forward_iterator_tag, tree23<Key, Value>::KeyValue> { // in order iterator
+    class const_iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
 
          const tree23<Key, Value>& tree;
          const tree23<Key, Value>::Node23 *current;
@@ -797,6 +799,31 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 */
 }
 
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value> lhs) : tree{lhs}, current{lhs.root.get();} 
+{
+ // go to first node, the left most leaf
+ for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+
+    current = cursor;
+ }
+}
+
+template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(const typename tree23<Key, Value>::Node23::iterator& lhs) : \
+             tree{lhs.tree}, current{lhs.current} 
+{
+}
+
+template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::Node23::iterator&& lhs) : \
+             tree{lhs.tree}, current{lhs.current} 
+{
+   lhs.current = nullptr; // set to end
+}
+
+template<class Key, class Value> typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
+{
+  // TODO: Implement
+  return current;
+}
 /*
  Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
 
