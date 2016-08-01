@@ -8,12 +8,11 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 ### Implementation Links and Discusssion
 
-1. [odu] - Traversing Trees with Iterators
-2. [geeksforgeeks] - Conceptual Discussion and C code implementation
-3. [stackoverflow] - Stackoverflow Discussion with a link to SGI implmentation 
-4. [FSU] - FSU lecture that discusses external iterator
-5. [cmu] - See Non-Recursive Traversals section
-6. [csohio] - External Iterator discussion of this Java binary tree code
+1. [odu] - Traversing Trees with Iterators, tutorial in Q & A format of C++ STL-compatible external tree iterator
+2. [geeksforgeeks] - Conceptual Discussion and C code implementation, uses inOder() method to advance iterator
+3. [stackoverflow] - Stackoverflow Discussion with a link to SGI STL red-black tree bidirectional iterator implmentation 
+4. [FSU] - FSU lecture that discusses external STL-compatible iterators, both a stack-based and in order successor-based implementations
+5. [cmu] - See Non-Recursive Traversals section, a Java stack-based implementation
 
 
 [odu]: <https://secweb.cs.odu.edu/~zeil/cs361/web/website/Lectures/treetraversal/page/treetraversal.html> 
@@ -21,6 +20,5 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [stackoverflow]: <http://stackoverflow.com/questions/12684191/implementing-an-iterator-over-binary-or-arbitrary-tree-using-c-11>
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
-[csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-26>
 
 Once an external iterator has been implemented, we can add `begin()` and `end()` methods to class tree23\<Key, Value\>.
