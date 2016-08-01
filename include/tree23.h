@@ -821,7 +821,22 @@ template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typenam
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
 {
 }
+/*
 
+Finding the successor of a given node 
+-------------------------------------
+
+From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
+
+On how to find the successor in a binary tree.
+
+If left child exists, predecessor is the right most node of the left subtree.
+
+Else walk up the ancestor chain until you traverse the first right child pointer (find 
+the first node who is a right child of his parent...that parent is the predecessor)
+
+If you get to the root w/o finding a node who is a right child, there is no predecessor
+ */
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
 {
   return tree.getSuccessor(current);
