@@ -198,7 +198,7 @@ template<class Key, class Value> class tree23 {
     // subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
-    Node23 *getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+    Node23 *remove_getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
 
     void fixTree(Node23 *pnode, std::stack<int>& child_indecies) noexcept;
 
@@ -830,7 +830,8 @@ From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
 
 On how to find the successor in a binary tree.
 
-If left child exists, predecessor is the right most node of the left subtree.
+If left child exists, predecessor is the right most node of the left subtree. Internal node's of a 2 3 tree always have a right branch because 2 3 trees are
+balanced.
 
 Else walk up the ancestor chain until you traverse the first right child pointer (find 
 the first node who is a right child of his parent...that parent is the predecessor)
@@ -855,6 +856,15 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
  return current;
 }
 
+/*
+Code from pseudo code from http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf, slide #7
+
+If right child exists, successor is the left most node of the right subtree
+
+Else walk up the ancestor chain until you traverse the first left child pointer (find the first node who is a left child of his parent...that parent is the successor)
+ 
+If you get to the root w/o finding a node who is a left child, there is no successor.
+ */
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSuccessor(const Node23 *subtree_root) const noexcept	    
 {
   // TODO: implement
@@ -1963,7 +1973,8 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (!premove_start->isLeaf()) { // If it is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key of a leaf node.
-      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+      //--pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+      pLeaf = remove_getSuccessor(premove_start, found_index, descent_indecies); 
           
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
@@ -2033,7 +2044,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
  2. child_indecies traces the descent route to the in order successor.
 */
 
-template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::getSuccessor(Node23 *pnode, int found_index, \
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::remove_getSuccessor(Node23 *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
