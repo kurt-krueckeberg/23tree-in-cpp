@@ -235,8 +235,10 @@ template<class Key, class Value> class tree23 {
    void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
 
-   // "Utilities"--useful discreet methods.
+   // Useful utilities. For example, class iterator uses these methods.
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
+   const Node23 *getSuccessor(const Node23 *subtree_root) const noexcept;	    
+   const Node23 *getPredecessor(const Node23 *subtree_root) const noexcept;	    
 
   public:
     // Implement this later
@@ -820,10 +822,9 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(c
 {
 }
 
-template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
 {
-  // TODO: Implement
-  return current;
+  return tree.getSuccessor(current);
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSmallestNode(const Node23 *subtree_root) const noexcept	    
@@ -838,6 +839,17 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
 
  return current;
 }
+
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSuccessor(const Node23 *subtree_root) const noexcept	    
+{
+  // TODO: implement
+}
+
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getPredecessor(const Node23 *subtree_root) const noexcept	    
+{
+  // TODO: implement
+}
+
 /*
  Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
 
