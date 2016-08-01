@@ -249,7 +249,7 @@ template<class Key, class Value> class tree23 {
          iterator(const tree23<Key, Value>& lhs);
          iterator(const iterator& lhs);
          iterator(iterator&& lhs);
-         iterator(); // end() 
+         iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
 
          bool operator==(const iterator& lhs) const;
          bool operator!=(const iterator& lhs) const;
@@ -800,8 +800,8 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
    return ostr;
 */
 }
-
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs) : tree{lhs}, current{lhs.root.get()} 
+// ctor used by begin()
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()} 
 {
  // go to first node, the left most leaf
  for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
@@ -814,6 +814,11 @@ template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typenam
              tree{lhs.tree}, current{lhs.current} 
 {
    lhs.current = nullptr; // set to end
+}
+
+// ctor called by end()
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
+{
 }
 
 template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
