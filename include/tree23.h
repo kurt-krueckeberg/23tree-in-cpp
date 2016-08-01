@@ -237,24 +237,42 @@ template<class Key, class Value> class tree23 {
 
   public:
     // Implement this later
-    /*
-    class iterator : public std::iterator<std:forward_iterator_tag, KeyValue> { // in order iterator
+    class iterator : public std::iterator<std:forward_iterator_tag, tree23<Key, Value>::KeyValue> { // in order iterator
 
          const tree<Key, Value>& tree;
-         std::stack<const Node23 *>  stack;
+         const tree23<Key, Value>::Node23 *current;
 
       public:
-         iterator(const tree<Key, Value>& lhs) : tree{lhs} {}
-         iterator(); 
+         iterator(const tree<Key, Value>& lhs) : tree{lhs}, current{tree.root.get()} {}
+         iterator(const iterator& lhs) : tree{lhs.tree}, current{lhs.current} {}
+         iterator(); // end() 
 
          bool operator==(const iterator& lhs) const;
+         bool operator!=(const iterator& lhs) const;
          
          iterator& operator++();
          iterator operator++(int);
-         Value& operator*();
+         Value& operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         Value *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
-    class const_iterator : public std::interator< > { // in order iterator
+    class const_iterator : std::iterator<std:forward_iterator_tag, tree23<Key, Value>::KeyValue> { // in order iterator
+
+         const tree<Key, Value>& tree;
+         const tree23<Key, Value>::Node23 *current;
+
+      public:
+         const_iterator(const tree<Key, Value>& lhs) : tree{lhs}, current{tree.root.get()} {}
+         const_iterator(const const_iterator& lhs) : tree{lhs.tree}, current{lhs.current} {}
+         const_iterator(); // end() const;
+
+         bool operator==(const const_iterator& lhs) const;
+         bool operator!=(const const_iterator& lhs) const;
+         
+         const_iterator& operator++();
+         const_iterator operator++(int);
+         const Value& operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const Value *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
     iterator begin();  
@@ -262,7 +280,6 @@ template<class Key, class Value> class tree23 {
 
     const_iterator begin() const;  
     const_iterator end() const;  
-    */
 
     tree23() noexcept;
 
