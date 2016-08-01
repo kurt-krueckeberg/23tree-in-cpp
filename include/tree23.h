@@ -861,6 +861,7 @@ Code from pseudo code from http://ee.usc.edu/~redekopp/cs104/slides/L19_Balanced
 
 If right child exists, successor is the left most node of the right subtree
 TODO: Re-read the next sentence and compare it with slides #9 and #10 of http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf. 
+How do you determine if a pointer is a "left child" pointer. It's something to do wit the its index with respect to the index of the child--I guess.
 Else walk up the ancestor chain until you traverse the first left child pointer (find the first node who is a left child of the node's parent...that parent is the
 successor)
  
