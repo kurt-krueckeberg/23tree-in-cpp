@@ -234,7 +234,9 @@ template<class Key, class Value> class tree23 {
    // Called by copy constructor and copy assignment operators.
    void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
-	    
+
+   // "Utilities"--useful discreet methods.
+   const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
     // Implement this later
@@ -803,11 +805,8 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 // ctor used by begin()
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()} 
 {
- // go to first node, the left most leaf
- for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
-
-    current = cursor;
- }
+  // set current to the smallest node in the tree.
+  current = tree.getSmallest(current);
 }
 
 template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::iterator&& lhs) : \
@@ -825,6 +824,19 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
 {
   // TODO: Implement
   return current;
+}
+
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSmallestNode(const Node23 *subtree_root) const noexcept	    
+{
+ Node23 *current = subtree_root;
+
+ // go to first node, the left most leaf
+ for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+
+    current = cursor;
+ }
+
+ return current;
 }
 /*
  Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
