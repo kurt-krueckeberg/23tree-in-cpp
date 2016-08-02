@@ -859,20 +859,29 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
 /*
 Code from pseudo code from http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf, slide #7
 
-If right child exists, successor is the left most node of the right subtree
+If right child exists, successor is the left most node of the right subtree.
+
 TODO: Re-read the next sentence and compare it with slides #9 and #10 of http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf. 
+
 How do you determine if a pointer is a "left child" pointer. It's something to do wit the its index with respect to the index of the child--I guess.
 Else walk up the ancestor chain until you traverse the first left child pointer (find the first node who is a left child of the node's parent...that parent is the
 successor)
  
 If you get to the root w/o finding a node who is a left child, there is no successor.
  */
-template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSuccessor(const Node23 *subtree_root) const noexcept	    
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSuccessor(const Node23 *node) const noexcept	    
 {
   // Because 2 3 trees are always balanced, internal nodes always have a right child, so the in order successor is the left most node of the right subtree.
   // For leaf nodes, we walk up the ancestor chain until you travers the first left child pointer. See the examples are 
-  
 
+  if (!node->isLeaf()) {
+     
+     Node23 *rightSubtree = node....; // get right subtree. Is this in childern[1] or children[2]? Doesn't it depend on the key, too?
+     return  getSmallestNode(rightSubtree);
+
+  } else { // is leaf....
+ 
+  }
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getPredecessor(const Node23 *subtree_root) const noexcept	    
