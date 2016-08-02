@@ -237,7 +237,7 @@ template<class Key, class Value> class tree23 {
 
    // Useful utilities. For example, class iterator uses these methods.
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
-   const Node23 *getSuccessor(const Node23 *subtree_root) const noexcept;	    
+   const Node23 *getSuccessor(const Node23 *subtree_root, int key_index) const noexcept;	    
    const Node23 *getPredecessor(const Node23 *subtree_root) const noexcept;	    
 
   public:
@@ -840,14 +840,14 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
 {
-  return tree.getSuccessor(current);
+  return tree.getSuccessor(current, key_index);
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSmallestNode(const Node23 *subtree_root) const noexcept	    
 {
  Node23 *current = subtree_root;
 
- // go to first node, the left most leaf
+ // go to first node of the left most leaf
  for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
     current = cursor;
