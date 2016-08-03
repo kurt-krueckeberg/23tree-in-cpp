@@ -237,7 +237,8 @@ template<class Key, class Value> class tree23 {
 
    // Useful utilities. For example, class iterator uses these methods.
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
-   const Node23 *getSuccessor(const Node23 *subtree_root, int key_index) const noexcept;	    
+
+   std::pair<const Node23*, int> getSuccessor(const Node23 *subtree_root, int key_index) const noexcept;	    
    const Node23 *getPredecessor(const Node23 *subtree_root) const noexcept;	    
 
   public:
@@ -246,6 +247,8 @@ template<class Key, class Value> class tree23 {
 
          const tree23<Key, Value>& tree;
          const tree23<Key, Value>::Node23 *current;
+         int child_index;  // The index is such that current->parent->children[child_index] == current 
+
          const tree23<Key, Value>::Node23 *getSuccessor();
          const tree23<Key, Value>::Node23 *getPredecessor();
 
@@ -808,11 +811,11 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()} 
 {
   // set current to the smallest node in the tree.
-  current = tree.getSmallest(current);
+  current = tree.getSmallest(current, child_index); // Sets child_index as side effect
 }
 
 template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::iterator&& lhs) : \
-             tree{lhs.tree}, current{lhs.current} 
+             tree{lhs.tree}, current{lhs.current}, child_index{lhs.child_index} 
 {
    lhs.current = nullptr; // set to end
 }
@@ -840,7 +843,7 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
 {
-  return tree.getSuccessor(current, key_index);
+  return tree.getSuccessor(current, child_index);
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSmallestNode(const Node23 *subtree_root) const noexcept	    
@@ -869,7 +872,8 @@ successor)
  
 If you get to the root w/o finding a node who is a left child, there is no successor.
  */
-template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSuccessor(const Node23 *node) const noexcept	    
+template<class Key, class Value> inline std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::getSuccessor(const Node23 *node,\
+                                                                                                                                     int key_index) const noexcept	    
 {
   // Because 2 3 trees are always balanced, internal nodes always have a right child, so the in order successor is the left most node of the right subtree.
   // For leaf nodes, we walk up the ancestor chain until you travers the first left child pointer. See the examples are 
@@ -877,6 +881,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
   if (!node->isLeaf()) {
      
      Node23 *rightSubtree = node....; // get right subtree. Is this in childern[1] or children[2]? Doesn't it depend on the key, too?
+
      return  getSmallestNode(rightSubtree);
 
   } else { // is leaf....
