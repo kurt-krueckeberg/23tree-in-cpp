@@ -21,4 +21,4 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 
-New prospective external iterator code has been started in file new-tree23.h. It is not even half implemented.
+New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in tree23.h.orig.

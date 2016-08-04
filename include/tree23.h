@@ -238,19 +238,21 @@ template<class Key, class Value> class tree23 {
    // Useful utilities. For example, class iterator uses these methods.
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
-   std::pair<const Node23*, int> getSuccessor(const Node23 *subtree_root, int key_index) const noexcept;	    
-   const Node23 *getPredecessor(const Node23 *subtree_root) const noexcept;	    
-
   public:
     // Implement this later
+    // create common base for iterator and const_iterator
     class iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
 
          const tree23<Key, Value>& tree;
          const tree23<Key, Value>::Node23 *current;
-         int child_index;  // The index is such that current->parent->children[child_index] == current 
 
-         const tree23<Key, Value>::Node23 *getSuccessor();
-         const tree23<Key, Value>::Node23 *getPredecessor();
+         int key_index;  // The index is such that current->parent->children[child_index] == current 
+
+         void  getSuccessor();
+         void  getInternalNodeSuccessor();
+         void  getLeafNodeSuccessor();
+
+         void  getPredecessor();
 
       public:
          iterator(const tree23<Key, Value>& lhs);
@@ -843,50 +845,70 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator::getSuccessor() 
 {
-  return tree.getSuccessor(current, child_index);
+  // handle trivial 3-node case first
+  if (current->isThreeNode() && key_index == 0) {
+
+      key_index = 1;
+      return;
+  }
+
+  if (current->isLeaf()) { // If leaf node
+
+      getLeafNodeSuccessor();
+
+  } else {
+
+      getInternalNodeSuccessor();
+  }
 }
-
-template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getSmallestNode(const Node23 *subtree_root) const noexcept	    
+/*
+   Requires:
+   1. current is an internal node (and not a leaf node)
+   2. If current is a 3-node, key_index is 1 (not 0).
+ */
+template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getInternalNodeSuccessor() const noexcept	    
 {
- Node23 *current = subtree_root;
+ // Get right most child of current.
+ Node23 *rightMostChild = current->isThreeNode() ? current->children[Node23::TwoNodeChildren - 1] : current->children[ThreeNodeChildren - 1];
 
- // go to first node of the left most leaf
- for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+ // Code below gets the smallest, the left most node, in the subtree at subtree_root
+ for (Node23 *cursor = rightMostChild; cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
     current = cursor;
  }
 
- return current;
+ key_index = 0;
+ return;
 }
-
 /*
-Code from pseudo code from http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf, slide #7
+ Requires:
+ 1. If current is 3-node, then key_index == 1.
 
-If right child exists, successor is the left most node of the right subtree.
-
-TODO: Re-read the next sentence and compare it with slides #9 and #10 of http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf. 
-
-How do you determine if a pointer is a "left child" pointer. It's something to do wit the its index with respect to the index of the child--I guess.
-Else walk up the ancestor chain until you traverse the first left child pointer (find the first node who is a left child of the node's parent...that parent is the
-successor)
- 
-If you get to the root w/o finding a node who is a left child, there is no successor.
  */
-template<class Key, class Value> inline std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::getSuccessor(const Node23 *node,\
-                                                                                                                                     int key_index) const noexcept	    
+template<class Key, class Value> inline std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::getLeafNodeSuccessor()
 {
-  // Because 2 3 trees are always balanced, internal nodes always have a right child, so the in order successor is the left most node of the right subtree.
-  // For leaf nodes, we walk up the ancestor chain until you travers the first left child pointer. See the examples are 
+  // Determine child_index such that current == current->parent->children[child_index]
+  int child_index = 0;
+  for (; child_index <= current->parent->totalItems; ++child_index) {
 
-  if (!node->isLeaf()) {
-     
-     Node23 *rightSubtree = node....; // get right subtree. Is this in childern[1] or children[2]? Doesn't it depend on the key, too?
-
-     return  getSmallestNode(rightSubtree);
-
-  } else { // is leaf....
- 
+       if (current == current->parent->children[child_index])
+              break;
   }
+  /*
+   Handle easy cases first which are:
+    1. If child_index is 0, then successor -- both when current is a 2-node of 3-node -- is parent with key_index of 0.
+    2. If child_index is 1 and parent is a 3-node, the successor is parent with key_index of 1.
+   */
+   
+   /*
+   The remaining cases, for both 2 and 3-nodes, require finding the first parent int the tree's hierarchy that has a "left child" pointer (for a 3-node this could be
+   the middle child pointer) where either:
+
+   1. parent == parent->parent->children[0], when parent is a 2-node, or
+   2. parent == parent->parent->children[1], when parent is a 3-node--right?
+
+    TODO: Double check this with actual use cases.
+    */
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::getPredecessor(const Node23 *subtree_root) const noexcept	    
