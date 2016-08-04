@@ -246,7 +246,7 @@ template<class Key, class Value> class tree23 {
          const tree23<Key, Value>& tree;
          const Node23 *current;
 
-         int key_index;  // The index is such that current->parent->children[child_index] == current 
+         int key_index;  // The index is such that current == current->parent->children[child_index]
 
          void  getSuccessor() noexcept;
          void  getInternalNodeSuccessor() noexcept;
@@ -858,7 +858,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getSuccessor
 
       getLeafNodeSuccessor();
 
-  } else {
+  } else { // else internal node:w
 
       getInternalNodeSuccessor();
   }
@@ -873,7 +873,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator::getIn
  // Get right most child of current.
  Node23 *rightMostChild = current->isThreeNode() ? current->children[Node23::TwoNodeChildren - 1] : current->children[Node23::ThreeNodeChildren - 1];
 
- // Code below gets the smallest, the left most node, in the subtree at subtree_root
+ // Code below gets the smallest, the left most node, in the right most child subtree.
  for (Node23 *cursor = rightMostChild; cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
     current = cursor;
@@ -891,6 +891,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeS
 {
   // Determine child_index such that current == current->parent->children[child_index]
   int child_index = 0;
+
   for (; child_index <= current->parent->totalItems; ++child_index) {
 
        if (current == current->parent->children[child_index])
@@ -901,7 +902,30 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeS
     1. If child_index is 0, then successor -- both when current is a 2-node of 3-node -- is parent with key_index of 0.
     2. If child_index is 1 and parent is a 3-node, the successor is parent with key_index of 1.
    */
-   
+  switch (child_index) {
+
+      case 0:
+         current = current->parent;
+         key_index = 0;
+         break;
+ 
+      case 1:
+         if (current->parent->isThreeNode()) {
+
+            current = current->parent;
+            key_index = 1;
+            break;
+         } 
+
+   // At this point, we have a 2-node parent of current, which may be either a 2 or 3-node. isn't this roughtly the same situation as the child index being 2 and
+   // current being either a 2-node or 3-node (with key_index of 1)?
+    
+
+    case 2:
+        break;
+
+    default:
+       break;
    /*
    Handle the most complex case.
 
@@ -915,6 +939,8 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeS
 
    TODO: Double check the "Note" and the two numbered cases with actual use cases.
     */
+
+  } // end switch
 }
 
 template<class Key, class Value> void tree23<Key, Value>::iterator::getPredecessor() noexcept	    
