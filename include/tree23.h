@@ -950,11 +950,10 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
             break;
          } 
 
-   // At this point, we have a 2-node parent of current, which may be either a 2 or 3-node. isn't this roughtly the same situation as the child index being 2 and
-   // current being either a 2-node or 3-node (with key_index of 1)?
-    
+   // At this point, we have a 2-node parent of current (which may be either a 2 or 3-node). Since this is roughtly the same situation as the child index being 2, 
+   // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
 
-    case 2:
+    case 2: // common code for both 2-node whose child_index is 1 and whose parent is a 2-node, and for a 3-node whose child_index is 2. 
         break;
 
     default:
