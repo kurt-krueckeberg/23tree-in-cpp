@@ -239,9 +239,7 @@ template<class Key, class Value> class tree23 {
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
-    // Implement this later
-    // create common base for iterator and const_iterator
-    class iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
+    class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
 
          const tree23<Key, Value>& tree;
          const Node23 *current;
@@ -256,20 +254,43 @@ template<class Key, class Value> class tree23 {
          void  getPredecessor() noexcept;
 
       public:
-         iterator(const tree23<Key, Value>& lhs);
-         iterator(const iterator& lhs);
-         iterator(iterator&& lhs);
-         iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
+         iterator_base(const tree23<Key, Value>& lhs);
+         iterator_base(const iterator_base& lhs);
+         iterator_base(iterator_base&& lhs);
+         iterator_base(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
 
-         bool operator==(const iterator& lhs) const;
-         bool operator!=(const iterator& lhs) const;
+         bool operator==(const iterator_base& lhs) const;
+         bool operator!=(const iterator_base& lhs) const;
          
-         iterator& operator++();
-         iterator operator++(int);
-         Value& operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         Value *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+         iterator_base& operator++();
+         iterator_base operator++(int);
+         
+         //--std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         //--std::pair<Key, Value&>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
+    // Implement this later
+    // create common base for iterator and const_iterator
+    class iterator : public iterator_base {
+
+      public:
+         iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         iterator(const iterator& lhs) : iterator_base{lhs} {}
+         iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
+         
+         iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
+
+         bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<iterator_base&>(lhs)); }
+         bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<iterator_base&>(lhs)); }
+         
+         iterator& operator++() { return iterator_base::operator++(); }
+         iterator operator++(int) { return iterator_base::operator++(5); }
+         
+         // new methods
+         std::pair<Key, Value&> operator*(); 
+         std::pair<Key, Value&>* operator->();
+    };
+   /*
     class const_iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
 
          const tree23<Key, Value>& tree;
@@ -286,15 +307,18 @@ template<class Key, class Value> class tree23 {
          
          const_iterator& operator++();
          const_iterator operator++(int);
-         const Value& operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         const Value *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+         const std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const std::pair<Key, Value&> *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
+    */
 
     iterator begin();  
     iterator end();  
 
+    /*
     const_iterator begin() const;  
     const_iterator end() const;  
+     */
 
     tree23() noexcept;
 
@@ -811,7 +835,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 */
 }
 // ctor used by begin()
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0} 
 {
   for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0]) {
@@ -819,18 +843,18 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(c
   }
 }
 
-template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::iterator&& lhs) : \
+template<class Key, class Value>  tree23<Key, Value>::iterator_base::iterator_base(typename tree23<Key, Value>::iterator_base&& lhs) : \
              tree{lhs.tree}, current{lhs.current}, key_index{lhs.key_index} 
 {
    lhs.current = nullptr; // set to end
 }
 
 // ctor called by end()
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
 {
 }
 
-template<class Key, class Value> inline int tree23<Key, Value>::iterator::getChildIndex(const Node23 *p) const noexcept
+template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::getChildIndex(const Node23 *p) const noexcept
 {
   // Determine child_index such that current == current->parent->children[child_index]
   int child_index = 0;
@@ -859,7 +883,7 @@ the first node who is a right child of his parent...that parent is the predecess
 
 If you get to the root w/o finding a node who is a right child, there is no predecessor
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator::getSuccessor() noexcept
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
   // handle trivial 3-node case first
   if (current->isThreeNode() && key_index == 0) {
@@ -882,7 +906,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getSuccessor
    1. current is an internal node (and not a leaf node)
    2. If current is a 3-node, key_index is 1 (not 0).
  */
-template<class Key, class Value> inline void tree23<Key, Value>::iterator::getInternalNodeSuccessor() noexcept	    
+template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor() noexcept	    
 {
  // Get right most child of current.
  Node23 *rightMostChild = current->isThreeNode() ? current->children[Node23::TwoNodeChildren - 1] : current->children[Node23::ThreeNodeChildren - 1];
@@ -901,7 +925,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator::getIn
  1. If current is 3-node, then key_index == 1.
 
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeSuccessor() noexcept
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeafNodeSuccessor() noexcept
 {
   // Determine child_index such that current == current->parent->children[child_index]
   int child_index = getChildIndex(current);
@@ -952,7 +976,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeS
   } // end switch
 }
 
-template<class Key, class Value> void tree23<Key, Value>::iterator::getPredecessor() noexcept	    
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept	    
 {
   // TODO: implement
 }
@@ -2718,14 +2742,14 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
 
 /* External iterator code
    TODO: finish later
-template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() 
+template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator_base::operator++() 
 {
    if (current == nullptr) {
        return *this;
    }
    
 }
-template<class Key, class Value>  tree23<Key, Value>::iterator::advance() 
+template<class Key, class Value>  tree23<Key, Value>::iterator_base::advance() 
 {
   // in order traversal using stack.
   // Since the tree is always balanced, it is sufficient to check just one p
