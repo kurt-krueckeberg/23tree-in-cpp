@@ -248,6 +248,7 @@ template<class Key, class Value> class tree23 {
 
          int key_index;  // The index is such that current == current->parent->children[child_index]
 
+         int   getChildIndex(const Node23 *p) const noexcept;
          void  getSuccessor() noexcept;
          void  getInternalNodeSuccessor() noexcept;
          void  getLeafNodeSuccessor() noexcept;
@@ -828,6 +829,19 @@ template<class Key, class Value>  tree23<Key, Value>::iterator::iterator(typenam
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
 {
 }
+
+template<class Key, class Value> inline int tree23<Key, Value>::iterator::getChildIndex(const Node23 *p) const noexcept
+{
+  // Determine child_index such that current == current->parent->children[child_index]
+  int child_index = 0;
+
+  for (; child_index <= current->parent->totalItems; ++child_index) {
+
+       if (current == current->parent->children[child_index])
+              break;
+  }
+  return child_index;
+}
 /*
 
 Finding the successor of a given node 
@@ -890,13 +904,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator::getIn
 template<class Key, class Value> void tree23<Key, Value>::iterator::getLeafNodeSuccessor() noexcept
 {
   // Determine child_index such that current == current->parent->children[child_index]
-  int child_index = 0;
+  int child_index = getChildIndex(current);
 
-  for (; child_index <= current->parent->totalItems; ++child_index) {
-
-       if (current == current->parent->children[child_index])
-              break;
-  }
   /*
    Handle easy cases first which are:
     1. If child_index is 0, then successor -- both when current is a 2-node of 3-node -- is parent with key_index of 0.
