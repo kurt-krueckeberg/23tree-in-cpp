@@ -909,10 +909,10 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSucc
 template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor() noexcept	    
 {
  // Get right most child of current.
- Node23 *rightMostChild = current->isThreeNode() ? current->children[Node23::TwoNodeChildren - 1] : current->children[Node23::ThreeNodeChildren - 1];
+ int rightMost_index = current->isThreeNode() ? Node23::TwoNodeChildren - 1 : Node23::ThreeNodeChildren - 1;
 
- // Code below gets the smallest, the left most node, in the right most child subtree.
- for (Node23 *cursor = rightMostChild; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+ // Set cursor to right most child and then get the smallest, most left most node, in its subtree.
+ for (Node23 *cursor = current->children[rightMost_index]; cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
     current = cursor;
  }
