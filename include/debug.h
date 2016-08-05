@@ -1,7 +1,6 @@
 #ifndef debug_h_1826381263683
 #define debug_h_1826381263683
 
-#include <algorithm>
 #include <iterator>
 #include <iostream>
 #include <string>
@@ -25,7 +24,3 @@ template<> void dump<int_stack>(const std::string& msg,  const int_stack& indeci
 } // end namespace. No semicolon
 
 #endif
-<<<<<<< HEAD
-
-=======
->>>>>>> 207bc0f3f7171d7f4f6c1b6be327e53c465061c4

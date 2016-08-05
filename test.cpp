@@ -22,9 +22,16 @@ void print_tree(const tree23<int, int>& tree)
   cout << "\n\nIn order print of tree: ";
   
   auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
-
+/*
   tree.inOrderTraverse(lambda_closure);
+ */ 
+    
+  tree23<int, int>::iterator iter = tree.begin();
   
+  for(auto& the_pair : tree) {
+      
+      cout << the_pair.first << flush;
+  }
   cout << endl;
 }
  

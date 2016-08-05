@@ -283,8 +283,8 @@ template<class Key, class Value> class tree23 {
          
          iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
 
-         bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<iterator_base&>(lhs)); }
-         bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<iterator_base&>(lhs)); }
+         bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<const iterator_base&>(lhs)); }
+         bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<const iterator_base&>(lhs)); }
          
          iterator& operator++() { return iterator_base::operator++(); }
          iterator operator++(int) { return iterator_base::operator++(5); }
@@ -315,7 +315,7 @@ template<class Key, class Value> class tree23 {
     };
     */
 
-    iterator begin();  
+    iterator begin() noexcept;  
     iterator end();  
 
     /*
@@ -837,11 +837,15 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
    return ostr;
 */
 }
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
+{
+    return iterator{*this};
+}
 // ctor used by begin()
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0} 
 {
-  for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0]) {
+  for (const Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
   }
 }
@@ -864,7 +868,7 @@ template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::g
 
   for (; child_index <= current->parent->totalItems; ++child_index) {
 
-       if (current == current->parent->children[child_index])
+       if (current == current->parent->children[child_index].get())
               break;
   }
   return child_index;
@@ -915,7 +919,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::
  int rightMost_index = current->isThreeNode() ? Node23::TwoNodeChildren - 1 : Node23::ThreeNodeChildren - 1;
 
  // Set cursor to right most child and then get the smallest, most left most node, in its subtree.
- for (Node23 *cursor = current->children[rightMost_index]; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+ for (Node23 *cursor = current->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
     current = cursor;
  }
