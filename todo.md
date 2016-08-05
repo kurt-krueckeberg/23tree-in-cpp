@@ -21,4 +21,6 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 
-New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in tree23.h.orig.
+New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in
+tree23.h.orig. The getChildIndex() method is not the only technique that could be used. We could simply compare current->\keys\_values[key\_index] with the 
+keys in current->parent->keys\_values[]. But this would require also passing the child_index of current in its parent, I believe.
