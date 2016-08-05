@@ -26,9 +26,9 @@ void print_tree(const tree23<int, int>& tree)
   tree.inOrderTraverse(lambda_closure);
  */ 
     
-  tree23<int, int>::iterator iter = tree.begin();
+  tree23<int, int>::const_iterator const_iter = tree.begin();
   
-  for(auto& the_pair : tree) {
+  for(const auto& the_pair : tree) {
       
       cout << the_pair.first << flush;
   }

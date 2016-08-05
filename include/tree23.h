@@ -241,7 +241,12 @@ template<class Key, class Value> class tree23 {
 
   public:
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
+ /*
+   TODO: Thoughts...
 
+   1. We could change iterator_base to be a template that stores either a "const tree23<Key, Value>&" or the non-const "tree23<Key,Value>&" 
+   2. or we could have the derived iterator class  cast away const as needed in its methods: const_cast<tree23<Key, Value>&>(tree) ?
+  */
          const tree23<Key, Value>& tree;
          const Node23 *current;
 
@@ -251,15 +256,18 @@ template<class Key, class Value> class tree23 {
          void  getSuccessor() noexcept;
          void  getInternalNodeSuccessor() noexcept;
          void  getLeafNodeSuccessor() noexcept;
-         //--Node23 *findLeftChildAncestor() noexcept;
+
          std::pair<Node23 *, int> findLeftChildAncestor() noexcept;
 
          void  getPredecessor() noexcept;
 
       public:
-         iterator_base(const tree23<Key, Value>& lhs);
+         iterator_base(tree23<Key, Value>& lhs); // for use by iterator derived class
+         iterator_base(const tree23<Key, Value>& lhs); // for use by const_iterator derived class
+
          iterator_base(const iterator_base& lhs);
          iterator_base(iterator_base&& lhs);
+
          iterator_base(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
 
          bool operator==(const iterator_base& lhs) const;
@@ -277,7 +285,7 @@ template<class Key, class Value> class tree23 {
     class iterator : public iterator_base {
 
       public:
-         iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
          iterator(const iterator& lhs) : iterator_base{lhs} {}
          iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
          
@@ -286,23 +294,20 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<const iterator_base&>(lhs)); }
          bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<const iterator_base&>(lhs)); }
          
-         iterator& operator++() { return iterator_base::operator++(); }
-         iterator operator++(int) { return iterator_base::operator++(5); }
+         iterator& operator++() { iterator_base::operator++(); return *this; }
+         iterator operator++(int) { iterator_base::operator++(5); return *this; }
          
          // new methods
-         std::pair<Key, Value&> operator*(); 
-         std::pair<Key, Value&>* operator->();
+         std::pair<const Key, Value&> operator*(); 
+         std::pair<const Key, Value&>* operator->();
     };
-   /*
-    class const_iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
 
-         const tree23<Key, Value>& tree;
-         const tree23<Key, Value>::Node23 *current;
+    class const_iterator : public iterator_base 
 
       public:
-         const_iterator(const tree23<Key, Value>& lhs);
-         const_iterator(const const_iterator& lhs);
-         const_iterator(const_iterator&& lhs);
+         const_iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         const_iterator(const const_iterator& lhs) : iterator_base{lhs} {}
+         const_iterator(const_iterator&& lhs) : iterator_base{std::move(lhs)} {}
          const_iterator(); // end() const;
 
          bool operator==(const const_iterator& lhs) const;
@@ -313,15 +318,12 @@ template<class Key, class Value> class tree23 {
          const std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          const std::pair<Key, Value&> *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
-    */
 
     iterator begin() noexcept;  
-    iterator end();  
+    iterator end() noexcept;  
 
-    /*
-    const_iterator begin() const;  
-    const_iterator end() const;  
-     */
+    const_iterator begin() const noexcept;  
+    const_iterator end() const noexcept;  
 
     tree23() noexcept;
 
@@ -839,9 +841,18 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 }
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
-    return iterator{*this};
+    return iterator{const_cast<tree23<Key, Value>&>(*this)};
 }
-// ctor used by begin()
+
+// non const tree23<Key, Value>& passed to ctor. Used by begin()
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
+                                                                 key_index{0} 
+{
+  for (const Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0].get()) {
+           current = cursor;
+  }
+}
+// non const tree23<Key, Value>& passed to ctor. Used by "begin() const"
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0} 
 {
