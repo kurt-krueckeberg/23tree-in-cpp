@@ -250,6 +250,7 @@ template<class Key, class Value> class tree23 {
          void  getSuccessor() noexcept;
          void  getInternalNodeSuccessor() noexcept;
          void  getLeafNodeSuccessor() noexcept;
+         Node23 *findLeftChildAncestor() noexcept;
 
          void  getPredecessor() noexcept;
 
@@ -954,25 +955,40 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
    // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
 
     case 2: // common code for both 2-node whose child_index is 1 and whose parent is a 2-node, and for a 3-node whose child_index is 2. 
+         // 
         break;
 
     default:
        break;
    /*
-   Handle the most complex case.
+   The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a first left child somewhere up the ancestral trail from current but
+   before the root. If root is encountered, there is no successor--right?
 
-   The remaining cases, for both 2 and 3-nodes, require finding (see http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slide #9) the first ancestor
-   that is a left child. 
+   See http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slide #9) 
+
    Note: For a 3-node, the middle child will be the "left" child pointer whenever the descendent node is in its right subtree (of this middle pointer)--right. 
    The cases then are:
 
    1. parent == parent->parent->children[0], when parent is a 2-node, or
    2. parent == parent->parent->children[1], when parent is a 3-node--right??
-
-   TODO: Double check the "Note" and the two numbered cases with actual use cases.
     */
+   current = findLeftChildAncestor(current, key_index);
 
   } // end switch
+}
+/*
+ Requires:
+ current is a leaf node that is the right most child of its parent. 
+ Therefore the successor is the first left child in the anscester trail of parents (before the root is encountered).
+
+ Promises:
+ 1. Returns successor node.
+ 2. sets key_index to the index of the successor within that node's keys_values[].
+ */
+
+template<class Key, class Value> typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::findLeftChildAncestor() noexcept
+{
+
 }
 
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept	    
