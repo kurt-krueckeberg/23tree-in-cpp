@@ -2,8 +2,10 @@
 #include "include/tree23.h"
 #include "include/level-order-display.h"
 #include "include/debug-level-order-printer.h"
-#include "include/debug.h"
+//#include "include/debug.h"
 #include <iostream>
+#include <iterator>
+#include <algorithm>
 
 using namespace std;
 

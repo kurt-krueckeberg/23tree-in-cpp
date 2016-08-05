@@ -7,9 +7,10 @@
 #include <utility>
 #include <stack>
 #include <sstream>
-#include <ostream>  
+#include <iostream>  
 #include <exception>
 #include <iterator>
+#include <utility>
 #include "debug.h"
 #include "level-order-invariant-report.h"
 
@@ -198,7 +199,7 @@ template<class Key, class Value> class tree23 {
     // subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
-    Node23 *getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+    Node23 *remove_getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
 
     void fixTree(Node23 *pnode, std::stack<int>& child_indecies) noexcept;
 
@@ -234,70 +235,93 @@ template<class Key, class Value> class tree23 {
    // Called by copy constructor and copy assignment operators.
    void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
-	    
+
+   // Useful utilities. For example, class iterator uses these methods.
+   const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
-    /*
-     * Implementation based on:
-     * https://secweb.cs.odu.edu/~zeil/cs361/web/website/Lectures/treetraversal/page/treetraversal.html
-     */
-    class iterator : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue> { // in order iterator
+    class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
 
-         const tree23<Key, Value> &tree;  // Is this needed? 
-         const tree23<Key, Value>::Node23 *current;
+         const tree23<Key, Value>& tree;
+         const Node23 *current;
 
-	 void increment();
-	 const tree23<Key, Value>::Node23 *getSuccessor(); // return in-order successor to current.
+         int key_index;  // The index is such that current == current->parent->children[child_index]
+
+         int   getChildIndex(const Node23 *p) const noexcept;
+         void  getSuccessor() noexcept;
+         void  getInternalNodeSuccessor() noexcept;
+         void  getLeafNodeSuccessor() noexcept;
+         //--Node23 *findLeftChildAncestor() noexcept;
+         std::pair<Node23 *, int> findLeftChildAncestor() noexcept;
+
+         void  getPredecessor() noexcept;
 
       public:
-         iterator(const tree23<Key, Value>& lhs);
-         iterator(const iterator& lhs);
-         iterator(iterator&& lhs);
+         iterator_base(const tree23<Key, Value>& lhs);
+         iterator_base(const iterator_base& lhs);
+         iterator_base(iterator_base&& lhs);
+         iterator_base(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
 
-	 // assignment operators ?
-        
-         bool operator==(const iterator& lhs) const;
-         bool operator!=(const iterator& lhs) const;
+         bool operator==(const iterator_base& lhs) const;
+         bool operator!=(const iterator_base& lhs) const;
          
-         iterator& operator++();
-         iterator operator++(int);
-
-	 // Q: What should actually be returned? We don't want the user to be able to change the key.
-         tree23<Key, Value>::KeyValue& operator*();
-         tree23<Key, Value>::KeyValue *operator->() { &operator*(); }
+         iterator_base& operator++();
+         iterator_base operator++(int);
+         
+         //--std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         //--std::pair<Key, Value&>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
-    class const_iterator : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue> { // in order const_iterator
+    // Implement this later
+    // create common base for iterator and const_iterator
+    class iterator : public iterator_base {
 
-         const tree23<Key, Value> &tree;  // Is this needed? 
+      public:
+         iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         iterator(const iterator& lhs) : iterator_base{lhs} {}
+         iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
+         
+         iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
+
+         bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<iterator_base&>(lhs)); }
+         bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<iterator_base&>(lhs)); }
+         
+         iterator& operator++() { return iterator_base::operator++(); }
+         iterator operator++(int) { return iterator_base::operator++(5); }
+         
+         // new methods
+         std::pair<Key, Value&> operator*(); 
+         std::pair<Key, Value&>* operator->();
+    };
+   /*
+    class const_iterator : public std::iterator<std::forward_iterator_tag, Value> { // in order iterator
+
+         const tree23<Key, Value>& tree;
          const tree23<Key, Value>::Node23 *current;
-
-	 void increment();
-	 const tree23<Key, Value>::Node23 *getSuccessor(); // return in-order successor to current.
 
       public:
          const_iterator(const tree23<Key, Value>& lhs);
          const_iterator(const const_iterator& lhs);
          const_iterator(const_iterator&& lhs);
+         const_iterator(); // end() const;
 
-	 // assignment operators ?
-        
          bool operator==(const const_iterator& lhs) const;
          bool operator!=(const const_iterator& lhs) const;
          
          const_iterator& operator++();
          const_iterator operator++(int);
-
-	 // Q: What should actually be returned? We don't want the user to be able to change the key.
-         const tree23<Key, Value>::KeyValue& operator*();
-         const tree23<Key, Value>::KeyValue *operator->() { &operator*(); }
+         const std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const std::pair<Key, Value&> *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
+    */
 
     iterator begin();  
     iterator end();  
 
+    /*
     const_iterator begin() const;  
     const_iterator end() const;  
+     */
 
     tree23() noexcept;
 
@@ -636,41 +660,6 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_
 
   return ostr; 
 }
-         
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs) : current{lhs.root}
-{
-   increment();
-}
-
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const typename tree23<Key, Value>::iterator& lhs) : current{lhs.root.get()}
-{
-   increment();
-}
-
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(typename tree23<Key, Value>::iterator&& rvalue) : current{rvalue.root()}
-{
-   // TODO: set lhs to be equal to end() iterator	
-}
-
-template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++()
-{
-  increment();
-  return *this;
-}  
-
-template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::iterator::operator++(int)
-{
-  tree23<Key, Value>::iterator tmp{*this};
-
-  increment();
-
-  return tmp;
-}  
-
-template<class Key, class Value> typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()
-{
-  // ????	
-}
 
 template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept
 {
@@ -847,6 +836,225 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
    ostr << std::endl; 
    return ostr;
 */
+}
+// ctor used by begin()
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
+                                                                 key_index{0} 
+{
+  for (Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0]) {
+           current = cursor;
+  }
+}
+
+template<class Key, class Value>  tree23<Key, Value>::iterator_base::iterator_base(typename tree23<Key, Value>::iterator_base&& lhs) : \
+             tree{lhs.tree}, current{lhs.current}, key_index{lhs.key_index} 
+{
+   lhs.current = nullptr; // set to end
+}
+
+// ctor called by end()
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree, Node23 *ptr) : tree{lhs_tree}, current{nullptr}
+{
+}
+
+template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::getChildIndex(const Node23 *p) const noexcept
+{
+  // Determine child_index such that current == current->parent->children[child_index]
+  int child_index = 0;
+
+  for (; child_index <= current->parent->totalItems; ++child_index) {
+
+       if (current == current->parent->children[child_index])
+              break;
+  }
+  return child_index;
+}
+/*
+
+Finding the successor of a given node 
+-------------------------------------
+
+From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
+
+On how to find the successor in a binary tree.
+
+If left child exists, predecessor is the right most node of the left subtree. Internal node's of a 2 3 tree always have a right branch because 2 3 trees are
+balanced.
+
+Else walk up the ancestor chain until you traverse the first right child pointer (find 
+the first node who is a right child of his parent...that parent is the predecessor)
+
+If you get to the root w/o finding a node who is a right child, there is no predecessor
+ */
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
+{
+  // handle trivial 3-node case first
+  if (current->isThreeNode() && key_index == 0) {
+
+      key_index = 1;
+      return;
+  }
+
+  if (current->isLeaf()) { // If leaf node
+
+      getLeafNodeSuccessor();
+
+  } else { // else internal node:w
+
+      getInternalNodeSuccessor();
+  }
+}
+/*
+   Requires:
+   1. current is an internal node (and not a leaf node)
+   2. If current is a 3-node, key_index is 1 (not 0).
+ */
+template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor() noexcept	    
+{
+ // Get right most child of current.
+ int rightMost_index = current->isThreeNode() ? Node23::TwoNodeChildren - 1 : Node23::ThreeNodeChildren - 1;
+
+ // Set cursor to right most child and then get the smallest, most left most node, in its subtree.
+ for (Node23 *cursor = current->children[rightMost_index]; cursor != nullptr; cursor = cursor->chilren[0].get()) {
+
+    current = cursor;
+ }
+
+ key_index = 0;
+ return;
+}
+/*
+ Requires:
+ 1. If current is 3-node, then key_index equals 1, the second key. It cannot be 0, the first key, ever.
+
+ */
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeafNodeSuccessor() noexcept
+{
+  // Determine child_index such that current == current->parent->children[child_index]
+  int child_index = getChildIndex(current);
+
+  /*
+   Handle easy cases first which are:
+    1. If child_index is 0, then successor -- both when current is a 2-node of 3-node -- is parent with key_index of 0.
+    2. If child_index is 1 and parent is a 3-node, the successor is parent with key_index of 1.
+   */
+  switch (child_index) {
+
+      case 0:
+         current = current->parent;
+         key_index = 0;
+         break;
+ 
+      case 1:
+         if (current->parent->isThreeNode()) {
+
+            current = current->parent;
+            key_index = 1;
+            break;
+         } 
+
+   // At this point, we have a 2-node parent of current (which may be either a 2 or 3-node). Since this is roughtly the same situation as the child index being 2, 
+   // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
+
+    case 2: // common code for both 2-node whose child_index is 1 and whose parent is a 2-node, and for a 3-node whose child_index is 2. 
+         // 
+        break;
+
+    default:
+       break;
+   /*
+Finding the Successor from http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slide #9) 
+
+In both a binary tree and a 2 3 tree, if a right child exists, the successor is the left most node of the right subtree. 
+
+Else we walk up the ancestor chain until we traverse the first "left" child pointer, that is, until we encounter the first ancestor node that is a left child of its
+parent. That parent parent is the successor of current.
+
+If you get to the root w/o finding a node that is a left child, there is no successor.
+
+Note: In a 2 3 tree, when the parent is a 3-node, its middle child pointer is a "left" child pointer from the point of view of its 2nd key. For example, if [50] is
+the current leaf node, the successor is the second key of the 3-node [17, 60]. When we walk up the anscester chain from [50], the first left child pointer we encounter
+is the middle child of [17, 60], the children[1] pointer, and the successor key is 60, the second key of [17, 60].
+
+          [17,       60]   <-- 3-node
+          /       |     \
+         /        |      \
+      [10]       [35]     [70, 100]
+     /   \       /  \      /  |  \
+   [5]  [15]   [20] [50]  ...         <-- current points to leaf node [50]. 
+   / \   / \   / \  / \   
+  0   0 0   0 0   0 0  0  ... 
+
+   The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a left child pointer somewhere up the ancestral trail from current but
+   before the root. If root is encountered, there is no successor--right?
+
+
+   1. parent == parent->parent->children[0], when parent is a 2-node, or
+   2. parent == parent->parent->children[1], when parent is a 3-node--right??
+    */
+
+   std::pair<Node23 *, int> results = findLeftChildAncestor();
+
+   current = results.first;
+   key_index = results.second;
+
+  } // end switch
+}
+/*
+ Requires:
+ current is a leaf node that is the right most child of its parent. 
+ Therefore the successor is the first left child in the anscester trail of parents (before the root is encountered).
+
+ Promises:
+ 1. Returns successor node.
+ 2. sets key_index to the index of the successor within that node's keys_values[].
+ */
+/*
+template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::findLeftChildAncestor(Node23 *pnode) noexcept
+{
+   Node23 *parent = pnode->parent;
+
+   if (parent == tree.root.get()) { // there is no successor
+
+       current = nullptr;
+       return; 
+   }
+
+   for (int i = 0; i <= parent->totalItems; ++i) {
+
+        if (current->keys_values[key_index].key < parent->keys_values[i]) {
+
+            // found successor
+            return std::make_pair(pnode, i);
+            return;
+        } 
+   }
+
+   return findLeftChildAncestor(parent);
+}
+*/
+// non-recursive version
+template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::findLeftChildAncestor() noexcept
+{
+  // Ascend ancester's until a key greater than current->keys_values[key_index].key is found or root is encountered.
+  for (Node23 *parent = current->parent; parent != tree.root.get(); parent = parent->parent)
+
+    for (int i = 0; i <= parent->totalItems; ++i) {
+
+        if (current->keys_values[key_index].key < parent->keys_values[i]) {
+
+            return std::make_pair(parent, i);
+
+            return;
+        } 
+   }
+
+   return std::make_pair(nullptr, 0); 
+}
+
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept	    
+{
+  // TODO: implement
 }
 
 /*
@@ -1947,7 +2155,8 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (!premove_start->isLeaf()) { // If it is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key of a leaf node.
-      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+      //--pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+      pLeaf = remove_getSuccessor(premove_start, found_index, descent_indecies); 
           
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
@@ -2017,7 +2226,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
  2. child_indecies traces the descent route to the in order successor.
 */
 
-template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::getSuccessor(Node23 *pnode, int found_index, \
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::remove_getSuccessor(Node23 *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
@@ -2609,14 +2818,14 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
 
 /* External iterator code
    TODO: finish later
-template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() 
+template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator_base::operator++() 
 {
    if (current == nullptr) {
        return *this;
    }
    
 }
-template<class Key, class Value>  tree23<Key, Value>::iterator::advance() 
+template<class Key, class Value>  tree23<Key, Value>::iterator_base::advance() 
 {
   // in order traversal using stack.
   // Since the tree is always balanced, it is sufficient to check just one p
