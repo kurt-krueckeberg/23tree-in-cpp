@@ -37,3 +37,5 @@ Test tree23 copy constructor and assignment operator have been implemented using
 New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in
 tree23.h.orig. The getChildIndex() method is not the only technique that could be used. We could simply compare current->\keys\_values[key\_index] with the 
 keys in current->parent->keys\_values[]. But this would require also passing the child_index of current in its parent, I believe.
+
+Does getLeftChildXXXX()-whatever really get the left child pointer in the same way as comparing pointers would?
