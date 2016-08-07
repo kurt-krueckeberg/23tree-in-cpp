@@ -34,15 +34,17 @@ See the red black tree increment method fo stdlibc++ below:
     static _Rb_tree_node_base*
       local_Rb_tree_increment(_Rb_tree_node_base* __x) throw ()
       {
+        // If there is a right subtree, get its left most node.
         if (__x->_M_right != 0) 
           {
             __x = __x->_M_right;
             while (__x->_M_left != 0)
               __x = __x->_M_left;
           }
-        else 
+        else
           {
-            _Rb_tree_node_base* __y = __x->_M_parent;
+            _Rb_tree_node_base* __y = __x->_M_parent; // else retrieve its parent 
+           // TODO: Draw a picture of what this loop is doing (in a balanced red black tree)
             while (__x == __y->_M_right) 
               {
                 __x = __y;
