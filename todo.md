@@ -44,7 +44,21 @@ See the red black tree increment method fo stdlibc++ below:
         else
           {
             _Rb_tree_node_base* __y = __x->_M_parent; // else retrieve its parent 
+
            // TODO: Draw a picture of what this loop is doing (in a balanced red black tree)
+           // Ascend x's parent nodes as long as they are right children.
+           /*
+                55
+                  \
+                  40  
+                  /  \
+                 35    45
+                / \    / \
+               30 38  43  50 
+
+
+
+            */
             while (__x == __y->_M_right) 
               {
                 __x = __y;
