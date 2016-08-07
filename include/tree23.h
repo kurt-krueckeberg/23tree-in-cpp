@@ -985,6 +985,11 @@ In both a binary tree and a 2 3 tree, if a right child exists, the successor is 
 Else we walk up the ancestor chain until we traverse the first "left" child pointer, that is, until we encounter the first ancestor node that is a left child of its
 parent. That parent parent is the successor of current.
 
+TODO: Examine the Note comment immediately below:
+Note: Isn't "until we traverse the first 'left' child pointer...that parent is the successor" equivalent to finding the first ancestor key that is the next largest
+in sequence, and isn't that found simply by comparing ancestor parent keys, starting with the left most, and we never need to examine or compare sibling keys in order
+to find the next largest. This technique only applies to finding the successor of the right most leaf node in a 2 3 tree. 
+
 If you get to the root w/o finding a node that is a left child, there is no successor.
 
 Note: In a 2 3 tree, when the parent is a 3-node, its middle child pointer is a "left" child pointer from the point of view of its 2nd key. For example, if [50] is
