@@ -242,8 +242,8 @@ template<class Key, class Value> class tree23 {
   public:
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
  /*
-   TODO: Thoughts...
-
+   TODO: Thoughts...on storing a const tree23 reference for a non-const iterator....
+    
    1. We could change iterator_base to be a template that stores either a "const tree23<Key, Value>&" or the non-const "tree23<Key,Value>&" 
    2. or we could have the derived iterator class  cast away const as needed in its methods: const_cast<tree23<Key, Value>&>(tree) ?
   */
@@ -1001,8 +1001,7 @@ is the middle child of [17, 60], the children[1] pointer, and the successor key 
   0   0 0   0 0   0 0  0  ... 
 
    The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a left child pointer somewhere up the ancestral trail from current but
-   before the root. If root is encountered, there is no successor--right?
-
+   before the root. If root is encountered, there is no successor (because we have exhausted the subtree).
 
    1. parent == parent->parent->children[0], when parent is a 2-node, or
    2. parent == parent->parent->children[1], when parent is a 3-node--right??
