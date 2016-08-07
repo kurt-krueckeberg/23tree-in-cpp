@@ -991,9 +991,31 @@ Else we walk up the ancestor chain until we traverse the first "left" child poin
 parent. That parent parent is the successor of current.
 
 TODO: Examine the Note comment immediately below:
-Note: Isn't "until we traverse the first 'left' child pointer...that parent is the successor" equivalent to finding the first ancestor key that is the next largest
-in sequence, and isn't that found simply by comparing ancestor parent keys, starting with the left most, and we never need to examine or compare sibling keys in order
-to find the next largest. This technique only applies to finding the successor of the right most leaf node in a 2 3 tree. 
+
+Comment: Isn't "...until we traverse the first 'left' child pointer ...that parent is the successor" equivalent to finding the first ancestor key that is greater than 
+
+   current->keys_values[key_index].key 
+
+which is found simply by comparing keys in the ancestors, starting with the left most--even though we do some comparisons where i in
+
+  parent->children[i]
+
+is not equal to curent. We really only need to consider the case where
+
+  current->parent->children[i] == current
+
+and the next parent is such that 
+
+  next_parent = current->parent
+
+and where only one index, sole_current_index 
+
+   next_parent->children[sole_current_index] == parent
+
+needs to be compared.
+
+  That is, to find sole_current_index takes the equivalent amount of work as simply comparing the keys.
+End Comment.
 
 If you get to the root w/o finding a node that is a left child, there is no successor.
 
@@ -1026,7 +1048,31 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
 
   } // end switch
 }
+
 /*
+ non-recursive version
+ */
+template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::findLeftChildAncestor() noexcept
+{
+  // Ascend ancester's until a key greater than current->keys_values[key_index].key is found or root is encountered.
+  for (Node23 *parent = current->parent; parent != tree.root.get(); parent = parent->parent)
+
+    for (int i = 0; i <= parent->totalItems; ++i) {
+
+        if (current->keys_values[key_index].key < parent->keys_values[i]) {
+
+            return std::make_pair(parent, i);
+
+            return;
+        } 
+   }
+
+   return std::make_pair(nullptr, 0); 
+}
+
+/* 
+ Recursive version
+
  Requires:
  current is a leaf node that is the right most child of its parent. 
  Therefore the successor is the first left child in the anscester trail of parents (before the root is encountered).
@@ -1059,25 +1105,6 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *
    return findLeftChildAncestor(parent);
 }
 */
-// non-recursive version
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::findLeftChildAncestor() noexcept
-{
-  // Ascend ancester's until a key greater than current->keys_values[key_index].key is found or root is encountered.
-  for (Node23 *parent = current->parent; parent != tree.root.get(); parent = parent->parent)
-
-    for (int i = 0; i <= parent->totalItems; ++i) {
-
-        if (current->keys_values[key_index].key < parent->keys_values[i]) {
-
-            return std::make_pair(parent, i);
-
-            return;
-        } 
-   }
-
-   return std::make_pair(nullptr, 0); 
-}
-
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept	    
 {
   // TODO: implement
