@@ -28,7 +28,7 @@ keys in current->parent->keys\_values[]. But this would require also passing the
 
 Does getLeftChildXXXX()-whatever really get the left child pointer in the same way as comparing pointers would?
 
-See include/rbtree.h for stdlibc++ source code for rb tree increment().
+See the red black tree increment method fo stdlibc++ below:
 
     // stdlibc++ source code for red black tree increment
     static _Rb_tree_node_base*
