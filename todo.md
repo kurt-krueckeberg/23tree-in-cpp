@@ -39,3 +39,5 @@ tree23.h.orig. The getChildIndex() method is not the only technique that could b
 keys in current->parent->keys\_values[]. But this would require also passing the child_index of current in its parent, I believe.
 
 Does getLeftChildXXXX()-whatever really get the left child pointer in the same way as comparing pointers would?
+
+See include/rbtree.h for stdlibc++ source code for rb tree increment().
