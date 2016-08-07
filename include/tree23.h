@@ -971,13 +971,18 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
    // At this point, we have a 2-node parent of current (which may be either a 2 or 3-node). Since this is roughtly the same situation as the child index being 2, 
    // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
 
-    case 2: // common code for both 2-node whose child_index is 1 and whose parent is a 2-node, and for a 3-node whose child_index is 2. 
-         // 
-        break;
+    case 2: 
+   /* 
+   This switch case now involves two use cases:
 
-    default:
-       break;
-   /*
+   1. The leaf node is the right child  of a 2-node (which is "case 1:" above; and current is, of course, itself a two node):
+
+       current->parent->isTwoNode() == true && current == current->parent->children[1]
+
+   2. The leaf node is the right child of a three node (and, of course, is itself a two node):
+
+       current->parent->isThreeNode() == true && current == current->parent->children[2]
+
 Finding the Successor from http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slide #9) 
 
 In both a binary tree and a 2 3 tree, if a right child exists, the successor is the left most node of the right subtree. 
@@ -992,9 +997,10 @@ to find the next largest. This technique only applies to finding the successor o
 
 If you get to the root w/o finding a node that is a left child, there is no successor.
 
-Note: In a 2 3 tree, when the parent is a 3-node, its middle child pointer is a "left" child pointer from the point of view of its 2nd key. For example, if [50] is
-the current leaf node, the successor is the second key of the 3-node [17, 60]. When we walk up the anscester chain from [50], the first left child pointer we encounter
-is the middle child of [17, 60], the children[1] pointer, and the successor key is 60, the second key of [17, 60].
+Note: In a 2 3 tree, the 2nd key of a 3-node is greater than all values in the subtree rooted at the middle subtree pointer. Thus, when viewed from the 2nd key, the 
+middle child pointer is a "left" subtree pointer for the 2nd key; when viewed from the 1st key, it is right subtree pointer. If [50] is the current leaf node, the
+successor is the second key of the 3-node [17, 60] because when we walk up the anscester chain from [50], the first left child pointer we encounter is the middle child
+of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50].
 
           [17,       60]   <-- 3-node
           /       |     \
@@ -1006,16 +1012,17 @@ is the middle child of [17, 60], the children[1] pointer, and the successor key 
   0   0 0   0 0   0 0  0  ... 
 
    The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a left child pointer somewhere up the ancestral trail from current but
-   before the root. If root is encountered, there is no successor (because we have exhausted the subtree).
-
-   1. parent == parent->parent->children[0], when parent is a 2-node, or
-   2. parent == parent->parent->children[1], when parent is a 3-node--right??
+   before the root. If the root is encountered, there is no successor (because we have exhausted the subtree).
     */
 
    std::pair<Node23 *, int> results = findLeftChildAncestor();
 
    current = results.first;
    key_index = results.second;
+   break;
+
+    default:
+       break;
 
   } // end switch
 }
