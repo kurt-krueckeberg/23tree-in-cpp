@@ -1088,11 +1088,10 @@ before the root. If the root is encountered, there is no successor (because we h
                30 38  43  50 
 
             */
- 
-            // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
              
-            while (pnode != root.get())  // TODO: Don't we need to also add a check whether we have reached the root???
+            while (__parent != root.get())  {
 
+                // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
                 if (pnode != __parent->children[__parent->totalItems].get()) {
   
                    break;
@@ -1103,9 +1102,16 @@ before the root. If the root is encountered, there is no successor (because we h
                 __parent = __parent->_M_parent;
             }
 
-            if (pnode->children[pnode->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
-                                                                            // doesn't handle? Draw it out on paper.
+            if (__parent == root.get()) { 
+
+                  if (pnode != __parent->children[__parent->totalItems.get()]) { // If pnode is the first or middle child of its parent.
+
                     pnode = __parent;
+
+                  } else { // there is no successor.
+
+                    return std::make_pair(nullptr, 0);   
+                  }
               }  
 
               // Actually, the code below assume that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
@@ -1113,18 +1119,11 @@ before the root. If the root is encountered, there is no successor (because we h
               // pnode == pnode->parent->children[1].  
               if (pnode->isThreeNode()) {
 
-                 if (prior_node == pnode->children[0]) {
-
-                      suc_key_index = 0;
-
-                 } else { // it equals pnode->children[1]
-
-                      suc_key_index = 1;
-                 }  
+                 suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1;
 
               } else { // pnode is a 2-node
 
-                   suc_key_index = 0;
+                 suc_key_index = 0;
               }
 
          break;
