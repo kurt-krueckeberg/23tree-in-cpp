@@ -83,3 +83,53 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
       {
         return local_Rb_tree_increment(const_cast<_Rb_tree_node_base*>(__x));
       }
+
+From http://www.sgi.com/tech/stl/stl_tree.h
+
+    struct _Rb_tree_base_iterator
+    {
+      typedef _Rb_tree_node_base::_Base_ptr _Base_ptr;
+      typedef bidirectional_iterator_tag iterator_category;
+      typedef ptrdiff_t difference_type;
+      _Base_ptr _M_node;
+    
+      void _M_increment()
+      {
+        if (_M_node->_M_right != 0) {
+          _M_node = _M_node->_M_right;
+          while (_M_node->_M_left != 0)
+            _M_node = _M_node->_M_left;
+        }
+        else {
+          _Base_ptr __y = _M_node->_M_parent;
+          while (_M_node == __y->_M_right) {
+            _M_node = __y;
+            __y = __y->_M_parent;
+          }
+          if (_M_node->_M_right != __y)
+            _M_node = __y;
+        }
+      }
+    
+      void _M_decrement()
+      {
+        if (_M_node->_M_color == _S_rb_tree_red &&
+            _M_node->_M_parent->_M_parent == _M_node)
+          _M_node = _M_node->_M_right;
+        else if (_M_node->_M_left != 0) {
+          _Base_ptr __y = _M_node->_M_left;
+          while (__y->_M_right != 0)
+            __y = __y->_M_right;
+          _M_node = __y;
+        }
+        else {
+          _Base_ptr __y = _M_node->_M_parent;
+          while (_M_node == __y->_M_left) {
+            _M_node = __y;
+            __y = __y->_M_parent;
+          }
+          _M_node = __y;
+        }
+      }
+    };
+    
