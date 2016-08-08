@@ -254,8 +254,10 @@ template<class Key, class Value> class tree23 {
 
          int   getChildIndex(const Node23 *p) const noexcept;
          void  getSuccessor() noexcept;
-         void  getInternalNodeSuccessor() noexcept;
-         void  getLeafNodeSuccessor() noexcept;
+
+         Node23 *getInternalNodeSuccessor(Node23 *pnode) const noexcept;
+
+         std::pair<Node23 *, int>  getLeafNodeSuccessor(Node23 *) const noexcept;
 
          std::pair<Node23 *, int> findLeftChildAncestor() noexcept;
 
@@ -898,6 +900,19 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 {
 }
 
+/*
+ getChildIndex(Node23 *pnode)
+
+ Requires:
+ pnode a node in the tree for which we want child_index such that
+
+ current->parent->children[child_index] == current
+
+ Returns:
+ child_index as shown above. 
+
+ */
+
 template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::getChildIndex(const Node23 *p) const noexcept
 {
   // Determine child_index such that current == current->parent->children[child_index]
@@ -908,6 +923,7 @@ template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::g
        if (current == current->parent->children[child_index].get())
               break;
   }
+
   return child_index;
 }
 /*
@@ -938,66 +954,77 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSucc
 
   if (current->isLeaf()) { // If leaf node
 
-      getLeafNodeSuccessor();
+     std::pair<Node23 *, int> results = getLeafNodeSuccessor(current);
+     current = results.first;
+     key_index = results.second;
 
-  } else { // else internal node:w
+  } else { // else internal node
 
-      getInternalNodeSuccessor();
+      current = getInternalNodeSuccessor(current);
+      key_index = 0; // it will always be the first key
   }
 }
-/*
+/* 
+   getInternalNodeSuccessor()
+
    Requires:
-   1. current is an internal node (and not a leaf node)
-   2. If current is a 3-node, key_index is 1 (not 0).
+   1. pnode is an internal node not a leaf node.
+   2. If pnode is a 3-node, key_index is 1 not 0.
+
+   Returns:
+   1. pointer to successor node.
  */
-template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor() noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(typename \
+                                                                                                                   tree23<Key, Value>::Node23 *pnode) const noexcept	    
 {
- // Get right most child of current.
- int rightMost_index = current->isThreeNode() ? Node23::TwoNodeChildren - 1 : Node23::ThreeNodeChildren - 1;
+ // Get right most child of pnode.
+ int rightMost_index = (pnode->isThreeNode() ? Node23::TwoNodeChildren : Node23::ThreeNodeChildren) - 1;
 
- // Set cursor to right most child and then get the smallest, most left most node, in its subtree.
- for (Node23 *cursor = current->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->chilren[0].get()) {
+ // The smallest node in the subtree rooted at the right most child of pnode is its left most node...
+ for (Node23 *cursor = pnode->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->chilren[0].get()) {
 
-    current = cursor;
+    pnode = cursor;
  }
-
- key_index = 0;
- return;
+ 
+ return pnode;
 }
 /*
  Requires:
- 1. If current is 3-node, then key_index equals 1, the second key. It cannot be 0, the first key, ever.
+ 1. pnode is a leaf node, either a 2 or 3-node
+ 2. If pnode is 3-node, then key_index, the key index into pnode->keys_values[].key must be 1, the second key. It can never be 0, the first key.
 
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeafNodeSuccessor() noexcept
+template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor(Node23 *pnode) const noexcept
 {
-  // Determine child_index such that current == current->parent->children[child_index]
-  int child_index = getChildIndex(current);
+  // Determine child_index such that pnode == pnode->parent->children[child_index]
+  int child_index = getChildIndex(pnode);
+
+  int suc_key_index;
 
   /*
    Handle easy cases first:
-   1. If child_index is 0, then the successor -- when current is either a 2-node of 3-node -- is current->parent and the key_index is 0.
-   2. If child_index is 1 and parent is a 3-node, the successor is current->parent and key_index is 1.
+   1. If child_index is 0, then the successor -- when pnode is either a 2-node of 3-node -- is pnode->parent and the suc_key_index is 0.
+   2. If child_index is 1 and parent is a 3-node, the successor is pnode->parent and suc_key_index is 1.
    */
   switch (child_index) {
 
       case 0:
-         current = current->parent;
-         key_index = 0;
+         pnode = pnode->parent;
+         suc_key_index = 0;
          break;
  
       case 1:
-         if (current->parent->isThreeNode()) {
+         if (pnode->parent->isThreeNode()) {
 
-            current = current->parent;
-            key_index = 1;
+            pnode = pnode->parent;
+            suc_key_index = 1;
             break;
 
          } 
          /* We fall through to "casee 3" if the parent is a 2-node */
     case 2: 
    /* 
-    At this point, this case applies when the leaf node is either the right child of a 2-node or the middle child a 3-node leaf (with the current key in the
+    At this point, this case applies when the leaf node is either the right child of a 2-node or the middle child a 3-node leaf (with the pnode key in the
     2nd slot. If it was in the first slot, getPredessor() handles this). In a 2 3 tree the middle child is a "left child" of the 2nd key of a 3-node parent.
     The logic to find the first "left" child pointer is identical to the case when the leaf node is the third child of a 3-node (and this third child is a
     2-node or a 3-node with the key in the second position). 
@@ -1007,13 +1034,13 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
 
 1. the right child  of a 2-node, which is "case 1:" above. 
 
-   current->parent->isTwoNode() == true && current == current->parent->children[1]
+   pnode->parent->isTwoNode() == true && pnode == pnode->parent->children[1]
 
 2. the right child of a three node
 
-   current->parent->isThreeNode() == true && current == current->parent->children[2] && key_index == 1
+   pnode->parent->isThreeNode() == true && pnode == pnode->parent->children[2] && suc_key_index == 1
 
-Note: If the leaf node itself is a 3-node, the key_index will be 1 (if it was 0, getPredecessor() handled it already).
+Note: If the leaf node itself is a 3-node, the suc_key_index will be 1 (if it was 0, getPredecessor() handled it already).
 
 Finding the successor in this situation is discussed in http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slide #9. 
 
@@ -1022,14 +1049,14 @@ In both a binary tree and a 2 3 tree...
 If a right child exists, the successor is the left most node of the right subtree. 
 
 Else we walk up the ancestor chain until we traverse the first "left" child pointer, that is, until we encounter the first ancestor node that is a left child of its
-parent. That parent parent is the successor of current.
+parent. That parent parent is the successor of pnode.
 
 If you get to the root w/o finding a node that is a left child, there is no successor.
 
 Note: In a 2 3 tree, the 2nd key of a 3-node is greater than all values in the subtree rooted at its middle child. Thus, when viewed from its 2nd key, the 
 middle child pointer is a "left" subtree pointer ofr the 2nd key. When viewed from the 1st key, the middle child is right subtree pointer.
 
-In the tree below, if [50] is the current leaf node, the successor of [50] is the second key of the 3-node [17, 60]. When we walk up the parent chain from [50], the
+In the tree below, if [50] is the pnode leaf node, the successor of [50] is the second key of the 3-node [17, 60]. When we walk up the parent chain from [50], the
 first left child pointer we encounter is the middle child of the 3-node [17, 60], which is the "left" child of 60. So 60 is the next largest key, the successor, of
 [50].
 
@@ -1038,16 +1065,16 @@ first left child pointer we encounter is the middle child of the 3-node [17, 60]
          /        |      \
       [10]       [35]     [70, 100]
      /   \       /  \      /  |  \
-   [5]  [15]   [20] [50]  ...         <-- current points to leaf node [50]. 
+   [5]  [15]   [20] [50]  ...         <-- pnode points to leaf node [50]. 
    / \   / \   / \  / \   
   0   0 0   0 0   0 0  0  ... 
 
-So the remaining logic, which applies to both 2 and 3-node leaves, requires finding the first ancestor that is a "left" child pointer somewhere up the ancestral trail from current but
+So the remaining logic, which applies to both 2 and 3-node leaves, requires finding the first ancestor that is a "left" child pointer somewhere up the ancestral trail from pnode but
 before the root. If the root is encountered, there is no successor (because we have exhausted the subtree).
     */
 
    case 3:
-            Node23 *__x = current;
+            Node23 *__x = pnode;
             Node23* __parent = __x->parent; // else retrieve its parent 
 
            /* Consider this subtree. We  want the successor of [50]. So we ascend x's parent nodes as long as they are right children of their parent.
@@ -1061,39 +1088,39 @@ before the root. If the root is encountered, there is no successor (because we h
                30 38  43  50 
 
             */
-            Node23 *prior_current = current;
+            Node23 *prior_pnode = pnode;
  
             // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
 
-            while (current == __parent->children[__parent->totalItems].get())  // TODO: Don't we need to also add a check whether we have reached the root???
+            while (pnode == __parent->children[__parent->totalItems].get())  // TODO: Don't we need to also add a check whether we have reached the root???
               {
-                prior_current = current;
-                current = __parent;
+                prior_pnode = pnode;
+                pnode = __parent;
                 __parent = __parent->_M_parent;
               }
 
-              if (current->children[current->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
+              if (pnode->children[pnode->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
                                                                             // doesn't handle? Draw it out on paper.
-                    current = __parent;
+                    pnode = __parent;
               }  
 
-              // Actually, the code below assume that current is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
-              // And we must test whether current is the first or second child; i.e., whether current = current->parent->children[0] or  
-              // current == current->parent->children[1].  
-              if (current->isThreeNode()) {
+              // Actually, the code below assume that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
+              // And we must test whether pnode is the first or second child; i.e., whether pnode = pnode->parent->children[0] or  
+              // pnode == pnode->parent->children[1].  
+              if (pnode->isThreeNode()) {
 
-                 if (prior_current == current->children[0]) {
+                 if (prior_pnode == pnode->children[0]) {
 
-                      key_index = 0;
+                      suc_key_index = 0;
 
                  } else {
 
-                      key_index = 1;
+                      suc_key_index = 1;
                  }  
 
-              } else { // current is a 2-node
+              } else { // pnode is a 2-node
 
-                   key_index = 0;
+                   suc_key_index = 0;
               }
 
          break;
@@ -1102,6 +1129,8 @@ before the root. If the root is encountered, there is no successor (because we h
        break;
 
   } // end switch
+
+  return std::make_pair(pnode, suc_key_index); 
 }
 
 /*

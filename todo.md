@@ -27,7 +27,7 @@ tree23.h.orig.
 
 TODO: 
 
-1. See the "TODO" in findLeafNodeSuccessor(). 
+1. See the "TODO" in getLeafNodeSuccessor(). 
 2. Also check code that does end() and its associated iterators.
 3. iterator\_base stores either a "const tree23" or just "tree23, but iterator alters the tree, so it should not be const, well for const\_iterator it should be.
 

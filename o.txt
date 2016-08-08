@@ -5,24 +5,21 @@ make[2]: Entering directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
 mkdir -p build/Debug/GNU-Linux
 rm -f "build/Debug/GNU-Linux/debug.o.d"
 g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/debug.o.d" -o build/Debug/GNU-Linux/debug.o debug.cpp
-mkdir -p build/Debug/GNU-Linux
-rm -f "build/Debug/GNU-Linux/main.o.d"
-g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/main.o.d" -o build/Debug/GNU-Linux/main.o main.cpp
-mkdir -p build/Debug/GNU-Linux
-rm -f "build/Debug/GNU-Linux/test.o.d"
-g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/test.o.d" -o build/Debug/GNU-Linux/test.o test.cpp
-mkdir -p dist/Debug/GNU-Linux
-g++ -std=c++14    -o dist/Debug/GNU-Linux/23tree-in-cpp build/Debug/GNU-Linux/debug.o build/Debug/GNU-Linux/main.o build/Debug/GNU-Linux/test.o  -std=c++14
-build/Debug/GNU-Linux/test.o: In function `print_tree(tree23<int, int> const&)':
-/home/kurt/23/test.cpp:29: undefined reference to `tree23<int, int>::begin() const'
-/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::begin() const'
-/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::end() const'
-/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator!=(tree23<int, int>::const_iterator const&) const'
-/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator*()'
-/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator++()'
-collect2: error: ld returned 1 exit status
-nbproject/Makefile-Debug.mk:64: recipe for target 'dist/Debug/GNU-Linux/23tree-in-cpp' failed
-make[2]: *** [dist/Debug/GNU-Linux/23tree-in-cpp] Error 1
+In file included from debug.cpp:2:0:
+include/tree23.h:977:46: error: prototype for ‘void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(tree23<Key, Value>::Node23*) const’ does not match any in class ‘tree23<Key, Value>::iterator_base’
+ template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(Node23 *pnode) const noexcept     
+                                              ^
+include/tree23.h:258:18: error: candidate is: tree23<Key, Value>::Node23* tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(tree23<Key, Value>::Node23*) const
+          Node23 *getInternalNodeSuccessor(Node23 *pnode) const noexcept;
+                  ^
+include/tree23.h:996:88: error: prototype for ‘std::pair<tree23<Key, Value>::Node23*, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor(tree23<Key, Value>::Node23*) const’ does not match any in class ‘tree23<Key, Value>::iterator_base’
+ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor(Node23 *pnode) const noexcept
+                                                                                        ^
+include/tree23.h:260:36: error: candidate is: std::pair<tree23<Key, Value>::Node23*, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor() const
+          std::pair<Node23 *, int>  getLeafNodeSuccessor() const noexcept;
+                                    ^
+nbproject/Makefile-Debug.mk:68: recipe for target 'build/Debug/GNU-Linux/debug.o' failed
+make[2]: *** [build/Debug/GNU-Linux/debug.o] Error 1
 make[2]: Leaving directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
 nbproject/Makefile-Debug.mk:61: recipe for target '.build-conf' failed
 make[1]: *** [.build-conf] Error 2
