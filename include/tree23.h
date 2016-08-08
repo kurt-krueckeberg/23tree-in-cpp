@@ -1090,20 +1090,20 @@ before the root. If the root is encountered, there is no successor (because we h
             */
  
             // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
+             
+            while (pnode != root.get())  // TODO: Don't we need to also add a check whether we have reached the root???
 
-            while (pnode == __parent->children[__parent->totalItems].get())  // TODO: Don't we need to also add a check whether we have reached the root???
-              {
+                if (pnode != __parent->children[__parent->totalItems].get()) {
+  
+                   break;
+                } 
+  
                 prior_node = pnode;
                 pnode = __parent;
                 __parent = __parent->_M_parent;
-             /*
-            TODO: We need to check if we have reached the root:
-                   root.get() == __parent?
-              */  
- 
-              }
+            }
 
-              if (pnode->children[pnode->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
+            if (pnode->children[pnode->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
                                                                             // doesn't handle? Draw it out on paper.
                     pnode = __parent;
               }  
