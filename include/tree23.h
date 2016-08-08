@@ -992,7 +992,15 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
             current = current->parent;
             key_index = 1;
             break;
-         } 
+
+         } else { 
+
+           // TODO: Wirte this an then decide if there is common code with "case 3:" below.
+
+
+         }
+
+         break;   
 
    // At this point, we have a 2-node parent of current (which may be either a 2 or 3-node). Since this is roughtly the same situation as the child index being 2, 
    // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
@@ -1062,8 +1070,6 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
    The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a left child pointer somewhere up the ancestral trail from current but
    before the root. If the root is encountered, there is no successor (because we have exhausted the subtree).
     */
-        // TODO: Write specific code for "case 1:"
-        break;
 
    case 3:
             Node23 *__x = current;
@@ -1081,22 +1087,41 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
                30 38  43  50 
 
             */
+            Node23 *prior_current = current;
+             
             // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, ascend the tree. 
             while (current == __parent->children[__parent->totalItems].get())  
               {
+                prior_current = current;
                 current = __parent;
                 __parent = __parent->_M_parent;
               }
+
               if (current->children[current->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
                                                                             // doesn't handle? Draw it out on paper.
-                        current = __parent;
+                    current = __parent;
               }  
 
               // Actually, the code below assume that current is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
               // And we must test whether current is the first or second child; i.e., whether current = current->parent->children[0] or  
               // current == current->parent->children[1].  
+              if (current->isThreeNode()) {
 
-              key_index = current->isThreeNode() ? 1 : 0; // If it is a 3-node then set key_index to second key; otherwise, the first.
+                 if (prior_current == current->children[0]) {
+
+                      key_index = 0;
+
+                 } else {
+
+                      key_index = 1;
+                 }  
+
+              } else { // current is a 2-node
+
+                   key_index = 0;
+              }
+
+              //--key_index = current->isThreeNode() ? 1 : 0; // If it is a 3-node then set key_index to second key; otherwise, the first.
  
 
   /*
