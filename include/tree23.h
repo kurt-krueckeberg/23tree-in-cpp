@@ -1091,6 +1091,8 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
                                                                             // doesn't handle? Draw it out on paper.
                         current = __parent;
               }  
+
+              key_index = current->isThreeNode() ? 1 : 0; // If it is a 3-node then set key_index to second key; otherwise, the first.
  
 
   /*
