@@ -106,7 +106,10 @@ From http://www.sgi.com/tech/stl/stl_tree.h
             _M_node = __y;
             __y = __y->_M_parent;
           }
-          if (_M_node->_M_right != __y)
+          // Again, what is this for, comparing it to the illustration at
+          // http://stackoverflow.com/questions/12684191/implementing-an-iterator-over-binary-or-arbitrary-tree-using-c-11 
+          if (_M_node->_M_right != __y) 
+
             _M_node = __y;
         }
       }
