@@ -861,7 +861,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-    return const_iterator{const_cast<tree23<Key, Value>&>(*this), 1)};
+    return const_iterator{const_cast<tree23<Key, Value>&>(*this), 1};
 }
 
 
@@ -874,7 +874,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
   }
 }
 
-<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, int x) : tree{lhs_tree}, current{nullptr},\
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, int x) : tree{lhs_tree}, current{nullptr},\
                                      key_index{0} 
 {
 }
@@ -993,17 +993,12 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getLeaf
             key_index = 1;
             break;
 
-         } else { 
-
-           // TODO: Wirte this an then decide if there is common code with "case 3:" below.
-
-
-         }
-
-         break;   
-
-   // At this point, we have a 2-node parent of current (which may be either a 2 or 3-node). Since this is roughtly the same situation as the child index being 2, 
-   // which implies that current is a 3-node with key_index of 1. Therefore we fall through to the next case.
+         } 
+          /* 
+           At this point, this case applies when the leaf node is either the right child of a 2-node or the middle child a 3-node leaf (with the current key in the
+           2nd slot). In a 2 3 tree the middle child is a "left child" of the 2nd key of a 3-node parent. The logic to find the first "left" child pointer is identical
+           to  when the leaf node is the third child of a 3-node (and this third child is a 2-node or a 3-node with the key in the second position). 
+            */ 
 
     case 2: 
    /* 
@@ -1023,33 +1018,6 @@ In both a binary tree and a 2 3 tree, if a right child exists, the successor is 
 
 Else we walk up the ancestor chain until we traverse the first "left" child pointer, that is, until we encounter the first ancestor node that is a left child of its
 parent. That parent parent is the successor of current.
-
-TODO: Examine the Note comment immediately below:
-
-Comment: Isn't "...until we traverse the first 'left' child pointer ...that parent is the successor" equivalent to finding the first ancestor key that is greater than 
-
-   current->keys_values[key_index].key 
-
-which is found simply by comparing keys in the ancestors, starting with the left most--even though we do some comparisons where i in
-
-  parent->children[i]
-
-is not equal to curent. We really only need to consider the case where
-
-  current->parent->children[i] == current
-
-and the next parent is such that 
-
-  next_parent = current->parent
-
-and where only one index, sole_current_index 
-
-   next_parent->children[sole_current_index] == parent
-
-needs to be compared.
-
-  That is, to find sole_current_index takes the equivalent amount of work as simply comparing the keys.
-End Comment.
 
 If you get to the root w/o finding a node that is a left child, there is no successor.
 
@@ -1088,7 +1056,8 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
 
             */
             Node23 *prior_current = current;
-             
+            // TODO: Don't we need to add a check whether we have reached the root?
+ 
             // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, ascend the tree. 
             while (current == __parent->children[__parent->totalItems].get())  
               {
