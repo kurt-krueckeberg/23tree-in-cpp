@@ -1,0 +1,31 @@
+"make" -f nbproject/Makefile-Debug.mk QMAKE= SUBPROJECTS= .build-conf
+make[1]: Entering directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
+"make"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux/23tree-in-cpp
+make[2]: Entering directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
+mkdir -p build/Debug/GNU-Linux
+rm -f "build/Debug/GNU-Linux/debug.o.d"
+g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/debug.o.d" -o build/Debug/GNU-Linux/debug.o debug.cpp
+mkdir -p build/Debug/GNU-Linux
+rm -f "build/Debug/GNU-Linux/main.o.d"
+g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/main.o.d" -o build/Debug/GNU-Linux/main.o main.cpp
+mkdir -p build/Debug/GNU-Linux
+rm -f "build/Debug/GNU-Linux/test.o.d"
+g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/test.o.d" -o build/Debug/GNU-Linux/test.o test.cpp
+mkdir -p dist/Debug/GNU-Linux
+g++ -std=c++14    -o dist/Debug/GNU-Linux/23tree-in-cpp build/Debug/GNU-Linux/debug.o build/Debug/GNU-Linux/main.o build/Debug/GNU-Linux/test.o  -std=c++14
+build/Debug/GNU-Linux/test.o: In function `print_tree(tree23<int, int> const&)':
+/home/kurt/23/test.cpp:29: undefined reference to `tree23<int, int>::begin() const'
+/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::begin() const'
+/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::end() const'
+/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator!=(tree23<int, int>::const_iterator const&) const'
+/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator*()'
+/home/kurt/23/test.cpp:31: undefined reference to `tree23<int, int>::const_iterator::operator++()'
+collect2: error: ld returned 1 exit status
+nbproject/Makefile-Debug.mk:64: recipe for target 'dist/Debug/GNU-Linux/23tree-in-cpp' failed
+make[2]: *** [dist/Debug/GNU-Linux/23tree-in-cpp] Error 1
+make[2]: Leaving directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
+nbproject/Makefile-Debug.mk:61: recipe for target '.build-conf' failed
+make[1]: *** [.build-conf] Error 2
+make[1]: Leaving directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
+nbproject/Makefile-impl.mk:39: recipe for target '.build-impl' failed
+make: *** [.build-impl] Error 2

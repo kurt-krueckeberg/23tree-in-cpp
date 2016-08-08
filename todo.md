@@ -24,9 +24,9 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in
 tree23.h.orig. The getChildIndex() method is not the only technique that could be used. We could simply compare current->\keys\_values[key\_index] with the 
-keys in current->parent->keys\_values[]. But this would require also passing the child_index of current in its parent, I believe.
+keys in current-\>parent-\>keys\_values[]. But this would require also passing the child\_index of current in its parent, I believe.
 
-Does getLeftChildXXXX()-whatever really get the left child pointer in the same way as comparing pointers would?
+TODO:  Check code that does end() and its associated iterators.
 
 See the red black tree increment method fo stdlibc++ below:
 
@@ -56,15 +56,14 @@ See the red black tree increment method fo stdlibc++ below:
                 / \    / \
                30 38  43  50 
 
-
-
             */
-            while (__x == __y->_M_right) 
+
+            while (__x == __y->_M_right) // Ascend as long as the parent node is always a right child.
               {
                 __x = __y;
                 __y = __y->_M_parent;
               }
-            if (__x->_M_right != __y)
+            if (__x->_M_right != __y) // What does this do? Draw it out on paper.
               __x = __y;
           }
         return __x;

@@ -263,6 +263,7 @@ template<class Key, class Value> class tree23 {
 
       public:
          iterator_base(tree23<Key, Value>& lhs); // for use by iterator derived class
+         iterator_base(tree23<Key, Value>& lhs, int); // for use by end()
          iterator_base(const tree23<Key, Value>& lhs); // for use by const_iterator derived class
 
          iterator_base(const iterator_base& lhs);
@@ -287,6 +288,7 @@ template<class Key, class Value> class tree23 {
       public:
          iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
          iterator(const iterator& lhs) : iterator_base{lhs} {}
+         iterator(const iterator& lhs, int x) : iterator_base{lhs, x} {}
          iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
          
          iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
@@ -302,10 +304,12 @@ template<class Key, class Value> class tree23 {
          std::pair<const Key, Value&>* operator->();
     };
 
-    class const_iterator : public iterator_base 
+
+    class const_iterator : public iterator_base {
 
       public:
          const_iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         const_iterator(const tree23<Key, Value>& lhs, int x) : iterator_base{lhs, x} {}
          const_iterator(const const_iterator& lhs) : iterator_base{lhs} {}
          const_iterator(const_iterator&& lhs) : iterator_base{std::move(lhs)} {}
          const_iterator(); // end() const;
@@ -839,10 +843,27 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
    return ostr;
 */
 }
+
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
     return iterator{const_cast<tree23<Key, Value>&>(*this)};
 }
+
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
+{
+    return iterator{const_cast<tree23<Key, Value>&>(*this), 1};
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
+{
+    return const_iterator{const_cast<tree23<Key, Value>&>(*this)};
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
+{
+    return const_iterator{const_cast<tree23<Key, Value>&>(*this), 1)};
+}
+
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
@@ -851,6 +872,11 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
   for (const Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
   }
+}
+
+<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, int x) : tree{lhs_tree}, current{nullptr},\
+                                     key_index{0} 
+{
 }
 // non const tree23<Key, Value>& passed to ctor. Used by "begin() const"
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(const tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
@@ -1036,11 +1062,44 @@ of the 3-node [17, 60]. Thus, 60 is the next largest key, the successor, of [50]
    The remaining cases, for both 2 and 3-nodes, require finding the first ancestor that is a left child pointer somewhere up the ancestral trail from current but
    before the root. If the root is encountered, there is no successor (because we have exhausted the subtree).
     */
+        // TODO: Write specific code for "case 1:"
+        break;
 
+   case 3:
+            Node23 *__x = current;
+            Node23* __parent = __x->parent; // else retrieve its parent 
+
+           // TODO: Draw a picture of what this loop is doing (in a balanced red black tree)
+           // Ascend x's parent nodes as long as they are right children.
+           /*
+                55
+                  \
+                  40  
+                  /  \
+                 35    45
+                / \    / \
+               30 38  43  50 
+
+            */
+            // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, ascend the tree. 
+            while (current == __parent->children[__parent->totalItems].get())  
+              {
+                current = __parent;
+                __parent = __parent->_M_parent;
+              }
+              if (current->children[current->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
+                                                                            // doesn't handle? Draw it out on paper.
+                        current = __parent;
+              }  
+ 
+
+  /*
    std::pair<Node23 *, int> results = findLeftChildAncestor();
 
    current = results.first;
    key_index = results.second;
+   */
+
    break;
 
     default:
