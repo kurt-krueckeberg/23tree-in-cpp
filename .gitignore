@@ -6,6 +6,7 @@ build/
 nbproject/
 newtree23.h
 *.mk
+o.txt
 *.orig
 xxx.txt
 *.java
