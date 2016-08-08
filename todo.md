@@ -25,7 +25,11 @@ Test tree23 copy constructor and assignment operator have been implemented using
 New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in
 tree23.h.orig.
 
-TODO: See the "TODO" in findLeafNodeSuccessor(). Also check code that does end() and its associated iterators.
+TODO: 
+
+1. See the "TODO" in findLeafNodeSuccessor(). 
+2. Also check code that does end() and its associated iterators.
+3. iterator\_base stores either a "const tree23" or just "tree23, but iterator alters the tree, so it should not be const, well for const\_iterator it should be.
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
 
