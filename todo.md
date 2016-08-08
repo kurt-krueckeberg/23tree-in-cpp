@@ -60,13 +60,16 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
                30 38  43  50 
 
             */
-
+            /*
+              At this point we have a leaf node most likely. It could be a node that is a left child of its parent already, or it could be
+              a right child, and its parent could likewise be a right child. In this case, we ascend until the node is no longer a right child.
+           
             while (__x == __y->_M_right) // Ascend as long as the parent node is always a right child.
               {
                 __x = __y;
                 __y = __y->_M_parent;
               }
-            if (__x->_M_right != __y) // What does this do? Draw it out on paper.
+            if (__x->_M_right != __y) // This appears to be test needed because the while loop couldn't also do this test. 
                 __x = __y;
           }
         return __x;
