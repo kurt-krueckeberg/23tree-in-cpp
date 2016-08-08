@@ -1021,7 +1021,7 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *
             break;
 
          } 
-         /* We fall through to "casee 3" if the parent is a 2-node */
+         /* If the parent is a 2-node, we fall through to 'case 2' */
     case 2: 
    /* 
     At this point, this case applies when the leaf node is either the right child of a 2-node or the middle child a 3-node leaf (with the pnode key in the
@@ -1074,8 +1074,8 @@ before the root. If the root is encountered, there is no successor (because we h
     */
 
    case 3:
-            Node23 *__x = pnode;
-            Node23* __parent = __x->parent; // else retrieve its parent 
+            Node23 *prior_node = pnode;
+            Node23* __parent = pnode->parent; // else retrieve its parent 
 
            /* Consider this subtree. We  want the successor of [50]. So we ascend x's parent nodes as long as they are right children of their parent.
            
@@ -1088,13 +1088,12 @@ before the root. If the root is encountered, there is no successor (because we h
                30 38  43  50 
 
             */
-            Node23 *prior_pnode = pnode;
  
             // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
 
             while (pnode == __parent->children[__parent->totalItems].get())  // TODO: Don't we need to also add a check whether we have reached the root???
               {
-                prior_pnode = pnode;
+                prior_node = pnode;
                 pnode = __parent;
                 __parent = __parent->_M_parent;
               }
@@ -1109,11 +1108,11 @@ before the root. If the root is encountered, there is no successor (because we h
               // pnode == pnode->parent->children[1].  
               if (pnode->isThreeNode()) {
 
-                 if (prior_pnode == pnode->children[0]) {
+                 if (prior_node == pnode->children[0]) {
 
                       suc_key_index = 0;
 
-                 } else {
+                 } else { // it equals pnode->children[1]
 
                       suc_key_index = 1;
                  }  

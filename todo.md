@@ -48,8 +48,8 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
           {
             _Rb_tree_node_base* __y = __x->_M_parent; // else retrieve its parent 
 
-           // TODO: Draw a picture of what this loop is doing (in a balanced red black tree)
-           // Ascend x's parent nodes as long as they are right children.
+           // An illustration what the loop below is doing (in a balanced red black tree)
+           // It ascend x's parent nodes as long as they are right children. It stops when the parent is not 
            /*
                 55
                   \
@@ -67,7 +67,7 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
                 __y = __y->_M_parent;
               }
             if (__x->_M_right != __y) // What does this do? Draw it out on paper.
-              __x = __y;
+                __x = __y;
           }
         return __x;
       }
