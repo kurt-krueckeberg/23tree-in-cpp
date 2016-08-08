@@ -1096,6 +1096,11 @@ before the root. If the root is encountered, there is no successor (because we h
                 prior_node = pnode;
                 pnode = __parent;
                 __parent = __parent->_M_parent;
+             /*
+            TODO: We need to check if we have reached the root:
+                   root.get() == __parent?
+              */  
+ 
               }
 
               if (pnode->children[pnode->totalItems].get() != __parent) { // What does this do? Is this just another if-test which the loop above
