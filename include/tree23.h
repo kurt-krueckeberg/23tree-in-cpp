@@ -1079,10 +1079,10 @@ before the root. If the root is encountered, there is no successor (because we h
 
            /* Consider this subtree. We  want the successor of [50]. So we ascend x's parent nodes as long as they are right children of their parent.
            
-                55
-                  \
-                  40  
-                  /  \
+                 55
+                   \
+                    40  
+                   /  \
                  35    45
                 / \    / \
                30 38  43  50 

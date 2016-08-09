@@ -46,30 +46,30 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
           }
         else
           {
-            _Rb_tree_node_base* __y = __x->_M_parent; // else retrieve its parent 
-
            // An illustration what the loop below is doing (in a balanced red black tree)
            // It ascend x's parent nodes as long as they are right children. It stops when the parent is not 
            /*
-                55
-                  \
-                  40  
-                  /  \
-                 35    45
-                / \    / \
-               30 38  43  50 
+                   57 
+                   / \
+                 55
+                   \
+                    40  
+                   /  \
+                 35   45
+                / \   / \
+               30 38 43  50 
 
-            */
-            /*
               At this point we have a leaf node most likely. It could be a node that is a left child of its parent already, or it could be
               a right child, and its parent could likewise be a right child. In this case, we ascend until the node is no longer a right child.
+
+            _Rb_tree_node_base* __y = __x->_M_parent; // else retrieve its parent 
            
             while (__x == __y->_M_right) // Ascend as long as the parent node is always a right child.
               {
                 __x = __y;
                 __y = __y->_M_parent;
               }
-            if (__x->_M_right != __y) // This appears to be test needed because the while loop couldn't also do this test. 
+            if (__x->_M_right != __y) // I am not sure what this does?
                 __x = __y;
           }
         return __x;
