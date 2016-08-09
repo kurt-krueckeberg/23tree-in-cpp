@@ -244,7 +244,7 @@ template<class Key, class Value> class tree23 {
 
     template<class Tree>
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
-
+       friend class tree23<Key, Value>;   
       protected:
 
          Tree& tree; 
@@ -854,8 +854,8 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 {
     const_iterator const_iter{ const_cast<tree23<Key, Value>&>( *this ) }; // cast away const
 
-    iterator_base<tree23<Key, Value>>::seekToSmallest();
-
+    const_iter.seekToSmallest();
+    
     return const_iter;
 }
 
