@@ -253,9 +253,11 @@ void print_with_iterator(const tree23<int, int>& tree)
   auto iter = tree.begin();
   auto iter_end = tree.end();
 
-  for (; iter != iter_end; ++iter) { 
+  for (; iter != iter_end; ) { 
     
        cout << (*iter).key << ", ";
+       cout << flush;
+       ++iter;
   } 
-  cout << flush;
+  
 }
