@@ -1074,43 +1074,6 @@ before the root. If the root is encountered, there is no successor (because we h
     */
 
    case 3:
-// Newer code
- Node23 *prior_node = pnode;
-            Node23* __parent = pnode->parent; // else retrieve its parent 
-
-           /* Consider this subtree. We  want the successor of [50]. So we ascend x's parent nodes as long as they are right children of their parent.
-           
-                 55
-                   \
-                    40  
-                   /  \
-                 35    45
-                / \    / \
-               30 38  43  50 
-
-            */
-             
-            while (__parent  != root.get())  { // Don't compare __parent's right most child below once the parent has been reached
-
-                // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
-                if (pnode != __parent->children[__parent->totalItems].get()) {
-                   
-                   break;
-                } 
-  
-                prior_node = pnode;
-                pnode = __parent;
-                __parent = __parent->_M_parent;
-           }
-           if (prior_node != pnode->children[pnode->totalItems].get()) { _x is still not rightmost
-
-              // We found a successor. Determine key_index...
-
-           } else {
-                 pnode = nullptr
-           }
-// End Newer code
-
 // Start former code
             Node23 *prior_node = pnode;
             Node23* __parent = pnode->parent; // else retrieve its parent 
@@ -1127,6 +1090,7 @@ before the root. If the root is encountered, there is no successor (because we h
 
             */
              
+            // TODO: Double check the logic line-by-line
             while (__parent != root.get())  {
 
                 // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
@@ -1152,12 +1116,12 @@ before the root. If the root is encountered, there is no successor (because we h
                   }
               }  
 
-              // Actually, the code below assume that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
+              // Actually, the code below assumes that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
               // And we must test whether pnode is the first or second child; i.e., whether pnode = pnode->parent->children[0] or  
               // pnode == pnode->parent->children[1].  
               if (pnode->isThreeNode()) {
 
-                 suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1;
+                 suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1; // TODO: Does prior_node make sense, or should this be node?
 
               } else { // pnode is a 2-node
 
