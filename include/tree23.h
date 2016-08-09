@@ -274,8 +274,8 @@ template<class Key, class Value> class tree23 {
          iterator_base& operator++();
          iterator_base operator++(int);
          
-         std::pair<const Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         std::pair<const Key, Value&>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+         std::pair<const Key, Value> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         std::pair<const Key, Value>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
     class iterator : public iterator_base<tree23<Key, Value>> { // in order iterator
@@ -294,8 +294,8 @@ template<class Key, class Value> class tree23 {
          iterator operator++(int) { iterator_base<tree23<Key, Value>>::operator++(5); return *this; }
          
          // new methods
-         const std::pair<const Key, Value&> operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         std::pair<const Key, Value&>* operator->();
+         const std::pair<const Key, Value>& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         std::pair<const Key, Value>* operator->();
     };
 
     class const_iterator: public iterator_base<tree23<Key, Value>> { // in order iterator
@@ -972,12 +972,14 @@ template<class Key, class Value> template<class Tree> inline bool tree23<Key, Va
 
  } else { 
 
+    // We are at end if and only if current == nullptr
+    bool same_tree = &tree == &lhs.tree;
+
+    bool same_position = (current == lhs.current && key_index == lhs.key_index);
 
   // They both point to the same tree, and they both point to the same key within the tree
-    bool b1 = &tree == &lhs.tree;
-    bool b2 = current == lhs.current && key_index == lhs.key_index;
-    return b1 && b2;
-
+ 
+    return same_tree && same_position;
  }
 }
 
@@ -1179,7 +1181,8 @@ before the root. If the root is encountered, there is no successor (because we h
                // pnode is still right most child but if its parent is the root, there is no successor. 
                if (__parent == tree.root.get()) {
            
-                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor. 
+                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor.
+                                                       // Note: We must also set key_index to 0, so we return zero (not one). 
                }
            
                prior_node = pnode;

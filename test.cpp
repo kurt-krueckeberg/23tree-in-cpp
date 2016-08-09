@@ -217,3 +217,42 @@ void test_copy_ctor(const std::vector<int>& input, int break_key)
   cout << "\n---------------------------------\n";
 
 }
+
+void test_iterator(const std::vector<int>& input, int break_key) 
+{
+  tree23<int, int> tree;
+  
+   int i = 0;
+    
+   for (auto& key : input) {
+
+      cout << "Inserting: " << key << std::endl;
+      
+      if (key == break_key) {
+          
+         int debug = 10;
+         
+         ++debug;
+         
+         tree.insert(key, key);
+         
+      } else {
+          
+         tree.insert(key, key);
+      }
+
+      cout << flush << "\nTesting iterator for all keys inserted so for. First, reprinting the tree.\n" << flush;
+  
+      auto iter = tree.begin();
+      auto iter_end = tree.begin();
+  
+      for (; iter != iter_end; ++iter) { 
+        
+           pair<const int, const int &> pr = *iter;
+             
+           cout << (*iter).first << ", " << endl; 
+      } 
+      
+    }
+    return; 
+}

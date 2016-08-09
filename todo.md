@@ -23,8 +23,8 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
 
-There is a bug in getLeafNodeSuccessor() because returns a pair with a non-const Node23 * rather than "const Node23 *". 
-
+Change the tree23 iterator's operator\*() to return "KeyValue<const Key, Value>" or "const KeyValue<const Key, Value>&" something like that instead of pair<Key, Value> since they are
+not stored in the tree as std::pairs but as KeyValues.
 
 TODO: 
 
