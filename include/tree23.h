@@ -240,6 +240,48 @@ template<class Key, class Value> class tree23 {
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
+    /*
+    template<class Tree> // Tree is either "tree23<Key, Value>" or "const tree23<Key, Value>"
+    class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
+
+         Tree& tree; 
+         const Tree::Node23 *current;
+
+         int key_index;  // The index is such that current == current->parent->children[child_index]
+
+         int   getChildIndex(const Tree::Node23 *p) const noexcept;
+         void  getSuccessor() noexcept;
+
+         Node23 *getInternalNodeSuccessor(Tree::Node23 *pnode) const noexcept;
+
+         std::pair<Tree::Node23 *, int>  getLeafNodeSuccessor(Tree::Node23 *) const noexcept;
+
+         std::pair<Tree::Node23 *, int> findLeftChildAncestor() noexcept;
+
+         void  getPredecessor() noexcept;
+
+      public:
+         iterator_base(Tree& lhs); // for use by iterator derived class
+         iterator_base(Tree& lhs, int); // for use by end()
+         iterator_base(const Tree& lhs); // for use by const_iterator derived class
+
+         iterator_base(const iterator_base& lhs);
+         iterator_base(iterator_base&& lhs);
+
+         iterator_base(const Tree&, Tree::Node23 *ptr); // end() 
+
+         bool operator==(const iterator_base& lhs) const;
+         bool operator!=(const iterator_base& lhs) const;
+         
+         iterator_base& operator++();
+         iterator_base operator++(int);
+         
+         std::pair<const Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         std::pair<const Key, Value&>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+    };
+    */
+
+
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
  /*
    TODO: Thoughts...on storing a const tree23 reference for a non-const iterator....
