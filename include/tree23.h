@@ -1089,11 +1089,12 @@ before the root. If the root is encountered, there is no successor (because we h
             */
 
            Node23 *prior_node = pnode;
-           Node23 *__parent = pnode->parent
+           Node23 *__parent = pnode->parent;
 
-           while (; pnode != __parent->childen[__parent->totalItem].get() ; __parent = pnode->parent)  {
+           // Ascend the parent link, setting pnode to the parent, until pnode is no longer the right most child of its parent.
+           for (; pnode != __parent->childen[__parent->totalItem].get(); __parent = pnode->parent)  {
            
-               // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
+               // As we continue until we encounter the root. 
                if (__parent == root.get()) {
            
                     return std::make_pair(nullptr, 0);  // no successor found 
@@ -1107,7 +1108,7 @@ before the root. If the root is encountered, there is no successor (because we h
 
            pnode == __parent;
            
-           // Determine key_index 
+           // Determine key_index if pnode is a 3-node. 
            if (pnode->isThreeNode()) {
 
               suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1; 
