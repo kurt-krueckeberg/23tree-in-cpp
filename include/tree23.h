@@ -245,7 +245,7 @@ template<class Key, class Value> class tree23 {
     template<class Tree>
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
        friend class tree23<Key, Value>;   
-      protected:
+      public:
 
          Tree& tree; 
          const typename Tree::Node23 *current;
@@ -280,7 +280,7 @@ template<class Key, class Value> class tree23 {
          typename Tree::KeyValue* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
-    class iterator : public iterator_base<tree23<Key, Value>> { // in order iterator
+    class iterator : protected iterator_base<tree23<Key, Value>> { // in order iterator
         public:
 
          iterator(tree23<Key, Value>& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
@@ -300,7 +300,7 @@ template<class Key, class Value> class tree23 {
          typename tree23<Key, Value>::KeyValue *operator->() const noexcept;
     };
 
-    class const_iterator: public iterator_base<tree23<Key, Value>> { // in order iterator
+    class const_iterator: protected iterator_base<tree23<Key, Value>> { // in order iterator
 
       public:
          const_iterator(tree23<Key, Value>& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
