@@ -1089,8 +1089,22 @@ before the root. If the root is encountered, there is no successor (because we h
                30 38  43  50 
 
             */
-             
-            // TODO: Double check the logic line-by-line
+           while (Node23 *__parent = pnode->parent; pnode != __parent->childen[__parent->totalItem].get() ; __parent = pnode->parent)  {
+           
+               // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
+               if (__parent == root.get()) {
+           
+                    pnode = nullptr; // no successor found
+                    break;
+               }
+           
+               prior_node = pnode;
+               pnode = __parent;
+               __parent = __parent->_M_parent;
+           }
+           
+          /*  Prior code, prior loop 
+            
             while (__parent != root.get())  {
 
                 // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
@@ -1115,8 +1129,8 @@ before the root. If the root is encountered, there is no successor (because we h
                     return std::make_pair(nullptr, 0);   
                   }
               }  
-
-              // Actually, the code below assumes that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
+             */
+              // Actually, the code below above that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
               // And we must test whether pnode is the first or second child; i.e., whether pnode = pnode->parent->children[0] or  
               // pnode == pnode->parent->children[1].  
               if (pnode->isThreeNode()) {
