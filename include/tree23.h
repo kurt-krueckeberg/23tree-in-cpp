@@ -285,7 +285,6 @@ template<class Key, class Value> class tree23 {
 
          iterator(tree23<Key, Value>& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
          iterator(const iterator& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
-         iterator(const iterator& lhs, int x) : iterator_base<tree23<Key, Value>>{lhs, x} {}
          iterator(iterator&& lhs) : iterator_base<tree23<Key, Value>>{std::move(lhs)} {}
          
          iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
@@ -305,7 +304,6 @@ template<class Key, class Value> class tree23 {
 
       public:
          const_iterator(tree23<Key, Value>& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
-         const_iterator(tree23<Key, Value>& lhs, int x) : iterator_base<tree23<Key, Value>>{lhs, x} {}
          const_iterator(const const_iterator& lhs) : iterator_base<tree23<Key, Value>>{lhs} {}
          const_iterator(const_iterator&& lhs) : iterator_base<tree23<Key, Value>>{std::move(lhs)} {}
          const_iterator(); // end() const;
@@ -865,7 +863,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-    return const_iterator{const_cast<tree23<Key, Value>&>(*this), 1};
+    const_iterator const_iter{const_cast<tree23<Key, Value>&>(*this)};
+
+    const_iter.seekToLargest();
+
+    return const_iter;
 }
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
@@ -889,7 +891,7 @@ template<class Key, class Value> template<class Tree> inline void tree23<Key, Va
            current = cursor;
   }
 
-  key_index = (current->isTreeNode()) ? 1 : 0;
+  key_index = (current->isThreeNode()) ? 1 : 0;
 }
 /*
  constructor called by end()
