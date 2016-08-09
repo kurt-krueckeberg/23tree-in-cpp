@@ -29,7 +29,6 @@ template<class Key, class Value> class tree23 {
   
   class KeyValue { // Used by nest Node23 class.
     public:
-     //++const Key   key;
      Key   key;
      Value value;
      KeyValue() = default;
@@ -262,7 +261,9 @@ template<class Key, class Value> class tree23 {
 
          std::pair<const typename  Tree::Node23 *, int> findLeftChildAncestor() noexcept;
 
-         void  getPredecessor() noexcept;
+         void getPredecessor() noexcept;
+         void seekToSmallest() noexcept;    
+         void seekToLargest() noexcept;    
 
       public:
          iterator_base(Tree& lhs); // for use by iterator derived class
@@ -851,7 +852,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
 {
-    return const_iterator{const_cast<tree23<Key, Value>&>(*this)};
+    const_iterator const_iter{ const_cast<tree23<Key, Value>&>( *this ) }; // cast away const
+
+    iterator_base<tree23<Key, Value>>::seekToSmallest();
+
+    return const_iter;
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
@@ -863,9 +868,24 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 template<class Key, class Value> template<class Tree> inline tree23<Key, Value>::iterator_base<Tree>::iterator_base(Tree& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0} 
 {
-  for (const Node23 *cursor = current; cursor != nullptr; cursor = cursor->children[0].get()) {
+}
+
+template<class Key, class Value> template<class Tree> inline void tree23<Key, Value>::iterator_base<Tree>::seekToSmallest() noexcept
+{
+  for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
   }
+
+  key_index = 0;
+}
+
+template<class Key, class Value> template<class Tree> inline void tree23<Key, Value>::iterator_base<Tree>::seekToLargest() noexcept
+{
+  for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
+           current = cursor;
+  }
+
+  key_index = (current->isTreeNode()) ? 1 : 0;
 }
 /*
  constructor called by end()
@@ -890,6 +910,9 @@ template<class Key, class Value> template<class Tree> inline bool tree23<Key, Va
 
     // We are at end if and only if current == nullptr
     bool same_tree = &tree == &lhs.tree;
+    
+    auto lhs_current = lhs.current; // DEBUG CODE
+    auto lhs_key_index = lhs.key_index;
 
     bool same_position = (current == lhs.current && key_index == lhs.key_index);
 

@@ -22,9 +22,8 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-
-Change the tree23 iterator's operator\*() to return "KeyValue<const Key, Value>" or "const KeyValue<const Key, Value>&" something like that instead of pair<Key, Value> since they are
-not stored in the tree as std::pairs but as KeyValues.
+The iterator\_base copy constructor should pass a "const iterator\_base&". The begin() method of base\_iterator needs to use instantiate the iterator then
+go to its smallest node via a class method.
 
 TODO: 
 
