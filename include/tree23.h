@@ -1065,7 +1065,7 @@ first left child pointer we encounter is the middle child of the 3-node [17, 60]
          /        |      \
       [10]       [35]     [70, 100]
      /   \       /  \      /  |  \
-   [5]  [15]   [20] [50]  ...         <-- pnode points to leaf node [50]. 
+   [5]  [15]   [20] [50]  <-- pnode points to leaf node [50]. 
    / \   / \   / \  / \   
   0   0 0   0 0   0 0  0  ... 
 
@@ -1075,8 +1075,6 @@ before the root. If the root is encountered, there is no successor (because we h
 
    case 3:
 // Start former code
-            Node23 *prior_node = pnode;
-            Node23* __parent = pnode->parent; // else retrieve its parent 
 
            /* Consider this subtree. We  want the successor of [50]. So we ascend x's parent nodes as long as they are right children of their parent.
            
@@ -1089,12 +1087,16 @@ before the root. If the root is encountered, there is no successor (because we h
                30 38  43  50 
 
             */
-           while (Node23 *__parent = pnode->parent; pnode != __parent->childen[__parent->totalItem].get() ; __parent = pnode->parent)  {
+
+           Node23 *prior_node = pnode;
+           Node23 *__parent = pnode->parent
+
+           while (; pnode != __parent->childen[__parent->totalItem].get() ; __parent = pnode->parent)  {
            
                // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
                if (__parent == root.get()) {
            
-                    pnode = nullptr; // no successor found
+                    return std::make_pair(nullptr, 0);  // no successor found 
                     break;
                }
            
@@ -1102,45 +1104,18 @@ before the root. If the root is encountered, there is no successor (because we h
                pnode = __parent;
                __parent = __parent->_M_parent;
            }
+
+           pnode == __parent;
            
-          /*  Prior code, prior loop 
-            
-            while (__parent != root.get())  {
+           // Determine key_index 
+           if (pnode->isThreeNode()) {
 
-                // As long as the parent (grandparent, great grandparent, etc.) is always the right most child, we continue to ascend the right child's parent. 
-                if (pnode != __parent->children[__parent->totalItems].get()) {
-  
-                   break;
-                } 
-  
-                prior_node = pnode;
-                pnode = __parent;
-                __parent = __parent->_M_parent;
-            }
+              suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1; 
 
-            if (__parent == root.get()) { 
+           } else { // pnode is a 2-node
 
-                  if (pnode != __parent->children[__parent->totalItems.get()]) { // If pnode is the first or middle child of its parent.
-
-                    pnode = __parent;
-
-                  } else { // there is no successor.
-
-                    return std::make_pair(nullptr, 0);   
-                  }
-              }  
-             */
-              // Actually, the code below above that pnode is the middle child (of its parent) if it is a 3-node, but this is not necessarily true--right?
-              // And we must test whether pnode is the first or second child; i.e., whether pnode = pnode->parent->children[0] or  
-              // pnode == pnode->parent->children[1].  
-              if (pnode->isThreeNode()) {
-
-                 suc_key_index = (prior_node == pnode->children[0]) ? 0 : 1; // TODO: Does prior_node make sense, or should this be node?
-
-              } else { // pnode is a 2-node
-
-                 suc_key_index = 0;
-              }
+              suc_key_index = 0;
+           }
 
          break;
 
