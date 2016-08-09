@@ -1139,8 +1139,7 @@ before the root. If the root is encountered, there is no successor (because we h
                // pnode is still right most child but if its parent is the root, there is no successor. 
                if (__parent == root.get()) {
            
-                    return std::make_pair(nullptr, 0);  // no successor found 
-                    break;
+                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor. 
                }
            
                prior_node = pnode;
