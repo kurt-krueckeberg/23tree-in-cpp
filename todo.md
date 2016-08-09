@@ -22,14 +22,10 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-The iterator\_base copy constructor should pass a "const iterator\_base&". The begin() method of base\_iterator needs to use instantiate the iterator then
-go to its smallest node via a class method.
+### Bug 
 
-TODO: 
-
-1. See the "TODO" in getLeafNodeSuccessor(). 
-2. Also check code that does end() and its associated iterators.
-3. iterator\_base stores either a "const tree23" or just "tree23, but iterator alters the tree, so it should not be const, well for const\_iterator it should be.
+There is a bug in the iterator operator++() code. For some reason the same node is repeatedly retrieved. print the tree in level order to confirm that
+is a valid tree and to see what each row contains.
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
 
