@@ -241,10 +241,20 @@ void test_iterator(const std::vector<int>& input, int break_key)
          tree.insert(key, key);
       }
     }
+
+  cout << "Level order print of tree: \n";
+
+  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
+
+  tree.levelOrderTraverse(printFunctor);
    
-    cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator.\n";
-    print_with_iterator(tree);
-    cout << flush; 
+  cout << flush;
+   
+  cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator.\n";
+
+  print_with_iterator(tree);
+
+  cout << flush; 
     return; 
 }
 

@@ -25,7 +25,11 @@ Test tree23 copy constructor and assignment operator have been implemented using
 ### Bug 
 
 There is a bug in the iterator operator++() code. For some reason the same node is repeatedly retrieved. print the tree in level order to confirm that
-is a valid tree and to see what each row contains.
+is a valid tree and to see what each row contains. 
+
+If we get to the root of the left side of the tree, we are not done: we have to print the right side.
+
+### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
 
