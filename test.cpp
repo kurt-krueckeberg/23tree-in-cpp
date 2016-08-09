@@ -241,16 +241,18 @@ void test_iterator(const std::vector<int>& input, int break_key)
          tree.insert(key, key);
       }
 
-      cout << flush << "\nTesting iterator for all keys inserted so for. First, reprinting the tree.\n" << flush;
-  
-      auto iter = tree.begin();
-      auto iter_end = tree.begin();
-  
-      for (; iter != iter_end; ++iter) { 
-        
-           cout << (*iter).key << ", " << endl; 
-      } 
-      
-    }
+      cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator.\n" << flush;
+     }
     return; 
+}
+
+void print_with_iterator(const tree23<int, int>& tree)
+{ 
+  auto iter = tree.begin();
+  auto iter_end = tree.begin();
+
+  for (; iter != iter_end; ++iter) { 
+    
+       cout << (*iter).key << ", " << endl; 
+  } 
 }
