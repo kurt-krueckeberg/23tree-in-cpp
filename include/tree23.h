@@ -1011,7 +1011,7 @@ template<class Key, class Value> template<class Tree> void tree23<Key, Value>::i
 template<class Key, class Value> template<class Tree> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base<Tree>::getInternalNodeSuccessor(const typename Tree::Node23 *pnode) const noexcept	    
 {
  // Get right most child of pnode.
- int rightMost_index = (pnode->isThreeNode() ? Node23::TwoNodeChildren : Node23::ThreeNodeChildren) - 1;
+ int rightMost_index = (pnode->isThreeNode() ? Node23::ThreeNodeChildren : Node23::TwoNodeChildren) - 1;
 
  // The smallest node in the subtree rooted at the right most child of pnode is its left most node...
  for (Node23 *cursor = pnode->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->children[0].get()) {
@@ -1135,7 +1135,7 @@ before the root. If the root is encountered, there is no successor (because we h
                __parent = __parent->parent;
            }
 
-           pnode == __parent;
+           pnode = __parent;
            
            // If pnode is a 3-node, determine is we ascend the left child or the middle child and set suc_key_index accordingly. 
            if (pnode->isThreeNode()) {
