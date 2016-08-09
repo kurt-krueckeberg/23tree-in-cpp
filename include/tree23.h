@@ -240,7 +240,7 @@ template<class Key, class Value> class tree23 {
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
-    /*
+    /* New Prospective Code
     template<class Tree> // Tree is either "tree23<Key, Value>" or "const tree23<Key, Value>"
     class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // in order iterator
 
@@ -279,6 +279,46 @@ template<class Key, class Value> class tree23 {
          std::pair<const Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          std::pair<const Key, Value&>* operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
+
+    class iterator : public iterator_base<tree23<Key, Value> { // in order iterator
+
+         iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         iterator(const iterator& lhs) : iterator_base{lhs} {}
+         iterator(const iterator& lhs, int x) : iterator_base{lhs, x} {}
+         iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
+         
+         iterator(const tree23<Key, Value>&, tree23<Key, Value>::Node23 *ptr); // end() 
+
+         bool operator==(const iterator& lhs) const { return iterator_base::operator==(static_cast<const iterator_base&>(lhs)); }
+         bool operator!=(const iterator& lhs) const  { return iterator_base::operator!=(static_cast<const iterator_base&>(lhs)); }
+         
+         iterator& operator++() { iterator_base::operator++(); return *this; }
+         iterator operator++(int) { iterator_base::operator++(5); return *this; }
+         
+         // new methods
+         std::pair<const Key, Value&> operator*(); 
+         std::pair<const Key, Value&>* operator->();
+    };
+
+    class const_iterator: public iterator_base<const tree23<Key, Value> { // in order iterator
+
+      public:
+         const_iterator(const tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         const_iterator(const tree23<Key, Value>& lhs, int x) : iterator_base{lhs, x} {}
+         const_iterator(const const_iterator& lhs) : iterator_base{lhs} {}
+         const_iterator(const_iterator&& lhs) : iterator_base{std::move(lhs)} {}
+         const_iterator(); // end() const;
+
+         bool operator==(const const_iterator& lhs) const;
+         bool operator!=(const const_iterator& lhs) const;
+         
+         const_iterator& operator++();
+         const_iterator operator++(int);
+         const std::pair<Key, Value&> operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const std::pair<Key, Value&> *operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+    };
+    */
+
     */
 
 
