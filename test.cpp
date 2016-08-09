@@ -251,7 +251,7 @@ void test_iterator(const std::vector<int>& input, int break_key)
 void print_with_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.begin();
-  auto iter_end = tree.begin();
+  auto iter_end = tree.end();
 
   for (; iter != iter_end; ++iter) { 
     

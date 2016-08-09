@@ -847,7 +847,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
 {
-    return iterator{const_cast<tree23<Key, Value>&>(*this), 1};
+    iterator iter{const_cast<tree23<Key, Value>&>(*this), 1};
+
+    iter.seekToLargest();
+
+    return iter;
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
