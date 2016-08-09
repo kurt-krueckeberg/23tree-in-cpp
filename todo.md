@@ -22,8 +22,9 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-New prospective external iterator code has been started in tree23.h. Prior tree23 code that successfully compiles and runs is in
-tree23.h.orig.
+
+There is a bug in getLeafNodeSuccessor() because returns a pair with a non-const Node23 * rather than "const Node23 *". 
+
 
 TODO: 
 
