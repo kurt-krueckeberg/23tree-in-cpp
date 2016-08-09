@@ -28,9 +28,9 @@ void print_tree(const tree23<int, int>& tree)
     
   tree23<int, int>::const_iterator const_iter = tree.begin();
   
-  for(const auto& the_pair : tree) {
+  for(const auto& key_value : tree) {
       
-      cout << the_pair.first << flush;
+      cout << key_value.key << flush;
   }
   cout << endl;
 }
@@ -248,9 +248,7 @@ void test_iterator(const std::vector<int>& input, int break_key)
   
       for (; iter != iter_end; ++iter) { 
         
-           pair<const int, const int &> pr = *iter;
-             
-           cout << (*iter).first << ", " << endl; 
+           cout << (*iter).key << ", " << endl; 
       } 
       
     }
