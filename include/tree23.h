@@ -1042,6 +1042,11 @@ template<class Key, class Value> template<class Tree> inline const typename tree
  */
 template<class Key, class Value> template<class Tree> std::pair<const typename Tree::Node23 *, int> tree23<Key, Value>::iterator_base<Tree>::getLeafNodeSuccessor(const typename Tree::Node23 *pnode) const noexcept
 {
+  if (pnode->isThreeNode() && key_index == 0) {
+
+      return std::make_pair(current, 1); 
+  }
+
   // Determine child_index such that pnode == pnode->parent->children[child_index]
   int child_index = getChildIndex(pnode);
 
