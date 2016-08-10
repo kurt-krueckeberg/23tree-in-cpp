@@ -24,7 +24,7 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 ### Bug 
 
-The external iterator is no longer looping. It is printing key in order, but it either fails to print the last key and/or it skips some keys.
+The external iterator is failing to print the last item sometimes. Double check that is not also skipping keys.
 
 ### Red Black code
 

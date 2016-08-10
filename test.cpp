@@ -250,7 +250,7 @@ void test_iterator(const std::vector<int>& input, int break_key)
    
   cout << flush;
    
-  cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator.\n";
+  cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator:\n";
 
   print_with_iterator(tree);
 
@@ -269,5 +269,4 @@ void print_with_iterator(const tree23<int, int>& tree)
        cout << flush;
        ++iter;
   } 
-  
 }

@@ -1142,7 +1142,7 @@ before the root. If the root is encountered, there is no successor (because we h
           // BUG: Somehow the same node is repeated. This section of code does not advance the iterator--why>
            
            // Ascend the parent link, setting pnode to the parent, until pnode is no longer the right most child of its parent.
-           for (; pnode == __parent->children[__parent->totalItems].get(); __parent = pnode->parent)  {
+           while(pnode == __parent->children[__parent->totalItems].get() )  {
            
                // pnode is still right most child but if its parent is the root, there is no successor. 
                if (__parent == tree.root.get()) {
@@ -1155,7 +1155,8 @@ before the root. If the root is encountered, there is no successor (because we h
                pnode = __parent;
                __parent = __parent->parent;
            }
-
+           
+           prior_node = pnode; 
            pnode = __parent;
            
            // If pnode is a 3-node, determine is we ascend the left child or the middle child and set suc_key_index accordingly. 
