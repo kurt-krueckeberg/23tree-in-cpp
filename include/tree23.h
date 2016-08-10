@@ -1009,8 +1009,6 @@ Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key
 template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
 {
  // Get next right of pnode based on key_index.
- int rightMost_index = (pnode->isThreeNode() ? Node23::ThreeNodeChildren : Node23::TwoNodeChildren) - 1;
-
  const Node23 *rightChild;
 
  if (pnode->isThreeNode()) {
@@ -1029,8 +1027,8 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
         rightChild = pnode->children[1].get();
  }
 
- // The smallest node in the subtree rooted at the right most child of pnode is its left most node...
- for (Node23 *cursor = pnode->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->children[0].get()) {
+ // Get th smallest node in the subtree rooted at the rightChild, i.e., its left most node...
+ for (const Node23 *cursor = rightChild; cursor != nullptr; cursor = cursor->children[0].get()) {
 
     pnode = cursor;
  }
@@ -1144,7 +1142,7 @@ before the root. If the root is encountered, there is no successor (because we h
           // BUG: Somehow the same node is repeated. This section of code does not advance the iterator--why>
            
            // Ascend the parent link, setting pnode to the parent, until pnode is no longer the right most child of its parent.
-           for (; pnode != __parent->children[__parent->totalItems].get(); __parent = pnode->parent)  {
+           for (; pnode == __parent->children[__parent->totalItems].get(); __parent = pnode->parent)  {
            
                // pnode is still right most child but if its parent is the root, there is no successor. 
                if (__parent == tree.root.get()) {
