@@ -24,7 +24,7 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 ### Bug 
 
-There is a bug in getLeafNodeSuccessor() when the node is a 2-node.
+The external iterator is no longer looping. It is printing key in order, but it either fails to print the last key and/or it skips some keys.
 
 ### Red Black code
 
