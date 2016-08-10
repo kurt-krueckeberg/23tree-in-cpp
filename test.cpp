@@ -74,14 +74,10 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
        random_shuffle(test_case.begin(), test_case.end());
        
-       cout << "Input vector<int> to next case is: ";
+       cout << "Input vector<int> to next case is: \n";
 
        copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
-       
-       cout << endl << flush;
-   
-       copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
-       
+              
        cout << endl << flush;
        
        try {
@@ -207,15 +203,13 @@ void test_copy_ctor(const std::vector<int>& input, int break_key)
 
   tree23<int, int> tree_copy{tree};
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  
   cout << "input tree first followed by its copy" << endl;
 
   tree.inOrderTraverse(lambda_closure);
+  
   cout << "\n";
-
-  tree_copy.inOrderTraverse(lambda_closure);
-  cout << "\n---------------------------------\n";
-
 }
 
 void test_iterator(const std::vector<int>& input, int break_key) 
@@ -247,15 +241,19 @@ void test_iterator(const std::vector<int>& input, int break_key)
   levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
 
   tree.levelOrderTraverse(printFunctor);
-   
-  cout << flush;
-   
-  cout << flush << "\nTesting iterator for all keys inserted so for. First, printing tree with iterator:\n";
+  
+  cout << "\n\nIn order print of tree:\n";
+  
+  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+
+  tree.inOrderTraverse(lambda_closure);
+  
+  cout << flush << "\nPrinting tree with iterator:\n";
 
   print_with_iterator(tree);
 
   cout << flush; 
-    return; 
+  return; 
 }
 
 void print_with_iterator(const tree23<int, int>& tree)
