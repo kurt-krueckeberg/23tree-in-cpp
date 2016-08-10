@@ -979,13 +979,6 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> template<class Tree> void tree23<Key, Value>::iterator_base<Tree>::getSuccessor() noexcept
 {
-  // handle trivial 3-node case first
-  if (current->isThreeNode() && key_index == 0) {
-
-      key_index = 1;
-      return;
-  }
-
   if (current->isLeaf()) { // If leaf node
 
      std::pair<const Node23 *, int> results = getLeafNodeSuccessor(current);
@@ -1007,11 +1000,31 @@ template<class Key, class Value> template<class Tree> void tree23<Key, Value>::i
 
    Returns:
    1. pointer to successor node.
+
+Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key and two "left" children from its second key.
  */
 template<class Key, class Value> template<class Tree> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base<Tree>::getInternalNodeSuccessor(const typename Tree::Node23 *pnode) const noexcept	    
 {
- // Get right most child of pnode.
+ // Get next right of pnode based on key_index.
  int rightMost_index = (pnode->isThreeNode() ? Node23::ThreeNodeChildren : Node23::TwoNodeChildren) - 1;
+
+ const Node23 *rightChild;
+
+ if (pnode->isThreeNode()) {
+
+      if (key_index == 0) {
+
+        rightChild = pnode->children[1].get();
+
+      } else { // it is 1     
+
+        rightChild = pnode->children[2].get(); 
+      }
+
+ } else { // It is a 2-node
+
+        rightChild = pnode->children[1].get();
+ }
 
  // The smallest node in the subtree rooted at the right most child of pnode is its left most node...
  for (Node23 *cursor = pnode->children[rightMost_index].get(); cursor != nullptr; cursor = cursor->children[0].get()) {
