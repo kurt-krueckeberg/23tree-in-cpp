@@ -844,13 +844,13 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
     return iterator{const_cast<tree23<Key, Value>&>(*this)};
 }
 
+/*
+ end() calls the iterator constructor that sets current to nullptr and key_index to 0. 
+ */
+
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
 {
-    iterator iter{const_cast<tree23<Key, Value>&>(*this), 1};
-
-    iter.seekToLargest();
-
-    return iter;
+    return iterator{const_cast<tree23<Key, Value>&>(*this), 1};
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
@@ -864,11 +864,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-    const_iterator const_iter{const_cast<tree23<Key, Value>&>(*this)};
-
-    const_iter.seekToLargest();
-
-    return const_iter;
+   return const_iterator{const_cast<tree23<Key, Value>&>(*this)};
 }
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
@@ -911,24 +907,24 @@ template<class Key, class Value>  tree23<Key, Value>::iterator_base::iterator_ba
 template<class Key, class Value> inline bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
 {
  if (this == &lhs) {
+
      return true;
 
  } else if (&lhs.tree == &tree) {
 
-    if (nullptr && current == nullptr) { // == end() test
+    if (lhs.current == nullptr && current == nullptr) { // == end() test
 
         return true;
 
     } else {
+     
+      return  current == lhs.current && key_index == lhs.key_index;
+   }
 
-     return (current == lhs.current && key_index == lhs.key_index);
+ } 
 
-    }
-
- } else {
-
-   return false;
- }
+  return false;
+ 
 }
 
 // ctor called by end()
@@ -1026,7 +1022,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::Node2
 
         rightChild = pnode->children[1].get();
  }
-
+ // TODO: I'm not sure this is right. Does it take into account that fact that a node may have already been visited in order?
  // Get th smallest node in the subtree rooted at the rightChild, i.e., its left most node...
  for (const Node23 *cursor = rightChild; cursor != nullptr; cursor = cursor->children[0].get()) {
 

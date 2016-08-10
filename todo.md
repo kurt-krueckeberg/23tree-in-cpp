@@ -24,7 +24,10 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 ### Bug 
 
-The external iterator is failing to print the last item sometimes. Double check that is not also skipping keys.
+iterator\_base::operator==(const iterator\_base& lhs) had a bug. I think it is corrected. The iteator\_base::operator++() code should, when the largest node has 
+already been reached, set current to nullptr and key\_index to 0. I'm not sure if it is doing this.
+
+There may be remaining bugs with the iterator not visiting every node.
 
 ### Red Black code
 
