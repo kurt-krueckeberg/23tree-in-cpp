@@ -912,19 +912,21 @@ template<class Key, class Value> template<class Tree> inline bool tree23<Key, Va
  if (this == &lhs) {
      return true;
 
- } else { 
+ } else if (&lhs.tree == &tree) {
 
-    // We are at end if and only if current == nullptr
-    bool same_tree = &tree == &lhs.tree;
-    
-    auto lhs_current = lhs.current; // DEBUG CODE
-    auto lhs_key_index = lhs.key_index;
+    if (nullptr && current == nullptr) { // == end() test
 
-    bool same_position = (current == lhs.current && key_index == lhs.key_index);
+        return true;
 
-  // They both point to the same tree, and they both point to the same key within the tree
- 
-    return same_tree && same_position;
+    } else {
+
+     return (current == lhs.current && key_index == lhs.key_index);
+
+    }
+
+ } else {
+
+   return false;
  }
 }
 
