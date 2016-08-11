@@ -265,21 +265,11 @@ void test_iterator(const std::vector<int>& input, int break_key)
 void print_with_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.begin();
-  auto iter_end = tree.end();
-  int debug = 10;
-  ++debug;
+  auto end_iter = tree.end();
 
-  //-- for(auto i = 0; i < 30; ++i) {
-  while(1) {
+  for( ; iter != end_iter; ++iter) {
 
-      if (iter == iter_end ) {
-          cout << "\nExiting print_with_iterator(const tree23<int,int>&)\n";
-          return;
-      } 
-       auto key = (*iter).key;
-      
        cout << (*iter).key << ", ";
        cout << flush;
-       ++iter;
   } 
 }
