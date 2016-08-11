@@ -278,8 +278,8 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator_base& lhs) const;
          bool operator!=(const iterator_base& lhs) const { return !operator==(lhs); }
          
-         typename tree23<Key, Value>::KeyValue&        operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         typename tree23<Key, Value>::KeyValue&        operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue&  operator*() const; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          typename tree23<Key, Value>::KeyValue*        operator->() { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
@@ -297,7 +297,7 @@ template<class Key, class Value> class tree23 {
          iterator operator++(int) noexcept;
          
          // new methods
-         typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         typename tree23<Key, Value>::KeyValue& operator*(); // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          typename tree23<Key, Value>::KeyValue *operator->() const noexcept;
     };
 
@@ -314,8 +314,8 @@ template<class Key, class Value> class tree23 {
          
          const_iterator& operator++() noexcept;
          const_iterator operator++(int) noexcept;
-         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &operator*(); } // KeyValue& or pair<Key, Value&>????
+         const typename tree23<Key, Value>::KeyValue&  operator*() const; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue *operator->() const { return &operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
     iterator begin() noexcept;  
@@ -873,7 +873,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 {
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::seekToSmallest() noexcept
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest() noexcept
 {
   for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
@@ -898,13 +898,13 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 {
 }
 
-template<class Key, class Value>  tree23<Key, Value>::iterator_base::iterator_base(iterator_base&& lhs) : \
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(iterator_base&& lhs) : \
              tree{lhs.tree}, current{lhs.current}, key_index{lhs.key_index} 
 {
    lhs.current = nullptr; // set to end
 }
 
-template<class Key, class Value> inline bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
+template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
 {
  if (this == &lhs) {
 
@@ -946,7 +946,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
  */
 
-template<class Key, class Value> inline int tree23<Key, Value>::iterator_base::getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept
+template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept
 {
   // Determine child_index such that current == current->parent->children[child_index]
   int child_index = 0;
@@ -1007,7 +1007,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSucc
 
 Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key and two "left" children from its second key.
  */
-template<class Key, class Value> inline const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
+template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
 {
  // Get next right of pnode based on key_index.
  const Node23 *rightChild;
@@ -1232,24 +1232,30 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPred
   // TODO: implement
 }
 
-template<class Key, class Value> typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator_base::operator*() noexcept
+template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator_base::operator*() 
 {
    if (current == nullptr) {
-         return ???; 
+       
+         throw std::out_of_range("value is beyond end of range"); 
    }
    return const_cast<typename tree23<Key, Value>::KeyValue&>( current->keys_values[key_index] ); // cast away const
 }
-template<class Key, class Value> const  typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator_base::operator*() const noexcept
+template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator_base::operator*() const 
 {
-   return const_cast<const tree23<Key, Value>::KeyValue&>(current->keys_values[key_index]);
+
+ tree23<Key, Value>::KeyValue& ret = const_cast<iterator_base *>(this)->iterator_base::operator*();
+
+ return const_cast<const tree23<Key, Value>::KeyValue&>(ret);
+
+ //--return const_cast<const tree23<Key, Value>::KeyValue&>(current->keys_values[key_index]);
 }
 
-template<class Key, class Value> typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*() noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*() //--noexcept	    
 {
   return iterator_base::operator*();
 }
 
-template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() noexcept	    
 {
    iterator_base::getSuccessor(); // call base class method that sets current and key_index 
 }
@@ -1263,12 +1269,12 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator tree23<Ke
  return *this;
 }
 
-template<class Key, class Value> typename tree23<Key, Value>::const_iterator& tree23<Key, Value>::const_iterator::operator++() noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator& tree23<Key, Value>::const_iterator::operator++() noexcept	    
 {
    iterator_base::getSuccessor(); // call base class method that sets current and key_index 
 }
 
-template<class Key, class Value> typename tree23<Key, Value>::const_iterator tree23<Key, Value>::const_iterator::operator++(int) noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::const_iterator::operator++(int) noexcept	    
 {
  const_iterator tmp{*this};
 
@@ -1277,15 +1283,12 @@ template<class Key, class Value> typename tree23<Key, Value>::const_iterator tre
  return *this;
 }
 
-template<class Key, class Value> const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const //--noexcept	    
 {
   return iterator_base::operator*(); // invokes const version of iterator_base<Tree>::operator* 
 
   //--return const_cast<const tree23::KeyValue&>( iterator_base::operator*() );
 }
-
-
-////////////// end insert
 
 /*
  Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
