@@ -249,8 +249,14 @@ void test_iterator(const std::vector<int>& input, int break_key)
   tree.inOrderTraverse(lambda_closure);
   
   cout << flush << "\nPrinting tree with iterator:\n";
+  try {
 
-  print_with_iterator(tree);
+    print_with_iterator(tree);
+
+  } catch (std::exception& e) {
+
+    cout << "\nException: " << e.what() << endl; 
+  }
 
   cout << flush; 
   return; 
