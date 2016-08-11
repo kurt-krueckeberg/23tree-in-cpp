@@ -1,10 +1,4 @@
-# Things to work on
-
-## Test new code
-
-Test tree23 copy constructor and assignment operator have been implemented using `CloneTree()` and `DestroyTree()`. They have not been tested.
-
-## Implement an External In-Order, STL-like Iterator
+# Overview 
 
 ### Implementation Links and Discusssion
 
@@ -21,6 +15,11 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [FSU]: <http://www.cs.fsu.edu/~lacher/courses/COP4530/lectures/binary_search_trees3/index.html?$$$slide05i.html$$$>
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
+
+## External In-Order, STL-like Iterator has been implemented
+
+It has been implementation as a forward iterator. It needs to be implemented as a bidirectional iterator by adding operator--() and a getSuccessor() method to
+class iterator\_base .
 
 ### Red Black code
 
