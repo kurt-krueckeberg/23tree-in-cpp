@@ -24,10 +24,11 @@ Test tree23 copy constructor and assignment operator have been implemented using
 
 ### Bug 
 
-iterator\_base::operator==(const iterator\_base& lhs) had a bug. I think it is corrected. The iteator\_base::operator++() code should, when the largest node has 
-already been reached, set current to nullptr and key\_index to 0. I'm not sure if it is doing this.
+There is a bug in iterator\_base::operator==(const iterator\_base& lhs). For some reason, 
 
-There may be remaining bugs with the iterator not visiting every node.
+    iter == tree.end(); 
+
+is returning true before the last tree value has been reached, often in the midpoint of the tree.
 
 ### Red Black code
 
