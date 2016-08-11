@@ -266,16 +266,16 @@ void print_with_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.begin();
   auto iter_end = tree.end();
+  int debug = 10;
+  ++debug;
 
-  for(auto i = 0; i < 30; ++i) {
-/*
+  //-- for(auto i = 0; i < 30; ++i) {
   while(1) {
 
       if (iter == iter_end ) {
           cout << "\nExiting print_with_iterator(const tree23<int,int>&)\n";
           return;
       } 
-  */  
        auto key = (*iter).key;
       
        cout << (*iter).key << ", ";

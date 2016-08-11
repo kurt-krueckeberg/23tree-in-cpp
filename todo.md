@@ -22,14 +22,6 @@ Test tree23 copy constructor and assignment operator have been implemented using
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### Bug 
-
-There is a bug in iterator\_base::operator==(const iterator\_base& lhs). For some reason, 
-
-    iter == tree.end(); 
-
-is returning true before the last tree value has been reached, often in the midpoint of the tree.
-
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:

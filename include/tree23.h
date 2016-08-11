@@ -241,9 +241,9 @@ template<class Key, class Value> class tree23 {
 
   public:
 
-
-    //--class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { // Maybe I need to reimplement the tree to hold a pair?      
-                              // rather than a KeyValue? 
+    // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValue? ?      
+    // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
+                                
     class iterator_base : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
        friend class tree23<Key, Value>;   
@@ -287,6 +287,7 @@ template<class Key, class Value> class tree23 {
         public:
 
          iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         iterator(tree23<Key, Value>& lhs, int i) : iterator_base{lhs, i} {}
          iterator(const iterator& lhs) : iterator_base{lhs} {}
          iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
          
@@ -305,6 +306,7 @@ template<class Key, class Value> class tree23 {
 
       public:
          const_iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
+         const_iterator(tree23<Key, Value>& lhs, int i) : iterator_base{lhs, i} {}
          const_iterator(const const_iterator& lhs) : iterator_base{lhs} {}
          const_iterator(const_iterator&& lhs) : iterator_base{std::move(lhs)} {}
          const_iterator(); // end() const;
@@ -850,7 +852,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
 {
-    return iterator{const_cast<tree23<Key, Value>&>(*this), 1};
+    return iterator(const_cast<tree23<Key, Value>&>(*this), 1);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
@@ -864,7 +866,9 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-   return const_iterator{const_cast<tree23<Key, Value>&>(*this)};
+   return const_iterator{ const_cast<tree23<Key, Value>&>(*this), 10};
+
+   //--return const_iterator(const_cast<tree23<Key, Value>&>(*this), 10);
 }
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
@@ -891,7 +895,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::
   key_index = (current->isThreeNode()) ? 1 : 0;
 }
 /*
- constructor called by end()
+ constructor called by end(). Sets current to nullptr and key_index to 0.
  */
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, int x) : tree{lhs_tree}, current{nullptr},\
                                      key_index{0} 
@@ -906,25 +910,21 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
 template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
 {
- if (this == &lhs) {
+ 
+ if (&lhs.tree == &tree) {
 
-     return true;
-
- } else if (&lhs.tree == &tree) {
-
-    if (lhs.current == nullptr && current == nullptr) { // == end() test
+    if (lhs.current == nullptr && current == nullptr) { // == end() test: both "this" and right argument's current pointer are nullptr.
 
         return true;
 
-    } else {
+    } else { // otherwise, compare current and key_index values.
      
-      return  current == lhs.current && key_index == lhs.key_index;
+       return current == lhs.current && key_index == lhs.key_index;
    }
 
- } 
-
-  return false;
+ }
  
+ return false;
 }
 
 // ctor called by end()
