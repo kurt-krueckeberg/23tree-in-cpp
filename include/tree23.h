@@ -1015,10 +1015,20 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
  
  return pnode;
 }
+/* 
+  Pseudo code and illustration is at From http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slides #7 and #8
+
+  If left child exists, predecessor is the right most node of the left subtree
+
+  Else we walk up the ancestor chain until you traverse the first right child pointer (find the first node that is a right child of its 
+  parent...that parent is the predecessor)
+
+  If you get to the root w/o finding a node that is a right child, there is no predecessor
+*/
 
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept
 {
-  // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
+  // If the leaf node is a 3-node and key_index points to the second key, this is trivial: we simply set key_index to 0. 
   if (pnode->isThreeNode() && key_index == 1) {
 
       return std::make_pair(current, 0); 
@@ -1027,7 +1037,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   // Determine child_index such that pnode == pnode->parent->children[child_index]
   int child_index = getChildIndex(pnode);
 
-  int suc_key_index;
+  int pred_key_index;
 
   /* 
 
@@ -1037,86 +1047,45 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
    */ 
    /*
    Handle easy cases first:
-   1. If child_index is 0, then the successor -- when pnode is either a 2-node of 3-node -- is pnode->parent and the suc_key_index is 0.
-   2. If child_index is 1 and parent is a 3-node, the successor is pnode->parent and suc_key_index is 1.
+   1. If child_index is 2, then the predecessor -- when pnode is either a 2-node of 3-node -- is pnode->parent and the pred_key_index is the parent's right most key.
+   2. If child_index is 1 and parent is a 3-node, the predecessor is pnode->parent and pred_key_index is 0.
    */
   switch (child_index) {
 
-      case 0: /*
-             pnode is either the left most child of either a 2-node or 3-node parent. If pnode is a 3-node, its key_index equals 1 (because it is was 0,
-             this was already handled at the beginning of this method. 
-             The possibilities are:
-
-            (a)   [20]       (b) [20]    (c)   [20, 40]       (d) [20,  40]    
-                  / \            /  \          /   |  \            /   |  \ 
-               [15]  [x]    [15, 18] [x]    [15]  [ ]  [ ]   [15, 18] [ ] [ ]   Note: if leaf is a 3-node, key_index is 1.
-
-          In all four scenarios above, we advance to the first key of the parent. 
-               */
-         pnode = pnode->parent;
-         suc_key_index = 0;
-         break;
- 
-      case 1: /* 
-            pnode is either the left child of a 2-node or the middle child of a 3-node. If pnode is a 3-node, key_index equals 1 (because if it was a 0, it was
-            already handled above).  The possibilities look like this
-
-             If parent is a 2-node, there are two possible cases: 
-
-              (a)   [20]    (b)   [20]
-                    / \           /  \  
-                  [x]  [30]    [x]  [30, 32]
-
-             In (a), key_index is 0. In (b), key_index is 1.   
-
-             If parent is a 3-node, there are two possible cases: 
-
-              (a)   [20,  40]    (b)   [20,   40]
-                    /   |   \         /    |    \ 
-                  [x]  [30] [ ]     [x]  [30,32] [ ] 
-             
-              In (a) above, key_index is 0. In (b), key_index is 1. 
-               
-              */ 
-         if (pnode->parent->isThreeNode()) { // This is the trivial case, we advance to the 2nd key of the parent 3-node. 
-
-            pnode = pnode->parent;
-            suc_key_index = 1;
-            break;
-         } 
-
-         /* If the parent is a 2-node, we fall through to 'case 2' */
-    case 2: 
+    case 0: 
    /* 
     The possibilites for this case are: 
 
        (a)   [20]    (b)   [20]       (c)   [20,   40]     (d)   [20,   40]        
              / \           /  \            /    |    \          /    |    \        
-           [x]  [30]    [x]  [30, 32]    [ ]   [ ]   [50]     [ ]   [ ]   [50, 60] 
+          [15]  [x]   [15, 19] [x]    [15, 19] [x]   [y]     [15]   [x]   [y] 
 
-    In (a), pnode is [30]. In (b), pnode is [30, 32] and key_index is 1. In (c), pnode is [50]. In (d), pnode is [50, 60] and key_index of 1.
+    In (a), pnode is [15]. In (b), pnode is [15, 19] and key_index is 0. In (c), pnode is [15] and key_index is 0. In (d), pnode is also [15] and key_index of 0.
 
-    In all four cases, the logic is identical. We walk up the ancestor chain until we traverse the first left child pointer, that is, we find the first node that is
-    a left child of its parent. That parent is the successor. If we get to the root without finding a node that is a left child, there is no successor.
+    In all four cases, the logic is identical. We walk up the ancestor chain until we traverse the first right child pointer, that is, we find the first node that is
+    a right child of its parent. That parent is the successor. If we get to the root without finding a node that is a right child, there is no successor.
 
-    Note: In a 2 3 tree, a "left child pointer" isn't always the first child. A "left child pointer" simply means a pointer to a subtree with smaller values than
-    the parent. In a 2 3 tree, the middle child pointer of a 3-node parent is a "left child pointer" of the 2nd key because all the values of the subtree rooted at
-    the middle child are less than the 2nd key of the middle child's parent 3-node. 
+    Note: In a 2 3 tree, a "right child pointer" isn't always the last child. A "right child pointer" simply means a pointer to a subtree with larger values than
+    the parent. In a 2 3 tree, the middle child pointer of a 3-node parent is a "right child pointer" of the 1st key because all the values of the subtree rooted at
+    the middle child are greater than the 1st key of the middle child's parent 3-node. 
 
-    So when we walk up the ancestor chain, we stop when we find a child pointer that is not the right most child pointer of its parent. If we get to the root without
-    finding a non-right most child pointer, there is no successor. For example, in the tree portion shown below
+    So when we walk up the ancestor chain, we stop when we find a child pointer that is not the left most child pointer of its parent. If we get to the root without
+    finding a non-left most child pointer, there is no successor. For example, in the tree portion shown below
+
+
+     TODO: Change this illustration to apply to predecessors. It was taken from the successor code and is a successor example not a predecessor.
 
                   [17,       60]   <-- 3-node
                   /       |     \
                  /        |      \
               [10]       [35]     [70, 100]
              /   \       /  \      /  |  \
-           [5]  [15]   [20] [50]  <-- pnode points to leaf node [50]. 
+           [5]  [15]   [20] [50]  <-- pnode points to leaf node [20]. 
            / \   / \   / \  / \   
           0   0 0   0 0   0 0  0  ... 
 
-      In the tree above, if [50] is the pnode leaf node, the successor of [50] is the second key of the 3-node [17, 60]. When we walk up the parent chain from [50],
-      the first left child pointer we encounter is the middle child of the 3-node [17, 60], which is the "left" child of 60. So [60] is the next largest key.
+      In the tree above, if [20] is the pnode leaf node, the predecessor of [20] is the first key of the 3-node [17, 60]. When we walk up the parent chain from [20],
+      the first right child pointer we encounter is the middle child of the 3-node [17, 60], which is the "right" child of 17. So [17] is the next smallest key.
 
       The same logic applies to all four possilbe cases (a) through (d). For example, for case (b), illustrate in the tree below
  
@@ -1154,24 +1123,68 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            prior_node = pnode; 
            pnode = __parent;
            
-           // If pnode is a 3-node, determine if we ascended from the first child, children[0], or the middle child, children[1], and set suc_key_index accordingly. 
            if (pnode->isThreeNode()) {
 
-              suc_key_index = (prior_node == pnode->children[0].get()) ? 0 : 1; 
+              pred_key_index = (prior_node == pnode->children[0].get()) ? 0 : 1; 
 
            } else { // pnode is a 2-node
 
-              suc_key_index = 0;
+              pred_key_index = 0;
            }
          }
          break;
 
+      case 1: /* 
+            pnode is either the right child of a 2-node or the middle child of a 3-node. If pnode is a 3-node, key_index equals 0 because if it was a 1, it was
+            already handled at the start of this method.  The possibilities look like this
+
+             If parent is a 2-node, there are two possible cases: 
+
+              (a)   [20]    (b)   [20]
+                    /  \          /  \  
+                  [x]  [30]    [x]  [30, 32]
+
+             In (a), key_index is 0. In (b), key_index is also 0.   
+
+             If parent is a 3-node, there are two possible cases: 
+
+              (c)   [20,  40]    (d)   [20,   40]
+                    /   |   \         /    |     \ 
+                  [x]  [30] [y]     [x] [30, 32]  [y] 
+             
+              In (c) above, key_index is 0. In (d), key_index is also 0. 
+
+              So in all four cases, the predecessor is the first key of the parent, which is 20.
+              */ 
+
+            pnode = pnode->parent;
+            pred_key_index = 0;
+            break;
+
+      case 2: /*
+             pnode is either the right most child of either a 2-node or a 3-node parent. If pnode is a 3-node, its key_index equals 0 (because if it is was 1,
+             this was already handled at the beginning of this method). 
+             The possibilities are:
+
+            (a)   [20]       (b) [20]    (c)   [20, 40]       (d) [20,     40]    
+                  / \            /  \          /   |  \            /   |     \ 
+                [ ]  [25]       []  [25, 30] [x]   [y]  [45]     [ ] [15, 18] [45, 50]   Note: if leaf is a 3-node, key_index is 0.
+
+          In all four scenarios above, we advance to the first key of the parent. 
+               */
+         pnode = pnode->parent;
+
+         pred_key_index = (parent->isThreeNode()) : 1 : 0;
+         break;
+ 
+
+         /* If the parent is a 2-node, we fall through to 'case 2' */
     default:
        break;
 
   } // end switch
 
-  return std::make_pair(pnode, suc_key_index); 
+  return std::make_pair(pnode, pred_key_index); 
 }
 
 
@@ -1280,7 +1293,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   switch (child_index) {
 
       case 0: /*
-             pnode is either the left most child of either a 2-node or 3-node parent. If pnode is a 3-node, its key_index equals 1 (because it is was 0,
+             pnode is either the left most child of either a 2-node or 3-node parent. If pnode is a 3-node, its key_index equals 1 (because if it is was 0,
              this was already handled at the beginning of this method. 
              The possibilities are:
 
@@ -1295,8 +1308,8 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
          break;
  
       case 1: /* 
-            pnode is either the left child of a 2-node or the middle child of a 3-node. If pnode is a 3-node, key_index equals 1 (because if it was a 0, it was
-            already handled above).  The possibilities look like this
+            pnode is either the right child of a 2-node or the middle child of a 3-node. If pnode is a 3-node, key_index equals 1 because if it was a 0, it was
+            already handled at the start of this method.  The possibilities look like this
 
              If parent is a 2-node, there are two possible cases: 
 
@@ -1308,11 +1321,11 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
              If parent is a 3-node, there are two possible cases: 
 
-              (a)   [20,  40]    (b)   [20,   40]
+              (c)   [20,  40]    (d)   [20,   40]
                     /   |   \         /    |    \ 
                   [x]  [30] [ ]     [x]  [30,32] [ ] 
              
-              In (a) above, key_index is 0. In (b), key_index is 1. 
+              In (c) above, key_index is 0. In (d), key_index is 1. 
                
               */ 
          if (pnode->parent->isThreeNode()) { // This is the trivial case, we advance to the 2nd key of the parent 3-node. 
