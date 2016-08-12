@@ -1028,7 +1028,7 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
 
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept
 {
-  // If the leaf node is a 3-node and key_index points to the second key, this is trivial: we simply set key_index to 0. 
+  // Hanlde trivial case: if the leaf node is a 3-node and key_index points to the second key, simply set key_index to 0. 
   if (pnode->isThreeNode() && key_index == 1) {
 
       return std::make_pair(current, 0); 
@@ -1040,11 +1040,9 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   int pred_key_index;
 
   /* 
-
-   TODO: The code and comments below is from getLeafNodeSuccessor(). Convert it to successor code!!!!t ap
-!
-
+   TODO: The code and comments below is from getLeafNodeSuccessor(). Convert it to successor code!!!!
    */ 
+
    /*
    Handle easy cases first:
    1. If child_index is 2, then the predecessor -- when pnode is either a 2-node of 3-node -- is pnode->parent and the pred_key_index is the parent's right most key.
@@ -1062,51 +1060,54 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     In (a), pnode is [15]. In (b), pnode is [15, 19] and key_index is 0. In (c), pnode is [15] and key_index is 0. In (d), pnode is also [15] and key_index of 0.
 
-    In all four cases, the logic is identical. We walk up the ancestor chain until we traverse the first right child pointer, that is, we find the first node that is
+    In all four cases, to find the next largest node the logic is identical.
+
+    We walk up the ancestor chain until we traverse the first right child pointer, that is, we find the first node that is
     a right child of its parent. That parent is the successor. If we get to the root without finding a node that is a right child, there is no successor.
 
     Note: In a 2 3 tree, a "right child pointer" isn't always the last child. A "right child pointer" simply means a pointer to a subtree with larger values than
     the parent. In a 2 3 tree, the middle child pointer of a 3-node parent is a "right child pointer" of the 1st key because all the values of the subtree rooted at
-    the middle child are greater than the 1st key of the middle child's parent 3-node. 
+    the middle child are greater than 1st key of the middle child's parent 3-node. 
 
     So when we walk up the ancestor chain, we stop when we find a child pointer that is not the left most child pointer of its parent. If we get to the root without
     finding a non-left most child pointer, there is no successor. For example, in the tree portion shown below
 
+    Illustration for predecessors. 
 
-     TODO: Change this illustration to apply to predecessors. It was taken from the successor code and is a successor example not a predecessor.
+              [5,   10]  
+              /   |   \                              
+          ...    ...  [27,       70]  
+                       /       |     \
+                      /        |      \   
+                   [20]       [45]    [80, 170]
+                   /   \      /  \     /  |  \
+                [15]  [25]  [30] [60]  <-- pnode points to leaf node [20]. 
+                / \   / \   / \  / \   
+               0   0 0   0 0   0 0  0  ... 
+     
+      In the tree above, if [15] is the pnode leaf node, the predecessor of [15] is the second key of the 3-node [5, 10] because when we walk up the parent chain
+      from [15], the first right child pointer we encounter is the parent of [27, 70], which is [5, 10]. So [10] is the next smallest key.
 
-                  [17,       60]   <-- 3-node
-                  /       |     \
-                 /        |      \
-              [10]       [35]     [70, 100]
-             /   \       /  \      /  |  \
-           [5]  [15]   [20] [50]  <-- pnode points to leaf node [20]. 
-           / \   / \   / \  / \   
-          0   0 0   0 0   0 0  0  ... 
-
-      In the tree above, if [20] is the pnode leaf node, the predecessor of [20] is the first key of the 3-node [17, 60]. When we walk up the parent chain from [20],
-      the first right child pointer we encounter is the middle child of the 3-node [17, 60], which is the "right" child of 17. So [17] is the next smallest key.
-
-      The same logic applies to all four possilbe cases (a) through (d). For example, for case (b), illustrate in the tree below
- 
-                  [17,            60]   <-- 3-node
-                  /       |         \
-                 /        |          \
-              [10]       [35]        [70, 100]
-             /   \       /  \        /  |  \
-           [5]  [15]   [20] [50, 55]                   <-- pnode points to key 55 in leaf node [50, 55]. 
-           / \   / \   / \  / \   
-          0   0 0   0 0   0 0  0  ... 
-    
-      again, 60 is the successor by applying the same reasoning.
-
+              [5,   10]  
+              /   |   \                              
+          ...    ...  [27,       70]  
+                       /       |     \
+                      /        |      \   
+                   [20]       [45]     [80, 170]
+                  /   \       /  \      /  |  \
+                [15]  [25]  [30] [60]  <-- pnode points to leaf node [20]. 
+                / \   / \   / \  / \   
+               0   0 0   0 0   0 0  0  ... 
+     
+      If [30] is the pnode leaf node, the predecessor of [30] is the first key of the 3-node [27, 70] because when we walk up the parent chain from [30], the first
+      right child pointer we encounter is the parent of [45], which is [27, 70]. So the key is at index 0, which is [27], is the next smallest key.
       */
         {
            const Node23 *prior_node = pnode;
            const Node23 *__parent = pnode->parent;
            
-           // Ascend the parent pointers as long as pnode is the right most child of its parent.
-           while(pnode == __parent->children[__parent->totalItems].get() )  {
+           // Ascend the parent pointers as long as pnode is the left most child of its parent.
+           while(pnode == __parent->children[0].get() )  {
            
                // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
                if (__parent == tree.root.get()) {
@@ -1125,7 +1126,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            
            if (pnode->isThreeNode()) {
 
-              pred_key_index = (prior_node == pnode->children[0].get()) ? 0 : 1; 
+              pred_key_index = (prior_node == pnode->children[1].get()) ? 0 : 1; 
 
            } else { // pnode is a 2-node
 
@@ -1161,24 +1162,18 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
             pred_key_index = 0;
             break;
 
-      case 2: /*
-             pnode is either the right most child of either a 2-node or a 3-node parent. If pnode is a 3-node, its key_index equals 0 (because if it is was 1,
-             this was already handled at the beginning of this method). 
-             The possibilities are:
-
-            (a)   [20]       (b) [20]    (c)   [20, 40]       (d) [20,     40]    
-                  / \            /  \          /   |  \            /   |     \ 
-                [ ]  [25]       []  [25, 30] [x]   [y]  [45]     [ ] [15, 18] [45, 50]   Note: if leaf is a 3-node, key_index is 0.
-
-          In all four scenarios above, we advance to the first key of the parent. 
+      case 2:
+              /*
+                 We know that is pnode is a 3-node, then key_index is 0 because if it was 1, this was already handled at the start of this method.
+                 If pnode is a 2-node, then obviously, key_index is also 0. So in either case, pnode is the right most child of its parent, so the 
+                 successor will be the right most key of the parent.
                */
          pnode = pnode->parent;
 
-         pred_key_index = (parent->isThreeNode()) : 1 : 0;
+         pred_key_index = pnode->isThreeNode() ? 1 : 0;               
          break;
  
 
-         /* If the parent is a 2-node, we fall through to 'case 2' */
     default:
        break;
 
