@@ -333,6 +333,12 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
 
+    iterator rbegin() noexcept;  
+    iterator rend() noexcept;  
+
+    const_iterator rbegin() const noexcept;  
+    const_iterator rend() const noexcept;  
+
     tree23() noexcept;
 
     void test_invariant() const noexcept;
