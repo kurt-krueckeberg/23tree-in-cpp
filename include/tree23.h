@@ -333,11 +333,15 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
 
-    iterator rbegin() noexcept;  
-    iterator rend() noexcept;  
+    typedef std::reverse_iterator<iterator>       reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
+    reverse_iterator rbegin() noexcept;  
+    reverse_iterator rend() noexcept;  
+    /*
     const_iterator rbegin() const noexcept;  
     const_iterator rend() const noexcept;  
+     */
 
     tree23() noexcept;
 

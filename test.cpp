@@ -251,7 +251,7 @@ void test_forward_iteration(const std::vector<int>& input, int break_key)
   cout << flush << "\nPrinting tree with iterator:\n";
   try {
 
-    print_with_iterator(tree);
+    print_with_forward_iterator(tree);
 
   } catch (std::exception& e) {
 
@@ -262,7 +262,7 @@ void test_forward_iteration(const std::vector<int>& input, int break_key)
   return; 
 }
 
-void print_forward_with_iterator(const tree23<int, int>& tree)
+void print_with_forward_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.begin();
   auto end_iter = tree.end();
@@ -324,12 +324,12 @@ void test_backward_iteration(const std::vector<int>& input, int break_key)
   return; 
 }
 
-void print_forward_with_iterator(const tree23<int, int>& tree)
+void print_with_backward_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.rbegin();
   auto end_iter = tree.rend();
 
-  for( ; iter != end_iter; --iter) {
+  for( ; iter != end_iter; ++iter) {
 
        cout << (*iter).key << ", ";
        cout << flush;

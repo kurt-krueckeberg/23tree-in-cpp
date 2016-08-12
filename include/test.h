@@ -17,10 +17,10 @@ void test_copy_ctor(const std::vector<int>& input, int break_key);
 
 void test_forward_iterator(const std::vector<int>& input, int break_key); 
 
-void print_forward_with_iterator(const tree23<int, int>& the_tree);
+void print_with_forward_iterator(const tree23<int, int>& the_tree);
 
 void test_backward_iterator(const std::vector<int>& input, int break_key); 
 
-void print_backward_iterator(const tree23<int, int>& the_tree);
+void print_with_backward_iterator(const tree23<int, int>& the_tree);
 
 #endif
