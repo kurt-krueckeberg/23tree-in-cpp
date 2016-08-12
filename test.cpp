@@ -212,7 +212,7 @@ void test_copy_ctor(const std::vector<int>& input, int break_key)
   cout << "\n";
 }
 
-void test_iterator(const std::vector<int>& input, int break_key) 
+void test_forward_iteration(const std::vector<int>& input, int break_key) 
 {
   tree23<int, int> tree;
   
@@ -262,7 +262,7 @@ void test_iterator(const std::vector<int>& input, int break_key)
   return; 
 }
 
-void print_with_iterator(const tree23<int, int>& tree)
+void print_forward_with_iterator(const tree23<int, int>& tree)
 { 
   auto iter = tree.begin();
   auto end_iter = tree.end();
@@ -273,3 +273,67 @@ void print_with_iterator(const tree23<int, int>& tree)
        cout << flush;
   } 
 }
+
+void test_backward_iteration(const std::vector<int>& input, int break_key) 
+{
+  tree23<int, int> tree;
+  
+   int i = 0;
+    
+   for (auto& key : input) {
+
+      cout << "Inserting: " << key << std::endl;
+      
+      if (key == break_key) {
+          
+         int debug = 10;
+         
+         ++debug;
+         
+         tree.insert(key, key);
+         
+      } else {
+          
+         tree.insert(key, key);
+      }
+    }
+
+  cout << "Level order print of tree: \n";
+
+  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
+
+  tree.levelOrderTraverse(printFunctor);
+  
+  cout << "\n\nIn order print of tree:\n";
+  
+  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+
+  tree.inOrderTraverse(lambda_closure);
+  
+  cout << flush << "\nPrinting tree with iterator:\n";
+  try {
+
+    print_with_backward_iterator(tree);
+
+  } catch (std::exception& e) {
+
+    cout << "\nException: " << e.what() << endl; 
+  }
+
+  cout << flush; 
+  return; 
+}
+
+void print_forward_with_iterator(const tree23<int, int>& tree)
+{ 
+  auto iter = tree.rbegin();
+  auto end_iter = tree.rend();
+
+  for( ; iter != end_iter; --iter) {
+
+       cout << (*iter).key << ", ";
+       cout << flush;
+  } 
+}
+
+

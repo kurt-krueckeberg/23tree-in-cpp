@@ -18,12 +18,8 @@
 
 ## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
 
-The iterator\_base::getPredecessor() logic has been started. We need to finish converting the getLeafNodePredecessor() code and its comments from getting the successor
-to getting the predecessor. Some of the code is correct and part of the comments have been applied to predecessors (but not the entire thought). To ensure that the
-comments are the code based on those comments are correct, all possible use cases need to be illustrated. The commnets need to reflect the use cases and finally the
-code has to be implemented to apply to the use cases and their comments.
-
-General question, should operator++ and operator--simply not advanced or reverse--if the largest or smallest key has been reached by operator++ and operator--, repectively?
+The getPredecessor() logic has been completed but not tested. The declarations of rbegin() and rend()--both const and non-const versions--have been added to teamplate
+class tree23<Key, Value>, but they have not been defined.
 
 ### Red Black code
 

@@ -15,7 +15,12 @@ void test_remove(const std::vector<int>& input, int break_key);
 
 void test_copy_ctor(const std::vector<int>& input, int break_key); 
 
-void test_iterator(const std::vector<int>& input, int break_key); 
+void test_forward_iterator(const std::vector<int>& input, int break_key); 
 
-void print_with_iterator(const tree23<int, int>& the_tree);
+void print_forward_with_iterator(const tree23<int, int>& the_tree);
+
+void test_backward_iterator(const std::vector<int>& input, int break_key); 
+
+void print_backward_iterator(const tree23<int, int>& the_tree);
+
 #endif

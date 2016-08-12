@@ -244,7 +244,7 @@ template<class Key, class Value> class tree23 {
     // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValue? ?      
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
-    class iterator_base : public std::iterator<std::forward_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
+    class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
        friend class tree23<Key, Value>;   
       public:
