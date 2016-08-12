@@ -16,10 +16,12 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-## External In-Order, STL-like Iterator has been implemented
+## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
 
-It has been implementation as a forward iterator. It needs to be implemented as a bidirectional iterator by adding operator--() and a getSuccessor() method to
-class iterator\_base .
+The iterator\_base::getPredecessor() logic has been started. We need to convert the getLeafNodePredecessor() code--the switch statement section of logic--from getting the successor to getting
+the predecessor. I think basically that is all that remains. When the smallest item has been retrieved, we start current to null pointer.
+
+General question, should operator++ and operator--simply not advanced or reverse--if the largest or smallest key has been reached by operator++ and operator--, repectively?
 
 ### Red Black code
 

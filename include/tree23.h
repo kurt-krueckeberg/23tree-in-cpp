@@ -260,8 +260,10 @@ template<class Key, class Value> class tree23 {
          void  getPredecessor() noexcept;
 
          const Node23 *getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
+         const Node23 *getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
+         std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
 
@@ -984,6 +986,36 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPred
   }
 }
 
+template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
+{
+ // Get next left child node of pnode based on key_index.
+ const Node23 *leftChild;
+
+ if (pnode->isThreeNode()) {
+
+      if (key_index == 0) {
+
+        leftChild = pnode->children[0].get();
+
+      } else { // it is 1     
+
+        leftChild = pnode->children[1].get(); // middle child 
+      }
+
+ } else { // It is a 2-node
+
+        leftChild = pnode->children[0].get();
+ }
+ // Question: Does it take into account that fact that a node may have already been visited in order?
+ // Get the largest node in the subtree rooted at the leftChild, i.e., its right most node...
+ for (const Node23 *cursor = leftChild; cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
+
+    pnode = cursor;
+ }
+ 
+ return pnode;
+}
+
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept
 {
   // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
@@ -999,7 +1031,8 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   /* 
 
-   TODO: The code and comments below is from getLeafNodeSuccessor(). Convert it to successor code.
+   TODO: The code and comments below is from getLeafNodeSuccessor(). Convert it to successor code!!!!t ap
+!
 
    */ 
    /*
@@ -1192,7 +1225,7 @@ Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key
  */
 template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
 {
- // Get next right of pnode based on key_index.
+ // Get next right child node of pnode based on key_index.
  const Node23 *rightChild;
 
  if (pnode->isThreeNode()) {
@@ -1210,8 +1243,9 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
 
         rightChild = pnode->children[1].get();
  }
- // TODO: I'm not sure this is right. Does it take into account that fact that a node may have already been visited in order?
- // Get th smallest node in the subtree rooted at the rightChild, i.e., its left most node...
+
+ // Question: Does it take into account that fact that a node may have already been visited in order?
+ // Get the smallest node in the subtree rooted at the rightChild, i.e., its left most node...
  for (const Node23 *cursor = rightChild; cursor != nullptr; cursor = cursor->children[0].get()) {
 
     pnode = cursor;
