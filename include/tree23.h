@@ -1026,6 +1026,9 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
  return pnode;
 }
 /* 
+Finding the predecessor of a given node 
+---------------------------------------
+
   Pseudo code and illustration is at From http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf slides #7 and #8
 
   If left child exists, predecessor is the right most node of the left subtree
@@ -1048,10 +1051,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   int child_index = getChildIndex(pnode);
 
   int pred_key_index;
-
-  /* 
-   TODO: The code and comments below is from getLeafNodeSuccessor(). Convert it to successor code!!!!
-   */ 
 
    /*
    Handle easy cases first:
@@ -1191,7 +1190,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   return std::make_pair(pnode, pred_key_index); 
 }
-
 
 /*
 
