@@ -333,16 +333,16 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
 
-    typedef std::reverse_iterator<iterator>       reverse_iterator;
-    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+    // TODO: Change to using= form.
+    typedef std::reverse_iterator<typename tree23<Key, Value>::iterator>       reverse_iterator;
+    typedef std::reverse_iterator<typename tree23<Key, Value>::const_iterator> const_reverse_iterator;
 
     reverse_iterator rbegin() noexcept;  
     reverse_iterator rend() noexcept;  
-    /*
-    const_iterator rbegin() const noexcept;  
-    const_iterator rend() const noexcept;  
-     */
-
+      
+    const_reverse_iterator rbegin() const noexcept;  
+    const_reverse_iterator rend() const noexcept;  
+     
     tree23() noexcept;
 
     void test_invariant() const noexcept;
@@ -867,18 +867,19 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
  end() calls the iterator constructor that sets current to nullptr and key_index to 0. 
  */
 
-template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
-{
-    return iterator(const_cast<tree23<Key, Value>&>(*this), 1);
-}
-
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
 {
-    const_iterator const_iter{ const_cast<tree23<Key, Value>&>( *this ) }; // cast away const
-
+    return const_iterator{ const_cast<tree23<Key, Value>&>( *this ) }; // cast away const
+/*
     const_iter.seekToSmallest();
     
     return const_iter;
+*/
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
+{
+    return iterator(const_cast<tree23<Key, Value>&>(*this), 1);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
@@ -892,6 +893,27 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0} 
 {
+}
+
+// TODO: Finish
+template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rbegin() noexcept
+{
+    return std::reverse_iterator{ tree23<Key, Value>::iterator{ *this } };
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rbegin() const noexcept
+{
+    return std::reverse_iterator{ tree23<Key, Value>::const_iterator{ const_cast<tree23<Key, Value>&>(*this) } }; // cast away const
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::rend() noexcept
+{
+    return std::reverse_iterator{iterator(*this, 1)};
+}
+
+template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::rend() const noexcept
+{
+   return const_iterator{ const_cast<tree23<Key, Value>&>(*this), 10};
 }
 
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest() noexcept

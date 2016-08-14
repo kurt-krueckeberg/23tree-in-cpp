@@ -326,12 +326,12 @@ void test_backward_iteration(const std::vector<int>& input, int break_key)
 
 void print_with_backward_iterator(const tree23<int, int>& tree)
 { 
-  auto iter = tree.rbegin();
-  auto end_iter = tree.rend();
+  tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
+  tree23<int, int>::const_reverse_iterator rend_iter = tree.rend();
 
-  for( ; iter != end_iter; ++iter) {
+  for( ; riter != rend_iter; ++riter) {
 
-       cout << (*iter).key << ", ";
+       cout << (*riter).key << ", ";
        cout << flush;
   } 
 }
