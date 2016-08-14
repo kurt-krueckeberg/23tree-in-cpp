@@ -18,9 +18,19 @@
 
 ## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
 
-In order to implement a reverse iterator, I believe the tyoe returned by the end() method must be able to "advance" from the "one past the end" position to 
-the last, largest node in the tree when operator++() is called. I believe this is what reverse iterator relies on when its operator++(),, which actually calls
-iterator::operator--() is called.
+In order to implement a reverse iterator, I believe the type returned by the end() method must be able to "advance" from the "one past the end" position to 
+the last, largest node in the tree when operator++() is called. I believe this is what reverse iterator relies on when its operator++(), which actually calls
+iterator::operator--(), is called and the current position is the "end".
+
+I also believe that if you loop to "end" using operator++(), you can then successfully call operator--(), and it will "go backward" to the last node, the largest
+node in the tree.
+
+Finally, according to The C++ Programming Language, 4th Edition, begin() returns the first element in the container. So what should or does operator--() return when it
+is called immediately after begin()? The answer requires write a test case to find out. 
+
+Also, according to The C++ Programming Language, 4th Edition, stl container have cbegin() and cend() method that return const iterators. 
+
+With the results from the test cases mentioned above, we can alter iterator\_base accordingly.
 
 To see if this is true, write a test case involving the C++14 standard library's std::map. Then do this:
 
