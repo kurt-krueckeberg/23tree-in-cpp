@@ -264,12 +264,12 @@ void test_forward_iteration(const std::vector<int>& input, int break_key)
 
 void print_with_forward_iterator(const tree23<int, int>& tree)
 { 
-  auto iter = tree.begin();
-  auto end_iter = tree.end();
+  auto citer = tree.cbegin();
+  auto cend_iter = tree.cend();
 
-  for( ; iter != end_iter; ++iter) {
+  for( ; citer != cend_iter; ++citer) {
 
-       cout << (*iter).key << ", ";
+       cout << (*citer).key << ", ";
        cout << flush;
   } 
 }
@@ -326,14 +326,12 @@ void test_backward_iteration(const std::vector<int>& input, int break_key)
 
 void print_with_backward_iterator(const tree23<int, int>& tree)
 { 
-  tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
-  tree23<int, int>::const_reverse_iterator rend_iter = tree.rend();
+  tree23<int, int>::const_reverse_iterator criter = tree.crbegin();
+  tree23<int, int>::const_reverse_iterator crend_iter = tree.crend();
 
-  for( ; riter != rend_iter; ++riter) {
+  for( ; criter != crend_iter; ++criter) {
 
-       cout << (*riter).key << ", ";
+       cout << (*criter).key << ", ";
        cout << flush;
   } 
 }
-
-
