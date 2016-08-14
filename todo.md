@@ -21,6 +21,8 @@
 In order to implement a reverse iterator, the tyoe returned by the end() method must be able to "advance" from the "one past the end" position to the last, largest
 node in the tree when operator++() is called. This is what reverse iterator relies on when its operator++(),, which call iterator::operator--() is called.
 
+TODO: look a the actual stl tree iterator source code to understand how it handles operator--() when at end(), in order to get implementation ideas.
+
 The getPredecessor() logic has been completed but not tested. The declarations of rbegin() and rend()--both const and non-const versions--have been added to teamplate
 class tree23<Key, Value>, but they have not been defined.
 
