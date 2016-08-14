@@ -16,6 +16,7 @@ The following sources discuss 2 3 Trees and their algorithms:
 4. `2 3 Trees <http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf>`_
 5. `Deletion in 2 3 trees <http://www-bcf.usc.edu/~dkempe/CS104/11-19.pdf>`_
 6. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
+7. `STL's Red-Black Trees <http://www.drdobbs.com/cpp/stls-red-black-trees/184410531>`_
 
 Overview
 --------

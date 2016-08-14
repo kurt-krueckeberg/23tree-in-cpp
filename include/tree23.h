@@ -241,7 +241,7 @@ template<class Key, class Value> class tree23 {
 
   public:
 
-    // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValue? ?      
+    // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
@@ -252,6 +252,15 @@ template<class Key, class Value> class tree23 {
          tree23<Key, Value>& tree; 
 
          const typename tree23<Key, Value>::Node23 *current;
+
+         /*
+          Idea for setting one-past end() and "one-past", ie., before begin().
+
+          enum sentinels { before_first_node, after_last_node };
+
+          sentinel markers;
+          */
+          */
 
          int key_index;  // The index is such that current == current->parent->children[child_index]
 
@@ -1000,7 +1009,8 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
 }
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, got to the largest node. 
+  if (current == nullptr) { // If we are at the end, go to the last node in the tree, the largest node. 
+
       current = seekToLargest();
       key_index = current->isThreeNode() ? 1 : 0;
       return; 
@@ -1233,7 +1243,7 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, start return. 
+  if (current == nullptr) { // If we are at the end, we simply return. 
       
       return; 
   }
