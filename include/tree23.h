@@ -1000,8 +1000,9 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
 }
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, return. 
-
+  if (current == nullptr) { // If we are at the end, got to the largest node. 
+      current = seekToLargest();
+      key_index = current->isThreeNode() ? 1 : 0;
       return; 
   }
  
@@ -1232,8 +1233,8 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, return. 
-
+  if (current == nullptr) { // If we are at the end, start return. 
+      
       return; 
   }
  
