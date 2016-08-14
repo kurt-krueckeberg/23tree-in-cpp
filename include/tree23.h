@@ -1115,10 +1115,10 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            const Node23 *prior_node = pnode;
            const Node23 *__parent = pnode->parent;
            
-           // Ascend the parent pointers as long as pnode is the left most child of its parent.
+           // Ascend the parent pointer as long as pnode is the left most child of its parent.
            while(pnode == __parent->children[0].get() )  {
            
-               // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
+               // pnode is still the left most child but now its parent is the root; therefore, there is no successor. 
                if (__parent == tree.root.get()) {
            
                    return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor.
@@ -1135,7 +1135,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            
            if (pnode->isThreeNode()) {
 
-              pred_key_index = (prior_node == pnode->children[1].get()) ? 0 : 1; 
+              pred_key_index = (prior_node == pnode->children[1].get()) ? 1 : 0; 
 
            } else { // pnode is a 2-node
 
