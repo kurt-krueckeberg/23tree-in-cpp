@@ -35,8 +35,8 @@ Thoughts: Use a "bitset<2> flags" for at\_end and at\_start flags?
 
 SEE how ios::xxx flags work, are ued internally in the stlt source code:
 
-1. [SGI] SGI source code 
-2. [g++] g++ source 
+1. [SGI] source code 
+2. [g++] source code
 [SGI]: <http://www.sgi.com/tech/stl/download.html>
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
