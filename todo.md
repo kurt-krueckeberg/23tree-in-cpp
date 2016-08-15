@@ -18,7 +18,7 @@
 
 ## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
 
-In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the operator--() of the iterator to go to the last node in
+In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the `operator--()` of the iterator to go to the last node in
 the tree. I am not sure how this is implemented, but it does one to go back from the one-past the last key/value.
 
 Question: According to "The C++ Programming Language, 4th Edition" begin() returns the first element in the container. So what should or does 
