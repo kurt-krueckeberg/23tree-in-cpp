@@ -26,7 +26,9 @@ operator--() return when it is called immediately after begin()?
 
 Answer: It should not do anything. It should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
 Read [The Standard Librarian: Bitsets and Bit Vectors](http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382) to understand bitsets and
-`vector<bool>`:
+`vector<bool>`. See also [bitsets explained](http://www.cppstdlib.com/cppstdlib_supplementary.pdf).  
+
+The g++ souce code is at:
 
 [g++] source code, which I have unpacked placed in ~/temp/libstdc++-v3 
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
