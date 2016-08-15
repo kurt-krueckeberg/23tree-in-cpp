@@ -28,8 +28,11 @@ Also, according to The C++ Programming Language, 4th Edition, stl container have
 
 With the results from the test cases mentioned above, we can alter iterator\_base accordingly.
 
-TODO: Thoughts: Use a "bitset<2> flags" for at\_end and at\_start flags? 
+TODO: Read http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382 for info on bitset and vector<bool>/.
+Thoughts: Use a "bitset<2> flags" for at\_end and at\_start flags? 
        if (flags &  end_bit) or if (flags && end_bit) or XOR or whatever...
+      OR "vector<bool> flags"
+       
 
 The getPredecessor() logic has been completed but not tested. The declarations of rbegin() and rend()--both const and non-const versions--have been added to teamplate
 class tree23<Key, Value>, but they have not been defined.
