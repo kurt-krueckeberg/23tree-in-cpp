@@ -24,7 +24,7 @@ the tree. I am not sure how this is implemented, but it does one to go back from
 Question: According to "The C++ Programming Language, 4th Edition" begin() returns the first element in the container. So what should or does 
 operator--() return when it is called immediately after begin()?  
 
-Answer: It should not do anything. It should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
+Answer: It should not do anything. At first I thought it should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
 Read [The Standard Librarian: Bitsets and Bit Vectors](http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382) to understand bitsets and
 `vector<bool>`. See also [bitsets explained](http://www.cppstdlib.com/cppstdlib_supplementary.pdf).  
 
@@ -38,7 +38,7 @@ In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_
 
 See include/ideas.h for an excerpt of `class ios_base` that uses an enum, statics, and overloaded operators.
 
-Alternately, maybe simply defining a a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
+Better, simply define a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
 and better.
 
 ### Red Black code
