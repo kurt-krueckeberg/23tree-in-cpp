@@ -31,8 +31,6 @@ Read [The Standard Librarian: Bitsets and Bit Vectors](http://www.drdobbs.com/th
 [g++] source code, which I have unpacked placed in ~/temp/libstdc++-v3 
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
-http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382
-
 In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_base.h and the protected member variables such as `fmtflags _M_flags` and 
 `iostate _M_streambuf_state` to see how flags, like `skipws`, etc., are implemented in the standard library. 
 
