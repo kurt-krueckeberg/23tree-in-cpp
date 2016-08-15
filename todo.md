@@ -30,8 +30,10 @@ Read these articles to understand bitsets and vector\<bool\>:
 [g++] source code, which I have unpacked placed in ~/temp/libstdc++-v3 
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
-In particular look at the enums define in ~/temp/libstdc++-v3/bits/ios\_base.h and the protected member variables such as **fmtflags \_M\_flags** and 
+In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_base.h and the protected member variables such as **fmtflags \_M\_flags** and 
 **iostate \_M\_streambuf\_state** to see how flags, like skipws, etc., are implemented in the standard library. 
+
+See include/ideas.h for an excerpt of class ios\_base that uses an enum, statics, and overloaded operators.
 
 ### Red Black code
 
