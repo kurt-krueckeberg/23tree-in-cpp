@@ -27,17 +27,11 @@ operator--() return when it is called immediately after begin()?
 Answer: It should not do anything. It should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
 Read these articles to understand bitsets and vector\<bool\>:
 
-1. [SGI] source code 
-2. [g++] source code
-[SGI]: <http://www.sgi.com/tech/stl/download.html>
+[g++] source code, which I have unpacked placed in ~/temp/libstdc++-v3 
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
-Look at how the ios flags, like skipws, etc., are implemented in the standard library. The headers and source can be grepped at ~/temp/libstdc++-v3/. Look for code
-such as 
-
-   \_\_in.flags()
-
-How is \_\_in defined?
+In particular look at the enums define in ~/temp/libstdc++-v3/bits/ios\_base.h and the protected member variables such as **fmtflags \_M\_flags** and 
+**iostate \_M\_streambuf\_state** to see how flags, like skipws, etc., are implemented in the standard library. 
 
 ### Red Black code
 
