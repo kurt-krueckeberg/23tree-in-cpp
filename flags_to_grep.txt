@@ -1,0 +1,7 @@
+boolalpha
+showbase 
+showpoint
+showpos	
+skipws	
+unitbuf	
+uppercase

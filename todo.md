@@ -21,27 +21,23 @@
 In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the operator--() of the iterator to go to the last node in
 the tree. I am not sure how this is implemented, but it does one to go back from the one-past the last key/value.
 
-Finally, according to The C++ Programming Language, 4th Edition, begin() returns the first element in the container. So what should or does operator--() return when it
-is called immediately after begin()? The answer requires write a test case to find out. 
+Question: According to "The C++ Programming Language, 4th Edition" begin() returns the first element in the container. So what should or does 
+operator--() return when it is called immediately after begin()?  
 
-Also, according to The C++ Programming Language, 4th Edition, stl container have cbegin() and cend() method that return const iterators. 
-
-With the results from the test cases mentioned above, we can alter iterator\_base accordingly.
-
-TODO: Read http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382 for info on bitset and vector<bool>/.
-Thoughts: Use a "bitset<2> flags" for at\_end and at\_start flags? 
-       if (flags &  end_bit) or if (flags && end_bit) or XOR or whatever...
-      OR "vector<bool> flags"
-
-SEE how ios::xxx flags work, are ued internally in the stlt source code:
+Answer: It should not do anything. It should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
+Read these articles to understand bitsets and vector\<bool\>:
 
 1. [SGI] source code 
 2. [g++] source code
 [SGI]: <http://www.sgi.com/tech/stl/download.html>
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
-The getPredecessor() logic has been completed but not tested. The declarations of rbegin() and rend()--both const and non-const versions--have been added to teamplate
-class tree23<Key, Value>, but they have not been defined.
+Look at how the ios flags, like skipws, etc., are implemented in the standard library. The headers and source can be grepped at ~/temp/libstdc++-v3/. Look for code
+such as 
+
+   \_\_in.flags()
+
+How is \_\_in defined?
 
 ### Red Black code
 
