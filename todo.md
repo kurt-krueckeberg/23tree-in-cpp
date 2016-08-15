@@ -25,15 +25,18 @@ Question: According to "The C++ Programming Language, 4th Edition" begin() retur
 operator--() return when it is called immediately after begin()?  
 
 Answer: It should not do anything. It should be implemented to check a flag (or bit in a bitset of in a vector\<bool\>). iterator\_base should be altered accordingly.
-Read these articles to understand bitsets and vector\<bool\>:
+Read [The Standard Librarian: Bitsets and Bit Vectors](http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382) to understand bitsets and
+`vector<bool>`:
 
 [g++] source code, which I have unpacked placed in ~/temp/libstdc++-v3 
 [g++]: <https://gcc.gnu.org/onlinedocs/gcc-4.9.0/libstdc++/api/>
 
-In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_base.h and the protected member variables such as **fmtflags \_M\_flags** and 
-**iostate \_M\_streambuf\_state** to see how flags, like skipws, etc., are implemented in the standard library. 
+http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382
 
-See include/ideas.h for an excerpt of class ios\_base that uses an enum, statics, and overloaded operators.
+In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_base.h and the protected member variables such as `fmtflags _M_flags` and 
+`iostate _M_streambuf_state` to see how flags, like `skipws`, etc., are implemented in the standard library. 
+
+See include/ideas.h for an excerpt of `class ios_base` that uses an enum, statics, and overloaded operators.
 
 ### Red Black code
 
