@@ -1423,7 +1423,12 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            
                // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
                if (__parent == tree.root.get()) {
-           
+                  
+                   /*
+                    TODO: Change this code to set the iterator_position state
+                    position = iterator_position::end;
+                    */ 
+
                    return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor.
                                                        // To indicate this we set current to nullptr and key_index to 0.
                }
