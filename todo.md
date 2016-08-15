@@ -32,6 +32,9 @@ TODO: Read http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/18440
 Thoughts: Use a "bitset<2> flags" for at\_end and at\_start flags? 
        if (flags &  end_bit) or if (flags && end_bit) or XOR or whatever...
       OR "vector<bool> flags"
+
+SEE how iods::xxx flags work, are ued internally in the stlt source code.
+
        
 
 The getPredecessor() logic has been completed but not tested. The declarations of rbegin() and rend()--both const and non-const versions--have been added to teamplate
