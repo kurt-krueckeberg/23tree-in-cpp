@@ -38,6 +38,9 @@ In particular look at the enums define in ~/temp/libstdc++-v3/include/bits/ios\_
 
 See include/ideas.h for an excerpt of `class ios_base` that uses an enum, statics, and overloaded operators.
 
+Alternately, maybe simply defining a a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
+and better.
+
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
