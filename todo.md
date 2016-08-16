@@ -26,13 +26,13 @@ operator--() return when it is called immediately after begin()?
 
 Answer: It should not do anything. 
 
-Better, simply define a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
+We simply define a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
 and better.
 
-Something interesting to read and better learn:
-Read [The Standard Librarian: Bitsets and Bit Vectors](http://www.drdobbs.com/the-standard-librarian-bitsets-and-bit-v/184401382) to understand bitsets and
-`vector<bool>`. See also [bitsets explained](http://www.cppstdlib.com/cppstdlib_supplementary.pdf).  
+### TDOO
 
+The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
+ or `operator--()` and `operator++()` to set position. 
 
 ### Red Black code
 
