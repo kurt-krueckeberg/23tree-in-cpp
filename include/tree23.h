@@ -874,7 +874,8 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 }
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
-template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, iterator_position pos) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
+template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, \
+                                                                 typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
                                                                  key_index{0}, position{pos} 
 {
 }
@@ -895,7 +896,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
 {
-    return iterator(const_cast<tree23<Key, Value>&>(*this), iterator_position::end);
+    return iterator(const_cast<tree23<Key, Value>&>(*this), tree23<Key, Value>::iterator_position::end);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::cend() const noexcept
@@ -917,15 +918,15 @@ template<class Key, class Value> inline typename tree23<Key, Value>::reverse_ite
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::crbegin() const noexcept
 {
-    return std::const_reverse_iterator<tree23<Key, Value>::const_iterator>{ const_cast<tree23<Key, Value>&>(*this)->end() }; // cast away const
+    return std::reverse_iterator<tree23<Key, Value>::const_iterator>{ const_cast<tree23<Key, Value>&>(*this)->end() }; // cast away const
 }
 
-template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::rend() noexcept
+template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rend() noexcept
 {
-    return std::reverse_iteratortree23<Key, Value>::iterator>{ begin() }; 
+    return std::reverse_iterator<tree23<Key, Value>::iterator>{ begin() }; 
 }
 
-template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::crend() const noexcept
+template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::crend() const noexcept
 {
    return const_iterator{ const_cast<tree23<Key, Value>&>(*this)->begin() }; 
 }
@@ -969,7 +970,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
  if (&lhs.tree == &tree) {
 
     // What about testing for "beg"?
-    if (lhs.position == iterator_position::end && lhs.position == iterator_positon::end) { // == end() test: both "this" and right argument's current pointer are nullptr.
+    if (lhs.position == tree23<Key, Value>::iterator_position::end && lhs.position == tree23<Key, Value>::iterator_positon::end) { // == end() test: both "this" and right argument's current pointer are nullptr.
 
         return true;
 
