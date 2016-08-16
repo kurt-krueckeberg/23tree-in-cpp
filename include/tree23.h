@@ -244,7 +244,7 @@ template<class Key, class Value> class tree23 {
     // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
-    enum iterator_position {beg, in_between, end}; // possible finite states of iterator
+    enum class iterator_position {beg, in_between, end}; // possible finite states of iterator
 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
@@ -257,7 +257,7 @@ template<class Key, class Value> class tree23 {
 
          int key_index;  // The index is such that current == current->parent->children[child_index]
 
-         position_states position;
+         iterator_position position;
 
          int   getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
          void  getSuccessor() noexcept;
@@ -276,7 +276,7 @@ template<class Key, class Value> class tree23 {
 
       public:
 
-         iterator_base(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position pos=beg); // for use by end()
+         iterator_base(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position pos=iterator_position::beg); // for use by end()
 
          iterator_base(const iterator_base& lhs);
          iterator_base(iterator_base&& lhs); 
@@ -910,24 +910,24 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 }
 */
 // TODO: Finish
-template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rbegin() noexcept
+template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rbegin() noexcept
 {
-    return std::reverse_iterator{ tree23<Key, Value>::iterator{ *this } }; // <-- wrong constructor. Should be "return end();"?
+    return std::reverse_iterator<tree23<Key, Value>::iterator>{ end() }; 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::crbegin() const noexcept
 {
-    return std::reverse_iterator{ tree23<Key, Value>::const_iterator{ const_cast<tree23<Key, Value>&>(*this) } }; // cast away const
+    return std::const_reverse_iterator<tree23<Key, Value>::const_iterator>{ const_cast<tree23<Key, Value>&>(*this)->end() }; // cast away const
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::rend() noexcept
 {
-    return std::reverse_iterator{iterator(*this, 1)}; // <-- wrong constructor. Should be "return end();"?
+    return std::reverse_iteratortree23<Key, Value>::iterator>{ begin() }; 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::crend() const noexcept
 {
-   return const_iterator{ const_cast<tree23<Key, Value>&>(*this), 10}; // <-- wrong constructor. Should be "return end();"?
+   return const_iterator{ const_cast<tree23<Key, Value>&>(*this)->begin() }; 
 }
 
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest() noexcept

@@ -16,6 +16,19 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
+### Bugs
+
+Should the rbegin() and crbegin -- and the rend() and crend() -- return `std::reverse_iterator` or the typedef'ed `reverse_iterator` and `const_reverse_iterator`?
+
+### TDOO
+
+Change **typdefs** to **usings**/
+
+The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
+or `operator--()` and `operator++()` to set position. 
+
+
+
 ## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
 
 In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the `operator--()` of the iterator to go to the last node in
@@ -28,12 +41,6 @@ Answer: It should not do anything.
 
 We simply define a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
 and better.
-
-### TDOO
-
-The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
- or `operator--()` and `operator++()` to set position. 
-
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
