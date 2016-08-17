@@ -246,6 +246,11 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_between, end}; // possible finite states of iterator
 
+    /*
+     TODO: Do I need to add the other parameters to the std::iterator<> template for example
+    class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::Node23 > { 
+
+     */
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
        friend class tree23<Key, Value>;   
@@ -280,14 +285,7 @@ template<class Key, class Value> class tree23 {
 
          iterator_base(const iterator_base& lhs); // copy ctor
          iterator_base(iterator_base&& lhs);  // move ctor
-         /* 
-         iterator& operator++() noexcept; 
-         iterator operator++(int) noexcept;
-
-         iterator& operator--() noexcept;
-         iterator operator--(int) noexcept;
-          */
- 
+        
          iterator_base& increment() noexcept; // Called by operator++() 
 
          iterator_base& decrement() noexcept; // Called by operator--()
@@ -916,7 +914,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::reverse_ite
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::crbegin() const noexcept
 {
-    return std::reverse_iterator<tree23<Key, Value>::const_iterator>{ const_cast<tree23<Key, Value>&>(*this)->end() }; // cast away const
+    return std::reverse_iterator<tree23<Key, Value>::const_iterator>( const_cast<tree23<Key, Value>&>(this)->end() ); // cast away const
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rend() noexcept
@@ -968,7 +966,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
  if (&lhs.tree == &tree) {
 
     // What about testing for "beg"?
-    if (lhs.position == tree23<Key, Value>::iterator_position::end && lhs.position == tree23<Key, Value>::iterator_positon::end) { // == end() test: both "this" and right argument's current pointer are nullptr.
+    if (lhs.position == tree23<Key, Value>::iterator_position::end && position == tree23<Key, Value>::iterator_position::end) { // == end() test: both "this" and right argument's current pointer are nullptr.
 
         return true;
 
@@ -1015,7 +1013,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPred
 {
   if (current == nullptr) { // If we are at the end, go to the last node in the tree, the largest node. 
 
-      current = seekToLargest();
+      seekToLargest();
       key_index = current->isThreeNode() ? 1 : 0;
       return; 
   }
