@@ -26,7 +26,7 @@ void print_tree(const tree23<int, int>& tree)
   tree.inOrderTraverse(lambda_closure);
  */ 
     
-  tree23<int, int>::const_iterator const_iter = tree.begin();
+  //--tree23<int, int>::const_iterator const_iter = tree.cbegin();
   
   for(const auto& key_value : tree) {
       
@@ -70,13 +70,13 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
        auto key_break = test_case.size();
 
-       copy(append_vec.begin(), append_vec.end(), back_inserter(test_case));
+       copy(append_vec.cbegin(), append_vec.cend(), back_inserter(test_case));
 
        random_shuffle(test_case.begin(), test_case.end());
        
        cout << "Input vector<int> to next case is: \n";
 
-       copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
+       copy(test_case.cbegin(), test_case.cend(), ostream_iterator<int>(cout, ", "));
               
        cout << endl << flush;
        

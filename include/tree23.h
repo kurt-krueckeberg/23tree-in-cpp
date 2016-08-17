@@ -304,7 +304,9 @@ template<class Key, class Value> class tree23 {
         public:
 
          iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
-         iterator(tree23<Key, Value>& lhs, int i) : iterator_base{lhs, i} {}
+
+         iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position pos=iterator_position::beg) : iterator_base{lhs, pos} {}
+
          iterator(const iterator& lhs) : iterator_base{lhs} {}
          iterator(iterator&& lhs) : iterator_base{std::move(lhs)} {}
          
@@ -325,8 +327,11 @@ template<class Key, class Value> class tree23 {
     class const_iterator: protected iterator_base { // in order iterator
 
       public:
-         const_iterator(tree23<Key, Value>& lhs) : iterator_base{lhs} {}
-         const_iterator(tree23<Key, Value>& lhs, int i) : iterator_base{lhs, i} {}
+         const_iterator(const tree23<Key, Value>& lhs) : iterator_base{const_cast<tree23<Key, Value>&>(lhs)} {}
+
+         const_iterator(const tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position pos=iterator_position::beg) : \
+                                                       iterator_base{const_cast<tree23<Key, Value>&>(lhs), pos} {}
+
          const_iterator(const const_iterator& lhs) : iterator_base{lhs} {}
          const_iterator(const_iterator&& lhs) : iterator_base{std::move(lhs)} {}
          const_iterator(); // end() const;
@@ -882,7 +887,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
-    return iterator{const_cast<tree23<Key, Value>&>(*this)};
+    return iterator{*this};
 }
 
 /*
