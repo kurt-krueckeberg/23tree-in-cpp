@@ -16,9 +16,14 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### Bugs
+### Compile Bugs
 
-Should the rbegin() and crbegin -- and the rend() and crend() -- return `std::reverse_iterator` or the typedef'ed `reverse_iterator` and `const_reverse_iterator`?
+For help see:
+
+1. https://mbevin.wordpress.com/2012/11/14/range-based-for/
+2. http://stackoverflow.com/questions/8164567/how-to-make-my-custom-type-to-work-with-range-based-for-loops
+3. http://antonym.org/2014/02/c-plus-plus-11-range-based-for-loops.html
+
 
 ### TDOO
 
