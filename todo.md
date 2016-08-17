@@ -18,12 +18,7 @@
 
 ### Compile Bugs
 
-For help see:
-
-1. https://mbevin.wordpress.com/2012/11/14/range-based-for/
-2. http://stackoverflow.com/questions/8164567/how-to-make-my-custom-type-to-work-with-range-based-for-loops
-3. http://antonym.org/2014/02/c-plus-plus-11-range-based-for-loops.html
-
+I am getting some very different compile bugs. These will take some introspection to resolve. I have backed up the prior tree code as tree23.h.prior.
 
 ### TDOO
 
@@ -31,7 +26,6 @@ Change **typdefs** to **usings**/
 
 The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
 or `operator--()` and `operator++()` to set position. 
-
 
 
 ## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration

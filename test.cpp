@@ -67,13 +67,16 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
        auto key_break = test_case.size();
 
-       copy(append_vec.cbegin(), append_vec.cend(), back_inserter(test_case));
+       // copy(append_vec.cbegin(), append_vec.cend(), back_inserter(test_case)); TODO: Add cbegin() and cend() later and test them here.
+
+       copy(append_vec.begin(), append_vec.end(), back_inserter(test_case));
 
        random_shuffle(test_case.begin(), test_case.end());
        
        cout << "Input vector<int> to next case is: \n";
 
-       copy(test_case.cbegin(), test_case.cend(), ostream_iterator<int>(cout, ", "));
+       // copy(test_case.cbegin(), test_case.cend(), ostream_iterator<int>(cout, ", ")); TODO: Add cbegin() and cend() later and test them here.
+       copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
               
        cout << endl << flush;
        
@@ -260,9 +263,14 @@ void test_forward_iteration(const std::vector<int>& input, int break_key)
 }
 
 void print_with_forward_iterator(const tree23<int, int>& tree)
-{ 
+{
+/*  TODO: Add cbegin() and cend() later and retest.
   auto citer = tree.cbegin();
   auto cend_iter = tree.cend();
+ */
+
+  auto citer = tree.begin();
+  auto cend_iter = tree.end();
 
   for( ; citer != cend_iter; ++citer) {
 
@@ -323,8 +331,9 @@ void test_backward_iteration(const std::vector<int>& input, int break_key)
 
 void print_with_backward_iterator(const tree23<int, int>& tree)
 { 
-  tree23<int, int>::const_reverse_iterator criter = tree.crbegin();
-  tree23<int, int>::const_reverse_iterator crend_iter = tree.crend();
+  tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
+
+  tree23<int, int>::const_reverse_iterator crend_iter = tree.rend();
 
   for( ; criter != crend_iter; ++criter) {
 
