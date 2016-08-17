@@ -438,8 +438,7 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4
 /*
   Constructs a new 2-node that is a leaf node; i.e., its children are nullptr.
  */
-template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, const Value& value, Node23 *ptr2parent) : \
-          parent{ptr2parent}, totalItems{Node23::TwoNodeItems}
+template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, const Value& value, Node23 *ptr2parent) : parent{ptr2parent}, totalItems{Node23::TwoNodeItems}
 {
   keys_values[0].key = key;
   keys_values[0].value = value;

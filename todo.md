@@ -19,6 +19,7 @@
 ### Compile Bugs
 
 I am getting some very different compile bugs. These will take some introspection to resolve. I have backed up the prior tree code as tree23.h.prior.
+Should the template specialization of `dump<int_stack>` be placed in debug.h or debug.cpp? 
 
 ### TDOO
 
