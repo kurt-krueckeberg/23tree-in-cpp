@@ -47,6 +47,18 @@ position, but the prior position?
 
 The code needs to reflect a clearly thought out design.
 
+We introduce 5 states:
+
+    enum class iterator_position {one_before_first, first_node, in_between, last_node, one_past_last}; // possible finite states of iterator
+
+The state transitions should be draw out as a finite state machine.
+
+`first_node` is initially set when ctor calls seekToSmallest() and current is set to the first node. `one_before_first` is set if decrement() is called when state is
+`first_node`; current is not changed. If the state is `one_before_first` and increment is called, the state changes to `first_node` but the current pointer doesn't
+change. Similarly, the same thing happens when we reach the last node: we change the state from `in_between` to `last_node`....
+
+Draw out the state transitions and how `current` and `key_index` are set or not altered when the state changes. 
+
 ### TDOO
 
 Change **typdefs** to **usings**/
