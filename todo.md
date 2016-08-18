@@ -18,8 +18,34 @@
 
 ### Compile Bugs
 
-I am getting some very different compile bugs. These will take some introspection to resolve. I have backed up the prior tree code as tree23.h.prior.
-Should the template specialization of `dump<int_stack>` be placed in debug.h or debug.cpp? 
+The constructor for iterator\_base goes to seekToSmallest() if pos==beg or seekToLargest() if iterator\_base==end.
+
+The current design of iterator\_base is a design error. We don't have a proper test for the end iterator. Currently, its constructor, operator==(), increment() and
+decrement() are not setting position in such a way so that we can dereference the last key when iterating forward, or the first key when iterating backward. Instead
+the loop test for equlaity terminate early.
+
+Currently operator==(const iterator\_base& lhs) compares the position member variable. But if we have not yet dereferenced the last key in the tree within our
+loop, operator==() will return true, and the loop will be terminated.
+
+Can increment() somehow properly set the position variable to avoid this premature loop termination? Does it somehow have to position to in\_between until we have
+dereference the largest key of the last node? That is not possible with the current implementation.
+
+The same problem happens when we start at position end and iterate backward to position beg: if we are at position end, we still need to still be able to dereference
+the iterator when we reach "beg", but the operator==() will return true when compared to the "start iterator", so we here again, we won't be able to dereference it
+with a for-loop.
+
+
+Thoughts:
+
+We were start at the smallest node and reach the largest, we keep the position set to "in\_between". It is only when increment() is called with position at
+in\_between and we are already at the smallest node and key that we set postion to "beg". Conversely, if we were somewhere in\_between and not yet at the smallest,
+first node and key, when we decrement() we don't set position to "beg", when we first back up to the smallest first node and key. But when decrement is called
+a second time, then we set position to "beg".
+
+This is actually sort of confusing. We are at the smallest node, but position does not reflect this. Maybe, the problem is that position really isn't the current
+position, but the prior position?
+
+The code needs to reflect a clearly thought out design.
 
 ### TDOO
 

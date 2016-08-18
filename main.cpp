@@ -5,6 +5,7 @@
 #include <exception>
 #include "include/tree23.h"
 #include "include/test.h"
+
 using namespace std;
 
 int main(int argc, char** argv) 
@@ -47,7 +48,7 @@ int main(int argc, char** argv)
        
        try {
       
-            run_tests(other_cases, base_case, &test_forward_iterator, 0);
+            run_tests(other_cases, base_case, &test_backward_iterator, 0);
               
        } catch(std::exception& e) { 
       
