@@ -37,7 +37,14 @@ with a for-loop.
 
 Thoughts:
 
-The code needs to reflect a clearly thought out design.  So we now introduce five total finite states:
+How do we determine if position should become `in_b`etween or `last_n`ode? How are the position states related to determining whether current has changed, after
+getSuccessor() executes, to the last node in the tree? Don't we need to have member variables of `first_n`ode and `last_n`ode? However, getSuccessor() determines if
+we have reached the last node--right. Therefore maybe it makes most sense to have getSuccessor() and and getPredecessor() set position, when the last node (or for
+getPredecessor() the first node) is encountered, to `last_k`ey? Maybe we introduce a `last_n`ode state, in addition to `last_k`ey. 
+
+Actually having a two pointers allows us to determine the "state".
+
+The code needs to reflect a clearly thought out design.  Before we now introduced five total finite states:
 
     enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
 
@@ -46,7 +53,7 @@ The state transitions are reflected in this scanned drawing:
 
 
 
-Question: Do these states work with an empty tree and with a tree that has only one node?
+Do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't having min and max pointers a better technique?
 
 TODO: Added scanned image. Change the `increment()` and `decrement()` and the `seekToLargest(iterator_position)` code to reflect the proper state transitions.
 
