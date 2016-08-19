@@ -1560,16 +1560,24 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::increment() noexcept	    
 {
+  /*
+     Test if tree has nodes?
+   */
+  if (tree.isEmpty()) {
+
+     // TODO: Is anything else required to be done
+     return *this; 
+  }
+
   switch (position) {
 
-     case iterator_position::beg:
+     case iterator_position::last_key:
 
          /* 
-            current should already point to first node, and key_index should already be set to first key in tree.
-            So we only change the state
+            current already points to the largest, lastt node in the tree, and key_index is already the last key in the last node.
+            Therefore, we only need change the state to indicate one postion after the last node.
           */
-          position = iterator::first_key;
-
+          position = iterator::end;
           break;
 
      case iterator_position::first_key:
@@ -1577,7 +1585,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            // key_index should be 0, and current should point to first node 
            getSuccessor();
 
-           // TODO: Determine if position should be in_between or last_node
+           // TODO: How do we determine if position should become in_between or last_node
           /* 
           possible code...
           Node23 *prior_current = current;   
@@ -1600,14 +1608,14 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            // current and key_index may chagne           
            getSuccessor();
 
-           // Determine if position should be in_between or last_key
+           // Determine if position should still be in_between or change to last_key?
            position =  ?
 
            break;
 
      case iterator_position::last_key:
 
-           // only the state changes
+           // only the state changes. We are already at the last key in the last node.
            position = iterator_position::end;
 
            break;
@@ -1640,7 +1648,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
          // key_index should be 0 or 1, and current should point to first node 
          getPredecessor();
 
-         // TODO: Determine position properly 
+         // TODO: Determine if position should be in_between or firs_key?
          // possible code...
 
          Node23 *prior_current = current;   

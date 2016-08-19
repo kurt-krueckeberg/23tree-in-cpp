@@ -39,9 +39,14 @@ Thoughts:
 
 The code needs to reflect a clearly thought out design.  So we now introduce five total finite states:
 
-    enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
+    enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
 
 The state transitions are reflected in this scanned drawing: 
+
+
+
+
+Question: Do these states work with an empty tree and with a tree that has only one node?
 
 TODO: Added scanned image. Change the `increment()` and `decrement()` and the `seekToLargest(iterator_position)` code to reflect the proper state transitions.
 
