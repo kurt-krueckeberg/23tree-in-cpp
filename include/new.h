@@ -244,7 +244,7 @@ template<class Key, class Value> class tree23 {
     // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
-    enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
+    enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
@@ -1058,10 +1058,9 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
 // TODO: Shouldn't getPredecessor() be changed to check current position?
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, go to the last node in the tree, the largest node. 
+  if (position == iterator_position::first_node) { // If we are already at the end, we simply set position to end
 
-      seekToLargest();
-      key_index = current->isThreeNode() ? 1 : 0;
+      position == iterator_position::beg;
       return; 
   }
  
@@ -1292,7 +1291,6 @@ If you get to the root w/o finding a node who is a right child, there is no pred
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
-  // TODO: Add a simliar test to getPredecessor()
   if (position == iterator_position::last_node) { // If we are already at the end, we simply set position to end
 
       position == iterator_position_end;
