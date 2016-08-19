@@ -1563,8 +1563,12 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
   switch (position) {
 
      case iterator_position::beg:
-     /* current should point to first node, and key_index should already be set to first key in tree */
-     position = iterator::first_key;
+
+         /* 
+            current should already point to first node, and key_index should already be set to first key in tree.
+            So we only change the state
+          */
+          position = iterator::first_key;
 
           break;
 
@@ -1574,34 +1578,36 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            getSuccessor();
 
            // TODO: Determine if position should be in_between or last_node
-      /* 
-      possible code...
-      Node23 *prior_current = current;   
-      int prior_key = key_index;
-
-      iterator_base::getSuccessor(); // sets current and key_index
-
-      if (current != prior_current || prior_key != key_index) { // if we moved "forward", note that we are now at state iterator_position::in_between
-
-          position = iterator_position::in_between;
-      }  
-      */
- 
+          /* 
+          possible code...
+          Node23 *prior_current = current;   
+          int     prior_key = key_index;
+    
+          iterator_base::getSuccessor(); // sets current and key_index
+    
+          if (current != prior_current || prior_key != key_index) { // if we moved "forward", note that we are now at state iterator_position::in_between
+    
+              position = iterator_position::in_between;
+          }  
+          */
+     
            position =  ?
 
            break;
 
      case iterator_position::in_between:
-           
+
+           // current and key_index may chagne           
            getSuccessor();
 
-           // TODO: Determine if position should be in_between or last_node
+           // Determine if position should be in_between or last_key
            position =  ?
 
            break;
 
      case iterator_position::last_key:
 
+           // only the state changes
            position = iterator_position::end;
 
            break;
@@ -1614,32 +1620,70 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            break;
  
    }
-
    return *this;
-
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
 {
-  //TODO: We need to check if we in_between but still at the smallest node.
+    switch (position) {
 
-   if (position == iterator_position::beg) { // If we are already at the last node, do nothing 
+     case iterator_position::first_key:
 
-       return *this;
+        /* 
+          current should already point to first node, and key_index should already be set to first key in tree 
+         */
+         position = iterator::beg;
+         break;
 
-   } else if (position == iterator_position::end) { // If we were at the largest, last node (and largest key_index), back up to predecessor
+     case iterator_position::last_key:
 
-      Node23 *prior_current = current;   
-      int prior_key = key_index;
+         // key_index should be 0 or 1, and current should point to first node 
+         getPredecessor();
 
-      iterator_base::getSuccessor(); // sets current and key_index
+         // TODO: Determine position properly 
+         // possible code...
 
-      if (current != prior_current || prior_key != key_index) { // if we moved "forward", note that we are now at state iterator_position::in_between
+         Node23 *prior_current = current;   
+         int prior_key = key_index;
+   
+         iterator_base::getPredecessor(); // sets current and key_index
+   
+         if (current != prior_current) { // if we moved "forward", note that we are now at state iterator_position::in_between
 
-          position = iterator_position::in_between;
-      }  
-  } 
-  
+             /*
+                 Q: How can we tell if current is now the first_key? 
+              */
+
+             position = iterator_position::in_between;
+
+         } else if (key_index != prior_key) { 
+
+             // Again what if current is now the first_key? How do we determine this? 
+             // ?
+         }
+ 
+         position =  ?
+         break;
+
+     case iterator_position::in_between:
+           
+         getPredecessor();
+
+         // TODO: Determine if position should be in_between or last_node
+         position =  ?
+
+         break;
+
+     case iterator_position::beg:
+           // no-op
+           break;
+
+     default:
+           break;
+ 
+   }
+
+   return *this;
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()  noexcept	    
