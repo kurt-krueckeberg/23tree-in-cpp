@@ -1606,9 +1606,18 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
 template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
 {
+  /*
+     Test if tree has nodes?
+   */
+  if (tree.isEmpty()) {
+
+     // TODO: Is anything else required to be done
+     return *this; 
+  }
+
     switch (position) {
 
-     case iterator_position::first_key:
+     case iterator_position::first_node:
 
         /* 
           current should already point to first node, and key_index should already be set to first key in tree 
@@ -1616,7 +1625,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
          position = iterator::beg;
          break;
 
-     case iterator_position::last_key:
+     case iterator_position::last_node:
 
          // key_index should be 0 or 1, and current should point to first node 
          getPredecessor();
