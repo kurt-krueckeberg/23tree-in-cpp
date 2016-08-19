@@ -1514,38 +1514,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   return std::make_pair(pnode, suc_key_index); 
 }
 
-/*
- non-recursive version
- */
-template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::findLeftChildAncestor() noexcept
-{
-  // Ascend ancester's until a key greater than current->keys_values[key_index].key is found or root is encountered.
-  for (Node23 *parent = current->parent; parent != tree.root.get(); parent = parent->parent)
-
-    for (int i = 0; i <= parent->totalItems; ++i) {
-
-        if (current->keys_values[key_index].key < parent->keys_values[i]) {
-
-            return std::make_pair(parent, i);
-
-            return;
-        } 
-   }
-
-   return std::make_pair(nullptr, 0); 
-}
-
-/* 
- Recursive version
-
- Requires:
- current is a leaf node that is the right most child of its parent. 
- Therefore the successor is the first left child in the anscester trail of parents (before the root is encountered).
-
- Promises:
- 1. Returns successor node.
- 2. sets key_index to the index of the successor within that node's keys_values[].
- */
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator_base::dereference() noexcept
 {
    return const_cast<typename tree23<Key, Value>::KeyValue&>( current->keys_values[key_index] ); 
@@ -1585,9 +1553,17 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            // key_index should be 0, and current should point to first node 
            getSuccessor();
 
-           // TODO: How do we determine if position should become in_between or last_node
-          /* 
-          possible code...
+           /*
+           TODO: How do we determine if position should become in_between or last_node? How are the position states related to determining whether current
+           has changed, after getSuccessor() executes, to the last node in the tree? Don't we need to have member variables of first_node and last_node?
+           However, getSuccessor() determines if we have reached the last node--right. Therefore maybe it makes most sense to have getSuccessor() and
+           and getPredecessor() set position, when the last node (or for getPredecessor() the first node) is encountered, to last_key? Maybe we introduce
+           a last_node state, in addition to last_key. 
+
+           Actually having a two pointers allows us to determine the "state".
+           
+           Initial prospective code....
+           */
           Node23 *prior_current = current;   
           int     prior_key = key_index;
     
@@ -1597,7 +1573,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
     
               position = iterator_position::in_between;
           }  
-          */
      
            position =  ?
 
@@ -1631,7 +1606,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
    return *this;
 }
 
-template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
+template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
 {
     switch (position) {
 
