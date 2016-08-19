@@ -1547,16 +1547,17 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
   switch (position) {
 
-     case iterator_position::last_key:
+     case iterator_position::last_node:
 
          /* 
-            current already points to the largest, lastt node in the tree, and key_index is already the last key in the last node.
+            current already points to the largest, last node in the tree, and key_index is already the last key in the last node.
             Therefore, we only need change the state to indicate one postion after the last node.
           */
+          //TODO: Check if key_index is 0 and last node is a 3-node?
           position = iterator::end;
           break;
 
-     case iterator_position::first_key:
+     case iterator_position::first_node:
 
            // key_index should be 0, and current should point to first node 
            getSuccessor();
@@ -1575,35 +1576,24 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
           Node23 *prior_current = current;   
           int     prior_key = key_index;
     
-          iterator_base::getSuccessor(); // sets current and key_index
+          iterator_base::getSuccessor(); // sets current, key_index and position
     
-          if (current != prior_current || prior_key != key_index) { // if we moved "forward", note that we are now at state iterator_position::in_between
-    
-              position = iterator_position::in_between;
-          }  
-     
-           position =  ?
-
            break;
 
      case iterator_position::in_between:
 
            // current and key_index may chagne           
-           getSuccessor();
-
-           // Determine if position should still be in_between or change to last_key?
-           position =  ?
-
+           iterator_base::getSuccessor();// sets current, key_index and position
            break;
 
      case iterator_position::last_key:
 
            // only the state changes. We are already at the last key in the last node.
            position = iterator_position::end;
-
            break;
 
      case iterator_position::end:
+
            // no-op
            break;
 
