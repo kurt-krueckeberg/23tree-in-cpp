@@ -244,7 +244,8 @@ template<class Key, class Value> class tree23 {
     // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
-    enum class iterator_position {beg, in_between, end}; // possible finite states of iterator
+    //--enum class iterator_position {beg, in_between, end}; // possible finite states of iterator
+    enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
@@ -276,7 +277,9 @@ template<class Key, class Value> class tree23 {
 
       public:
 
-         iterator_base(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
+         iterator_base(tree23<Key, Value>& lhs);
+   
+         iterator_base(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position); // for use with end 
 
          iterator_base(const iterator_base& lhs);
          iterator_base(iterator_base&& lhs); 
@@ -880,18 +883,22 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 
 // non const tree23<Key, Value>& passed to ctor. Used by begin()
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, iterator_position pos) : tree{lhs_tree}, current{lhs_tree.root.get()}, \
-                                                                 key_index{0}
+                                                                 key_index{0}, position{pos} 
 {
-  if (tree.root.get() == nullptr) {
+  //TODO: We need to determine if the tree has any nodes first...
+  if (tree.root.get() == mullptr) {
 
-      position = iterator_position::beg;
+        // TODO
 
-  } else {
- 
+  } 
+  if (pos == iterator_position::beg) {
+
       seekToSmallest(); 
-      position = iterator_position::first_node;  
 
-  }
+  } else if (pos == iterator_position::end) {
+
+      seekToLargest();
+  } 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept

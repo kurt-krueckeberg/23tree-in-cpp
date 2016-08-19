@@ -37,27 +37,26 @@ with a for-loop.
 
 Thoughts:
 
-We were start at the smallest node and reach the largest, we keep the position set to "in\_between". It is only when increment() is called with position at
-in\_between and we are already at the smallest node and key that we set postion to "beg". Conversely, if we were somewhere in\_between and not yet at the smallest,
-first node and key, when we decrement() we don't set position to "beg", when we first back up to the smallest first node and key. But when decrement is called
-a second time, then we set position to "beg".
+The code needs to reflect a clearly thought out design.  We introduce five total finite states:
 
-This is actually sort of confusing. We are at the smallest node, but position does not reflect this. Maybe, the problem is that position really isn't the current
-position, but the prior position?
+    enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
 
-The code needs to reflect a clearly thought out design.
+The state transitions are reflected in this scanned drawing: 
 
-We introduce 5 states:
+TODO: Added scanned image.
 
-    enum class iterator_position {one_before_first, first_node, in_between, last_node, one_past_last}; // possible finite states of iterator
+### How the constructor sets position
 
-The state transitions should be draw out as a finite state machine.
+If the tree is empty, the ctor sets position to `beg`. If the tree is not empty, position is set to `first_node`, and, then, the ctor calls seekToSmallest() and current
+is set to the first node and `key_index` is set to zero. 
 
-`first_node` is initially set when ctor calls seekToSmallest() and current is set to the first node. `one_before_first` is set if decrement() is called when state is
-`first_node`; current is not changed. If the state is `one_before_first` and increment is called, the state changes to `first_node` but the current pointer doesn't
-change. Similarly, the same thing happens when we reach the last node: we change the state from `in_between` to `last_node`....
+### How end() calls the two parameter constructor
 
-Draw out the state transitions and how `current` and `key_index` are set or not altered when the state changes. 
+For end(), we invoke the two parameter version of the constructor with `iterator_position::end` as the 2nd parameter.
+
+### TODO
+
+Draw out the state transitions and how `current` and `key_index` are set or not altered when the state changes. Scan the drawing and added it to the repository. 
 
 ### TDOO
 
