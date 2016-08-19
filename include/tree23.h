@@ -1560,12 +1560,22 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::increment() noexcept	    
 {
-   if (position == iterator_position::end) { // If we are already at the last node, do nothing 
+  switch (position) {
 
-       return *this;
+     case iterator_position::beg:
+     /* current should point to first node, and key_index should already be set to first key in tree */
+     position = iterator::first_key;
 
-   } else if (position == iterator_position::beg) { // If we were at the first, smallest node (and smallest key_index), advanced to successor
+          break;
 
+     case iterator_position::first_key:
+
+           // key_index should be 0, and current should point to first node 
+           getSuccessor();
+
+           // TODO: Determine if position should be in_between or last_node
+      /* 
+      possible code...
       Node23 *prior_current = current;   
       int prior_key = key_index;
 
@@ -1575,6 +1585,38 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
           position = iterator_position::in_between;
       }  
+      */
+ 
+           position =  ?
+
+           break;
+
+     case iterator_position::in_between:
+           
+           getSuccessor();
+
+           // TODO: Determine if position should be in_between or last_node
+           position =  ?
+
+           break;
+
+     case iterator_position::last_key:
+
+           position = iterator_position::end;
+
+           break;
+
+     case iterator_position::end:
+           // no-op
+           break;
+
+     default:
+           break;
+ 
+   }
+
+   return *this;
+
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
