@@ -37,13 +37,13 @@ with a for-loop.
 
 Thoughts:
 
-The code needs to reflect a clearly thought out design.  We introduce five total finite states:
+The code needs to reflect a clearly thought out design.  So we now introduce five total finite states:
 
     enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
 
 The state transitions are reflected in this scanned drawing: 
 
-TODO: Added scanned image.
+TODO: Added scanned image. Change the `increment()` and `decrement()` and the `seekToLargest(iterator_position)` code to reflect the proper state transitions.
 
 ### How the constructor sets position
 
