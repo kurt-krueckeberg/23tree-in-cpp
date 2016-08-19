@@ -37,25 +37,21 @@ with a for-loop.
 
 Thoughts:
 
-How do we determine if position should become `in_b`etween or `last_n`ode? How are the position states related to determining whether current has changed, after
-getSuccessor() executes, to the last node in the tree? Don't we need to have member variables of `first_n`ode and `last_n`ode? However, getSuccessor() determines if
-we have reached the last node--right. Therefore maybe it makes most sense to have getSuccessor() and and getPredecessor() set position, when the last node (or for
-getPredecessor() the first node) is encountered, to `last_k`ey? Maybe we introduce a `last_n`ode state, in addition to `last_k`ey. 
+getSuccessor() determines if we have reached the last node. Therefore it makes most sense to have getSuccessor() and and getPredecessor() set `position` when the last
+node (or for getPredecessor() the first node) is encountered.  Should be use finite states, or can't we more simply rely on getSuccessor() and getPrecessor() detecting
+when the last of first node has been reached. The constructor called by end() wil do seekToLastNode(), so it can properly set a last node pointer, if needed.
 
 Actually having a two pointers allows us to determine the "state".
 
-The code needs to reflect a clearly thought out design.  Before we now introduced five total finite states:
+The code needs to reflect a clearly thought out design.  Currently, we have five total finite states:
 
     enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
 
-The state transitions are reflected in this scanned drawing: 
+The state transitions are reflected in a hand drawn finte state machine diagram. 
 
+How do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't there a way to rely on getSuccessor() and getPredecessor()
+and maybe some simly calculations?
 
-
-
-Do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't having min and max pointers a better technique?
-
-TODO: Added scanned image. Change the `increment()` and `decrement()` and the `seekToLargest(iterator_position)` code to reflect the proper state transitions.
 
 ### How the constructor sets position
 
