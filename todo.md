@@ -53,11 +53,10 @@ The state transitions are reflected in a hand drawn finte state machine diagram.
 How do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't there a way to rely on `getSuccessor()`
 and `getPredecessor()` and maybe some simly calculations?
 
-### New Workgin Code
+### New Working Code
 
 New code for tree23 is in include/new.h. It uses `first_node` and `last_node`. Therefore code to check `key_index` needs to be added in `getPredecessor()` and 
-`getSuccessor()`.
-`end()` should set current to address of last node, `key_index` to last key index, and position to `end'.
+`getSuccessor()`. `end()` should set current to address of last node, `key_index` to last key index, and position to `end'.
 
 
 ### How the constructor sets position
@@ -80,8 +79,7 @@ Change **typdefs** to **usings**/
 The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
 or `operator--()` and `operator++()` to set position. 
 
-
-## External In-Order, STL-like Iterator has been implemented for forward iteration. We need to add the capability to get the predecessor to enable bidirectional iteration
+## External In-Order, STL-like Iterator Notes
 
 In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the `operator--()` of the iterator to go to the last node in
 the tree. I am not sure how this is implemented, but it does one to go back from the one-past the last key/value.
