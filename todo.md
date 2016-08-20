@@ -52,7 +52,10 @@ The state transitions are reflected in a hand drawn finte state machine diagram.
 How do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't there a way to rely on getSuccessor() and getPredecessor()
 and maybe some simly calculations?
 
-New code for tree23 is in include/new.h. It uses `first_node` and `last_node`. Therefore code to check `key_index` needs to be added
+### New Workgin Code
+
+New code for tree23 is in include/new.h. It uses `first_node` and `last_node`. Therefore code to check `key_index` needs to be added in getP/getS.
+end() should set current to address of last node, `key_index` to last key index, and position to `end'.
 
 
 ### How the constructor sets position
