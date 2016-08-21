@@ -888,7 +888,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
   } else {
  
-      seekToSmallest(iterator_position::first_node); 
+      seekToSmallest(iterator_position::begin); 
   }
 }
 
@@ -901,7 +901,6 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
          
       current = nullptr;
       key_index = 0;
-      position = pos; 
 
   } else if (position== iterator_position::end) {
 
@@ -1012,11 +1011,11 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
  if (&lhs.tree == &tree) {
 
     // If we are in_between
-    if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iteators are at the end.
+    if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iterators are at the end.
 
         return true;
 
-    } else if (lhs.position == iterator_position::beg && position == iterator_position::beg) { // Check that both iteators are at the beg. 
+    } else if (lhs.position == iterator_position::beg && position == iterator_position::beg) { // Check that both iterators are at the beg. 
 
         return true;
 
@@ -1056,21 +1055,17 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
   return child_index;
 }
 
-// TODO: Be sure we set, as needed, current, key_index and position, See finite state machine diagram.
+// TODO: Be sure we set, as needed, current, key_index and position.  Neither getLeafNodePredecessor() nor getInternalNodePredecessor() set the position variable.
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (position == iterator_position::first_node) { // If we are already at the end, we simply "advance" to the logically position of itearator_position::beg
-                                                   // We continue to point the first node.  
 
-      position == iterator_position::beg;
-      return; 
-  }
- 
   if (current->isLeaf()) { // If leaf node
 
      std::pair<const Node23 *, int> results = getLeafNodePredecessor(current);
+  
      current = results.first;
      key_index = results.second;
+     // TODO: 
 
   } else { // else internal node
 
@@ -1295,15 +1290,14 @@ May set:
 1. current
 2. key_index
 3. position
+
+TODO: getInternalNodeSuccessor() never sets position. Does it ever need to? What about when the last key of the last node is encountered --is this handled
+in the calling code?
+
+How about getLeafNodeSuccessor()?
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
-  if (position == iterator_position::last_node) { // If we are already at the end, we simply set position to end
-
-      position == iterator_position::end;
-      return; 
-  }
- 
   if (current->isLeaf()) { // If leaf node
 
      std::pair<const Node23 *, int> results = getLeafNodeSuccessor(current);
