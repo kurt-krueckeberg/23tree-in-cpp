@@ -1528,13 +1528,9 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::increment() noexcept	    
 {
-  /*
-     Test if tree has nodes?
-   */
   if (tree.isEmpty()) {
 
-     // TODO: Is anything else required to be done
-     return *this; 
+     return *this; // If empty, do nothing/
   }
 
   switch (position) {
@@ -1542,7 +1538,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
      case iterator_position::last_key:
 
          /* 
-            current already points to the largest, lastt node in the tree, and key_index is already the last key in the last node.
+            current already points to the largest, last node in the tree, and key_index is already the last key in the last node.
             Therefore, we only need change the state to indicate one postion after the last node.
           */
           position = iterator::end;

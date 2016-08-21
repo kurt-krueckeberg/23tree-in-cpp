@@ -1005,11 +1005,10 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
    lhs.current = nullptr; // set to end
 }
 /*
- TODO: Will this comparison work for reverse_iterator and const_reverse_iterator?
+
  */
 template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
 {
-
  if (&lhs.tree == &tree) {
 
     // If we are in_between
@@ -1017,13 +1016,18 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
 
         return true;
 
-    } else { // TODO? change for testing beg?
+    } else if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iteators are at the end.
 
-     // otherwise, compare current and key_index values.
-     
-       return current == lhs.current && key_index == lhs.key_index;
+        return true;
+
+    } else if (lhs.position == iterator_position::beg && position == iterator_position::begd) { // Check that both iteators are at the beg. 
+
+        return true;
+
+    } else if (lhs.position == position && lhs.current = current && lhs.key_index = key_index) { // Check whether position, current and key_index are the same.
+
+        return true;
    }
-
  }
  
  return false;
@@ -1056,10 +1060,11 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
   return child_index;
 }
 
-// TODO: Shouldn't getPredecessor() be changed to check current position?
+// TODO: Be sure we set, as needed, current, key_index and position, See finite state machine diagram.
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (position == iterator_position::first_node) { // If we are already at the end, we simply set position to end
+  if (position == iterator_position::first_node) { // If we are already at the end, we simply "advance" to the logically position of itearator_position::beg
+                                                   // We continue to point the first node.  
 
       position == iterator_position::beg;
       return; 
@@ -1545,15 +1550,15 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
   
   if (tree.isEmpty()) {
 
-     return *this; 
+     return *this;  // If empty, do nothing.
   }
 
   switch (position) {
-
+      
      case iterator_position::last_node:
 
          /* 
-            current already points to the largest, last node in the tree.
+            current already points to the largest, last node in the tree. Check key_index. If key_index is 0 in a 3-node, set it to one..
           */
           if (current->isThreeNode() && key_index == 0) {
 
@@ -1561,18 +1566,18 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
               return *this; 
 
           } else {    
-
-              position = iterator::end;
+               // otherwsie, "advance" to the logical position 'end': one past the last_node. This is the value of position when
+               // end() is called.                                                                                                       
+              position = iterator::end; 
           }
           break;
 
      case iterator_position::first_node:
 
            // current points to the smallest node in the tree.
-           // key_index may be 0 or, if the first node is a 3-node, it may be 1. 
+           // key_index may be 0 or 1, if the first node is a 3-node. 
 
-          iterator_base::getSuccessor(); // sets current, key_index and position
-    
+           iterator_base::getSuccessor(); // sets current, key_index and position
            break;
 
      case iterator_position::in_between:
@@ -1596,6 +1601,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            break;
  
    }
+
    return *this;
 }
 
@@ -1633,7 +1639,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
      case iterator_position::in_between:
            
-         getPredecessor();
+         getPredecessor(); // sets current, key_index and position
          break;
 
      case iterator_position::beg:

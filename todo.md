@@ -55,9 +55,24 @@ and `getPredecessor()` and maybe some simly calculations?
 
 ### New Working Code
 
-New code for tree23 is in include/new.h. It uses `first_node` and `last_node`. Therefore code to check `key_index` needs to be added in `getPredecessor()` and 
-`getSuccessor()`. `end()` should set current to address of last node, `key_index` to last key index, and position to `end'.
+Decide if the code in decrement() 
 
+    case iterator_position::first_node:
+
+       /* 
+         current should already point to first node, and key_index should already be set to first key in tree 
+        */
+        if (current->isThreeNode() && key_index == 1) {
+
+            key_index = 0;
+
+        } else {
+
+           position = iterator::beg;
+        } 
+        break;
+
+should be moved to getLeafNodePredecessor(), and similarly, whether the analogous code in increment() should be moved to getLeafNodeSuccessor().
 
 ### How the constructor sets position
 
