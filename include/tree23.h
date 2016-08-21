@@ -1012,7 +1012,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
  if (&lhs.tree == &tree) {
 
     // If we are in_between
-    if (lhs.position == pos) { // == end() test: both "this" and right argument's current pointer are nullptr.
+    if (lhs.position == position) { // == end() test: both "this" and right argument's current pointer are nullptr.
 
         return true;
 
@@ -1020,11 +1020,11 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
 
         return true;
 
-    } else if (lhs.position == iterator_position::beg && position == iterator_position::begd) { // Check that both iteators are at the beg. 
+    } else if (lhs.position == iterator_position::beg && position == iterator_position::beg) { // Check that both iteators are at the beg. 
 
         return true;
 
-    } else if (lhs.position == position && lhs.current = current && lhs.key_index = key_index) { // Check whether position, current and key_index are the same.
+    } else if (lhs.position == position && lhs.current == current && lhs.key_index == key_index) { // Check whether position, current and key_index are the same.
 
         return true;
    }
@@ -1304,7 +1304,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSucc
 {
   if (position == iterator_position::last_node) { // If we are already at the end, we simply set position to end
 
-      position == iterator_position_end;
+      position == iterator_position::end;
       return; 
   }
  
@@ -1314,7 +1314,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSucc
 
      if (results.first == nullptr) { // nullptr implies current was the last node. Question: Does it imply that key_index was at the last key, too--I think it does.
 
-         position = iterator::last_node;
+         position = iterator_position::last_node;
 
      } else { // We were not at the last node.
 
@@ -1568,7 +1568,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
           } else {    
                // otherwsie, "advance" to the logical position 'end': one past the last_node. This is the value of position when
                // end() is called.                                                                                                       
-              position = iterator::end; 
+              position = iterator_position::end; 
           }
           break;
 
@@ -1584,12 +1584,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
            // current and key_index may chagne           
            iterator_base::getSuccessor();// sets current, key_index and position
-           break;
-
-     case iterator_position::last_key:
-
-           // only the state changes. We are already at the last key in the last node.
-           position = iterator_position::end;
            break;
 
      case iterator_position::end:
@@ -1633,8 +1627,6 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
          // key_index should be 0 or 1, and current should point to first node 
          getPredecessor();
-
-         position =  ?
          break;
 
      case iterator_position::in_between:
