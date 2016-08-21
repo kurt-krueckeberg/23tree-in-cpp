@@ -1568,7 +1568,8 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
           break;
 
      case iterator_position::beg:
-           position = iterator_position::first_node; // TODO: Will this work reverse_iterators?
+
+           getSuccessor();
            break;
 
      case iterator_position::first_node:
@@ -1635,7 +1636,9 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
      case iterator_position::beg:
 
-           // no-op
+           position = iterator_position::first_node;  
+           key_index = 0;
+           getPrecedessor(); 
            break;
 
      default:

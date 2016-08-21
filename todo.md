@@ -18,9 +18,11 @@
 
 ### Compile Bugs
 
-1. The `iterator_case::decrement()` operator seems to not be working.
-2. There is a problem with position. The idea of a logical position beyond the end and before the front doesn't really work. The client can call either
-increment() or decrement() at any time. If there are two logical positions for the first node and for the last node, these nodes will be retrieved twice.
+Check whether the `iterator_case::decrement()` operator seems is working.
+
+There was a problem with the position member vairable. The idea of a logical position beyond the end and before the front wasn't coded correctly. The client can
+call either increment() or decrement() at any time. If there are two logical positions for the first node( and for the last node), the first node's first key will
+be retrieved twice (and the last node's --last?--key will be retrieved twice if decrement is called consecutively in a loop.
 So there is an error in logic.
 
 ### Latest Code TODOES
