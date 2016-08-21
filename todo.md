@@ -18,7 +18,10 @@
 
 ### Compile Bugs
 
-The `iterator_case::decrement()` operator seems to not be working.
+1. The `iterator_case::decrement()` operator seems to not be working.
+2. There is a problem with position. The idea of a logical position beyond the end and before the front doesn't really work. The client can call either
+increment() or decrement() at any time. If there are two logical positions for the first node and for the last node, these nodes will be retrieved twice.
+So there is an error in logic.
 
 ### Latest Code TODOES
 

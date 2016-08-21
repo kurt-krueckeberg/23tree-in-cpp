@@ -921,12 +921,12 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
-    return iterator{*this};
+    return iterator{*this, iterator_position::first_node};
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
 {
-    return const_iterator{*this};
+    return const_iterator{*this, iterator_position::first_node};
 }
 
 /*
@@ -1543,7 +1543,6 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::increment() noexcept	    
 {
-  
   if (tree.isEmpty()) {
 
      return *this;  // If empty, do nothing.
@@ -1567,6 +1566,10 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
               position = iterator_position::end; 
           }
           break;
+
+     case iterator_position::beg:
+           position = iterator_position::first_node; // TODO: Will this work reverse_iterators?
+           break;
 
      case iterator_position::first_node:
 
