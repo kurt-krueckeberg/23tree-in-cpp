@@ -244,7 +244,7 @@ template<class Key, class Value> class tree23 {
     // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
-    enum class iterator_position {beg, first_key, in_between, last_key, end}; // possible finite states of iterator
+    enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
@@ -276,7 +276,7 @@ template<class Key, class Value> class tree23 {
 
       public:
          // TODO: Some ctor should be noexcept, but not the two-parameter version.
-         iterator_base(tree23<Key); 
+         iterator_base(tree23<Key, Value>&); 
 
          iterator_base(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
@@ -879,11 +879,12 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree) : tree{lhs_tree},\
                                                             current{lhs_tree.root.get()}, key_index{0}
 {
+  // If the tree is empty, there is to iterate...
   if (tree.root.get() == nullptr) {
          
       current = nullptr;
       key_index = 0;
-      position = iterator_position::beg;
+      position = iterator_position::end; // ...and we signal this by setting position to 'end', the same value of position after end() is called.
 
   } else {
  
@@ -902,13 +903,13 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
       key_index = 0;
       position = pos; 
 
-  } else if (pos == iterator_position::end) {
+  } else if (position== iterator_position::end) {
 
-      seekToLargest(pos);
+      seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
 
-   } else if (pos == iterator_positon::beg) {
+   } else if (position== iterator_position::first_node || position== iterator_position::beg) {
 
-      seekToSmallest(pos);
+      seekToSmallest(position); // Go to the smallest node, and thus allow increment() to be called
 
    } else { // any other position value is invalid
 
@@ -972,7 +973,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
  2. key_index to 0
  3. position is set to value passed 
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest(typename tree23<Key, Value>::iterator_position::pos) noexcept
+template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
   for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
@@ -982,7 +983,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToS
   position = pos;
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::seekToLargest(typename tree23<Key, Value>::iterator_position::pos) noexcept
+template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::seekToLargest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
   for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
            current = cursor;
@@ -1004,11 +1005,10 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
    lhs.current = nullptr; // set to end
 }
 /*
- TODO: Will this comparison work for reverse_iterator and const_reverse_iterator?
+
  */
 template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operator==(const iterator_base& lhs) const
 {
-
  if (&lhs.tree == &tree) {
 
     // If we are in_between
@@ -1016,13 +1016,18 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
 
         return true;
 
-    } else { // TODO? change for testing beg?
+    } else if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iteators are at the end.
 
-     // otherwise, compare current and key_index values.
-     
-       return current == lhs.current && key_index == lhs.key_index;
+        return true;
+
+    } else if (lhs.position == iterator_position::beg && position == iterator_position::begd) { // Check that both iteators are at the beg. 
+
+        return true;
+
+    } else if (lhs.position == position && lhs.current = current && lhs.key_index = key_index) { // Check whether position, current and key_index are the same.
+
+        return true;
    }
-
  }
  
  return false;
@@ -1055,13 +1060,13 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
   return child_index;
 }
 
-// TODO: Shouldn't getPredecessor() be changed to check current position?
+// TODO: Be sure we set, as needed, current, key_index and position, See finite state machine diagram.
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, go to the last node in the tree, the largest node. 
+  if (position == iterator_position::first_node) { // If we are already at the end, we simply "advance" to the logically position of itearator_position::beg
+                                                   // We continue to point the first node.  
 
-      seekToLargest();
-      key_index = current->isThreeNode() ? 1 : 0;
+      position == iterator_position::beg;
       return; 
   }
  
@@ -1289,19 +1294,33 @@ Else walk up the ancestor chain until you traverse the first right child pointer
 the first node who is a right child of his parent...that parent is the predecessor)
 
 If you get to the root w/o finding a node who is a right child, there is no predecessor
+
+May set:
+1. current
+2. key_index
+3. position
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
 {
-  if (current == nullptr) { // If we are at the end, we simply return. 
-      
+  if (position == iterator_position::last_node) { // If we are already at the end, we simply set position to end
+
+      position == iterator_position_end;
       return; 
   }
  
   if (current->isLeaf()) { // If leaf node
 
      std::pair<const Node23 *, int> results = getLeafNodeSuccessor(current);
-     current = results.first;
-     key_index = results.second;
+
+     if (results.first == nullptr) { // nullptr implies current was the last node. Question: Does it imply that key_index was at the last key, too--I think it does.
+
+         position = iterator::last_node;
+
+     } else { // We were not at the last node.
+
+         current = results.first;
+         key_index = results.second;
+     }
 
   } else { // else internal node
 
@@ -1528,70 +1547,53 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::increment() noexcept	    
 {
+  
   if (tree.isEmpty()) {
 
-     return *this; // If empty, do nothing/
+     return *this;  // If empty, do nothing.
   }
 
   switch (position) {
-
-     case iterator_position::last_key:
+      
+     case iterator_position::last_node:
 
          /* 
-            current already points to the largest, last node in the tree, and key_index is already the last key in the last node.
-            Therefore, we only need change the state to indicate one postion after the last node.
+            current already points to the largest, last node in the tree. Check key_index. If key_index is 0 in a 3-node, set it to one..
           */
-          position = iterator::end;
+          if (current->isThreeNode() && key_index == 0) {
+
+              key_index = 1;
+              return *this; 
+
+          } else {    
+               // otherwsie, "advance" to the logical position 'end': one past the last_node. This is the value of position when
+               // end() is called.                                                                                                       
+              position = iterator::end; 
+          }
           break;
 
-     case iterator_position::first_key:
+     case iterator_position::first_node:
 
-           // key_index should be 0, and current should point to first node 
-           getSuccessor();
+           // current points to the smallest node in the tree.
+           // key_index may be 0 or 1, if the first node is a 3-node. 
 
-           /*
-           TODO: How do we determine if position should become in_between or last_node? How are the position states related to determining whether current
-           has changed, after getSuccessor() executes, to the last node in the tree? Don't we need to have member variables of first_node and last_node?
-           However, getSuccessor() determines if we have reached the last node--right. Therefore maybe it makes most sense to have getSuccessor() and
-           and getPredecessor() set position, when the last node (or for getPredecessor() the first node) is encountered, to last_key? Maybe we introduce
-           a last_node state, in addition to last_key. 
-
-           Actually having a two pointers allows us to determine the "state".
-           
-           Initial prospective code....
-           */
-          Node23 *prior_current = current;   
-          int     prior_key = key_index;
-    
-          iterator_base::getSuccessor(); // sets current and key_index
-    
-          if (current != prior_current || prior_key != key_index) { // if we moved "forward", note that we are now at state iterator_position::in_between
-    
-              position = iterator_position::in_between;
-          }  
-     
-           position =  ?
-
+           iterator_base::getSuccessor(); // sets current, key_index and position
            break;
 
      case iterator_position::in_between:
 
            // current and key_index may chagne           
-           getSuccessor();
-
-           // Determine if position should still be in_between or change to last_key?
-           position =  ?
-
+           iterator_base::getSuccessor();// sets current, key_index and position
            break;
 
      case iterator_position::last_key:
 
            // only the state changes. We are already at the last key in the last node.
            position = iterator_position::end;
-
            break;
 
      case iterator_position::end:
+
            // no-op
            break;
 
@@ -1599,61 +1601,49 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            break;
  
    }
+
    return *this;
 }
 
 template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tree23<Key, Value>::iterator_base::decrement() noexcept	    
 {
+  if (tree.isEmpty()) {
+
+     return *this; 
+  }
+
     switch (position) {
 
-     case iterator_position::first_key:
+     case iterator_position::first_node:
 
         /* 
           current should already point to first node, and key_index should already be set to first key in tree 
          */
-         position = iterator::beg;
+         if (current->isThreeNode() && key_index == 1) {
+
+             key_index = 0;
+
+         } else {
+
+            position = iterator::beg;
+         } 
          break;
 
-     case iterator_position::last_key:
+     case iterator_position::last_node:
 
          // key_index should be 0 or 1, and current should point to first node 
          getPredecessor();
 
-         // TODO: Determine if position should be in_between or firs_key?
-         // possible code...
-
-         Node23 *prior_current = current;   
-         int prior_key = key_index;
-   
-         iterator_base::getPredecessor(); // sets current and key_index
-   
-         if (current != prior_current) { // if we moved "forward", note that we are now at state iterator_position::in_between
-
-             /*
-                 Q: How can we tell if current is now the first_key? 
-              */
-
-             position = iterator_position::in_between;
-
-         } else if (key_index != prior_key) { 
-
-             // Again what if current is now the first_key? How do we determine this? 
-             // ?
-         }
- 
          position =  ?
          break;
 
      case iterator_position::in_between:
            
-         getPredecessor();
-
-         // TODO: Determine if position should be in_between or last_node
-         position =  ?
-
+         getPredecessor(); // sets current, key_index and position
          break;
 
      case iterator_position::beg:
+
            // no-op
            break;
 
