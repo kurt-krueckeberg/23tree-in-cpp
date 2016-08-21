@@ -25,6 +25,9 @@ call either increment() or decrement() at any time. If there are two logical pos
 be retrieved twice (and the last node's --last?--key will be retrieved twice if decrement is called consecutively in a loop.
 So there is an error in logic.
 
+TODO: Determine how `position` is set all of the subroutines called by increment() and decrement(). Compare this with finite state machine. Create a new finite state
+machine and an accompanying algorithm that properly sets `current` and `key_index` in all use-case scenarios involving increment() and decrement(). 
+
 ### Latest Code TODOES
 
 Decide if this code in `decrement()`
