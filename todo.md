@@ -16,46 +16,9 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### Compile Bugs
-
-The constructor for iterator\_base goes to seekToSmallest() if pos==beg or seekToLargest() if iterator\_base==end.
-
-The current design of iterator\_base is a design error. We don't have a proper test for the end iterator. Currently, its constructor, operator==(), increment() and
-decrement() are not setting position in such a way so that we can dereference the last key when iterating forward, or the first key when iterating backward. Instead
-the loop test for equlaity terminate early.
-
-Currently operator==(const iterator\_base& lhs) compares the position member variable. But if we have not yet dereferenced the last key in the tree within our
-loop, operator==() will return true, and the loop will be terminated.
-
-Can increment() somehow properly set the position variable to avoid this premature loop termination? Does it somehow have to position to in\_between until we have
-dereference the largest key of the last node? That is not possible with the current implementation.
-
-The same problem happens when we start at position end and iterate backward to position beg: if we are at position end, we still need to still be able to dereference
-the iterator when we reach "beg", but the operator==() will return true when compared to the "start iterator", so we here again, we won't be able to dereference it
-with a for-loop.
-
-
-Thoughts:
-
-getSuccessor() determines if we have reached the last node. Therefore it makes most sense to have getSuccessor() and and getPredecessor() set `position` when the last
-node (or for getPredecessor() the first node) is encountered.  Should be use finite states, or can't we more simply rely on getSuccessor() and getPrecessor() detecting
-when the last of first node has been reached. The constructor called by end() wil do seekToLastNode(), so it can properly set a last node pointer, if needed.
-
-Actually having a two pointers allows us to determine the "state".
-
-The code needs to reflect a clearly thought out design.  Currently, we have five total finite states:
-
-    // possible finite states of iterator
-    enum class iterator_position {beg, first_key, in_between, last_key, end}; 
-
-The state transitions are reflected in a hand drawn finte state machine diagram. 
-
-How do these states work with an empty tree and with a tree that has only one node? And as first stated, isn't there a way to rely on `getSuccessor()`
-and `getPredecessor()` and maybe some simly calculations?
-
 ### New Working Code
 
-Decide if the code in decrement() 
+Decide if this code in `decrement()`
 
     case iterator_position::first_node:
 
@@ -72,7 +35,7 @@ Decide if the code in decrement()
         } 
         break;
 
-should be moved to getLeafNodePredecessor(), and similarly, whether the analogous code in increment() should be moved to getLeafNodeSuccessor().
+should be moved to `getLeafNodePredecessor()`, and similarly, if the analogous code in `increment()` should be moved to `getLeafNodeSuccessor()`.
 
 ### How the constructor sets position
 
