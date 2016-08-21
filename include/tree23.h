@@ -894,7 +894,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
 // non const tree23<Key, Value>& passed to ctor. Called only by end()
 template<class Key, class Value> inline tree23<Key, Value>::iterator_base::iterator_base(tree23<Key, Value>& lhs_tree, \
-                                 typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree} 
+                                 typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree}, position{pos} 
 {
 
   if (tree.root.get() == nullptr) {
@@ -1012,11 +1012,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
  if (&lhs.tree == &tree) {
 
     // If we are in_between
-    if (lhs.position == position) { // == end() test: both "this" and right argument's current pointer are nullptr.
-
-        return true;
-
-    } else if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iteators are at the end.
+    if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iteators are at the end.
 
         return true;
 

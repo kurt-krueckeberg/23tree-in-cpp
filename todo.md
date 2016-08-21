@@ -16,7 +16,11 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### New Working Code
+### Compile Bugs
+
+The `iterator_case::decrement()` operator seems to not be working.
+
+### Latest Code TODOES
 
 Decide if this code in `decrement()`
 

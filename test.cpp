@@ -398,9 +398,10 @@ void test_backward_iterator(const std::vector<int>& input, int break_key)
   cout << flush; 
   return; 
 }
-/*
+
 void print_with_backward_iterator(const tree23<int, int>& tree)
-{ 
+{
+/* 
   tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
   tree23<int, int>::const_reverse_iterator crend_iter = tree.rend();
 
@@ -411,5 +412,6 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
        // cout << key_value.key << ", ";
        cout << flush;
   } 
-}
 */
+}
+

@@ -21,6 +21,10 @@ void print_with_forward_iterator(const tree23<int, int>& the_tree);
 
 void test_backward_iterator(const std::vector<int>& input, int break_key); 
 
+void test_iterator_base(const std::vector<int>& input, int break_key); 
+
+void print_with_iterator_base(const tree23<int, int>& the_tree);
+
 void print_with_backward_iterator(const tree23<int, int>& the_tree);
 
 #endif
