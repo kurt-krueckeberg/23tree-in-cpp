@@ -43,6 +43,7 @@ Write new pseudo code that fixes how the code should properly set `current` and 
 
 Since the new finite state machine has been drawn and new comments added for begin(), end(), their associated constructors, increment() and decrement(), check that
 these new comments reflect the new finite state machine and pseudo code.
+
 ### Top level pseudo code.
 
 `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls a
@@ -54,6 +55,11 @@ a no-op, and none of the member varibles changes.
 TODO: complete the pseudo code.
 
 ## General Comments
+
+According to C++PL, 4th Ed., begin() should return am iterator that "points" to the container's first element, and end() should return a "pointer" to one-past the
+last element in the container. My code does not reflect this.
+
+I believe my iterator classes need to provide the typenames that iterator_traits<MyIterator> exposes.
 
 ### How the constructor sets position
 
