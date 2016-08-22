@@ -260,7 +260,10 @@ template<class Key, class Value> class tree23 {
          iterator_position position;
 
          int   getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
-         void  getSuccessor() noexcept;
+
+         // TODO: Change getSuccessor() to take two input parameters and to return -- what, a Node23 pointer? How about the new key's index?
+         const Node23 *getSuccessor(const Node23 *current, int key_index) noexcept;
+
          void  getPredecessor() noexcept;
 
          const Node23 *getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
@@ -1296,7 +1299,7 @@ in the calling code?
 
 How about getLeafNodeSuccessor()?
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator_base::getSuccessor() noexcept
+template<class Key, class Value> const Node23 *getSuccessor(const Node23 *current, int key_index) noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
