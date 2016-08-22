@@ -1341,6 +1341,7 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *
   if (current->isLeaf()) { // If leaf node
 
      return getLeafNodeSuccessor(current);
+
   } else { // else internal node
 
       const Node23 *pnode = getInternalNodeSuccessor(current);
@@ -1596,7 +1597,25 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
      case iterator_position::beg:
 
            // TODO: set position to either first_node or in_between
-           getSuccessor();
+           std::pair<const Node23 *, int> pair = getSuccessor(current);
+
+           if (current == nullptr) { // we are past the last node
+
+                // current doesn't change, never key_index, but the state does 
+                position = iterator_position::end;
+
+           } else if (current == pair.first) { // current has not changed, what does this mean?
+
+                 key_index = pair.second;
+
+           } else { // Anything else?
+
+               current = pair.first;
+               key_index = pair.second;
+               position = iterator_position::in_between; 
+
+           }   
+
            break;
 
      case iterator_position::first_node:
@@ -1605,13 +1624,35 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            // key_index may be 0 or 1, if the first node is a 3-node. 
 
            // TODO: Check that position is still set to first_node or becomes in_between
-           iterator_base::getSuccessor(); // sets current, key_index and position
+           std::pair<const Node23 *, int> pair = getSuccessor(current);
+
+           if (pair.first == nullptr) {
+
+                // current doesn't change, never key_index, but the state does 
+                position = iterator_position::end;
+
+           } else if (current == pair.first) {
+
+                key_index = pair.second;
+  
+           } else {
+
+               current = pair.first;
+               key_index = pair.second;
+               position = iterator_position::in_between; 
+           }
+ 
            break;
 
      case iterator_position::in_between:
 
            // current and key_index may change. position may become last_node           
            iterator_base::getSuccessor();
+
+           // TODO: We can't tell if we are at last_node unless end() was called. Do we even need to use a last_node position since we cannot
+           // transition to it in the increment() code.
+
+
            break;
 
      case iterator_position::end:
