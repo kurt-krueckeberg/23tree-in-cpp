@@ -16,7 +16,7 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### Compile Bugs
+## Logic Error in increment() and decrement()
 
 Check whether the `iterator_case::decrement()` operator seems is working.
 
@@ -40,6 +40,16 @@ are properly set to handle all use-case scenarios involving increment() and decr
 
 Write new pseudo code that fixes how the code should properly set `current` and `key_index` in such a way that is easy to follow. We therefore must simply the methods
 `begin()`, `end()` (and the constructor methods they invoke), in addition to the methods `indrement()` and `decrement()` and all their subroutines.
+
+### Top level pseudo code.
+
+`begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls a
+constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
+
+If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too, does
+a no-op, and none of the member varibles changes. 
+
+TODO: complete the pseudo code.
 
 ## General Comments
 
