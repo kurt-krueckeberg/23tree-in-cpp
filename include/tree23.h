@@ -1072,9 +1072,11 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
 Requires:
 TODO: Check if these preconditions are true.
 1. If position is first_node, current and key_index MUST point to first key in tree.
-2. If position is end,  current and key_index MUST point to last key in tree.
+2. If position is end,  current and key_index MUST point to last key in tree. But will position ever be end or beg?
+   
 3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
-4. Question: Will position ever be end or beg?
+
+Questions: Will position ever be end or beg, or does calling code ensure that it never is?
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
@@ -1295,14 +1297,15 @@ Finding the successor of a given node
 -------------------------------------
 
 Requires:
-1. If position is beg, current and key_index MUST point to first key in tree.
-2. If position is end,  current and key_index MUST point to last key in tree.
+1. If position is beg, current and key_index MUST point to first key in tree. But will position ever be beg?
+
+2. If position is end,  current and key_index MUST point to last key in tree. But will position ever be end?
+  
 3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
-4. Question: Will position ever be end or beg?
 
-From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
+Questions: Will position ever be end or beg, or do the callers increment() and decrement() ensure that it is never end or beg?
 
-On how to find the successor in a binary tree.
+pseudo code for getting successor from: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
 
 If left child exists, predecessor is the right most node of the left subtree. Internal node's of a 2 3 tree always have a right branch because 2 3 trees are
 balanced.
@@ -1322,7 +1325,7 @@ in the calling code?
 
 How about getLeafNodeSuccessor()?
  */
-template<class Key, class Value> const Node23 *tree23<Key, Value>::getSuccessor(const Node23 *current, int key_index) noexcept
+template<class Key, class Value> const ty Node23 *tree23<Key, Value>::getSuccessor(const Node23 *current, int key_index) noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
