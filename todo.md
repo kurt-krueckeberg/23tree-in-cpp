@@ -20,36 +20,29 @@
 
 Check whether the `iterator_case::decrement()` operator seems is working.
 
-There was a problem with the position member vairable. The idea of a logical position beyond the end and before the front wasn't coded correctly. The client can
-call either increment() or decrement() at any time. If there are two logical positions for the first node( and for the last node), the first node's first key will
-be retrieved twice (and the last node's --last?--key will be retrieved twice if decrement is called consecutively in a loop.
-So there is an error in logic.
+There is a logic error involing the states 'beg' and 'end' for the `position` member.  We have two states in which `current` and `key_index` point to the first key:
+`beg` and `first_node`; and we have two possible states, `last_node` and `end`, when `last_key` and `current` point to the last key. `beg' and 'end' are only logically
+positions. 'beg' indicates one position before the first key, and 'end' one position past the last key. The code does not handle the fact that `increment()` and
+`decrement()` can be called in any order for all states of position. 
 
-TODO: Determine how `position` is set all of the subroutines called by increment() and decrement(). Compare this with the finite state machine. Create a new finite
-state machine and an accompanying algorithm that properly sets `current` and `key_index` in all possible use-case scenarios involving increment() and decrement(). 
+Fort example, of `increment()` is called when position is `beg` and the first node has only one key, then position should change to `in_between` after `increment()`.
+Similarly, if `decrement()` is called when position is `end`, and the last node has only one key, then position must change to `in_between`, and the values of `current`
+and `key_index` be advanced to the second in-order key (if the first node is a 2-node). Likewise, the values for `current` and `key_index` should, when `increment()`
+is called when position is `end`, point to the next to last key, if the last node is a 2-node. Obviously, is the first node is a 3-node, then `current` won't change,
+but `key_index` will. Likewise, if the last node is a 3-node when 'decrement()` is called, position should become 'last_node`, current should not change, but `key_index`
+should change from 1 to 0. 
 
-TODO: Try to set position in just one routine or one subroutine, so the code is not so hard to follow. Should this be in increment() and decrement()?
+The logical error results from not properly handling the fact that `increment()` and `decrement()` can be called in any order for any given state of position.
 
-### Latest Code TODOES
+TODO: Draw a new finite state machine that handles these two problemic use-cases (and any others). Change `increment()` and `decrement()` to relect the corrected
+finite state machind. Then compare the corrected finite state machine, with the current code, and alter the current code so that `current`, `key_index` and `position`
+are properly set to handle all use-case scenarios involving increment() and decrement(). 
 
-Decide if this code in `decrement()`
+The current code doesn't set `current` and `key_index` in such a way that is easily discerned from reading the code. So we want to simply the `begin()`, `end()`
+and constructor methods they invoke, as well as `indrement()` and `decrement()` and all their subroutines to be more logical and consist in the way they set these
+three member variables. 
 
-    case iterator_position::first_node:
-
-       /* 
-         current should already point to first node, and key_index should already be set to first key in tree 
-        */
-        if (current->isThreeNode() && key_index == 1) {
-
-            key_index = 0;
-
-        } else {
-
-           position = iterator::beg;
-        } 
-        break;
-
-should be moved to `getLeafNodePredecessor()`, and similarly, if the analogous code in `increment()` should be moved to `getLeafNodeSuccessor()`.
+## General Comments
 
 ### How the constructor sets position
 
@@ -60,17 +53,10 @@ If the tree is empty, the ctor sets position to `beg`. If the tree is not empty,
 
 For end(), we invoke the two parameter version of the constructor with `iterator_position::end` as the 2nd parameter.
 
-### TODO
+## Changes related to typederfs
 
-Draw out the state transitions and how `current` and `key_index` are set or not altered when the state changes. Scan the drawing and added it to the repository. 
-
-### TDOO
-
-Change **typdefs** to **usings**/
-
-The getSuccessor() code needs to be changes, and maybe other subroutines to set `position`. It might be simpliest to change `getSuccessor()` and `getPredecessor()`
-or `operator--()` and `operator++()` to set position. 
-
+Change **typdefs** to **usings**.
+ 
 ## External In-Order, STL-like Iterator Notes
 
 In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the `operator--()` of the iterator to go to the last node in
