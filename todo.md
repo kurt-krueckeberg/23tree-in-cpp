@@ -38,9 +38,8 @@ TODO: Draw a new finite state machine that handles these two problemic use-cases
 finite state machind. Then compare the corrected finite state machine, with the current code, and alter the current code so that `current`, `key_index` and `position`
 are properly set to handle all use-case scenarios involving increment() and decrement(). 
 
-The current code doesn't set `current` and `key_index` in such a way that is easily discerned from reading the code. So we want to simply the `begin()`, `end()`
-and constructor methods they invoke, as well as `indrement()` and `decrement()` and all their subroutines to be more logical and consist in the way they set these
-three member variables. 
+Write new pseudo code that fixes how the code should properly set `current` and `key_index` in such a way that is easy to follow. We therefore must simply the methods
+`begin()`, `end()` (and the constructor methods they invoke), in addition to the methods `indrement()` and `decrement()` and all their subroutines.
 
 ## General Comments
 
