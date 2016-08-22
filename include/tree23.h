@@ -1074,7 +1074,7 @@ TODO: Check if these preconditions are true.
 1. If position is first_node, current and key_index MUST point to first key in tree.
 2. If position is end,  current and key_index MUST point to last key in tree.
 3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
-4. ?
+4. Question: Will position ever be end or beg?
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
@@ -1298,7 +1298,7 @@ Requires:
 1. If position is beg, current and key_index MUST point to first key in tree.
 2. If position is end,  current and key_index MUST point to last key in tree.
 3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
-4. ?
+4. Question: Will position ever be end or beg?
 
 From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
 
