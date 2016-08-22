@@ -240,9 +240,13 @@ template<class Key, class Value> class tree23 {
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
-
-    // Q: Maybe I need to reimplement the tree to hold a pair rather than a KeyValuei so that iterator_base could be implemented thusly:    
-    // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
+   /*
+     end is a logical sate representing one-past the last element.
+     beg is a logical sate representing the first element.
+     The actual value of current will be the same for beg and first_node, and it will be the same for last_node and end.
+     The value of key_index will be zero for state beg. It will be either zero or one for first_node, depending on whether the smallest node is a 2- or 3-node. 
+     The value of key_index will be current->totalItems - 1 for state end.
+    */
                                 
     enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
 
