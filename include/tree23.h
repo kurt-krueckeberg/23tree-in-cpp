@@ -891,7 +891,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
   } else {
  
-      seekToSmallest(iterator_position::begin); 
+      seekToSmallest(iterator_position::beg); 
   }
 }
 
@@ -904,31 +904,30 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
          
       current = nullptr;
       key_index = 0;
+      position = iterator_position::end;
 
-  } else if (position== iterator_position::end) {
+  } else if (position == iterator_position::end || position == iterator_position::last_node) {
 
       seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
 
-   } else if (position== iterator_position::first_node || position== iterator_position::beg) {
+   } else if (position== iterator_position::first_node || position == iterator_position::beg) {
 
       seekToSmallest(position); // Go to the smallest node, and thus allow increment() to be called
 
    } else { // any other position value is invalid
 
-      // TODO: Does this make sense? 
       throw std::logic_error("iterator_base constructor called with wrong position paramater");
    }
-
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
-    return iterator{*this, iterator_position::first_node};
+    return iterator{*this, iterator_position::beg};
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
 {
-    return const_iterator{*this, iterator_position::first_node};
+    return const_iterator{*this, iterator_position::beg};
 }
 
 /*
@@ -959,14 +958,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rend() noexcept
 {
     return reverse_iterator{ iterator {*this, iterator::position::beg} }; // ensure that position is iterator_position::beg
-
-    //--return reverse_iterator{begin()}; 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rend() const noexcept
 {
     return const_reverse_iterator{ iterator {*this, iterator::position::beg} }; // ensure that position is iterator_position::beg
-    //--return const_reverse_iterator{begin()}; 
 }
 /*
  Moves to first, smallest node in tree.
@@ -977,6 +973,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
+  if (pos != iterator_position::beg || pos != iterator_position::first_node) {
+
+      throw std::logic_error("iterator_base constructor called with wrong position paramater");
+  }
+
   for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[0].get()) {
            current = cursor;
   }
@@ -987,6 +988,11 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToS
 
 template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::seekToLargest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
+  if (pos != iterator_position::end || pos != iterator_position::last_node) {
+
+      throw std::logic_error("iterator_base constructor called with wrong position paramater");
+  }
+
   for (const Node23 *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
            current = cursor;
   }
@@ -1005,6 +1011,8 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
              tree{lhs.tree}, current{lhs.current}, key_index{lhs.key_index}, position{lhs.position} 
 {
    lhs.current = nullptr; // set to end
+
+   // TODO: Does nullptr for current represent an empty tree?
 }
 /*
 
@@ -1058,7 +1066,16 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
   return child_index;
 }
 
-// TODO: Be sure we set, as needed, current, key_index and position.  Neither getLeafNodePredecessor() nor getInternalNodePredecessor() set the position variable.
+/*
+ We set, as needed, current, key_index and position.  Neither getLeafNodePredecessor() nor getInternalNodePredecessor() currently sets the position variable.
+
+Requires:
+TODO: Check if these preconditions are true.
+1. If position is first_node, current and key_index MUST point to first key in tree.
+2. If position is end,  current and key_index MUST point to last key in tree.
+3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
+4. ?
+ */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
 {
 
@@ -1277,6 +1294,12 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 Finding the successor of a given node 
 -------------------------------------
 
+Requires:
+1. If position is beg, current and key_index MUST point to first key in tree.
+2. If position is end,  current and key_index MUST point to last key in tree.
+3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
+4. ?
+
 From: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
 
 On how to find the successor in a binary tree.
@@ -1299,7 +1322,7 @@ in the calling code?
 
 How about getLeafNodeSuccessor()?
  */
-template<class Key, class Value> const Node23 *getSuccessor(const Node23 *current, int key_index) noexcept
+template<class Key, class Value> const Node23 *tree23<Key, Value>::getSuccessor(const Node23 *current, int key_index) noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
@@ -1558,14 +1581,14 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
               return *this; 
 
           } else {    
-               // otherwsie, "advance" to the logical position 'end': one past the last_node. This is the value of position when
-               // end() is called.                                                                                                       
+               // otherwsie, "advance" to the logical position 'end': one past the last_node, but don't change current, key_index or position.    
               position = iterator_position::end; 
           }
           break;
 
      case iterator_position::beg:
 
+           // TODO: set position to either first_node or in_between
            getSuccessor();
            break;
 
@@ -1574,18 +1597,19 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            // current points to the smallest node in the tree.
            // key_index may be 0 or 1, if the first node is a 3-node. 
 
+           // TODO: Check that position is still set to first_node or becomes in_between
            iterator_base::getSuccessor(); // sets current, key_index and position
            break;
 
      case iterator_position::in_between:
 
-           // current and key_index may chagne           
-           iterator_base::getSuccessor();// sets current, key_index and position
+           // current and key_index may change. position may become last_node           
+           iterator_base::getSuccessor();
            break;
 
      case iterator_position::end:
 
-           // no-op
+           // no-op for increment
            break;
 
      default:
@@ -1614,7 +1638,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
              key_index = 0;
 
-         } else {
+         } else { // only change position to logical position beg.
 
             position = iterator::beg;
          } 
@@ -1622,25 +1646,28 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
      case iterator_position::last_node:
 
-         // key_index should be 0 or 1, and current should point to first node 
+         // key_index should be 0 or 1, and current should either remain last_node or change to first_node 
          getPredecessor();
          break;
 
      case iterator_position::in_between:
            
-         getPredecessor(); // sets current, key_index and position
+         getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
          break;
 
      case iterator_position::beg:
 
-           position = iterator_position::first_node;  
-           key_index = 0;
-           getPrecedessor(); 
-           break;
+          // no-op if we are at beg.
+          break;
+
+     case iterator_position::end:
+
+           // current and key_index point to last key in tree.  
+          getPredeccessor();  // Must set current and key_index, and position must become 'last_node'
+          break;
 
      default:
-           break;
- 
+          break;
    }
 
    return *this;
@@ -1699,7 +1726,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator& tree23<Key, Value>::const_iterator::operator--() noexcept	    
 {
-   iterator_base::decrement(); // call base class method that sets current and key_index 
+   iterator_base::decrement();
    return *this;
 }
 
