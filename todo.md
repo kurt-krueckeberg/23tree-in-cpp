@@ -41,6 +41,8 @@ are properly set to handle all use-case scenarios involving increment() and decr
 Write new pseudo code that fixes how the code should properly set `current` and `key_index` in such a way that is easy to follow. We therefore must simply the methods
 `begin()`, `end()` (and the constructor methods they invoke), in addition to the methods `indrement()` and `decrement()` and all their subroutines.
 
+Since the new finite state machine has been drawn and new comments added for begin(), end(), their associated constructors, increment() and decrement(), check that
+these new comments reflect the new finite state machine and pseudo code.
 ### Top level pseudo code.
 
 `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls a
