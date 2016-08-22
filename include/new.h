@@ -268,7 +268,7 @@ template<class Key, class Value> class tree23 {
          int   getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
 
          // TODO: Change getSuccessor() to take two input parameters and to return -- what, a Node23 pointer? How about the new key's index?
-         const Node23 *getSuccessor(const Node23 *current, int key_index) noexcept;
+         std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) noexcept;
 
          void  getPredecessor() noexcept;
 
@@ -1331,7 +1331,36 @@ in the calling code?
 
 How about getLeafNodeSuccessor()?
  */
-template<class Key, class Value> const ty Node23 *tree23<Key, Value>::getSuccessor(const Node23 *current, int key_index) noexcept
+
+template<class Key, class Value> const std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::getSuccessor(const Node23 *current,\
+ int key_index) noexcept
+{
+  if (current->isLeaf()) { // If leaf node
+
+     return getLeafNodeSuccessor(current);
+
+     /*
+     if (results.first == nullptr) { // nullptr implies current was the last node. Question: Does it imply that key_index was at the last key, too--I think it does.
+
+         position = iterator_position::last_node;
+
+     } else { // We were not at the last node.
+
+         current = results.first;
+         key_index = results.second;
+     }
+     */
+
+  } else { // else internal node
+
+      current = getInternalNodeSuccessor(current);
+      key_index = 0; // it will always be the first key
+
+      return std::make_pair<const Node23 *, int>(current, key_index);
+  }
+}
+/*
+template<class Key, class Value> void tree23<Key, Value>::getSuccessor(const Node23 *current, int key_index) noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
@@ -1353,6 +1382,7 @@ template<class Key, class Value> const ty Node23 *tree23<Key, Value>::getSuccess
       key_index = 0; // it will always be the first key
   }
 }
+*/
 /* 
    getInternalNodeSuccessor()
 
