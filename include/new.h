@@ -245,7 +245,13 @@ template<class Key, class Value> class tree23 {
     // class iterator_base : public std::iterator<std::forward_iterator_tag, std::pair<const Key,Value>> { 
                                 
     enum class iterator_position {first_node, in_between, last_node, end}; // possible finite states of iterator
-
+/*
+ std::iterator is from: /usr/include/c++/5/bits/stl_iterator_base_types.h and is defined like this:
+ 
+ template<typename _Category, typename _Tp, typename _Distance = ptrdiff_t,
+           typename _Pointer = _Tp*, typename _Reference = _Tp&>
+    struct iterator {
+ */
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
        friend class tree23<Key, Value>;   
