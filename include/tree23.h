@@ -268,9 +268,9 @@ template<class Key, class Value> class tree23 {
 
          int   getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
 
-         std::pair<const Node23 *, int> void getSuccessor(const Node23 *current, int key_index) noexcept;
+         std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) noexcept;
 
-         void  getPredecessor() noexcept;
+         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) noexcept;
 
          const Node23 *getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
          const Node23 *getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
@@ -916,7 +916,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
 
       seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
 
-   } else if (position== iterator_position::first_node || position == iterator_position::beg) {
+   } else if (position == iterator_position::beg) {
 
       seekToSmallest(position); // Go to the smallest node, and thus allow increment() to be called
 
@@ -1084,21 +1084,17 @@ TODO: Check if these preconditions are true.
 
 Questions: Will position ever be end or beg, or does calling code ensure that it never is?
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator_base::getPredecessor() noexcept
+template<class Key, class Value>  std::pair<const Node23 *, int> tree23<Key, Value>::getPredecessor(const typename tree23<Key, Value>::Node23 *current, int key_index) noexcept;
 {
-
   if (current->isLeaf()) { // If leaf node
 
-     std::pair<const Node23 *, int> results = getLeafNodePredecessor(current);
-  
-     current = results.first;
-     key_index = results.second;
-     // TODO: 
+     return getLeafNodePredecessor(current);
 
   } else { // else internal node
 
       current = getInternalNodePredecessor(current);
       key_index = 0; // it will always be the first key
+      return std::make_pair<const Node23 *, int>(current, key_index);
   }
 }
 
@@ -1129,7 +1125,8 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
     pnode = cursor;
  }
  
- return pnode;
+ //--return pnode;
+ return std::make_pair<const Node23 *, int>(pnode, pnode->totalItems - 1);
 }
 /* 
 Finding the predecessor of a given node 
@@ -1628,12 +1625,31 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
     switch (position) {
 
      case iterator_position::beg:
-       // ??
+       // no op.
        break;
 
      case iterator_position::in_interval:
            
-         getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
+         std::pair<const Node23 *,int> pair = getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
+
+           // current points to the smallest node in the tree.
+           // key_index may be 0 or 1, if the first node is a 3-node. 
+
+           if (pair.first == nullptr) {
+
+                // current doesn't change, never key_index, but the state does 
+                position = iterator_position::beg;
+
+           } else if (current == pair.first) { // current still the same, set key_index onl
+
+                key_index = pair.second;
+  
+           } else { // Set both current and key_index
+
+               current = pair.first;
+               key_index = pair.second;
+           }
+
          break;
 
      case iterator_position::beg:
