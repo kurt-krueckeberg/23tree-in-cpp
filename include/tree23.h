@@ -1091,11 +1091,11 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 {
   if (current->isLeaf()) { // If leaf node
 
-     return getLeafNodePredecessor(current);
+     return getLeafNodePredecessor(current, key_index);
 
   } else { // else internal node
 
-      return getInternalNodePredecessor(current);
+      return getInternalNodePredecessor(current, key_index);
   }
 }
 
@@ -1127,9 +1127,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     pnode = cursor;
  }
 
- int return_index = pnode->totalItems - 1;
-
- return std::make_pair<const Node23 *, int>(pnode, return_index);
+ return std::make_pair<const Node23 *, int>(const_cast<Node23 *>(pnode), pnode->totalItems - 1); 
 }
 /* 
 Finding the predecessor of a given node 
@@ -1391,8 +1389,8 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     pnode = cursor;
  }
- Node23 *pnon_const = const_cast<Node23 *>(pnode); 
- return std::make_pair<const Node23 *, int>(pnon_const, 0);
+
+ return std::make_pair<const Node23 *, int>(const_cast<Node23 *>(pnode), 0);
 }
 /*
  Requires:
@@ -1631,7 +1629,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
 
      case iterator_position::in_interval:
      {      
-         std::pair<const Node23 *,int> pair = getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
+         std::pair<const Node23 *,int> pair = getPredecessor(current, key_index); // sets current and key_index, and position either remains the same or changes to first_node.
 
          // current points to the smallest node in the tree.
          // key_index may be 0 or 1, if the first node is a 3-node. 

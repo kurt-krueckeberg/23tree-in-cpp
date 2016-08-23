@@ -212,57 +212,6 @@ void test_copy_ctor(const std::vector<int>& input, int break_key)
   cout << "\n";
 }
 
-void test_iterator_base(const std::vector<int>& input, int break_key) 
-{
-  tree23<int, int> tree;
-  
-   int i = 0;
-    
-   for (auto& key : input) {
-
-      cout << "Inserting: " << key << std::endl;
-      
-      if (key == break_key) {
-          
-         int debug = 10;
-         
-         ++debug;
-         
-         tree.insert(key, key);
-         
-      } else {
-          
-         tree.insert(key, key);
-      }
-    }
-
-  cout << "Level order print of tree: \n";
-
-  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
-
-  tree.levelOrderTraverse(printFunctor);
-  
-  cout << "\n\nIn order print of tree with tree23<int, int>::traverse(F):\n";
-  
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
-
-  tree.inOrderTraverse(lambda_closure);
-  
-  cout << flush << "\nPrinting tree with external iterator:\n";
-
-  try {
-
-    print_with_iterator_base(tree);
-
-  } catch (std::exception& e) {
-
-    cout << "\nException: " << e.what() << endl; 
-  }
-
-  cout << flush; 
-  return; 
-}
-
 
 void test_forward_iterator(const std::vector<int>& input, int break_key) 
 {
@@ -327,27 +276,6 @@ void print_with_forward_iterator(const tree23<int, int>& tree)
   } 
 }
 
-void print_with_iterator_base(const tree23<int, int>& tree)
-{ 
-  tree23<int, int>& non_const_tree = const_cast<tree23<int, int>&>(tree);
-
-  tree23<int, int>::iterator_base start{non_const_tree, tree23<int, int>::iterator_position::beg};   //<-- Compile errors start when this is uncommented.
-  
-  tree23<int, int>::iterator_base end{non_const_tree, tree23<int, int>::iterator_position::end};
-
-  for( ; start != end; ) {
-
-       tree23<int, int>::KeyValue& key_value = start.dereference();
-
-       cout << key_value.key << ", " << flush;
-
-       start.increment();
-  } 
-
-  cout << endl << flush;
-}
-
-
 void test_backward_iterator(const std::vector<int>& input, int break_key) 
 {
   tree23<int, int> tree;
@@ -400,7 +328,21 @@ void test_backward_iterator(const std::vector<int>& input, int break_key)
 
 void print_with_backward_iterator(const tree23<int, int>& tree)
 {
- 
+ auto iter = tree.end();
+
+ auto iter_stop = tree.begin();
+
+ do {
+
+   --iter;
+
+   const tree23<int, int>::KeyValue& key_value = *iter;
+
+   cout << key_value.key << ", " << flush;
+
+ } while (iter != iter_stop);
+
+/* 
   tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
   tree23<int, int>::const_reverse_iterator crend_iter = tree.rend();
 
@@ -410,4 +352,5 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
        cout << key_value.key << ", " << flush;
   } 
+*/
 }

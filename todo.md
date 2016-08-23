@@ -24,6 +24,10 @@ a constructor that sets position to `end`, and it calls `seekToLargest()` to set
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
 does a no-op, and none of the member varibles changes. 
 
+## TODO
+
+Test backward iteration. Then test backward and forward iteration intersperesed.
+
 ## Bug
 
 reverse iterators are not working. Seem to want typedefs supplied by `iterator_traits`
