@@ -331,7 +331,7 @@ void print_with_iterator_base(const tree23<int, int>& tree)
 { 
   tree23<int, int>& non_const_tree = const_cast<tree23<int, int>&>(tree);
 
-  tree23<int, int>::iterator_base start{non_const_tree, tree23<int, int>::iterator_position::first_node};   //<-- Compile errors start when this is uncommented.
+  tree23<int, int>::iterator_base start{non_const_tree, tree23<int, int>::iterator_position::beg};   //<-- Compile errors start when this is uncommented.
   
   tree23<int, int>::iterator_base end{non_const_tree, tree23<int, int>::iterator_position::end};
 

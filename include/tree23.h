@@ -269,11 +269,11 @@ template<class Key, class Value> class tree23 {
 
          std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) const noexcept;
 
-         const Node23 *getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
+         std::pair<const Node23 *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode, int index_of_key) const noexcept;
 
          std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
 
-         std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
+         std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *, int) const noexcept;
 
          std::pair<const Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *p, int index) const noexcept;
 
@@ -1122,8 +1122,10 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     pnode = cursor;
  }
- 
- return std::make_pair<const Node23 *, int>(pnode, pnode->totalItems - 1);
+
+ int ret_index = pnode->totalItems - 1;
+
+ return std::make_pair<const Node23 *, int>(pnode, ret_index);
 }
 /* 
 Finding the predecessor of a given node 
@@ -1333,18 +1335,15 @@ in the calling code?
 How about getLeafNodeSuccessor()?
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getSuccessor(const Node23 *current,\
-                                                                                                           int key_index) const noexcept
+                                                                                                           int index_of_key) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
-     return getLeafNodeSuccessor(current);
+     return getLeafNodeSuccessor(current, index_of_key);
 
   } else { // else internal node
 
-      const Node23 *pnode = getInternalNodeSuccessor(current);
-      int key_index = 0; // it will always be the first key
-
-      return std::make_pair<const Node23 *, int>(pnode, key_index);
+      return getInternalNodeSuccessor(current, index_of_key);
   }
 }
 
@@ -1360,14 +1359,15 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
 Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key and two "left" children from its second key.
  */
-template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode, \
+ int index_of_key) const noexcept	    
 {
  // Get next right child node of pnode based on key_index.
  const Node23 *rightChild;
 
  if (pnode->isThreeNode()) {
 
-      if (key_index == 0) {
+      if (index_of_key == 0) {
 
         rightChild = pnode->children[1].get();
 
@@ -1388,7 +1388,7 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
     pnode = cursor;
  }
  
- return pnode;
+ return std::make_pair<const Node23 *, int>(pnode, 0);
 }
 /*
  Requires:
@@ -1396,10 +1396,11 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
  2. If pnode is 3-node, then key_index, the key index into pnode->keys_values[].key must be 1, the second key. It can never be 0, the first key.
 
  */
-template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodeSuccessor(const \
+ typename tree23<Key, Value>::Node23 *pnode, int index_of_key) const noexcept
 {
   // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
-  if (pnode->isThreeNode() && key_index == 0) {
+  if (pnode->isThreeNode() && index_of_key == 0) {
 
       return std::make_pair(current, 1); 
   }
@@ -1581,7 +1582,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
       
      case iterator_position::beg:
      case iterator_position::in_interval:
-
+     {
            std::pair<const Node23 *, int> pair = getSuccessor(current, key_index);
 
            // current points to the smallest node in the tree.
@@ -1602,7 +1603,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
                key_index = pair.second;
                position = iterator_position::in_interval; 
            }
- 
+     }
            break;
      default:
            break;
