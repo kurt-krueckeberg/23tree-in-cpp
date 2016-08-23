@@ -14,6 +14,9 @@
 #include "debug.h"
 #include "level-order-invariant-report.h"
 
+/*
+ TODO: Get rid of last_node state and its associated code. 
+ */
 template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
 //...that is required by these friend functions
@@ -248,7 +251,7 @@ template<class Key, class Value> class tree23 {
      The value of key_index will be current->totalItems - 1 for state end.
     */
                                 
-    enum class iterator_position {beg, first_node, in_between, last_node, end}; // possible finite states of iterator
+    enum class iterator_position {beg, in_interval, end}; // possible finite states of iterator
 
     class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
                                                  
@@ -1024,7 +1027,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator_base::operato
 {
  if (&lhs.tree == &tree) {
 
-    // If we are in_between
+    // If we are in_interval
     if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iterators are at the end.
 
         return true;
@@ -1077,7 +1080,7 @@ TODO: Check if these preconditions are true.
 1. If position is first_node, current and key_index MUST point to first key in tree.
 2. If position is end,  current and key_index MUST point to last key in tree. But will position ever be end or beg?
    
-3. If position is in_between, current and key_index do not point to either first key in tree or last key in tree. 
+3. If position is in_interval, current and key_index do not point to either first key in tree or last key in tree. 
 
 Questions: Will position ever be end or beg, or does calling code ensure that it never is?
  */
@@ -1305,8 +1308,8 @@ Requires:
 
 2. If position is end,  current and key_index MUST point to last key in tree.
   
-3. If position is in_between, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
-the state can only be in_between if the first node is a 3-node.
+3. If position is in_interval, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
+the state can only be in_interval if the first node is a 3-node.
 
 Returns:
 
@@ -1577,7 +1580,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
   switch (position) {
       
-     case iterator_position::last_node:
+     case iterator_position::last_node: //TODO: Is last_node really used?
 
          /* 
             current already points to the largest, last node in the tree. Check key_index. If key_index is 0 in a 3-node, set it to one..
@@ -1595,36 +1598,12 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
           break;
 
      case iterator_position::beg:
+     case iterator_position::in_interval:
 
-           // TODO: set position to either first_node or in_between
            std::pair<const Node23 *, int> pair = getSuccessor(current);
-
-           if (current == nullptr) { // we are past the last node
-
-                // current doesn't change, never key_index, but the state does 
-                position = iterator_position::end;
-
-           } else if (current == pair.first) { // current has not changed, what does this mean?
-
-                 key_index = pair.second;
-
-           } else { // Anything else?
-
-               current = pair.first;
-               key_index = pair.second;
-               position = iterator_position::in_between; 
-
-           }   
-
-           break;
-
-     case iterator_position::first_node:
 
            // current points to the smallest node in the tree.
            // key_index may be 0 or 1, if the first node is a 3-node. 
-
-           // TODO: Check that position is still set to first_node or becomes in_between
-           std::pair<const Node23 *, int> pair = getSuccessor(current);
 
            if (pair.first == nullptr) {
 
@@ -1639,20 +1618,9 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
                current = pair.first;
                key_index = pair.second;
-               position = iterator_position::in_between; 
+               position = iterator_position::in_interval; 
            }
  
-           break;
-
-     case iterator_position::in_between:
-
-           // current and key_index may change. position may become last_node           
-           iterator_base::getSuccessor();
-
-           // TODO: We can't tell if we are at last_node unless end() was called. Do we even need to use a last_node position since we cannot
-           // transition to it in the increment() code.
-
-
            break;
 
      case iterator_position::end:
@@ -1662,18 +1630,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 
      default:
            break;
- 
-   }
-
-   // test if we are post the last node. 
-   if (results.first == nullptr) { // nullptr implies current was the last node. Question: Does it imply that key_index was at the last key, too--I think it does.
-
-       position = iterator_position::last_node;
-
-   } else { // We were not at the last node.
-
-       current = results.first;
-       key_index = results.second;
    }
 
    return *this;
@@ -1709,7 +1665,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
          getPredecessor();
          break;
 
-     case iterator_position::in_between:
+     case iterator_position::in_interval:
            
          getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
          break;

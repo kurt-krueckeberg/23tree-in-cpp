@@ -52,7 +52,7 @@ constructor that sets position to `end`, and it calls `seekToLargest()` to set `
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too, does
 a no-op, and none of the member varibles changes. 
 
-TODO: complete the pseudo code.
+TODO: complete include/new.h. See TODOES at top of file.
 
 ## General Comments
 
