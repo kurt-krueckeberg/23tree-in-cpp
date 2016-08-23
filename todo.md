@@ -28,9 +28,13 @@ does a no-op, and none of the member varibles changes.
 
 Test backward iteration. Then test backward and forward iteration intersperesed.
 
-## Bug
+## Bugs
 
-reverse iterators are not working. Seem to want typedefs supplied by `iterator_traits`
+1. Backward iteration from end() to begin() using operator--() skips keys sometimes. So getPredecessor() seems to have a bug.
+
+2. reverse iterators are not working. 
+
+They want typedefs supplied by `iterator_traits`. I'm not sure why.
  
 ### Red Black code
 
