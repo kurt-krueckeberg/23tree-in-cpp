@@ -255,6 +255,11 @@ template<class Key, class Value> class tree23 {
        friend class tree23<Key, Value>;   
       public:
 
+	typedef tree23<Key, Value>::KeyValue value_type;
+	typedef int difference_type;
+	typedef tree23<Key, Value>::KeyValue* pointer;
+	typedef tree23<Key, Value>::KeyValue& reference;
+
          tree23<Key, Value>& tree; 
 
          const typename tree23<Key, Value>::Node23 *current;
@@ -1625,7 +1630,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
        break;
 
      case iterator_position::in_interval:
-           
+     {      
          std::pair<const Node23 *,int> pair = getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
 
          // current points to the smallest node in the tree.
@@ -1645,6 +1650,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
              current = pair.first;
              key_index = pair.second;
          }
+     }
          break;
 
      case iterator_position::end:

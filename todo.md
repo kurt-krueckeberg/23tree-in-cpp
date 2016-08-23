@@ -24,22 +24,10 @@ a constructor that sets position to `end`, and it calls `seekToLargest()` to set
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
 does a no-op, and none of the member varibles changes. 
 
-## Changes related to typederfs
+## Bug
 
-Change **typdefs** to **usings**.
+reverse iterators are not working. Seem to want typedefs supplied by `iterator_traits`
  
-## External In-Order, STL-like Iterator Notes
-
-In the stl, once the end of a map is reached using the map's bidirectoinal iterator, you can still call the `operator--()` of the iterator to go to the last node in
-the tree. I am not sure how this is implemented, but it does one to go back from the one-past the last key/value.
-
-Question: According to "The C++ Programming Language, 4th Edition" begin() returns the first element in the container. So what should or does 
-operator--() return when it is called immediately after begin()?  
-
-Answer: It should not do anything. 
-
-We simply define a `postion_state`s enough `enum { beg, middle, end}` of **three mutually exclusive states**--beginning, niddle, end--is clearer
-and better.
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
