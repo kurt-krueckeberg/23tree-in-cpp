@@ -1094,15 +1094,15 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   }
 }
 
-template<class Key, class Value> const std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getInternalNodePredecessor(\
-     const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getInternalNodePredecessor(\
+     const typename tree23<Key, Value>::Node23 *pnode, int index_of_key) const noexcept	    
 {
  // Get next left child node of pnode based on key_index.
  const Node23 *leftChild;
 
  if (pnode->isThreeNode()) {
 
-      if (key_index == 0) {
+      if (index_of_key == 0) {
 
         leftChild = pnode->children[0].get();
 
