@@ -358,9 +358,8 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
 
-    // TODO: Change to using= form.
-    typedef std::reverse_iterator<typename tree23<Key, Value>::iterator>       reverse_iterator;
-    typedef std::reverse_iterator<typename tree23<Key, Value>::const_iterator> const_reverse_iterator;
+    using  reverse_iterator      = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
+    using const_reverse_iterator = std::reverse_iterator<typename tree23<Key, Value>::const_iterator>;
 
     reverse_iterator rbegin() noexcept;  
     reverse_iterator rend() noexcept;  
@@ -1123,9 +1122,9 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     pnode = cursor;
  }
 
- int ret_index = pnode->totalItems - 1;
+ int return_index = pnode->totalItems - 1;
 
- return std::make_pair<const Node23 *, int>(pnode, ret_index);
+ return std::make_pair<const Node23 *, int>(pnode, return_index);
 }
 /* 
 Finding the predecessor of a given node 
@@ -1387,8 +1386,8 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     pnode = cursor;
  }
- 
- return std::make_pair<const Node23 *, int>(pnode, 0);
+ Node23 *pnon_const = const_cast<Node23 *>(pnode); 
+ return std::make_pair<const Node23 *, int>(pnon_const, 0);
 }
 /*
  Requires:

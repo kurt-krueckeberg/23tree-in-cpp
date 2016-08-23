@@ -242,13 +242,13 @@ void test_iterator_base(const std::vector<int>& input, int break_key)
 
   tree.levelOrderTraverse(printFunctor);
   
-  cout << "\n\nIn order print of tree:\n";
+  cout << "\n\nIn order print of tree with tree23<int, int>::traverse(F):\n";
   
   auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
 
   tree.inOrderTraverse(lambda_closure);
   
-  cout << flush << "\nPrinting tree with iterator:\n";
+  cout << flush << "\nPrinting tree with external iterator:\n";
 
   try {
 

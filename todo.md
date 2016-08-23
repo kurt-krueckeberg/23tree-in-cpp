@@ -16,36 +16,13 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-## Bug
- 
-TODO: I started to add a second int parameter to the getXXXNodePred and getXXXNodeSuc methods, but this was not completed. I want to make them rely on parameters
-passed and not on the state of class member variables. The prototypes need to match the method definitions. Several don't yet.
- 
 ### Top level pseudo code.
 
-`begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls a
-constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
+`begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls
+a constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
 
-If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too, does
-a no-op, and none of the member varibles changes. 
-
-TODO: complete include/new.h. See TODOES at top of file.
-
-## General Comments
-
-According to C++PL, 4th Ed., begin() should return am iterator that "points" to the container's first element, and end() should return a "pointer" to one-past the
-last element in the container. My code does not reflect this.
-
-I believe my iterator classes need to provide the typenames that iterator_traits<MyIterator> exposes.
-
-### How the constructor sets position
-
-If the tree is empty, the ctor sets position to `beg`. If the tree is not empty, position is set to `first_node`, and, then, the ctor calls `seekToSmallest()` and
-`current` is set to the first node and `key_index` is set to zero. 
-
-### How end() calls the two parameter constructor
-
-For end(), we invoke the two parameter version of the constructor with `iterator_position::end` as the 2nd parameter.
+If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
+does a no-op, and none of the member varibles changes. 
 
 ## Changes related to typederfs
 
