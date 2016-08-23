@@ -14,9 +14,6 @@
 #include "debug.h"
 #include "level-order-invariant-report.h"
 
-/*
- TODO: Get rid of last_node state and its associated code. 
- */
 template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
 //...that is required by these friend functions
@@ -266,14 +263,15 @@ template<class Key, class Value> class tree23 {
 
          iterator_position position;
 
-         int   getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
+         int getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
 
-         std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) noexcept;
+         std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) const noexcept;
 
-         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) noexcept;
+         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) const noexcept;
 
          const Node23 *getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
-         const Node23 *getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept;
+
+         std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
          std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
@@ -1084,7 +1082,7 @@ TODO: Check if these preconditions are true.
 
 Questions: Will position ever be end or beg, or does calling code ensure that it never is?
  */
-template<class Key, class Value>  std::pair<const Node23 *, int> tree23<Key, Value>::getPredecessor(const typename tree23<Key, Value>::Node23 *current, int key_index) noexcept;
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getPredecessor(const typename  tree23<Key, Value>::Node23 *current, int key_index) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
@@ -1092,13 +1090,12 @@ template<class Key, class Value>  std::pair<const Node23 *, int> tree23<Key, Val
 
   } else { // else internal node
 
-      current = getInternalNodePredecessor(current);
-      key_index = 0; // it will always be the first key
-      return std::make_pair<const Node23 *, int>(current, key_index);
+      return getInternalNodePredecessor(current);
   }
 }
 
-template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree23<Key, Value>::iterator_base::getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
+template<class Key, class Value> const std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getInternalNodePredecessor(\
+     const typename tree23<Key, Value>::Node23 *pnode) const noexcept	    
 {
  // Get next left child node of pnode based on key_index.
  const Node23 *leftChild;
@@ -1125,7 +1122,6 @@ template<class Key, class Value> const typename tree23<Key, Value>::Node23 *tree
     pnode = cursor;
  }
  
- //--return pnode;
  return std::make_pair<const Node23 *, int>(pnode, pnode->totalItems - 1);
 }
 /* 
@@ -1142,10 +1138,10 @@ Finding the predecessor of a given node
   If you get to the root w/o finding a node that is a right child, there is no predecessor
 */
 
-template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode) const noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept
 {
   // Hanlde trivial case: if the leaf node is a 3-node and key_index points to the second key, simply set key_index to 0. 
-  if (pnode->isThreeNode() && key_index == 1) {
+  if (pnode->isThreeNode() && index == 1) {
 
       return std::make_pair(current, 0); 
   }
@@ -1335,8 +1331,8 @@ in the calling code?
 
 How about getLeafNodeSuccessor()?
  */
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::getSuccessor(const Node23 *current,\
-                                                                                                           int key_index) noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator_base::getSuccessor(const Node23 *current,\
+                                                                                                           int key_index) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
@@ -1625,41 +1621,36 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
     switch (position) {
 
      case iterator_position::beg:
-       // no op.
+       // no op. We don't move current and key_index, which still point to smallest key and its value.
        break;
 
      case iterator_position::in_interval:
            
          std::pair<const Node23 *,int> pair = getPredecessor(); // sets current and key_index, and position either remains the same or changes to first_node.
 
-           // current points to the smallest node in the tree.
-           // key_index may be 0 or 1, if the first node is a 3-node. 
+         // current points to the smallest node in the tree.
+         // key_index may be 0 or 1, if the first node is a 3-node. 
 
-           if (pair.first == nullptr) {
+         if (pair.first == nullptr) {
 
-                // current doesn't change, never key_index, but the state does 
-                position = iterator_position::beg;
+              // current doesn't change, never key_index, but the state does 
+              position = iterator_position::beg;
 
-           } else if (current == pair.first) { // current still the same, set key_index onl
+         } else if (current == pair.first) { // current still the same, set key_index onl
 
-                key_index = pair.second;
+              key_index = pair.second;
   
-           } else { // Set both current and key_index
+         } else { // Set both current and key_index
 
-               current = pair.first;
-               key_index = pair.second;
-           }
-
+             current = pair.first;
+             key_index = pair.second;
+         }
          break;
 
-     case iterator_position::beg:
-
-          // no-op if we are at beg.
-          break;
-
      case iterator_position::end:
-          // current and key_index are already at last key in tree/
-          position = in_interval;
+
+          // current and key_index were already set in the constructor called by reverse_iterator::begin(), which calls tree23<Key, Value>::iterator::end().
+          position = iterator_position::in_interval;
           break;
 
      default:

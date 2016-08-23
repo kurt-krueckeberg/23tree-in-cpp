@@ -16,34 +16,11 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-## Logic Error in increment() and decrement()
-
-Check whether the `iterator_case::decrement()` operator seems is working.
-
-There is a logic error involing the states 'beg' and 'end' for the `position` member.  We have two states in which `current` and `key_index` point to the first key:
-`beg` and `first_node`; and we have two possible states, `last_node` and `end`, when `last_key` and `current` point to the last key. `beg' and 'end' are only logically
-positions. 'beg' indicates one position before the first key, and 'end' one position past the last key. The code does not handle the fact that `increment()` and
-`decrement()` can be called in any order for all states of position. 
-
-Fort example, of `increment()` is called when position is `beg` and the first node has only one key, then position should change to `in_between` after `increment()`.
-Similarly, if `decrement()` is called when position is `end`, and the last node has only one key, then position must change to `in_between`, and the values of `current`
-and `key_index` be advanced to the second in-order key (if the first node is a 2-node). Likewise, the values for `current` and `key_index` should, when `increment()`
-is called when position is `end`, point to the next to last key, if the last node is a 2-node. Obviously, is the first node is a 3-node, then `current` won't change,
-but `key_index` will. Likewise, if the last node is a 3-node when 'decrement()` is called, position should become 'last_node`, current should not change, but `key_index`
-should change from 1 to 0. 
-
-The logical error results from not properly handling the fact that `increment()` and `decrement()` can be called in any order for any given state of position.
-
-TODO: Draw a new finite state machine that handles these two problemic use-cases (and any others). Change `increment()` and `decrement()` to relect the corrected
-finite state machind. Then compare the corrected finite state machine, with the current code, and alter the current code so that `current`, `key_index` and `position`
-are properly set to handle all use-case scenarios involving increment() and decrement(). 
-
-Write new pseudo code that fixes how the code should properly set `current` and `key_index` in such a way that is easy to follow. We therefore must simply the methods
-`begin()`, `end()` (and the constructor methods they invoke), in addition to the methods `indrement()` and `decrement()` and all their subroutines.
-
-Since the new finite state machine has been drawn and new comments added for begin(), end(), their associated constructors, increment() and decrement(), check that
-these new comments reflect the new finite state machine and pseudo code.
-
+## Bug
+ 
+TODO: I started to add a second int parameter to the getXXXNodePred and getXXXNodeSuc methods, but this was not completed. I want to make them rely on parameters
+passed and not on the state of class member variables. The prototypes need to match the method definitions. Several don't yet.
+ 
 ### Top level pseudo code.
 
 `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls a
