@@ -274,7 +274,8 @@ template<class Key, class Value> class tree23 {
          std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
-         std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *) const noexcept;
+
+         std::pair<const Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *p, int index) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
 
@@ -910,7 +911,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator_base::itera
       key_index = 0;
       position = iterator_position::end;
 
-  } else if (position == iterator_position::end || position == iterator_position::last_node) {
+  } else if (position == iterator_position::end) {
 
       seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
 
@@ -977,7 +978,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
  */
 template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToSmallest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
-  if (pos != iterator_position::beg || pos != iterator_position::first_node) {
+  if (pos != iterator_position::beg) {
 
       throw std::logic_error("iterator_base constructor called with wrong position paramater");
   }
@@ -992,7 +993,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator_base::seekToS
 
 template<class Key, class Value> inline void tree23<Key, Value>::iterator_base::seekToLargest(typename tree23<Key, Value>::iterator_position pos) noexcept
 {
-  if (pos != iterator_position::end || pos != iterator_position::last_node) {
+  if (pos != iterator_position::end) {
 
       throw std::logic_error("iterator_base constructor called with wrong position paramater");
   }
@@ -1572,11 +1573,16 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
   }
 
   switch (position) {
+
+     case iterator_position::end:
+
+           // no-op for increment
+           break;
       
      case iterator_position::beg:
      case iterator_position::in_interval:
 
-           std::pair<const Node23 *, int> pair = getSuccessor(current);
+           std::pair<const Node23 *, int> pair = getSuccessor(current, key_index);
 
            // current points to the smallest node in the tree.
            // key_index may be 0 or 1, if the first node is a 3-node. 
@@ -1598,12 +1604,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
            }
  
            break;
-
-     case iterator_position::end:
-
-           // no-op for increment
-           break;
-
      default:
            break;
    }
