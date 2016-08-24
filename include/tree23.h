@@ -1076,14 +1076,14 @@ template<class Key, class Value> int tree23<Key, Value>::iterator_base::getChild
 }
 
 /*
- We set, as needed, current, key_index and position.  Neither getLeafNodePredecessor() nor getInternalNodePredecessor() currently sets the position variable.
+Two cases have to be considered: when current is an internal node and when current is a leaf node.
 
-Requires:
-TODO: Check if these preconditions are true.
-1. If position is first_node, current and key_index MUST point to first key in tree.
-2. If position is end,  current and key_index MUST point to last key in tree. But will position ever be end or beg?
-   
-3. If position is in_interval, current and key_index do not point to either first key in tree or last key in tree. 
+case 1. current is leaf node. 
+If current is a leaf node, we check if it is a 3-node. If it is, and if key_index is 0, the predecessor is the second key of current. However, if key_index is 0,
+then we ascend the parent nodes as long as the parent is the right-most child (of its parent). If we reach the root, there is no predecessor.
+
+Else upon reaching a parent (before the root) that is a middle or left-most child (of its parent), we find the smallest key in the parent's "right" subtree, where  
+
 
 Questions: Will position ever be end or beg, or does calling code ensure that it never is?
  */
@@ -1572,14 +1572,14 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
 {
   if (tree.isEmpty()) {
 
-     return *this;  // If empty, do nothing.
+     return *this;  // If tree is empty, do nothing.
   }
 
   switch (position) {
 
      case iterator_position::end:
 
-           // no-op for increment
+           // no-op for increment. current and key_index still point to largest key/value in tree
            break;
       
      case iterator_position::beg:
@@ -1587,19 +1587,16 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator_ba
      {
            std::pair<const Node23 *, int> pair = getSuccessor(current, key_index);
 
-           // current points to the smallest node in the tree.
-           // key_index may be 0 or 1, if the first node is a 3-node. 
+           if (pair.first == nullptr) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
 
-           if (pair.first == nullptr) {
-
-                // current doesn't change, never key_index, but the state does 
+                // There current doesn't change, nor key_index, but the state becomes 'end', one-past last key. 
                 position = iterator_position::end;
 
            } else if (current == pair.first) {
 
-                key_index = pair.second;
+                key_index = pair.second; // current has no change, but key_index has.
   
-           } else {
+           } else {  // curent has changed, so we adjust current and key_index. To ensure position is no longer 'beg', we unconditionally set position to 'in_interval'.
 
                current = pair.first;
                key_index = pair.second;
@@ -1621,45 +1618,44 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator_base& tre
      return *this; 
   }
 
-    switch (position) {
+  switch (position) {
 
-     case iterator_position::beg:
-       // no op. We don't move current and key_index, which still point to smallest key and its value.
-       break;
+   case iterator_position::beg:
+     // no op. Since current and key_index still point to smallest key and its value., we don't change them. 
+     break;
 
-     case iterator_position::in_interval:
-     {      
-         std::pair<const Node23 *,int> pair = getPredecessor(current, key_index); // sets current and key_index, and position either remains the same or changes to first_node.
+   case iterator_position::in_interval: // 'in_interval' means current and key_index range from the second key/value in tree and its last key/value.
+                                        // 'in_interval' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
+                                        //  first key/value.  
+    {      
+       std::pair<const Node23 *,int> pair = getPredecessor(current, key_index); // returns current and key_index of predecessor
 
-         // current points to the smallest node in the tree.
-         // key_index may be 0 or 1, if the first node is a 3-node. 
+       if (pair.first == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
 
-         if (pair.first == nullptr) {
+            // Therefore current doesn't change, nor key_index, but the state becomes 'beg'. 
+            position = iterator_position::beg;
 
-              // current doesn't change, never key_index, but the state does 
-              position = iterator_position::beg;
+       } else if (current == pair.first) { 
 
-         } else if (current == pair.first) { // current still the same, set key_index onl
+            key_index = pair.second;  // current hasn't change, key_index may have, so we set it.
 
-              key_index = pair.second;
-  
-         } else { // Set both current and key_index
+       } else { // Current changed, so we update both current and key_index
 
-             current = pair.first;
-             key_index = pair.second;
-         }
-     }
-         break;
+           current = pair.first;
+           key_index = pair.second;
+       }
+    }
+    break;
 
-     case iterator_position::end:
+   case iterator_position::end:
 
-          // current and key_index were already set in the constructor called by reverse_iterator::begin(), which calls tree23<Key, Value>::iterator::end().
-          position = iterator_position::in_interval;
-          break;
+        // current and key_index already point to last key/value, so we merely change the position state to indicate they are 'in_interval'.
+        position = iterator_position::in_interval;
+        break;
 
-     default:
-          break;
-   }
+   default:
+        break;
+ }
 
    return *this;
 }

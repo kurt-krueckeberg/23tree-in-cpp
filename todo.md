@@ -26,16 +26,19 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-Test backward iteration. Then test backward and forward iteration intersperesed.
+Test backward and forward iteration intersperesed.
 
 ## Bugs
 
-1. Backward iteration from end() to begin() using operator--() skips keys sometimes. So getPredecessor() seems to have a bug. I have isolated the test cases in
-main.cpp. 
+1. Backward iteration from `end()` to `begin()` using `operator--()` skips keys sometimes. `operator--()` calls `getPredecessor()`, which has the bug. The test cases
+that reproduce the key are in current version of main.cpp. 
 
-2. reverse iterators are not working. 
+The pseudo code for getPredecessor() needs to be checked to confirm its accurate, rewritten accordingly and then reimplemented. The predecessor logic will be analagous
+to the `getSuccessor()` logic, and in particular to the logic of its most complicated subroutine `getLeafNodeSuccessor()`. I believe `getLeafNodePredecessor()` should
+be base upon the pseudo code of `getLeafNodeSuccessor()`, but correctly altered to get the predessor. List all possible use cases that are involved when a predecessor
+of a leaf node key must be located. Do likewise for keys of internal node.
 
-They want typedefs supplied by `iterator_traits`. I'm not sure why.
+2. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
  
 ### Red Black code
 

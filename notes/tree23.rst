@@ -208,16 +208,14 @@ An iterative algorithm rather than a recursive algorithm is used to search for a
       return false;
     }
 
-Traversal Algorithms
-^^^^^^^^^^^^^^^^^^^^
+Iteration of 2 3 Tree
+^^^^^^^^^^^^^^^^^^^^^
 
-Recursive algorithms are used to traverse the tree in pre order, in order and post order. Each is a template method that take a functor that overloads the function
-call operator, and each is an inline method that calls a private method to do the actual work. 
+Via Recursion
+~~~~~~~~~~~~~
 
-The algorithm is nearly identical to the in order recursive algorithm for a binary tree except when a 3-node is encountered, when the middle child is 
-descended after the left child and before its right child. 
-
-Only the in order travesal algorithm is shown below
+Recursive algorithms, like the in-order traversal code below, can be used to traverse the tree in pre order, in order and post order. In the in-order traversal method
+below a template method that take a functor that overloads the function call operator.
 
 .. code-block:: cpp
 
@@ -257,7 +255,7 @@ Only the in order travesal algorithm is shown below
        }
     }
  
-There is also a level order traversal template method that takes a functor as parameter. The functor's function call operator must take two arguments:
+There is also a level-order traversal template method that also takes a functor as parameter. In this case, the functor's function call operator must take two arguments:
 a ``const Node23&`` and an ``int``, indicating the current level of the tree.
 
 .. code-block:: cpp
@@ -306,7 +304,12 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
             queue.pop(); 
        }
     }
+
+Using External Iterators
+~~~~~~~~~~~~~~~~~~~~~~~~
      
+TODO...
+
 Insertion
 ^^^^^^^^^
 
