@@ -62,6 +62,27 @@ void debug_print_tree(const tree23<int, int> & tree)
   cout << endl << flush;
 }
 
+void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&, int), int break_key)
+{  
+    cout << "Input vector<int> to next case is: \n";
+
+    copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
+           
+    cout << endl << flush;
+    
+    try {
+   
+        (*f)(test_case, break_key);
+   
+    } catch(...) {
+
+        cout << "An uncaught exception occured:\n"  << endl;
+    }
+    
+    cout << "\n================================" << endl; 
+}
+
+
 void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vector<int>& base_case, void (*f)(const std::vector<int>&, int), int break_key)
 {
    for( const auto& append_vec : other_cases) {

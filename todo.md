@@ -30,7 +30,8 @@ Test backward iteration. Then test backward and forward iteration intersperesed.
 
 ## Bugs
 
-1. Backward iteration from end() to begin() using operator--() skips keys sometimes. So getPredecessor() seems to have a bug.
+1. Backward iteration from end() to begin() using operator--() skips keys sometimes. So getPredecessor() seems to have a bug. I have isolated the test cases in
+main.cpp. 
 
 2. reverse iterators are not working. 
 

@@ -30,7 +30,7 @@ template<class Key, class Value> class tree23 {
   class KeyValue { // Used by nest Node23 class.
     public:
      Key   key;
-     Value value;
+     Value     value;
      KeyValue() = default;
      KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
      KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
