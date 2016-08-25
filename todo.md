@@ -47,7 +47,7 @@ does a no-op, and none of the member varibles changes.
         __parent = __parent->parent;
     }
 
-
+Answer: I believe it is corect. It is the opposite analgue of getSuccessor(). The test is, if we reach the root without ever encountering a non-zero index child.
    
 2. Test backward and forward iteration intersperesed.
 
