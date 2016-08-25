@@ -26,25 +26,31 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-Test backward and forward iteration intersperesed.
+1. Is this section logic in getLeafNodePredecessor() correct when it tests whether `__parent` is the root pointer? While the root node test is correct in 
+   getLeafNodeSucessor() is the rational for the test correct when we are trying to get the predecessor key and value?
+   
 
-## Bugs
+    // Ascend the parent pointer as long as pnode is the left most child of its parent.
+    while(pnode == __parent->children[0].get() )  {
+    
+        // pnode is still the left most child but now its parent is the root. 
+        // Question:  Is the root the predecessor?
+        if (__parent == tree.root.get()) {
+            
+              
+            return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no predecessor.
+                                                // To indicate this we set current to nullptr and key_index to 0.
+        }
+    
+        prior_node = pnode;
+        pnode = __parent;
+        __parent = __parent->parent;
+    }
 
-1. `std::make_pair()` is a template function. You do not need to hardcode the template parameters; that is,
 
-       return std::make_pair<const Node23 *, int>(pnode, 0);
+   
+2. Test backward and forward iteration intersperesed.
 
-    can simply be written
-
-     return std::make_pair(pnode, 0);
-
-2. Backward iteration from `end()` to `begin()` using `operator--()` skips keys sometimes. `operator--()` calls `getPredecessor()`, which has the bug. The test cases
-that reproduce the key are in current version of main.cpp. 
-
-The pseudo code for getPredecessor() needs to be checked to confirm its accurate, rewritten accordingly and then reimplemented. The predecessor logic will be analagous
-to the `getSuccessor()` logic, and in particular to the logic of its most complicated subroutine `getLeafNodeSuccessor()`. I believe `getLeafNodePredecessor()` should
-be base upon the pseudo code of `getLeafNodeSuccessor()`, but correctly altered to get the predessor. List all possible use cases that are involved when a predecessor
-of a leaf node key must be located. Do likewise for keys of internal node.
 
 3. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
  

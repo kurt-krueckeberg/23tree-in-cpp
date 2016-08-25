@@ -333,14 +333,15 @@ void test_backward_iterator(const std::vector<int>& input, int break_key)
 
   tree.inOrderTraverse(lambda_closure);
   
-  cout << flush << "\nPrinting tree with iterator:\n";
+  cout << flush << "\nPrinting tree with backward iterator:\n";
+
   try {
 
-    print_with_backward_iterator(tree);
+     print_with_backward_iterator(tree);
 
   } catch (std::exception& e) {
 
-    cout << "\nException: " << e.what() << endl; 
+     cout << "\nException: " << e.what() << endl; 
   }
 
   cout << flush; 
@@ -351,17 +352,16 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 {
  auto iter = tree.end();
 
- auto iter_stop = tree.begin();
+ auto iter_begin = tree.begin();
 
- do {
+ --iter;
 
-   --iter;
+ for(; iter != iter_begin; --iter) {
 
    const tree23<int, int>::KeyValue& key_value = *iter;
 
    cout << key_value.key << ", " << flush;
-
- } while (iter != iter_stop);
+ } 
 
 /* 
   tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
