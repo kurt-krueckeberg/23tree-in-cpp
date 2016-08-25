@@ -10,7 +10,6 @@ using namespace std;
 
 int main(int argc, char** argv) 
 {
-/*
   tree23<int, int> tree;
 
   vector<int> test_case {50, 39, 15, 65, 69, 150, 125, 20, 70, 100, 40, 34, 37, 30, 10, 33, 36, 38, 85, 90, 60, 35, 80, 89};
@@ -40,12 +39,7 @@ int main(int argc, char** argv)
        copy(append_vec.begin(), append_vec.end(), back_inserter(test_case));
 
        random_shuffle(test_case.begin(), test_case.end());
-*/
- vector<vector<int>> vectors { {30, 20, 85, 70, 100, 40, 39, 80, 50, 10, 60, 90, 89}, {80, 89, 39, 70, 85, 50, 90, 40, 20, 10, 30, 100, 60},\
-               {10, 50, 33, 90, 70, 20, 36, 40, 100, 38, 39, 30, 60, 37, 35, 34, 80},{125, 150, 80, 60, 30, 39, 100, 90, 40, 10, 20, 50, 70 } };
-
-   for (const auto& test_case : vectors) {
-
+ 
        cout << "Input to next case is: ";
 
        copy(test_case.begin(), test_case.end(), ostream_iterator<int>(cout, ", "));
@@ -54,16 +48,14 @@ int main(int argc, char** argv)
        
        try {
       
-        /*  run_tests(other_cases, base_case, &test_backward_iterator, 0); */
+          run_tests(other_cases, base_case, &test_backward_iterator, 0); 
 
-            run_test(test_case, &test_backward_iterator, 0);
               
        } catch(std::exception& e) { 
       
            cerr << "An exception occured:\n" << e.what() << endl;
        }
-              
-   }
+  }
   
    return 0;
 }
