@@ -26,7 +26,20 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
+1. `const_reverse` iterator is not compiling due to a conflict between the base class iterator (which is named 'iterator') being derived from 
+
+    std::iterator<bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> 
+
+rather than the type 'const typename tree23<Key, Value>::KeyValue'. So there is a conflict between the template parameter passed to std::iterator, namely
+
+    tree23<Key, Value>::KeyValue, being non-cast, yet const_iterator returns `const tree23<Key, Value>::KeyValue`. 
+
+Maybe I can use protected derivation, or composition, and then also derived from
+
+    std::iterator<bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue>
+
+Note the 'const' one the line above.
+
 2. Test backward and forward iteration that is interspersed.
 
 
