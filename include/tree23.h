@@ -246,6 +246,12 @@ template<class Key, class Value> class tree23 {
    const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
 
   public:
+
+    typedef tree23<Key, Value>::KeyValue value_type;
+    typedef int difference_type;
+    typedef tree23<Key, Value>::KeyValue* pointer;
+    typedef tree23<Key, Value>::KeyValue& reference;
+    
    /*
      end is a logical sate representing one-past the last element.
      beg is a logical sate representing the first element.
@@ -260,12 +266,12 @@ template<class Key, class Value> class tree23 {
                                                  
        friend class tree23<Key, Value>;   
       public:
-
+       /*
 	typedef tree23<Key, Value>::KeyValue value_type;
 	typedef int difference_type;
 	typedef tree23<Key, Value>::KeyValue* pointer;
 	typedef tree23<Key, Value>::KeyValue& reference;
-
+         */
          tree23<Key, Value>& tree; 
 
          const typename tree23<Key, Value>::Node23 *current;
@@ -293,7 +299,6 @@ template<class Key, class Value> class tree23 {
          void seekToSmallest(iterator_position pos) noexcept;    
          void seekToLargest(iterator_position pos) noexcept;    
 
-      public:
          // TODO: Some ctor should be noexcept, but not the two-parameter version.
          iterator_base(tree23<Key, Value>&); 
 

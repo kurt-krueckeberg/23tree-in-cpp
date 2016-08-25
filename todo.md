@@ -26,9 +26,8 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. Test backward and forward iteration intersperesed.
-
-2. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
+1. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
+2. Test backward and forward iteration that is interspersed.
  
 ### Red Black code
 
