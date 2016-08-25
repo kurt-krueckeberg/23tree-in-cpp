@@ -26,33 +26,9 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. Is this section logic in getLeafNodePredecessor() correct when it tests whether `__parent` is the root pointer? While the root node test is correct in 
-   getLeafNodeSucessor() is the rational for the test correct when we are trying to get the predecessor key and value?
-   
+1. Test backward and forward iteration intersperesed.
 
-    // Ascend the parent pointer as long as pnode is the left most child of its parent.
-    while(pnode == __parent->children[0].get() )  {
-    
-        // pnode is still the left most child but now its parent is the root. 
-        // Question:  Is the root the predecessor?
-        if (__parent == tree.root.get()) {
-            
-              
-            return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no predecessor.
-                                                // To indicate this we set current to nullptr and key_index to 0.
-        }
-    
-        prior_node = pnode;
-        pnode = __parent;
-        __parent = __parent->parent;
-    }
-
-Answer: I believe it is corect. It is the opposite analgue of getSuccessor(). The test is, if we reach the root without ever encountering a non-zero index child.
-   
-2. Test backward and forward iteration intersperesed.
-
-
-3. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
+2. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
  
 ### Red Black code
 
