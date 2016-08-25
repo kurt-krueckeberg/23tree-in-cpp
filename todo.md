@@ -28,6 +28,9 @@ does a no-op, and none of the member varibles changes.
 
 1. reverse iterators are not compiling. They seem to require the typedefs shown in `iterator_traits`. I'm not sure why.
 2. Test backward and forward iteration that is interspersed.
+
+
+For #1, try to have only one iterator class. Make the public methods of `iterator_base` private in the consolidated class.
  
 ### Red Black code
 
