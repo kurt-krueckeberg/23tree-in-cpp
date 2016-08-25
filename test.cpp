@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void print_tree(const tree23<int, int>& tree)
+void level_order_print(const tree23<int, int>& tree)
 {
   cout << flush << "Level order print of tree: ";
 
@@ -18,6 +18,11 @@ void print_tree(const tree23<int, int>& tree)
   tree.levelOrderTraverse(printFunctor);
    
   cout << flush;
+}
+
+void print_tree(const tree23<int, int>& tree)
+{
+  level_order_print(tree);
 
   cout << "\n\nIn order print of tree: ";
   
@@ -37,13 +42,7 @@ void print_tree(const tree23<int, int>& tree)
  
 void debug_print_tree(const tree23<int, int> & tree)
 {
-  cout << flush << "Level order print of tree: ";
-  
-  int depth = tree.getHeight();
-  
-  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
-
-  tree.levelOrderTraverse(printFunctor);
+  level_order_print(tree);
    
   debug_levelOrderPrinter<tree23<int,int>> debugprintFunctor(tree, cout);
 
@@ -82,7 +81,6 @@ void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&, i
     cout << "\n================================" << endl; 
 }
 
-
 void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vector<int>& base_case, void (*f)(const std::vector<int>&, int), int break_key)
 {
    for( const auto& append_vec : other_cases) {
@@ -115,13 +113,13 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
 }
 
-void test_insert(const vector<int>& v, int break_key)
+void test_insert(const vector<int>& test_case, int break_key)
 {    
   tree23<int, int> tree;
   
    int i = 0;
     
-   for (auto& key : v) {
+   for (auto& key : test_case) {
 
       cout << "Inserting: " << key << std::endl;
       
@@ -146,7 +144,7 @@ void test_insert(const vector<int>& v, int break_key)
 
     print_tree(tree);  
 
-    for (auto key : v) {
+    for (auto key : test_case) {
       
          string result_msg = tree.find(key) ? " found " : " not found ";
            
@@ -156,13 +154,13 @@ void test_insert(const vector<int>& v, int break_key)
     return; 
 }
 
-void test_remove(const std::vector<int>& input, int break_key) //, int break_key)
+void test_remove(const std::vector<int>& test_case, int break_key) //, int break_key)
 {  
    tree23<int, int> tree;
 
    int i = 0;
   
-   for(auto& key : input) {
+   for(auto& key : test_case) {
 
       int debug = 0;  // used only to set a breakpoint prior to insert call.
          
@@ -170,7 +168,7 @@ void test_remove(const std::vector<int>& input, int break_key) //, int break_key
 
    }
 
-   vector<int> removal_vec{input}; // make copy of input vector
+   vector<int> removal_vec{test_case}; // make copy of test_case vector
 
    random_shuffle(removal_vec.begin(), removal_vec.end()); // and scramble it.
    
@@ -233,14 +231,13 @@ void test_copy_ctor(const std::vector<int>& input, int break_key)
   cout << "\n";
 }
 
-
-void test_forward_iterator(const std::vector<int>& input, int break_key) 
+void test_forward_iterator(const std::vector<int>& test_case, int break_key) 
 {
   tree23<int, int> tree;
   
    int i = 0;
     
-   for (auto& key : input) {
+   for (auto& key : test_case) {
 
       cout << "Inserting: " << key << std::endl;
       
@@ -258,11 +255,7 @@ void test_forward_iterator(const std::vector<int>& input, int break_key)
       }
     }
 
-  cout << "Level order print of tree: \n";
-
-  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
-
-  tree.levelOrderTraverse(printFunctor);
+  level_order_print(tree);
   
   cout << "\n\nIn order print of tree:\n";
   
@@ -321,12 +314,8 @@ void test_backward_iterator(const std::vector<int>& input, int break_key)
       }
     }
 
-  cout << "Level order print of tree: \n";
-
-  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
-
-  tree.levelOrderTraverse(printFunctor);
-  
+  level_order_print(tree);
+ 
   cout << "\n\nIn order print of tree:\n";
   
   auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
@@ -363,15 +352,17 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
    cout << key_value.key << ", " << flush;
  } 
 
-/* 
-  tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
-  tree23<int, int>::const_reverse_iterator crend_iter = tree.rend();
+}
 
-  for( ; criter != crend_iter; ++criter) {
+void print_with_reverse_iterator(const tree23<int, int>& tree)
+{
+ auto riter = tree.rbegin();
+ auto riter_end = tree.rend();
 
-       const tree23<int, int>::KeyValue& key_value = *criter;
+ for(; riter != riter_end; --riter) {
 
-       cout << key_value.key << ", " << flush;
-  } 
-*/
+   const tree23<int, int>::KeyValue& key_value = *riter;
+
+   cout << key_value.key << ", " << flush;
+ } 
 }

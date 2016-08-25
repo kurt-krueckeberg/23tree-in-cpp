@@ -26,8 +26,11 @@ template<class Key, class Value> class tree23 {
   class Node4;    
   
   public:
-  
-  class KeyValue { // Used by nest Node23 class.
+   /* 
+     Class KeyValue is used by Node23, which holds two arrays of KeyValue. 
+    */
+ class KeyValue {
+                  
     public:
      Key   key;
      Value     value;
@@ -52,7 +55,9 @@ template<class Key, class Value> class tree23 {
      }
 	     
    };
- 
+   /*
+      The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>.  
+    */ 
    class Node23 {
 
         friend class tree23<Key, Value>;             
@@ -138,6 +143,7 @@ template<class Key, class Value> class tree23 {
       }; 
 
   using node23_type = tree23<Key, Value>::Node23;
+  using key_value_type = tree23<Key, Value>::KeyValue;
       
   private: 
     class Node4 { // Class Node4 is used during insert().
@@ -250,7 +256,7 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_interval, end}; // possible finite states of iterator. 
 
-    class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue > { 
+    class iterator_base : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
                                                  
        friend class tree23<Key, Value>;   
       public:
@@ -953,7 +959,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
     return const_iterator(const_cast<tree23<Key, Value>&>(*this), tree23<Key, Value>::iterator_position::end);
 }
 
-// TODO: Should reverse_iterator be passed an iterator (or const_iterator) instance in which iterator_base::position is guaranteed to be "beg"? 
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rbegin() noexcept
 {
     return reverse_iterator{ end() }; 
@@ -966,12 +971,12 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
 
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rend() noexcept
 {
-    return reverse_iterator{ iterator {*this, iterator::position::beg} }; // ensure that position is iterator_position::beg
+    return reverse_iterator{ begin() }; 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rend() const noexcept
 {
-    return const_reverse_iterator{ iterator {*this, iterator::position::beg} }; // ensure that position is iterator_position::beg
+    return const_reverse_iterator{ begin() }; 
 }
 /*
  Moves to first, smallest node in tree.
