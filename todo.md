@@ -24,17 +24,40 @@ a constructor that sets position to `end`, and it calls `seekToLargest()` to set
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
 does a no-op, and none of the member varibles changes. 
 
-## TODO
+## BUGS
 
-`std::reverse_iterator` seems to need a const version of tree23<Key, Value>::iterator to be instantiated. And `const_iterator` likewise seems to need for a 
-const version of `iterator` to instantied.
+`std::reverse_iterator` holds an instance of its `_Iterator` template parameter:
 
-The `reverse_iterator` compile error shows up when `reverse_iterator::operator*() const` is needed by the linker.
+    template<class _Iterator>
+    class iterator {
 
-It may be base to have both `iterator` and `const_iterator` compose an reusable iterator class that supplies member functions for const and non-const versions
-of itself?
+          iterator current;
+      //... snip
+     };
 
-Read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`. Also read up on custom iterators. Use C++Prog. Lang 4th edition and
+If  the `_Iterator` instance is const, then current will be const. `reverse_iterator::base() const` needs to return a copy (non-const) of current. So a copy constructor
+is needed, and copy constructors are always of the form
+
+    xyz(const xyz&)
+
+where the input to the copy constructor is const. Also the `reverse_iterator::operator*() const` method is const. Its definition is
+
+    reference
+    operator*() const
+    {
+       _Iterator __tmp = current;
+       return *--__tmp;
+    }
+
+`__tmp` requires a copy assignment operator. Recall it is of the form
+
+    xyz& xyz::operator=(const xyz&);
+
+So we need to design `iterator` and `const_iterator` properly, so that `reverse_iterator<const tree23<int, int>>` compiles as well as 
+`reverse_iterator<tree23<int, int>>`.  The same comments apply to `const_reverse_iterator` and `const_iterator`.
+ 
+It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to 
+implement a custom iterator properly. See C++Prog. Lang 4th edition and other online resources.
 Josuitis' book.
  
 ### Red Black code
