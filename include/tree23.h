@@ -333,25 +333,28 @@ template<class Key, class Value> class tree23 {
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
-    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue>, protected iterator {
+    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
+      private:
 
+        iterator iter;
       public:
          
-         const_iterator(const tree23<Key, Value>& lhs) : iterator{const_cast<tree23<Key, Value>&>(lhs)} {}
+         const_iterator(const tree23<Key, Value>& lhs);
 
-         const_iterator(const tree23<Key, Value>& lhs, iterator_position pos) : iterator{const_cast<tree23<Key, Value>&>(lhs), pos} {}
+         const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
 
-         const_iterator(const const_iterator& lhs) : iterator{lhs} {}
-         const_iterator(const_iterator&& lhs) : iterator{std::move(lhs)} {}
+         const_iterator(const const_iterator& lhs);
+         const_iterator(const_iterator&& lhs);
 
-         bool operator==(const const_iterator& lhs) const { return iterator::operator==(static_cast< const iterator& >(lhs)); }
-         bool operator!=(const const_iterator& lhs) const { return iterator::operator!=(static_cast< const iterator& >(lhs)); }
+         bool operator==(const const_iterator& lhs) const;
+         bool operator!=(const const_iterator& lhs) const;
          
          const_iterator& operator++() noexcept;
          const_iterator operator++(int) noexcept;
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
+         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
     };
@@ -1728,10 +1731,42 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator tree23<Ke
  return *this;
 }
 
+/*
+ tree23<Key, Value>::const_iterator constructors
+ */
+template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator(const tree23<Key, Value>& lhs) : \
+                                                                                  iter{const_cast<tree23<Key, Value>&>(lhs)} 
+{
+}
 
+template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator(const tree23<Key, Value>& lhs, iterator_position pos) : \
+ iter{const_cast<tree23<Key, Value>&>(lhs), pos} 
+{
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(const typename tree23<Key, Value>::const_iterator& lhs) : \
+ iter{lhs.iter}
+{
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(typename tree23<Key, Value>::const_iterator&& lhs) : \
+  iter{std::move(lhs.iter)}
+{
+}
+
+template<class Key, class Value> inline bool tree23<Key, Value>::const_iterator::operator==(const const_iterator& lhs) const 
+{ 
+  return iter.operator==(static_cast< const iterator& >(lhs.iter)); 
+}
+
+template<class Key, class Value> inline  bool tree23<Key, Value>::const_iterator::operator!=(const const_iterator& lhs) const
+{ 
+  return iter.operator!=(static_cast< const iterator& >(lhs.iter)); 
+}
+     
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator& tree23<Key, Value>::const_iterator::operator++() noexcept	    
 {
-  iterator::increment();
+  iter.increment();
   return *this;
 }
 
@@ -1739,14 +1774,14 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 {
  const_iterator tmp{*this};
 
- iterator::increment(); 
+ iter.increment(); 
 
  return *this;
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator& tree23<Key, Value>::const_iterator::operator--() noexcept	    
 {
-   iterator::decrement();
+   iter.decrement();
    return *this;
 }
 
@@ -1754,15 +1789,21 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 {
  const_iterator tmp{*this};
 
- iterator::decrement(); 
+ iter.decrement(); 
 
  return *this;
 }
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
 {
-  return iterator::dereference(); // invoke iterator::dereference() const noexcept 
+  return iter.dereference(); // invoke iterator::dereference() const noexcept 
 }
+
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() noexcept	    
+{
+  return const_cast<const KeyValue&>(iter.dereference()); // invoke iterator::dereference() const noexcept 
+}
+
 
 /*
  Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
