@@ -33,6 +33,9 @@ The `reverse_iterator` compile error shows up when `reverse_iterator::operator*(
 
 It may be base to have both `iterator` and `const_iterator` compose an reusable iterator class that supplies member functions for const and non-const versions
 of itself?
+
+Read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`. Also read up on custom iterators. Use C++Prog. Lang 4th edition and
+Josuitis' book.
  
 ### Red Black code
 
