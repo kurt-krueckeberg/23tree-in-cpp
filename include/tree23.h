@@ -303,9 +303,6 @@ template<class Key, class Value> class tree23 {
 
          iterator(tree23<Key, Value>&); 
 
-         // TODO: reverse_iterator wants a constructor of type: iterator(const tree23<Key, Value>&);
-         iterator(const tree23<Key, Value>&); 
-
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
          iterator(const iterator& lhs);
@@ -898,13 +895,6 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 {
   initialize();
 }
-
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : \
-           tree{const_cast<tree23<Key, Value>&>(lhs_tree)}, current{lhs_tree.root.get()}, key_index{0}
-{
-  initialize();
-}
-
 
 template<class Key, class Value> void tree23<Key, Value>::iterator::initialize()
 {
