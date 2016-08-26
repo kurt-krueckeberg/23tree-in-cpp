@@ -26,7 +26,9 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. `const_reverse` iterator is not compiling due to a conflict between the base class iterator (which is named 'iterator') being derived from 
+1. test `const_iterator`
+
+2. `const_reverse` iterator is not compiling due to a conflict between the base class iterator (which is named 'iterator') being derived from 
 
     std::iterator<bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> 
 
@@ -39,6 +41,8 @@ Maybe I can use protected derivation, or composition, and then also derived from
     std::iterator<bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue>
 
 Note the 'const' one the line above.
+
+Maybe the `const_reverse_iterator` needs something to be implemented that isn't
 
 2. Test backward and forward iteration that is interspersed.
 

@@ -373,16 +373,13 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 {
- using tree23_int = tree23<int, int>;
 
- tree23<int, int>& tree23 = const_cast<tree23_int&>(tree);
-
- auto riter = tree.rbegin();
- auto riter_end = tree.rend();
+ tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
+ tree23<int, int>::const_reverse_iterator riter_end = tree.rend();
 
  for(; riter != riter_end; --riter) {
 
-   const auto& key_value = *riter;
+   const tree23<int, int>::KeyValue& key_value = *riter;
 
    cout << key_value.key << ", " << flush;
  } 

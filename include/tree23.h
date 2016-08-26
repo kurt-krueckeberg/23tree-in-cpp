@@ -333,7 +333,7 @@ template<class Key, class Value> class tree23 {
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
-    class const_iterator : public iterator { // in order iterator
+    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue>, protected iterator {
 
       public:
          
@@ -414,6 +414,7 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void postOrderTraverse(Functor f) const noexcept;
     template<typename Functor> void preOrderTraverse(Functor f) const noexcept;
 };
+
 
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
@@ -1589,17 +1590,15 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   return std::make_pair(pnode, suc_key_index); 
 }
-
+  
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() noexcept
 {
    return const_cast<typename tree23<Key, Value>::KeyValue&>( current->keys_values[key_index] ); 
 }
-
+  
 template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() const noexcept
 {
- tree23<Key, Value>::KeyValue& ret = const_cast<iterator*>(this)->iterator::dereference();
-
- return const_cast<const tree23<Key, Value>::KeyValue&>(ret);
+ return  current->keys_values[key_index];
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::increment() noexcept	    
@@ -1762,7 +1761,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
 {
-  return const_cast<const tree23<Key,Value>::KeyValue&>( iterator::dereference() ); // invokes const version of iterator<Tree>::operator* 
+  return iterator::dereference(); // invoke iterator::dereference() const noexcept 
 }
 
 /*
