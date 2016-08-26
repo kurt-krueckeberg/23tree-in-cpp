@@ -26,14 +26,14 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. test `const_iterator`
+`std::reverse_iterator` seems to need a const version of tree23<Key, Value>::iterator to be instantiated. And `const_iterator` likewise seems to need for a 
+const version of `iterator` to instantied.
 
-2. The `const_reverse_iterator` is not compiling due to missing typedef that `iterator_traits<const_iterator>` wants 
+The `reverse_iterator` compile error shows up when `reverse_iterator::operator*() const` is needed by the linker.
 
-Maybe the `const_reverse_iterator` needs something to be implemented by composing iterator?
-
-2. Test backward and forward iteration that is interspersed.
-
+It may be base to have both `iterator` and `const_iterator` compose an reusable iterator class that supplies member functions for const and non-const versions
+of itself?
+ 
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:

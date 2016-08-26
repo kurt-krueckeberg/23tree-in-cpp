@@ -266,12 +266,6 @@ template<class Key, class Value> class tree23 {
                                                  
        friend class tree23<Key, Value>;   
       private:
-       /*
-	typedef tree23<Key, Value>::KeyValue value_type;
-	typedef int difference_type;
-	typedef tree23<Key, Value>::KeyValue* pointer;
-	typedef tree23<Key, Value>::KeyValue& reference;
-         */
          tree23<Key, Value>& tree; 
 
          const typename tree23<Key, Value>::Node23 *current;
@@ -279,6 +273,8 @@ template<class Key, class Value> class tree23 {
          int key_index;  // The index is such that current == current->parent->children[child_index]
 
          iterator_position position;
+
+         void initialize(); 
 
          int getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
 
@@ -299,7 +295,6 @@ template<class Key, class Value> class tree23 {
          void seekToSmallest(iterator_position pos) noexcept;    
          void seekToLargest(iterator_position pos) noexcept;    
 
-         // TODO: Some ctor should be noexcept, but not the two-parameter version.
          iterator& increment() noexcept; 
 
          iterator& decrement() noexcept;
@@ -307,6 +302,9 @@ template<class Key, class Value> class tree23 {
       public:
 
          iterator(tree23<Key, Value>&); 
+
+         // TODO: reverse_iterator wants a constructor of type: iterator(const tree23<Key, Value>&);
+         iterator(const tree23<Key, Value>&); 
 
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
@@ -318,9 +316,10 @@ template<class Key, class Value> class tree23 {
          bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
          // TODO: KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         typename tree23<Key, Value>::KeyValue&        dereference() noexcept; 
+         typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
+         const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
 
-         const typename tree23<Key, Value>::KeyValue&  dereference() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         //const typename tree23<Key, Value>::KeyValue&  dereference() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -330,6 +329,9 @@ template<class Key, class Value> class tree23 {
          
          // should operator*() be const?
          typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+
+         const typename tree23<Key, Value>::KeyValue& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
@@ -893,6 +895,18 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 // Called by begin()
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree) : tree{lhs_tree},\
                                                             current{lhs_tree.root.get()}, key_index{0}
+{
+  initialize();
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const tree23<Key, Value>& lhs_tree) : \
+           tree{const_cast<tree23<Key, Value>&>(lhs_tree)}, current{lhs_tree.root.get()}, key_index{0}
+{
+  initialize();
+}
+
+
+template<class Key, class Value> void tree23<Key, Value>::iterator::initialize()
 {
   // If the tree is empty, there is to iterate...
   if (tree.root.get() == nullptr) {
@@ -1604,6 +1618,7 @@ template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyV
  return  current->keys_values[key_index];
 }
 
+
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::increment() noexcept	    
 {
   if (tree.isEmpty()) {
@@ -1697,6 +1712,11 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()  noexcept	    
+{
+  return dereference();
+}
+
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*() const noexcept	    
 {
   return dereference();
 }
