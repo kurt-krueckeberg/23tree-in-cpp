@@ -57,9 +57,9 @@ So we need to design `iterator` and `const_iterator` properly, so that `reverse_
 `reverse_iterator<tree23<int, int>>`.  The same comments apply to `const_reverse_iterator` and `const_iterator`.
  
 It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to 
-implement a custom iterator properly. See C++Prog. Lang 4th edition and other online resources.
-Josuitis' book.
- 
+implement a custom iterator properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good 
+discussion about compiler type checking involving template and how, and how it all works from the comipler's point of view. 
+
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
