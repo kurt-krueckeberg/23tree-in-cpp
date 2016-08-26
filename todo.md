@@ -28,27 +28,12 @@ does a no-op, and none of the member varibles changes.
 
 1. test `const_iterator`
 
-2. `const_reverse` iterator is not compiling due to a conflict between the base class iterator (which is named 'iterator') being derived from 
+2. The `const_reverse_iterator` is not compiling due to missing typedef that `iterator_traits<const_iterator>` wants 
 
-    std::iterator<bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> 
-
-rather than the type 'const typename tree23<Key, Value>::KeyValue'. So there is a conflict between the template parameter passed to std::iterator, namely
-
-    tree23<Key, Value>::KeyValue, being non-cast, yet const_iterator returns `const tree23<Key, Value>::KeyValue`. 
-
-Maybe I can use protected derivation, or composition, and then also derived from
-
-    std::iterator<bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue>
-
-Note the 'const' one the line above.
-
-Maybe the `const_reverse_iterator` needs something to be implemented that isn't
+Maybe the `const_reverse_iterator` needs something to be implemented by composing iterator?
 
 2. Test backward and forward iteration that is interspersed.
 
-
-For #1, try to have only one iterator class. Make the public methods of `iterator_base` private in the consolidated class.
- 
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
