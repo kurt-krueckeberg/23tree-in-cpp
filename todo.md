@@ -60,6 +60,9 @@ It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator
 implement a custom iterator properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good 
 discussion about compiler type checking involving template and how, and how it all works from the comipler's point of view. 
 
+What does const mean exactly when it comes to `some_iterator::operator*()`. When should `operator*()` be const and when should it not be const? 
+What are the reasons for choosing one versus the other.
+
 ### Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:

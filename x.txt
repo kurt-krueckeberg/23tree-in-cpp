@@ -1,0 +1,55 @@
+backward/auto_ptr.h:181:      operator*() const throw() 
+backward/hashtable.h:131:      operator*() const
+backward/hashtable.h:136:      { return &(operator*()); }
+backward/hashtable.h:186:      operator*() const
+backward/hashtable.h:191:      { return &(operator*()); }
+bits/stl_bvector.h:230:    operator*() const
+bits/stl_bvector.h:320:    operator*() const
+bits/hashtable_policy.h:357:      operator*() const noexcept
+bits/hashtable_policy.h:409:      operator*() const noexcept
+bits/hashtable_policy.h:1547:      operator*() const
+bits/hashtable_policy.h:1606:      operator*() const
+bits/stl_iterator.h:161:      operator*() const
+bits/stl_iterator.h:174:      { return &(operator*()); }
+bits/stl_iterator.h:465:      operator*()
+bits/stl_iterator.h:555:      operator*()
+bits/stl_iterator.h:669:      operator*()
+bits/stl_iterator.h:753:      operator*() const _GLIBCXX_NOEXCEPT
+bits/stl_iterator.h:996:      operator*() const
+bits/stl_tree.h:195:      operator*() const _GLIBCXX_NOEXCEPT
+bits/stl_tree.h:274:      operator*() const _GLIBCXX_NOEXCEPT
+bits/shared_ptr_base.h:1045:      operator*() const noexcept
+bits/stl_list.h:149:      operator*() const _GLIBCXX_NOEXCEPT
+bits/stl_list.h:234:      operator*() const _GLIBCXX_NOEXCEPT
+bits/stl_deque.h:158:      operator*() const _GLIBCXX_NOEXCEPT
+bits/streambuf_iterator.h:121:      ///  operator*() on an end of stream is undefined.
+bits/streambuf_iterator.h:123:      operator*() const
+bits/streambuf_iterator.h:260:      operator*()
+bits/unique_ptr.h:288:      operator*() const
+bits/forward_list.h:139:      operator*() const noexcept
+bits/forward_list.h:210:      operator*() const noexcept
+bits/stl_raw_storage_iter.h:80:      operator*() { return *this; }
+bits/stream_iterator.h:78:      operator*() const
+bits/stream_iterator.h:87:      operator->() const { return &(operator*()); }
+bits/stream_iterator.h:204:      operator*()
+bits/regex.h:2503:      operator*() const
+bits/regex.h:2708:      operator*() const
+debug/safe_local_iterator.h:232:      operator*() const
+debug/safe_iterator.h:299:      operator*() const _GLIBCXX_NOEXCEPT
+experimental/fs_path.h:680:    reference operator*() const;
+experimental/fs_path.h:991:  path::iterator::operator*() const
+experimental/fs_dir.h:161:    const directory_entry& operator*() const& noexcept { return _M_entry; }
+experimental/fs_dir.h:163:    directory_entry operator*() && noexcept { return std::move(_M_entry); }
+experimental/fs_dir.h:213:    const directory_entry& operator*() const;
+experimental/fs_dir.h:295:    const directory_entry& operator*() const;
+ext/throw_allocator.h:709:    operator*(const throw_value_base<_Cond>& __a,
+ext/pointer.h:345:      operator*() const 
+parallel/base.h:328:      operator*() const
+parallel/multiway_merge.h:107:      operator*()
+parallel/multiway_merge.h:177:      operator*()
+profile/iterator_tracker.h:131:      operator*() const _GLIBCXX_NOEXCEPT
+tr1/hashtable_policy.h:137:      operator*() const
+tr1/hashtable_policy.h:182:      operator*() const
+tr1/hashtable_policy.h:282:      operator*() const
+tr1/hashtable_policy.h:332:      operator*() const
+tr1/shared_ptr.h:663:      operator*() const // never throws
