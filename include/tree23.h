@@ -345,7 +345,7 @@ template<class Key, class Value> class tree23 {
          const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
 
          const_iterator(const const_iterator& lhs);
-         const_iterator(const_iterator&& lhs); // TODO: This is not implemented--right??
+         const_iterator(const_iterator&& lhs); // TODO: Does this constructor work, though? Does it compile?
 
          bool operator==(const const_iterator& lhs) const;
          bool operator!=(const const_iterator& lhs) const;
@@ -1790,7 +1790,9 @@ template<class Key, class Value> inline tree23<Key, Value>::const_iterator::cons
  iter{lhs.iter}
 {
 }
-
+/*
+ TODO: Does this constructor work??
+ */
 template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(typename tree23<Key, Value>::const_iterator&& lhs) : \
   iter{std::move(lhs.iter)}
 {
