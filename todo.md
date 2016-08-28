@@ -24,14 +24,20 @@ a constructor that sets position to `end`, and it calls `seekToLargest()` to set
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
 does a no-op, and none of the member varibles changes. 
 
-## BUGS
+## Issues
+
+### TODO
+
+Decide if initialize(pos) needs to have the position passed to it since it is set, I believe, in all cases before initialize(pos) is called--right?
+
+### Bugs
 
 `std::reverse_iterator` holds an instance of its `_Iterator` template parameter:
 
     template<class _Iterator>
     class iterator {
 
-          iterator current;
+          _Iterator current;
       //... snip
      };
 
@@ -49,7 +55,7 @@ where the input to the copy constructor is const. Also the `reverse_iterator::op
        return *--__tmp;
     }
 
-`__tmp` requires a copy assignment operator. Recall it is of the form
+`__tmp` requires a copy assignment operator or a copy constructor? Recall it is of the form
 
     xyz& xyz::operator=(const xyz&);
 
@@ -62,6 +68,8 @@ discussion about compiler type checking involving template and how, and how it a
 
 What does const mean exactly when it comes to `some_iterator::operator*()`. When should `operator*()` be const and when should it not be const? 
 What are the reasons for choosing one versus the other.
+
+Test whether the move constructor for `tree23<Key, Value>::iterator` compiles.
 
 ### Red Black code
 

@@ -197,7 +197,6 @@ void test_nonconst_iterator(const std::vector<int>& input)
  
         cout << (*iter).key << ", " << endl << flush;
   }
-
   cout << endl;
 }
 

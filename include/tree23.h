@@ -270,28 +270,28 @@ template<class Key, class Value> class tree23 {
 
          const typename tree23<Key, Value>::Node23 *current;
 
-         int key_index;  // The index is such that current == current->parent->children[child_index]
+         int key_index;  // The parent's child index such that: current == current->parent->children[child_index]
 
          iterator_position position;
 
-         void initialize(); 
+         void initialize(iterator_position pos); // reuseable constructor code. 
 
          int getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
 
          std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) const noexcept;
 
-         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) const noexcept;
-
          std::pair<const Node23 *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode, int index_of_key) const noexcept;
 
-         std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
-
          std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *, int) const noexcept;
+
+         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) const noexcept;
+
+         std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
 
          std::pair<const Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *p, int index) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
-
+         // called by 
          void seekToSmallest(iterator_position pos) noexcept;    
          void seekToLargest(iterator_position pos) noexcept;    
 
@@ -301,11 +301,13 @@ template<class Key, class Value> class tree23 {
 
       public:
 
-         iterator(tree23<Key, Value>&); 
+         explicit iterator(tree23<Key, Value>&); 
 
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
-         iterator(const iterator& lhs);
+         explicit iterator(const iterator& lhs);
+
+         // TODO: Do we want an conversion to const_iterator operator?
 
          iterator(iterator&& lhs); 
  
@@ -893,12 +895,32 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree) : tree{lhs_tree},\
                                                             current{lhs_tree.root.get()}, key_index{0}
 {
-  initialize();
+  initialize(iterator_position::beg);
 }
 
-template<class Key, class Value> void tree23<Key, Value>::iterator::initialize()
+template<class Key, class Value> void tree23<Key, Value>::iterator::initialize(tree23<Key, Value>::iterator_position pos)
 {
-  // If the tree is empty, there is to iterate...
+  
+  // If the tree is empty, there is nothing over which to iterate...
+   if (tree.root.get() == nullptr) {
+         
+      current = nullptr;
+      key_index = 0;
+      position = iterator_position::end;
+
+  } else if (position == iterator_position::end) {
+
+      seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
+
+   } else if (position == iterator_position::beg) {
+
+      seekToSmallest(pos); // Go to the smallest node, and thus allow increment() to be called
+
+   } else { // any other position value is invalid
+
+      throw std::logic_error("iterator constructor called with wrong position paramater");
+   }
+/*
   if (tree.root.get() == nullptr) {
          
       current = nullptr;
@@ -909,12 +931,21 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::initialize()
  
       seekToSmallest(iterator_position::beg); 
   }
+*/
+}
+
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const iterator& lhs) : tree{lhs.tree}, current{lhs.current}, \
+         key_index{lhs.key_index}, position{lhs.position} 
+{
+  initialize(position);
 }
 
 // non const tree23<Key, Value>& passed to ctor. Called only by end()
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree, \
                                  typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree}, position{pos} 
 {
+  initialize(position);
+/*
   if (tree.root.get() == nullptr) {
          
       current = nullptr;
@@ -933,6 +964,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 
       throw std::logic_error("iterator constructor called with wrong position paramater");
    }
+*/
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
@@ -1016,11 +1048,11 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator::seekT
 }
 
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
-             tree{lhs.tree}, current{lhs.current}, key_index{lhs.key_index}, position{lhs.position} 
+             tree{lhs.tree}, current{std::move(lhs.current)}, key_index{std::move(lhs.key_index)}, position{std::move(lhs.position)} 
 {
    lhs.current = nullptr; // set to end
-
-   // TODO: Does nullptr for current represent an empty tree?
+   lhs.key_index = 0;
+   lhs.position = iterator_position::end;
 }
 /*
 

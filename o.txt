@@ -11,19 +11,36 @@ g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/main.o.d" -o build/De
 mkdir -p build/Debug/GNU-Linux
 rm -f "build/Debug/GNU-Linux/test.o.d"
 g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/test.o.d" -o build/Debug/GNU-Linux/test.o test.cpp
-mkdir -p dist/Debug/GNU-Linux
-g++ -std=c++14    -o dist/Debug/GNU-Linux/23tree-in-cpp build/Debug/GNU-Linux/debug.o build/Debug/GNU-Linux/main.o build/Debug/GNU-Linux/test.o  -std=c++14
-build/Debug/GNU-Linux/test.o: In function `std::reverse_iterator<tree23<int, int>::iterator>::operator*() const':
-/usr/include/c++/5/bits/stl_iterator.h:163: undefined reference to `tree23<int, int>::iterator::iterator(tree23<int, int>::iterator const&)'
-build/Debug/GNU-Linux/test.o: In function `std::reverse_iterator<tree23<int, int>::iterator>::reverse_iterator(tree23<int, int>::iterator)':
-/usr/include/c++/5/bits/stl_iterator.h:127: undefined reference to `tree23<int, int>::iterator::iterator(tree23<int, int>::iterator const&)'
-build/Debug/GNU-Linux/test.o: In function `tree23<int, int>::const_iterator::const_iterator(tree23<int, int>::const_iterator const&)':
-/home/kurt/23/include/tree23.h:1758: undefined reference to `tree23<int, int>::iterator::iterator(tree23<int, int>::iterator const&)'
-build/Debug/GNU-Linux/test.o: In function `std::reverse_iterator<tree23<int, int>::iterator>::base() const':
-/usr/include/c++/5/bits/stl_iterator.h:148: undefined reference to `tree23<int, int>::iterator::iterator(tree23<int, int>::iterator const&)'
-collect2: error: ld returned 1 exit status
-nbproject/Makefile-Debug.mk:64: recipe for target 'dist/Debug/GNU-Linux/23tree-in-cpp' failed
-make[2]: *** [dist/Debug/GNU-Linux/23tree-in-cpp] Error 1
+In file included from /usr/include/c++/5/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/5/vector:60,
+                 from include/test.h:3,
+                 from test.cpp:1:
+/usr/include/c++/5/bits/stl_iterator.h: In instantiation of ‘std::reverse_iterator<_Iterator>::reference std::reverse_iterator<_Iterator>::operator*() const [with _Iterator = tree23<int, int>::iterator; std::reverse_iterator<_Iterator>::reference = tree23<int, int>::KeyValue&]’:
+test.cpp:317:29:   required from here
+/usr/include/c++/5/bits/stl_iterator.h:163:20: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
+  _Iterator __tmp = current;
+                    ^
+In file included from test.cpp:2:0:
+include/tree23.h:1026:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’
+ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
+                                         ^
+In file included from /usr/include/c++/5/bits/stl_algobase.h:67:0,
+                 from /usr/include/c++/5/vector:60,
+                 from include/test.h:3,
+                 from test.cpp:1:
+/usr/include/c++/5/bits/stl_iterator.h: In instantiation of ‘std::reverse_iterator<_Iterator>::iterator_type std::reverse_iterator<_Iterator>::base() const [with _Iterator = tree23<int, int>::iterator; std::reverse_iterator<_Iterator>::iterator_type = tree23<int, int>::iterator]’:
+/usr/include/c++/5/bits/stl_iterator.h:294:25:   required from ‘bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&) [with _Iterator = tree23<int, int>::iterator]’
+/usr/include/c++/5/bits/stl_iterator.h:306:20:   required from ‘bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&) [with _Iterator = tree23<int, int>::iterator]’
+test.cpp:315:17:   required from here
+/usr/include/c++/5/bits/stl_iterator.h:148:16: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
+       { return current; }
+                ^
+In file included from test.cpp:2:0:
+include/tree23.h:1026:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’
+ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
+                                         ^
+nbproject/Makefile-Debug.mk:78: recipe for target 'build/Debug/GNU-Linux/test.o' failed
+make[2]: *** [build/Debug/GNU-Linux/test.o] Error 1
 make[2]: Leaving directory '/home/kurt/NetBeansProjects/23tree-in-cpp'
 nbproject/Makefile-Debug.mk:61: recipe for target '.build-conf' failed
 make[1]: *** [.build-conf] Error 2
