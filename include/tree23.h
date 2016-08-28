@@ -305,9 +305,7 @@ template<class Key, class Value> class tree23 {
 
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
-         explicit iterator(const iterator& lhs); // What does explicit do?
-
-         // TODO: Do we want an conversion to const_iterator operator?
+         iterator(const iterator& lhs); // What does explicit do?
 
          iterator(iterator&& lhs); 
  
@@ -340,12 +338,13 @@ template<class Key, class Value> class tree23 {
         iterator iter;
       public:
          
-         const_iterator(const tree23<Key, Value>& lhs);
+         explicit const_iterator(const tree23<Key, Value>& lhs);
 
          const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
 
          const_iterator(const const_iterator& lhs);
-         const_iterator(const_iterator&& lhs); // TODO: Does this constructor work, though? Does it compile?
+         const_iterator(const_iterator&& lhs); 
+         const_iterator(const iterator& lhs);
 
          bool operator==(const const_iterator& lhs) const;
          bool operator!=(const const_iterator& lhs) const;
@@ -1797,6 +1796,12 @@ template<class Key, class Value> inline tree23<Key, Value>::const_iterator::cons
   iter{std::move(lhs.iter)}
 {
 }
+
+template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(const typename tree23<Key, Value>::iterator& lhs) : \
+  iter{lhs}
+{
+}
+
 
 template<class Key, class Value> inline bool tree23<Key, Value>::const_iterator::operator==(const const_iterator& lhs) const 
 { 

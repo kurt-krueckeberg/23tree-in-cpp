@@ -16,12 +16,10 @@ tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()
   return iter_temp;
 }
 
-/*
 tree23<int, int>::iterator reverse_iterator_sim::base() const
 {
   return current;
 }
-*/
 
 void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&))
 {  
@@ -210,13 +208,6 @@ void test_nonconst_iterator(const std::vector<int>& input)
 {
   tree23<int, int> tree = insert_vec_into_tree(input); 
 
-  /*
-  for(auto& key : input) {
-
-     tree.insert(key, ++i);
-  }
-  */
-
   tree23<int, int> tree_copy{tree};
   
   auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
@@ -351,7 +342,7 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 
  auto riter = tree.rbegin();
  auto riter_end = tree.rend();
-/*
+  
  for(; riter != riter_end;) {
 
   //--const auto& key_value = *riter; // causes compiler error.
@@ -360,7 +351,7 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 
    --riter;
  }
-*/ 
+   
 }
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)

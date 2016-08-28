@@ -51,15 +51,18 @@ I have reproduced the problem with a simple class declared in test.h called `rev
 a copy of the iterator member variable. This sample test class's `base() const` method gives the same compile error as I get from the `test_nonconst_iterator_method()`.
 Furthermore, the non-const method also does not compile.
 
-Class iterator has a copy constructor, and it  compiles.
+Class iterator has a copy constructor, and it  compiles. The r 
 
 Question: what does `reverse_iterator<const tree23<int, int>>` means that `reverse_iterator<tree23<int, int>>` doesn't mean? The same comments apply to
-`const_reverse_iterator` and `const_iterator`.
+`const_reverse_iterator` and `const_iterator`. 
  
 Note: `reverse_iterator<tree23<int, int>::iterator>::operator==(...) and its `!=` operator both call `reverse_iterator::base() const` method, which doesn't compile.
 Currently the code in test.cpp's test_nonconst_iterator that causes the bug is commented out. I have reproduced the bug using a test class called reverse_iterator_sim. Its `base() const` method has the same bug.
 
    reverse_iterator_sim::base() const 
+
+The bug was due to the fact that the copy constructor for tree23<...>::iterator(const iterator&) was declared `explicit`. Removing `explicit` gets rid of the error.
+But do I want/need explicit. Is the copy ctor for std::map::iterator explicit?
 
 I think what might be needed is an constructor that does implicit conversion from iterator to const_iterator. I'm not sure. It's crazy that this one-line method is the culprit
 simply because it is a const method.

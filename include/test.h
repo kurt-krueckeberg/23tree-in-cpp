@@ -47,7 +47,7 @@ class reverse_iterator_sim {
 
     reverse_iterator_sim(tree23<int, int>& lhs_tree) : current{lhs_tree} {}     
 
-//    tree23<int, int>::iterator base() const;
+    tree23<int, int>::iterator base() const;
 
     tree23<int, int>::iterator base_nonconst();
 
