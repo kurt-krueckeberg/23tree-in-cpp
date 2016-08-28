@@ -292,8 +292,8 @@ template<class Key, class Value> class tree23 {
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
          // called by 
-         void seekToSmallest(iterator_position pos) noexcept;    
-         void seekToLargest(iterator_position pos) noexcept;    
+         void seekToSmallest() noexcept;    
+         void seekToLargest() noexcept;    
 
          iterator& increment() noexcept; 
 
@@ -813,8 +813,6 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::debug
       
       for (auto i = 0; i < totalItems; ++i) {
 
-         //--ostr << "{" << keys_values[i].key << "}, ";
-
          ostr << keys_values[i] << "}, ";
        }
       
@@ -899,7 +897,6 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 
 template<class Key, class Value> void tree23<Key, Value>::iterator::initialize(tree23<Key, Value>::iterator_position pos)
 {
-  
   // If the tree is empty, there is nothing over which to iterate...
    if (tree.root.get() == nullptr) {
          
@@ -919,18 +916,6 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::initialize(t
 
       throw std::logic_error("iterator constructor called with wrong position paramater");
    }
-/*
-  if (tree.root.get() == nullptr) {
-         
-      current = nullptr;
-      key_index = 0;
-      position = iterator_position::end; // ...and we signal this by setting position to 'end', the same value of position after end() is called.
-
-  } else {
- 
-      seekToSmallest(iterator_position::beg); 
-  }
-*/
 }
 
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const iterator& lhs) : tree{lhs.tree}, current{lhs.current}, \
@@ -1016,9 +1001,9 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_rever
  2. key_index to 0
  3. position is set to value passed 
  */
-template<class Key, class Value> void tree23<Key, Value>::iterator::seekToSmallest(typename tree23<Key, Value>::iterator_position pos) noexcept
+template<class Key, class Value> void tree23<Key, Value>::iterator::seekToSmallest() noexcept
 {
-  if (pos != iterator_position::beg) {
+  if (position != iterator_position::beg) {
 
       throw std::logic_error("iterator constructor called with wrong position paramater");
   }
@@ -1031,9 +1016,9 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::seekToSmalle
   position = pos;
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::iterator::seekToLargest(typename tree23<Key, Value>::iterator_position pos) noexcept
+template<class Key, class Value> inline void tree23<Key, Value>::iterator::seekToLargest() noexcept
 {
-  if (pos != iterator_position::end) {
+  if (position != iterator_position::end) {
 
       throw std::logic_error("iterator constructor called with wrong position paramater");
   }
@@ -1060,16 +1045,16 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 {
  if (&lhs.tree == &tree) {
 
-    // If we are in_interval
-    if (lhs.position == iterator_position::end && position == iterator_position::end) { // Check that both iterators are at the end.
+    // If we are not in_interval...
+    if (lhs.position == iterator_position::end && position == iterator_position::end) { // check whethert both iterators are at the end...
 
         return true;
 
-    } else if (lhs.position == iterator_position::beg && position == iterator_position::beg) { // Check that both iterators are at the beg. 
+    } else if (lhs.position == iterator_position::beg && position == iterator_position::beg) { // ...or at beg. 
 
         return true;
 
-    } else if (lhs.position == position && lhs.current == current && lhs.key_index == key_index) { // Check whether position, current and key_index are the same.
+    } else if (lhs.position == position && lhs.current == current && lhs.key_index == key_index) { // else check whether position, current and key_index are all equal.
 
         return true;
    }
@@ -1462,7 +1447,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     pnode = cursor;
  }
 
- //--return std::make_pair<const Node23 *, int>(const_cast<Node23 *>(pnode), 0);
  return std::make_pair(const_cast<Node23 *>(pnode), 0);
 }
 /*
@@ -1789,14 +1773,14 @@ template<class Key, class Value> inline tree23<Key, Value>::const_iterator::cons
  iter{lhs.iter}
 {
 }
-/*
- TODO: Does this constructor work??
- */
+
 template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(typename tree23<Key, Value>::const_iterator&& lhs) : \
   iter{std::move(lhs.iter)}
 {
 }
-
+/*
+ * This constructor also provides implicit type conversion from a iterator to a const_iterator
+ */
 template<class Key, class Value> inline tree23<Key, Value>::const_iterator::const_iterator::const_iterator(const typename tree23<Key, Value>::iterator& lhs) : \
   iter{lhs}
 {
@@ -2952,7 +2936,6 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (!premove_start->isLeaf()) { // If it is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key of a leaf node.
-      //--pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
       pLeaf = remove_getSuccessor(premove_start, found_index, descent_indecies); 
           
       /*  
