@@ -12,18 +12,9 @@ mkdir -p build/Debug/GNU-Linux
 rm -f "build/Debug/GNU-Linux/test.o.d"
 g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/test.o.d" -o build/Debug/GNU-Linux/test.o test.cpp
 test.cpp: In member function ‘tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()’:
-test.cpp:14:10: error: cannot bind ‘tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
-   return iter;
-          ^
-In file included from include/test.h:4:0,
-                 from test.cpp:1:
-include/tree23.h:1050:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’
- template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
-                                         ^
-test.cpp: In member function ‘tree23<int, int>::iterator reverse_iterator_sim::base() const’:
-test.cpp:19:10: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
-   return iter;
-          ^
+test.cpp:14:42: error: cannot bind ‘tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
+   tree23<int, int>::iterator iter_temp = current; 
+                                          ^
 In file included from include/test.h:4:0,
                  from test.cpp:1:
 include/tree23.h:1050:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’

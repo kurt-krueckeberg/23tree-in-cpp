@@ -11,13 +11,17 @@ using namespace std;
 
 tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()
 {
-  return iter;
+  tree23<int, int>::iterator iter_temp = current; 
+  
+  return iter_temp;
 }
 
+/*
 tree23<int, int>::iterator reverse_iterator_sim::base() const
 {
-  return iter;
+  return current;
 }
+*/
 
 void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&))
 {  

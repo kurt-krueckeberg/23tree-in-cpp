@@ -305,7 +305,7 @@ template<class Key, class Value> class tree23 {
 
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
-         explicit iterator(const iterator& lhs);
+         explicit iterator(const iterator& lhs); // What does explicit do?
 
          // TODO: Do we want an conversion to const_iterator operator?
 
