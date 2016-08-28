@@ -907,11 +907,11 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::initialize(t
       key_index = 0;
       position = iterator_position::end;
 
-  } else if (position == iterator_position::end) {
+  } else if (pos == iterator_position::end) {
 
       seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
 
-   } else if (position == iterator_position::beg) {
+   } else if (pos == iterator_position::beg) {
 
       seekToSmallest(pos); // Go to the smallest node, and thus allow increment() to be called
 
