@@ -21,22 +21,14 @@
 `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls
 a constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
 
-If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, and it, too,
+If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too,
 does a no-op, and none of the member varibles changes. 
 
-## Issues
-
-### TODO
-
-Decide if position needs to be passed to intialize() since position is set, I believe, in all cases before initialize(pos) is called--right?
+## TODO
 
 It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to implement a custom iterator
 properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good discussion about compiler type checking involving template and 
 how, and how it all works from the comipler's point of view. I also need to understand again what an explicit constructor does. 
-
-### Bugs
-
-`test_revese_iterators()` has found bugs in the `reverse_iterators`.
 
 ### Red Black code
 

@@ -253,8 +253,10 @@ template<class Key, class Value> class tree23 {
     typedef tree23<Key, Value>::KeyValue& reference;
     
    /*
-     end is a logical sate representing one-past the last element.
-     beg is a logical sate representing the first element.
+     1. end is a logical sate representing one-past the last element.
+     2. beg is a logical sate representing the first element.
+     3. in_interval is the state of not being at end or beg, sort of the in-between state.
+
      The actual value of current will be the same for beg and first_node, and it will be the same for last_node and end.
      The value of key_index will be zero for state beg. It will be either zero or one for first_node, depending on whether the smallest node is a 2- or 3-node. 
      The value of key_index will be current->totalItems - 1 for state end.
@@ -291,6 +293,7 @@ template<class Key, class Value> class tree23 {
          std::pair<const Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *p, int index) const noexcept;
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
+
          // called by 
          void seekToSmallest() noexcept;    
          void seekToLargest() noexcept;    
@@ -312,7 +315,7 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         // TODO: KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         // TODO: KeyValue& is wrong. We don't want to change the key. Should we return pair<Key, Value&> instead? 
          typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
          const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
 
@@ -394,7 +397,7 @@ template<class Key, class Value> class tree23 {
     bool isEmpty() const noexcept;
 
     /* 
-    TODO: implement later
+    TODO: implement later:
     void insert(Key key, Value&& value);
     */
     bool find(Key key) const noexcept;
@@ -1387,11 +1390,6 @@ May set:
 1. current
 2. key_index
 3. position
-
-TODO: getInternalNodeSuccessor() never sets position. Does it ever need to? What about when the last key of the last node is encountered --is this handled
-in the calling code?
-
-How about getLeafNodeSuccessor()?
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator::getSuccessor(const Node23 *current,\
                                                                                                            int index_of_key) const noexcept
@@ -1407,16 +1405,15 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 }
 
 /* 
-   getInternalNodeSuccessor()
-
    Requires:
    1. pnode is an internal node not a leaf node.
    2. If pnode is a 3-node, key_index is 1 not 0.
 
    Returns:
-   1. pointer to successor node.
+   pointer to successor node.
 
-Bug: When a 2 3 tree node is a 3-node, it two "right" chidren from its first key and two "left" children from its second key.
+Note: When a 2 3 tree node is a 3-node, it has two "right" chidren from the point of view of its first key and two "left" children from the point of view of its
+second key.
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode, \
  int index_of_key) const noexcept	    
@@ -1576,11 +1573,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
                if (__parent == tree.root.get()) {
                   
-                   /*
-                    TODO: Change this code to set the iterator_position state
-                    position = iterator_position::end;
-                    */ 
-
                    return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor.
                                                        // To indicate this we set current to nullptr and key_index to 0.
                }
@@ -1839,7 +1831,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::KeyVa
 
 
 /*
- Checks if any sibling (not just adjacent siblings, but also those that are two hops away) are 3-nodes: has two keys.
+ Checks if any sibling--not just adjacent siblings, but also those that are two hops away--are 3-nodes, from which we can "steal" a key.
 
  Parameters
  ==========
@@ -1851,7 +1843,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::KeyVa
 template<class Key, class Value> bool tree23<Key, Value>::Node23::siblingHasTwoItems(int child_index, int& sibling_index) const noexcept
 {
 
- if (parent->isTwoNode()) { // Bug: In a recursive case, the parent has 0 totalItems. It also has only one non-nullptr child.
+ if (parent->isTwoNode()) { // In a recursive case, the parent has 0 totalItems, and it has only one non-nullptr child.
 
      sibling_index = !child_index;
      
@@ -1943,7 +1935,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 }   
 
 /*
- Does pre-order traversal, copying source node reference in left parameter to node reference in right parameter.
+ Does pre-order traversal, copying source node, whose reference is the first parameter to the node reference in the second parameter.
  */
 template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
         std::unique_ptr<typename tree23<Key, Value>::Node23>& NodeCopy) noexcept
@@ -2202,7 +2194,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectC
 
         parent = this;
 
-  since 'this' is of type Node4 *. 
+  since 'this' is of type, Node4 *. 
   */
 
   Node23 *parent_of_node23 = (child == nullptr) ? nullptr : child->parent; 
@@ -2633,7 +2625,6 @@ Algorithm overview:
 split() is a recursive method. It has two base cases that terminate the recursions: 1.) when a 2-node parent is found, or when pnode is the root, which
 causes the tree to grow upward one level.  
 
-<TODO: rewrite these comments below which are sort of rambling>
 This method splits a 3-node by creating a 4-node on the stack. It holds both the 3-node's keys and values and the new key and value inserted. If
 pnode is a leaf, node4's children are all nullptrs. If pnode is an internal node, we pop its child index from the child_indecies stack<in>. "child
 index" is the index such that 
@@ -2696,7 +2687,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
       node4 = Node4{pnode, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
 
   } else { // It is an internal leaf, so we need to get its child_index such that:
-           // pnode == pnode->parent->children[child_index]. TODO: Is this statement correct--double check this fact!!!!
+           // pnode == pnode->parent->children[child_index]. 
 
       child_index = child_indecies.top();
       child_indecies.pop();
@@ -3441,7 +3432,7 @@ tree23<Key, Value>::merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept
 
     std::unique_ptr<Node23> node2Delete;
 
-    // TODO: In all three cases below, we are only moving the parent's grandchildren. We also need to move the immediate children of the
+    // In all three cases below, we are only moving the parent's grandchildren. We also need to move the immediate children of the
     // parent.  The parent had three children. It needs to now only have two children. So we must move the 2nd and 3rd child left one 
     // position.
     switch (child_index) {// is the index of node in parent's children. It is not the sibling's index.

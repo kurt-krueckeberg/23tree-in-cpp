@@ -10,6 +10,7 @@ newtree23.h
 xxx.txt
 *.java
 *~
+*.txt
 .*~
 .*.un~
 *.cmd
