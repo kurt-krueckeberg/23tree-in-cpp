@@ -21,9 +21,13 @@ void test_remove(const std::vector<int>& input);
 
 void test_copy_ctor(const std::vector<int>& input);
 
+void test_const_iterator_methods(const std::vector<int>& input);
+
 void test_forward_iterator(const std::vector<int>& input);
 
 void print_tree(const tree23<int, int>& tree);
+
+void print_with_nonconst_reverse_iterator(tree23<int, int>& tree);
 
 void debug_print_tree(const tree23<int, int> & tree);
 
@@ -34,5 +38,19 @@ void test_backward_iterator(const std::vector<int>& input);
 void print_with_backward_iterator(const tree23<int, int>& the_tree);
 
 void print_with_reverse_iterator(const tree23<int, int>& tree);
+
+class reverse_iterator_sim {
+
+   tree23<int, int>::iterator iter;
+
+   public:
+
+    reverse_iterator_sim(tree23<int, int>& lhs_tree) : iter{lhs_tree} {}     
+
+    tree23<int, int>::iterator base() const;
+
+    tree23<int, int>::iterator base_nonconst();
+
+};
 
 #endif

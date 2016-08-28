@@ -41,12 +41,12 @@ Decide if initialize(pos) needs to have the position passed to it since it is se
       //... snip
      };
 
-If  the `_Iterator` instance is const, then current will be const. `reverse_iterator::base() const` needs to return a copy (non-const) of current. So a copy constructor
-is needed, and copy constructors are always of the form
+If  the `_Iterator` instance is const, then current, too, will be const. `reverse_iterator::base() const` needs to return a copy (non-const) of current.
+So a copy constructor is needed, and copy constructors are always of the form
 
     xyz(const xyz&)
 
-where the input to the copy constructor is const. Also the `reverse_iterator::operator*() const` method is const. Its definition is
+where the input to the copy constructor is const. But we have defined such a copy constructor. So that is not the issue. Also the `reverse_iterator::operator*() const` method is const. Its definition is
 
     reference
     operator*() const
@@ -55,23 +55,26 @@ where the input to the copy constructor is const. Also the `reverse_iterator::op
        return *--__tmp;
     }
 
-`__tmp` requires a copy assignment operator or a copy constructor? Recall it is of the form
+`__tmp` also requires a copy constructor.
 
-    xyz& xyz::operator=(const xyz&);
-
-So we need to design `iterator` and `const_iterator` properly, so that `reverse_iterator<const tree23<int, int>>` compiles as well as 
-`reverse_iterator<tree23<int, int>>`.  The same comments apply to `const_reverse_iterator` and `const_iterator`.
+Question: what does `reverse_iterator<const tree23<int, int>>` means and what should it do versus what `reverse_iterator<tree23<int, int>>` means and does.  The same
+comments apply to `const_reverse_iterator` and `const_iterator`.
  
+What does const mean exactly when it comes to `some_iterator::operator*()`. When should `operator*()` be const and when should it not be const? 
+What are the reasons for choosing one versus the other?
+
+Note: `reverse_iterator<tree23<int, int>::iterator>::operator==(...) and its `!=` operator both call `reverse_iterator::base() const` method, which doesn't compile.
+Currently the code in test.cpp's test_nonconst_iterator that causes the bug is commented out. I have reproduced the bug using a test class called reverse_iterator_sim. Its `base() const` method has the same bug.
+
+   reverse_iterator_sim::base() const 
+
+I think what might be needed is an implicit conversion constructor in iterator and/or const_iterator that converts an 2 3 tree's iterator to a const_iterator and
+maybe vice versa? Crazy that this one-line method is the culprit because it is a const method.
+
 It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to implement a custom iterator
 properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good discussion about compiler type checking involving template and 
 how, and how it all works from the comipler's point of view. 
 
-What does const mean exactly when it comes to `some_iterator::operator*()`. When should `operator*()` be const and when should it not be const? 
-What are the reasons for choosing one versus the other?
-
-Test whether the move constructor for `tree23<Key, Value>::iterator` compiles.
-
-Maybe a `const_cast< to non-const>( )` is all that is needed to fix the problem. Is `const_iterator(const_iterator&& lhs)` implemented?
 
 ### Red Black code
 

@@ -11,31 +11,21 @@ g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/main.o.d" -o build/De
 mkdir -p build/Debug/GNU-Linux
 rm -f "build/Debug/GNU-Linux/test.o.d"
 g++ -std=c++14   -c -g -MMD -MP -MF "build/Debug/GNU-Linux/test.o.d" -o build/Debug/GNU-Linux/test.o test.cpp
-In file included from /usr/include/c++/5/bits/stl_algobase.h:67:0,
-                 from /usr/include/c++/5/vector:60,
-                 from include/test.h:3,
+test.cpp: In member function ‘tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()’:
+test.cpp:14:10: error: cannot bind ‘tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
+   return iter;
+          ^
+In file included from include/test.h:4:0,
                  from test.cpp:1:
-/usr/include/c++/5/bits/stl_iterator.h: In instantiation of ‘std::reverse_iterator<_Iterator>::reference std::reverse_iterator<_Iterator>::operator*() const [with _Iterator = tree23<int, int>::iterator; std::reverse_iterator<_Iterator>::reference = tree23<int, int>::KeyValue&]’:
-test.cpp:316:29:   required from here
-/usr/include/c++/5/bits/stl_iterator.h:163:20: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
-  _Iterator __tmp = current;
-                    ^
-In file included from test.cpp:2:0:
 include/tree23.h:1050:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’
  template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
                                          ^
-In file included from /usr/include/c++/5/bits/stl_algobase.h:67:0,
-                 from /usr/include/c++/5/vector:60,
-                 from include/test.h:3,
+test.cpp: In member function ‘tree23<int, int>::iterator reverse_iterator_sim::base() const’:
+test.cpp:19:10: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
+   return iter;
+          ^
+In file included from include/test.h:4:0,
                  from test.cpp:1:
-/usr/include/c++/5/bits/stl_iterator.h: In instantiation of ‘std::reverse_iterator<_Iterator>::iterator_type std::reverse_iterator<_Iterator>::base() const [with _Iterator = tree23<int, int>::iterator; std::reverse_iterator<_Iterator>::iterator_type = tree23<int, int>::iterator]’:
-/usr/include/c++/5/bits/stl_iterator.h:294:25:   required from ‘bool std::operator==(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&) [with _Iterator = tree23<int, int>::iterator]’
-/usr/include/c++/5/bits/stl_iterator.h:306:20:   required from ‘bool std::operator!=(const std::reverse_iterator<_Iterator>&, const std::reverse_iterator<_Iterator>&) [with _Iterator = tree23<int, int>::iterator]’
-test.cpp:314:17:   required from here
-/usr/include/c++/5/bits/stl_iterator.h:148:16: error: cannot bind ‘const tree23<int, int>::iterator’ lvalue to ‘tree23<int, int>::iterator&&’
-       { return current; }
-                ^
-In file included from test.cpp:2:0:
 include/tree23.h:1050:41: note:   initializing argument 1 of ‘tree23<Key, Value>::iterator::iterator(tree23<Key, Value>::iterator&&) [with Key = int; Value = int]’
  template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(iterator&& lhs) : \
                                          ^

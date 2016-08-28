@@ -9,6 +9,16 @@
 
 using namespace std;
 
+tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()
+{
+  return iter;
+}
+
+tree23<int, int>::iterator reverse_iterator_sim::base() const
+{
+  return iter;
+}
+
 void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&))
 {  
     cout << "Input vector<int> to next case is: \n";
@@ -155,27 +165,53 @@ void test_copy_ctor(const std::vector<int>& input)
   cout << "\n";
 }
 
-void test_const_iterator_move_ctor(const std::vector<int>& input)
+void test_const_iterator_methods(const std::vector<int>& input)
 {
   const tree23<int, int> tree{ insert_vec_into_tree(input)};
   
   tree23<int, int>::const_iterator citer{ tree.begin() };
 
+  tree23<int, int>::const_iterator citerb{ tree.begin() };
+
+  cout << "Testing const_iterator comparison operators == and !=.\n" << endl << flush;
+
+  if (citer == citerb) {
+    cout << "citer == citerb\n" << endl << flush;
+  }
+ 
+  if (citer != citerb) {
+    cout << "citer != citerb\n" << endl << flush;
+  }
+
+  cout << "Testing const_iterator move constructor:\ntree23<int, int>::const_iterator citer2 {std::move(citer)};" << endl << flush;
+
   tree23<int, int>::const_iterator citer2 {std::move(citer)};
 
-  cout << "Created const_iterator citer2 using move constructor." << endl << flush;
+  cout << "Testing const_iterator move constructor:\ntree23<int, int>::const_iterator citer3 = citer2;" << endl << flush;
+
+  tree23<int, int>::const_iterator citer3 = citer2; // Invokes the copy constructor.
+
+  auto key_value1 = *--citer3; 
+  
+  const tree23<int, int>::KeyValue& key_value2 = *++citer3; 
+  
+  const tree23<int, int>::KeyValue& key_value3 = *++citer3; 
+     
+  int debug = 10;
+  
+  ++debug;
 }
 
 void test_nonconst_iterator(const std::vector<int>& input)
 {
-  tree23<int, int> tree;
+  tree23<int, int> tree = insert_vec_into_tree(input); 
 
-  int i = 0;
-  
+  /*
   for(auto& key : input) {
 
      tree.insert(key, ++i);
   }
+  */
 
   tree23<int, int> tree_copy{tree};
   
@@ -311,13 +347,16 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 
  auto riter = tree.rbegin();
  auto riter_end = tree.rend();
+/*
+ for(; riter != riter_end;) {
 
- for(; riter != riter_end; --riter) {
+  //--const auto& key_value = *riter; // causes compiler error.
 
-   const auto& key_value = *riter;
+  // cout << key_value.key << ", " << flush;
 
-   cout << key_value.key << ", " << flush;
- } 
+   --riter;
+ }
+*/ 
 }
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
