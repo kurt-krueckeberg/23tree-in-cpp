@@ -71,7 +71,7 @@ What are the reasons for choosing one versus the other?
 
 Test whether the move constructor for `tree23<Key, Value>::iterator` compiles.
 
-Maybe a `const_cast< to non-const>( )` is all that is needed to fix the problem.
+Maybe a `const_cast< to non-const>( )` is all that is needed to fix the problem. Is `const_iterator(const_iterator&& lhs)` implemented?
 
 ### Red Black code
 

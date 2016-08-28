@@ -345,7 +345,7 @@ template<class Key, class Value> class tree23 {
          const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
 
          const_iterator(const const_iterator& lhs);
-         const_iterator(const_iterator&& lhs);
+         const_iterator(const_iterator&& lhs); // TODO: This is not implemented--right??
 
          bool operator==(const const_iterator& lhs) const;
          bool operator!=(const const_iterator& lhs) const;
