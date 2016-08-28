@@ -1,12 +1,15 @@
 #ifndef test_23493274923
 #define test_23493274923
 #include <vector>
+#include  "tree23.h"
 
 template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
 void run_test(const std::vector<int>& vec, void (*function)(const std::vector<int>&));
  
 void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vector<int>& base_case, void (*function)(const std::vector<int>&));
+
+tree23<int, int> insert_vec_into_tree(const std::vector<int>& test_case);
 
 void test_nonconst_iterator(const std::vector<int>& v);
 

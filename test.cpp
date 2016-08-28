@@ -61,6 +61,20 @@ void run_tests(const std::vector<std::vector<int>>& other_cases, const std::vect
 
 }
 
+tree23<int, int> insert_vec_into_tree(const vector<int>& test_case)
+{
+  tree23<int, int> tree;
+
+  for (auto& key : test_case) {
+
+      cout << "Inserting: " << key << std::endl;
+      
+      tree.insert(key, key);
+  }
+
+  return tree;
+}
+
 void test_insert(const vector<int>& test_case)
 {    
   tree23<int, int> tree;
@@ -93,15 +107,7 @@ void test_insert(const vector<int>& test_case)
 
 void test_remove(const std::vector<int>& test_case)
 {  
-   tree23<int, int> tree;
-
-   int i = 0;
-  
-   for(auto& key : test_case) {
-
-      tree.insert(key, ++i);
-
-   }
+   tree23<int, int> tree(insert_vec_into_tree(test_case)); 
 
    vector<int> removal_vec{test_case}; // make copy of test_case vector
 
@@ -115,16 +121,8 @@ void test_remove(const std::vector<int>& test_case)
 
        cout << "\nRemoving key: " << key << endl;
        
-       if (key == 37) {  //after removing 37, tree has many nullptrs still in it. Then blowes up when 150 removed.
+       tree.remove(key);
 
-          auto debug = 10;
-          ++debug;
-          tree.remove(key);
-         
-       } else {
-          
-          tree.remove(key);
-       }
        cout << "\nPrinting tree in order after removal: \n";
                
        debug_print_tree(tree);   // to do regular print do: print_tree(tree);
@@ -144,14 +142,7 @@ void test_remove(const std::vector<int>& test_case)
 
 void test_copy_ctor(const std::vector<int>& input)
 {
-  tree23<int, int> tree;
-
-  int i = 0;
-  
-  for(auto& key : input) {
-
-     tree.insert(key, ++i);
-  }
+  tree23<int, int> tree{ insert_vec_into_tree(input) }; 
 
   tree23<int, int> tree_copy{tree};
   
@@ -162,6 +153,17 @@ void test_copy_ctor(const std::vector<int>& input)
   tree.inOrderTraverse(lambda_closure);
   
   cout << "\n";
+}
+
+void test_const_iterator_move_ctor(const std::vector<int>& input)
+{
+  const tree23<int, int> tree{ insert_vec_into_tree(input)};
+  
+  tree23<int, int>::const_iterator citer{ tree.begin() };
+
+  tree23<int, int>::const_iterator citer2 {std::move(citer)};
+
+  cout << "Created const_iterator citer2 using move constructor." << endl << flush;
 }
 
 void test_nonconst_iterator(const std::vector<int>& input)
@@ -199,7 +201,6 @@ void test_nonconst_iterator(const std::vector<int>& input)
   }
   cout << endl;
 }
-
 
 void test_forward_iterator(const std::vector<int>& test_case)
 {
