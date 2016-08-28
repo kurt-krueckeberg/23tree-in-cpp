@@ -62,14 +62,16 @@ where the input to the copy constructor is const. Also the `reverse_iterator::op
 So we need to design `iterator` and `const_iterator` properly, so that `reverse_iterator<const tree23<int, int>>` compiles as well as 
 `reverse_iterator<tree23<int, int>>`.  The same comments apply to `const_reverse_iterator` and `const_iterator`.
  
-It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to 
-implement a custom iterator properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good 
-discussion about compiler type checking involving template and how, and how it all works from the comipler's point of view. 
+It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to implement a custom iterator
+properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good discussion about compiler type checking involving template and 
+how, and how it all works from the comipler's point of view. 
 
 What does const mean exactly when it comes to `some_iterator::operator*()`. When should `operator*()` be const and when should it not be const? 
-What are the reasons for choosing one versus the other.
+What are the reasons for choosing one versus the other?
 
 Test whether the move constructor for `tree23<Key, Value>::iterator` compiles.
+
+Maybe a `const_cast< to non-const>( )` is all that is needed to fix the problem.
 
 ### Red Black code
 
