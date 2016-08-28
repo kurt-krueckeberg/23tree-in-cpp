@@ -339,7 +339,7 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
  auto riter = tree.rbegin();
  auto riter_end = tree.rend();
   
- for(; riter != riter_end;--riter) {
+ for(; riter != riter_end; ++riter) {
 
     const auto& key_value = *riter; // causes compiler error.
 
@@ -353,7 +353,7 @@ void print_with_const_reverse_iterator(const tree23<int, int>& tree)
  tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
  tree23<int, int>::const_reverse_iterator riter_end = tree.rend();
 
- for(; riter != riter_end; --riter) {
+ for(; riter != riter_end; ++riter) {
 
    const tree23<int, int>::KeyValue& key_value = *riter;
 
