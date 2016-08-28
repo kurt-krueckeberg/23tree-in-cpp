@@ -2,24 +2,11 @@
 #include "include/tree23.h"
 #include "include/level-order-display.h"
 #include "include/debug-level-order-printer.h"
-//#include "include/debug.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
 
 using namespace std;
-
-tree23<int, int>::iterator reverse_iterator_sim::base_nonconst()
-{
-  tree23<int, int>::iterator iter_temp = current; 
-  
-  return iter_temp;
-}
-
-tree23<int, int>::iterator reverse_iterator_sim::base() const
-{
-  return current;
-}
 
 void run_test(const vector<int>& test_case, void (*f)(const std::vector<int>&))
 {  
@@ -334,6 +321,15 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
 }
 
+void test_reverse_iterators(const vector<int>& input)
+{
+   tree23<int, int> tree{ insert_vec_into_tree(input) };
+
+   print_with_nonconst_reverse_iterator(tree);
+
+   print_with_const_reverse_iterator(tree);
+}
+
 void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 {
  using tree23_int = tree23<int, int>;
@@ -343,15 +339,12 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
  auto riter = tree.rbegin();
  auto riter_end = tree.rend();
   
- for(; riter != riter_end;) {
+ for(; riter != riter_end;--riter) {
 
-  //--const auto& key_value = *riter; // causes compiler error.
+    const auto& key_value = *riter; // causes compiler error.
 
-  // cout << key_value.key << ", " << flush;
-
-   --riter;
+    cout << key_value.key << ", " << flush;
  }
-   
 }
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)

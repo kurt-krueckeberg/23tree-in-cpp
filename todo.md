@@ -30,46 +30,13 @@ does a no-op, and none of the member varibles changes.
 
 Decide if position needs to be passed to intialize() since position is set, I believe, in all cases before initialize(pos) is called--right?
 
-### Bugs
-
-`std::reverse_iterator` holds an instance of its `_Iterator` template parameter:
-
-    template<class _Iterator>
-    class iterator {
-
-          _Iterator current;
-      //... snip
-     };
-
-If  the `_Iterator` instance is const, then current, too, will be const.
-
-`reverse_iterator::base() const` returns a copy (non-const) of current. The `reverse_iterator::base()` is const because it does not alter in any way 
-`revese_iterator<tree23<int, int>::iterator>`. It merely returns a copy of `reverse_iterator<tree23<int, int>::iterator>`. The `current` member is an instance of the 
-underlying iterator type used to instantiate the `reverse_iterator<class Iterator>` template class.
-
-I have reproduced the problem with a simple class declared in test.h called `reverse_iterator_sim`. It has two methods, one const, the other non-const, that return
-a copy of the iterator member variable. This sample test class's `base() const` method gives the same compile error as I get from the `test_nonconst_iterator_method()`.
-Furthermore, the non-const method also does not compile.
-
-Class iterator has a copy constructor, and it  compiles. The r 
-
-Question: what does `reverse_iterator<const tree23<int, int>>` means that `reverse_iterator<tree23<int, int>>` doesn't mean? The same comments apply to
-`const_reverse_iterator` and `const_iterator`. 
- 
-Note: `reverse_iterator<tree23<int, int>::iterator>::operator==(...) and its `!=` operator both call `reverse_iterator::base() const` method, which doesn't compile.
-Currently the code in test.cpp's test_nonconst_iterator that causes the bug is commented out. I have reproduced the bug using a test class called reverse_iterator_sim. Its `base() const` method has the same bug.
-
-   reverse_iterator_sim::base() const 
-
-The bug was due to the fact that the copy constructor for tree23<...>::iterator(const iterator&) was declared `explicit`. Removing `explicit` gets rid of the error.
-But do I want/need explicit. Is the copy ctor for std::map::iterator explicit?
-
-I think what might be needed is an constructor that does implicit conversion from iterator to const_iterator. I'm not sure. It's crazy that this one-line method is the culprit
-simply because it is a const method.
-
 It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to implement a custom iterator
 properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good discussion about compiler type checking involving template and 
 how, and how it all works from the comipler's point of view. I also need to understand again what an explicit constructor does. 
+
+### Bugs
+
+`test_revese_iterators()` has found bugs in the `reverse_iterators`.
 
 ### Red Black code
 

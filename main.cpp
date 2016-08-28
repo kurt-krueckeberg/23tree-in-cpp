@@ -48,8 +48,7 @@ int main(int argc, char** argv)
        
        try {
       
-          //--run_tests(other_cases, base_case, &test_nonconst_iterator);
-          run_tests(other_cases, base_case, &test_const_iterator_methods);
+          run_tests(other_cases, base_case, &test_reverse_iterators);
               
        } catch(std::exception& e) { 
       
