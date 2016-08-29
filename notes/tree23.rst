@@ -24,8 +24,8 @@ Overview
 Nested Class tree23<Key, Value>::KeyValue
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The key and value are stored in a KeyValue object. KeyValue has both a move assignement and move constructor to improve the efficiency of the tree insertion
-algorithm.
+The key and value are stored in a KeyValue object. KeyValue has a move assignement and move constructor to improve the efficiency of the tree insertion
+algorithm, but is does not have.
 
 .. code-block:: cpp 
 
@@ -36,6 +36,7 @@ algorithm.
       KeyValue() = default;
       KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
       KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
+      KeyValue(const KeyValue& lhs) = default; 
  
       KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} 
  
@@ -308,8 +309,123 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
 Using External Iterators
 ~~~~~~~~~~~~~~~~~~~~~~~~
      
-TODO...
+Since the predecessor and successor of any key (except the min and maximum) can always be found, an external bidirectional iterator can be supplied. The iterator
+maintains a pointer to the current node, the current key, and the current state, where state can be `beg`, `end`, or `in_interval`. `end` is a logical sate
+representing one-past the last element, `beg` is a logical sate representing the first element, and `in_interval` is the state of not being at end or beg, a sort of
+the in-between state.
 
+tree23's `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key. `end()`
+likewise calls a constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
+
+If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too,
+does a no-op, and none of the member varibles changes. 
+
+.. code-block:: cpp
+
+    class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
+                                                 
+       friend class tree23<Key, Value>;   
+      private:
+         tree23<Key, Value>& tree; 
+
+         const typename tree23<Key, Value>::Node23 *current;
+
+         int key_index;  // The parent's child index such that: current == current->parent->children[child_index]
+
+         iterator_position position;
+
+         void initialize(iterator_position pos); // reuseable constructor code. 
+
+         int getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept;
+
+         std::pair<const Node23 *, int> getSuccessor(const Node23 *current, int key_index) const noexcept;
+
+         std::pair<const Node23 *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node23 *pnode, int index_of_key) const noexcept;
+
+         std::pair<const typename tree23<Key, Value>::Node23 *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node23 *, int) const noexcept;
+
+         std::pair<const Node23 *, int> getPredecessor(const Node23 *current, int key_index) const noexcept;
+
+         std::pair<const Node23 *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node23 *pnode, int index) const noexcept;
+
+         std::pair<const Node23 *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node23 *p, int index) const noexcept;
+
+         std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
+
+         // called by 
+         void seekToSmallest() noexcept;    
+         void seekToLargest() noexcept;    
+
+         iterator& increment() noexcept; 
+
+         iterator& decrement() noexcept;
+
+      public:
+
+         explicit iterator(tree23<Key, Value>&); 
+
+         iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
+
+         iterator(const iterator& lhs); // What does explicit do?
+
+         iterator(iterator&& lhs); 
+ 
+         bool operator==(const iterator& lhs) const;
+         bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
+
+         // TODO: KeyValue& is wrong. We don't want to change the key. Should we return pair<Key, Value&> instead? 
+         typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
+         const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
+
+         //const typename tree23<Key, Value>::KeyValue&  dereference() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+
+         iterator& operator++() noexcept; 
+         iterator operator++(int) noexcept;
+
+         iterator& operator--() noexcept;
+         iterator operator--(int) noexcept;
+         
+         // should operator*() be const?
+         typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+
+         const typename tree23<Key, Value>::KeyValue& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+
+         typename tree23<Key, Value>::KeyValue *operator->() noexcept;
+    };
+
+    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
+      private:
+
+        iterator iter;
+      public:
+         
+         explicit const_iterator(const tree23<Key, Value>& lhs);
+
+         const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
+
+         const_iterator(const const_iterator& lhs);
+         const_iterator(const_iterator&& lhs); 
+         const_iterator(const iterator& lhs);
+
+         bool operator==(const const_iterator& lhs) const;
+         bool operator!=(const const_iterator& lhs) const;
+         
+         const_iterator& operator++() noexcept;
+         const_iterator operator++(int) noexcept;
+         const_iterator& operator--() noexcept;
+         const_iterator operator--(int) noexcept;
+
+         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
+    };
+
+    iterator begin() noexcept;  
+    iterator end() noexcept;  
+  
+    const_iterator begin() const noexcept;  
+    const_iterator end() const noexcept;  
+  
 Insertion
 ^^^^^^^^^
 
