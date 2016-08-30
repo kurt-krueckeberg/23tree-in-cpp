@@ -26,8 +26,16 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. Change `iterator::operator*()` to return `std::pair<const Key, Value&>` and change `const_iterator::operator*()` to return `std::pair<const Key, const Value&>`
-Then change all the test code in test.cpp so that it is converted to work with these new, different return types. 
+1. Started to change `iterator::operator*()` to return `std::pair<const Key, Value&>` and change `const_iterator::operator*()` to return
+`std::pair<const Key, Value&>` and `std::pair<const Key, const Value&>` respectively. I also started to change all the test code in test.cpp.
+
+Currently, I am getting a compile error about not being able to convert
+
+    from 'std::pair<const int, const int&>’ to ‘std::pair<const int, int&>’
+
+This is triggered by line 359 of test.cpp, which uses a `reverse_iterator`. Somehow reverse iterator's `operator*()` is not returning the right type. Do I need to 
+specialize these methods for the `tree23<Key, Value>::reverse_iterator`?
+
 
 2. Change notes/tree.rst to contain these new code changes.
 

@@ -180,11 +180,11 @@ void test_const_iterator_methods(const std::vector<int>& input)
 
   tree23<int, int>::const_iterator citer3 = citer2; // Invokes the copy constructor.
 
-  auto key_value1 = *--citer3; 
+  auto pair1 = *--citer3; 
   
-  const tree23<int, int>::KeyValue& key_value2 = *++citer3; 
+  std::pair<const int, const int&> pair2 = *++citer3; 
   
-  const tree23<int, int>::KeyValue& key_value3 = *++citer3; 
+  std::pair<const int, const int&> pair3 = *++citer3; 
      
   int debug = 10;
   
@@ -211,7 +211,7 @@ void test_nonconst_iterator(const std::vector<int>& input)
 
   tree23<int, int> nonconst_tree = const_cast<nonconst_tree23&>(tree);
 
-  tree23<int, int>::iterator iter = nonconst_tree.begin();
+  tree23<int, int>::iterator iter = nonconst_tree.begin(); // This calls the non-const version of begin()
 
   for (; iter != nonconst_tree.end(); ++iter) {
  
@@ -264,7 +264,7 @@ void print_with_forward_iterator(const tree23<int, int>& tree)
 
   for( ; citer != cend_iter; ++citer) {
 
-       cout << (*citer).key << ", ";
+       cout << (*citer).first << ", ";
        cout << flush;
   } 
 }
@@ -315,9 +315,9 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
  for(; iter != iter_begin; --iter) {
 
-   const tree23<int, int>::KeyValue& key_value = *iter;
+   auto _pair = *iter;
 
-   cout << key_value.key << ", " << flush;
+   cout << _pair.first << ", " << flush;
  } 
 
 }
@@ -342,9 +342,9 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
   
  for(; riter != riter_end; ++riter) {
 
-    const auto& key_value = *riter; // causes compiler error.
+    auto& pair_ = *riter; // causes compiler error.
 
-    cout << key_value.key << ", " << flush;
+    cout << pair_.first << ", " << flush;
  }
 }
 
@@ -356,9 +356,9 @@ void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 
  for(; riter != riter_end; ++riter) {
 
-   const tree23<int, int>::KeyValue& key_value = *riter;
+   pair<const int, const int&> pair_ = *riter; // TODO: Is the return type correct? This line triggers compile errors.
 
-   cout << key_value.key << ", " << flush;
+   cout << pair_.first << ", " << flush;
  } 
 }
 
@@ -386,9 +386,9 @@ void print_tree(const tree23<int, int>& tree)
     
   tree23<int, int>::const_iterator const_iter = tree.begin();
   
-  for(const auto& key_value : tree) {
+  for(const auto& pair_ : tree) {
       
-      cout << key_value.key << flush;
+      cout << pair_.first << flush;
   }
   cout << endl;
 }
