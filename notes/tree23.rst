@@ -18,8 +18,8 @@ The following sources discuss 2 3 Trees and their algorithms:
 6. `Virgina Tech 2 3 Tree slides <http://courses.cs.vt.edu/cs2606/Fall07/Notes/T05B.2-3Trees.pdf>`_
 7. `STL's Red-Black Trees <http://www.drdobbs.com/cpp/stls-red-black-trees/184410531>`_
 
-Overview
---------
+Implementation Overview
+-----------------------
 
 Nested Class tree23<Key, Value>::KeyValue
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -49,15 +49,14 @@ algorithm, but is does not have.
       KeyValue& operator=(KeyValue& lhs) = default; 
     };
  
- 
 Node23 nested class
 ^^^^^^^^^^^^^^^^^^^^
 
-2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is a nested class that contains two **std::arrays**: ``std::array<KeyValue, 2> keys_values`` and
-``std::array<std::unique_ptr<Node23>, 3> children[]``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at 
-``children[0]`` and the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` is the middle subtree
-containing keys greater than ``keys_values[0].key`` but less than ``keys_values[2].key``, and ``children[2]`` is the right subtree containing all keys
-greater than ``keys_values[2].key``.
+2 3 tree nodes are of type ``unique_ptr<Node23>``, where Node23 is the nested class shown below that contains two **std::arrays**: ``std::array<KeyValue, 2> keys_values``
+and ``std::array<std::unique_ptr<Node23>, 3> children[]``.  When a Node23 object represents a 2-node, the left subtree of smaller keys is rooted at ``children[0]`` and
+the right subtree of larger keys is rooted at ``children[1]``. When a Node23 represent a 3-node, ``children[0]`` is the left subtree, ``children[1]`` the middle subtree
+that contains keys greater than ``keys_values[0].key`` but less than ``keys_values[2].key``, and ``children[2]`` is the right subtree containing all keys greater than
+``keys_values[2].key``.
 
 .. code-block:: cpp 
  
@@ -141,21 +140,21 @@ greater than ``keys_values[2].key``.
              void insertKeyInLeaf(Key key, Value&& new_value);
         }; 
 
-**Note:** Method ``isLeaf()`` checks that both ``children[0]`` and ``children[1]`` are nullptr since checking ``children[0]`` is insufficient during remove() when a node
-might have only one subtree, for example, rooted at ``children[1]``, while the subtree at ``children[0]`` is nullptr.
+**Note:** Method ``isLeaf()`` checks that both ``children[0]`` and ``children[1]`` are ``nullptr`` since checking only ``children[0]`` is insufficient during ``remove(Key key)``
+when a node might have only one subtree that, for example, is rooted at ``children[1]``, while the subtree at ``children[0]`` is ``nullptr``.
   
 Node4 nested class
 ^^^^^^^^^^^^^^^^^^
 
-The nested Node4 class is used during insertion. Its two constructors automatically sorts the keys of its input parameters. When the input parameters are an internal 3-node, 
+The nested Node4 class is used during insertion only. Its two constructors automatically sort the keys of its input parameters. When the input parameters are an internal 3-node, 
 this particular constructor is used: 
 
 .. code-block:: cpp
 
     template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
 
-The constructor also takes ownership of both p3node's children and heap_2node. child_index is used to determine the indecies of each adopted child,
-where child_index is the index of the prior, lower-level 3-node that was processed in the immediately-prior call to split().
+The constructor takes ownership of both ``p3node``'s children and ``heap_2node``. ``child_index`` is used to determine the indecies of each adopted child,
+where ``child_index`` is the index of the prior, lower-level 3-node that was processed in the immediately-prior call to ``split()``.
 
 Methods
 -------
@@ -163,8 +162,8 @@ Methods
 test\_invariant
 ^^^^^^^^^^^^^^^
 
-The ``test_invariant()`` methods test both the ordering of the tree as well as the parent pointer in each node. Any invariant violations result in a message following the display of the node's keys. 
-It calls several ``test_xxx_invariant()`` methods of Node23.
+The ``test_invariant()`` methods test both the ordering of the tree as well as the parent pointer in each node. Any invariant violations result in a message following
+the display of the node's keys. It calls several ``test_xxx_invariant()`` subroutines of ``Node23`` each of which tests various invariant properties.
  
 find(Key key)
 ^^^^^^^^^^^^^
@@ -212,11 +211,11 @@ An iterative algorithm rather than a recursive algorithm is used to search for a
 Iteration of 2 3 Tree
 ^^^^^^^^^^^^^^^^^^^^^
 
-Via Recursion
-~~~~~~~~~~~~~
+By Recursion
+~~~~~~~~~~~~
 
-Recursive algorithms, like the in-order traversal code below, can be used to traverse the tree in pre order, in order and post order. In the in-order traversal method
-below a template method that take a functor that overloads the function call operator.
+Recursive algorithms, like the in-order traversal code below, can be used to traverse the tree in pre order, in order and post order. In the in order traversal method
+below a template method that take a functor class instance that overloads the function call operator.
 
 .. code-block:: cpp
 
@@ -257,7 +256,7 @@ below a template method that take a functor that overloads the function call ope
     }
  
 There is also a level-order traversal template method that also takes a functor as parameter. In this case, the functor's function call operator must take two arguments:
-a ``const Node23&`` and an ``int``, indicating the current level of the tree.
+a ``const Node23&`` and an ``int`` that indicates the current level of the tree.
 
 .. code-block:: cpp
  
@@ -309,15 +308,15 @@ a ``const Node23&`` and an ``int``, indicating the current level of the tree.
 Using External Iterators
 ~~~~~~~~~~~~~~~~~~~~~~~~
      
-Since the predecessor and successor of any key (except the min and maximum) can always be found, an external bidirectional iterator can be supplied. The iterator
-maintains a pointer to the current node, the current key, and the current state, where state can be `beg`, `end`, or `in_interval`. `end` is a logical sate
-representing one-past the last element, `beg` is a logical sate representing the first element, and `in_interval` is the state of not being at end or beg, a sort of
+Since the predecessor and successor of any key (except the tree's min and maximum) can always be found, an external bidirectional iterator can be supplied. The iterator
+maintains a pointer to the current node, the current index into ``keys_values``, and the current iterator state, where state can be ``beg``, ``end``, or ``in_interval``. 
+``end`` is a logical sate representing one-past the last element, ``beg`` represents the first key/value pair, and `in_interval` is the state of not being at ``end`` or beg, a sort of
 the in-between state.
 
-tree23's `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key. `end()`
-likewise calls a constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
+tree23's ``begin()`` calls a constructor that sets position to ``beg``, and it calls ``seekToSmallest()`` to set ``current`` and ``key_index`` to the first key. ``end()`
+likewise calls a constructor that sets position to ``end``, and it calls ``seekToLargest()`` to set ``current`` and ``key_index`` to the last key.
 
-If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too,
+If the ``position`` is 'beg', ``decrement()`` does a no-op, and none of the member varibles changes. If the ``position`` is 'end' and ``increment()`` is called, it, too,
 does a no-op, and none of the member varibles changes. 
 
 .. code-block:: cpp
@@ -352,13 +351,13 @@ does a no-op, and none of the member varibles changes.
 
          std::pair<const typename tree23<Key, Value>::Node23 *, int> findLeftChildAncestor() noexcept;
 
-         // called by 
+         // called by constructor 
          void seekToSmallest() noexcept;    
          void seekToLargest() noexcept;    
 
-         iterator& increment() noexcept; 
+         iterator& increment() noexcept; // called by operator++() 
 
-         iterator& decrement() noexcept;
+         iterator& decrement() noexcept; // called by operator--()
 
       public:
 
@@ -366,7 +365,7 @@ does a no-op, and none of the member varibles changes.
 
          iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
 
-         iterator(const iterator& lhs); // What does explicit do?
+         iterator(const iterator& lhs); 
 
          iterator(iterator&& lhs); 
  
@@ -384,8 +383,8 @@ does a no-op, and none of the member varibles changes.
 
          iterator& operator--() noexcept;
          iterator operator--(int) noexcept;
-         
-         // should operator*() be const?
+        
+         // TODO: Change KeyValue& to pair<const Key, Value&> 
          typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
 
          const typename tree23<Key, Value>::KeyValue& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
@@ -425,6 +424,15 @@ does a no-op, and none of the member varibles changes.
   
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
+
+    reverse_iterator rbegin() noexcept;  
+    reverse_iterator rend() noexcept;  
+  
+    reverse_const_iterator rbegin() const noexcept;  
+    reverse_const_iterator rend() const noexcept;  
+
+
+Reverse iterators are also supported by the rbegin() and rend() methods.
   
 Insertion
 ^^^^^^^^^
@@ -530,4 +538,3 @@ Deletion
 ^^^^^^^^
 
 The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #.   
-TODO: Finish this.
