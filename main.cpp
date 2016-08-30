@@ -6,6 +6,8 @@
 #include "include/tree23.h"
 #include "include/test.h"
 
+#include <utility> // debug purposes only
+
 using namespace std;
 
 int main(int argc, char** argv) 
@@ -47,7 +49,7 @@ int main(int argc, char** argv)
        cout << endl;
        
        try {
-      
+
           run_tests(other_cases, base_case, &test_reverse_iterators);
               
        } catch(std::exception& e) { 

@@ -26,7 +26,12 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
+1. Change `iterator::operator*()` to return `std::pair<const Key, Value&>` and change `const_iterator::operator*()` to return `std::pair<const Key, const Value&>`
+Then change all the test code in test.cpp so that it is converted to work with these new, different return types. 
+
+2. Change notes/tree.rst to contain these new code changes.
+
+3. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
 external iterators and an insert iterator of some sort to clone a tree.
 
 Do the same thing with DestroyTree(): change it, too, to use external iterators.

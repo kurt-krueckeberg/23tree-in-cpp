@@ -215,8 +215,7 @@ void test_nonconst_iterator(const std::vector<int>& input)
 
   for (; iter != nonconst_tree.end(); ++iter) {
  
-        //--cout << (*iter).key << ", " << endl << flush;
-        cout << (*iter).first << ", " << endl << flush;
+        cout << (*iter).key << ", " << endl << flush;
   }
   cout << endl;
 }
