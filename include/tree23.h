@@ -56,7 +56,9 @@ template<class Key, class Value> class tree23 {
 	     
    };
    /*
-      The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>.  
+    * The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23> and
+    * contained in the std::array<std::unique_ptr<KeyValue>, 3> named keys_values. Each Node23's three children are contained
+    * in the std::array<std::unique_ptr<Node23>, 3> named children;
     */ 
    class Node23 {
 
@@ -202,7 +204,7 @@ template<class Key, class Value> class tree23 {
     void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
             std::unique_ptr<Node23> heap_2node) noexcept;
 
-    // subroutines called by remove()
+    // Subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
     Node23 *remove_getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
@@ -213,7 +215,7 @@ template<class Key, class Value> class tree23 {
 
     void barrowSiblingKey(Node23 *pnode, int child_index, int sibling_index) noexcept;
  
-    // subroutines called by barrowSiblingKey()
+    // Subroutines called by barrowSiblingKey()
     void shiftChildrenRight(Node23 *node, Node23 *sibling) noexcept;
     void shiftChildrenRight(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
 
@@ -227,7 +229,7 @@ template<class Key, class Value> class tree23 {
 
     void shiftChildren(Node23 *node, Node23 *sibling, int node_index, int sibling_index) noexcept;
      
-    // traversal subroutines
+    // Traversal recursive subroutines. CloneTree() uses These are not really needed
     template<typename Functor> void DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
 
     template<typename Functor> void DoPostOrderTraverse(Functor f,  const std::unique_ptr<Node23>& root) const noexcept;
