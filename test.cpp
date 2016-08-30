@@ -342,7 +342,7 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
   
  for(; riter != riter_end; ++riter) {
 
-    auto& pair_ = *riter; // causes compiler error.
+    auto pair_ = *riter; // causes compiler error.
 
     cout << pair_.first << ", " << flush;
  }
@@ -351,12 +351,12 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 {
 
- tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
- tree23<int, int>::const_reverse_iterator riter_end = tree.rend();
+ tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
+ tree23<int, int>::const_reverse_iterator criter_end = tree.rend();
 
- for(; riter != riter_end; ++riter) {
+ for(; criter != criter_end; ++criter) {
 
-   pair<const int, const int&> pair_ = *riter; // TODO: Is the return type correct? This line triggers compile errors.
+   pair<const int, const int&> pair_ = *criter; //error: conversion from ‘const tree23<int, int>::KeyValue’ to non-scalar type ‘std::pair<const int, const int&>’ requested
 
    cout << pair_.first << ", " << flush;
  } 

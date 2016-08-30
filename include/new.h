@@ -277,7 +277,8 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_interval, end}; // possible finite states of iterator. 
 
-    class iterator : public std::iterator<std::bidirectional_iterator_tag, std::pair<const Key, Value&>> { 
+    class iterator : public std::iterator<std::bidirectional_iterator_tag, KeyValue> {
+         // KeyValue is value_type and KeyValue& is reference 
                                                  
        friend class tree23<Key, Value>;   
       private:
@@ -311,9 +312,9 @@ template<class Key, class Value> class tree23 {
          void seekToSmallest() noexcept;    
          void seekToLargest() noexcept;    
 
-         iterator& increment() noexcept; 
+         reference increment() noexcept; 
 
-         iterator& decrement() noexcept;
+         reference decrement() noexcept;
 
       public:
 
