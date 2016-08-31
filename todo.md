@@ -26,66 +26,9 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-Comments:
+1. There is a Segmentation Fault error using the current test case.
 
-Rename KeyValue to something else, I don't know what, `KeyValue_internal`. Then provide it with a conversion operator to the class which we want iterator to return, 
-say, `std::pair<const Key, Value&>` or `KeyValue_outer`
-
-
-    class KeyValue_internal { 
-
-       //...
-
-      public: 
-       KeyValue_internal::operator KeyValue_outer(); 
-       //...
-    };
-
-Where `KeyValue_outer` is defined as 
-
-    struct KeyValue_outer {
-          const Key key;
-          Value& value;
-        public:
-           KeyValue(Key k, Value& v) : key{k}, value{v} {}         
-    };
- 
-    KeyValue_internal::operator KeyValue_outer()  
-    {
-       return KeyValue_outer{key, value};
-    }  
-
-    KeyValue_internal::operator std::pair<const Key, Value&>()  
-    {
-       return std::pair<const Key, Value&>{key, value};
-    } 
-
-Have class iterator return `KeyValue_outer&` and class `const_iterator` return `const KeyValue_outer`/
-
-class ConstKeyValue
-
-1. Started to change `iterator::operator*()` to return `std::pair<const Key, Value&>` and change `const_iterator::operator*()` to return
-`std::pair<const Key, Value&>` and `std::pair<const Key, const Value&>` respectively. I also started to change all the test code in test.cpp.
-
-Currently, I am getting a compile error about initialization of non-const reference 'std::pair<const int, int&>&}’ from an rvalue of type `std::pair<const int, int&>'
-
-`reverse_iterator::operator*() const` returns a value of type `reference`:
-
-    reference reverse_iterator::operator*() const
-    {
-      _Iterator tmp = current;
-       return *--tmp; // <-- compile error here
-    } 
-
-and 
-This is triggered by line 359 of test.cpp, which uses a `const_reverse_iterator`. Somehow reverse iterator's `operator*()` is not returning the right type.
-I think this is because `const_iterator` composes `iterator`. 
-specialize these methods for the `tree23<Key, Value>::reverse_iterator`?
-
-
-2. Change notes/tree.rst to contain these new code changes.
-
-3. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
+2. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
 external iterators and an insert iterator of some sort to clone a tree.
 
 Do the same thing with DestroyTree(): change it, too, to use external iterators.

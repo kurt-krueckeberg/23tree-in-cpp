@@ -29,17 +29,18 @@ template<class Key, class Value> class tree23 {
    /* 
      Class KeyValue is used by Node23, which holds two arrays of KeyValue. 
     */
- class KeyValue {
+ //--class KeyValue {
+ struct KeyValue {
                   
     public:
-     Key   key;
+     const Key   key;
      Value     value;
-     KeyValue() = default;
+     KeyValue() : key{}  {} 
      KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
      KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
 
      KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} 
-     KeyValue(const KeyValue&) = default;
+     KeyValue(const KeyValue& lhs) : key{lhs.key}, value{lhs.value} {} 
 
      KeyValue& operator=(KeyValue&& lhs)
      {
@@ -47,24 +48,13 @@ template<class Key, class Value> class tree23 {
         value = std::move(lhs.value);
      }
  
-     KeyValue& operator=(KeyValue& lhs) = default; 
+     KeyValue& operator=(KeyValue& lhs)  { key = lhs.key; value = lhs.value;  } 
+
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
          ostr << "{" << key_value.key << ',' <<  key_value.value <<  "}, ";
 	 return ostr;
      }
-
-     std::pair<const Key, Value&> get_pair()
-     {
-          return std::pair<const Key, Value&>(key, value); 
-     }  
-
-     std::pair<const Key, const Value&> get_pair() const
-     {
-        return std::pair<const Key, const Value&>(key, static_cast<const Value>(value)); 
-     }  
-
-	     
    };
    /*
     * The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23> and
@@ -277,8 +267,7 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_interval, end}; // possible finite states of iterator. 
 
-    class iterator : public std::iterator<std::bidirectional_iterator_tag, KeyValue> {
-         // KeyValue is value_type and KeyValue& is reference 
+    class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
                                                  
        friend class tree23<Key, Value>;   
       private:
@@ -312,9 +301,9 @@ template<class Key, class Value> class tree23 {
          void seekToSmallest() noexcept;    
          void seekToLargest() noexcept;    
 
-         reference increment() noexcept; 
+         iterator& increment() noexcept; 
 
-         reference decrement() noexcept;
+         iterator& decrement() noexcept;
 
       public:
 
@@ -329,14 +318,10 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         // NEW
-         std::pair<const Key, Value&>        dereference() noexcept; 
-         std::pair<const Key, const Value&>  dereference() const noexcept; 
-
-         /*--  KeyValue& is wrong. We don't want to change the key. Should we return pair<Key, Value&> instead? 
+         // TODO: KeyValue& is wrong. We don't want to change the key. Should we return pair<Key, Value&> instead? 
          typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
          const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
-         */
+
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -345,15 +330,14 @@ template<class Key, class Value> class tree23 {
          iterator operator--(int) noexcept;
          
          // should operator*() be const?
-         std::pair<const Key, Value>&        operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         const std::pair<const Key, Value>&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
 
-         /*TODO: This should be changed
-          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
-          */  
+         const typename tree23<Key, Value>::KeyValue& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         
+         typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
-    class const_iterator : public std::iterator<std::bidirectional_iterator_tag,  std::pair<const Key, const Value&>> {
+    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
       private:
 
         iterator iter;
@@ -375,11 +359,9 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-          const std::pair<const Key, Value>& operator*() const noexcept; 
-
-         /* TODO: Correct this:
+         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
          const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
-          */
     };
 
     iterator begin() noexcept;  
@@ -388,7 +370,7 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
   
-    using reverse_iterator       = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
+    using  reverse_iterator      = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
     using const_reverse_iterator = std::reverse_iterator<typename tree23<Key, Value>::const_iterator>;
 
     reverse_iterator rbegin() noexcept;  
@@ -1624,17 +1606,18 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   return std::make_pair(pnode, suc_key_index); 
 }
-
-template<class Key, class Value> inline std::pair<const Key, Value&> tree23<Key, Value>::iterator::dereference() noexcept
+ 
+template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() noexcept
 {
-   return const_cast<Node23 *>(current)->keys_values[key_index].get_pair(); // invoke the non-const version of KeyValue::get_pair()
+   return const_cast<typename tree23<Key, Value>::KeyValue&>( current->keys_values[key_index] ); 
 }
   
-template<class Key, class Value> inline std::pair<const Key, const Value&> tree23<Key, Value>::iterator::dereference() const noexcept
+template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() const noexcept
 {
- return  current->keys_values[key_index].get_pair(); // should get call 'get_pair() const'
+ return  current->keys_values[key_index];
 }
- 
+
+
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::increment() noexcept	    
 {
   if (tree.isEmpty()) {
@@ -1727,16 +1710,16 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
  return *this;
 }
   
-template<class Key, class Value> inline std::pair<const Key, Value&> tree23<Key, Value>::iterator::operator*()  noexcept	    
+template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()  noexcept	    
 {
   return dereference();
 }
 
-template<class Key, class Value> inline  std::pair<const Key, const Value&> tree23<Key, Value>::iterator::operator*() const noexcept	    
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*() const noexcept	    
 {
   return dereference();
 }
-
+  
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() noexcept	    
 {
   increment();
@@ -1838,17 +1821,16 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
  return *this;
 }
 
-template<class Key, class Value> inline std::pair<const Key, const Value&> tree23<Key, Value>::const_iterator::operator*() const noexcept	    
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
 {
-  return iter.dereference(); // invokes: iterator::dereference() const noexcept--right? 
+  return iter.dereference(); // invoke iterator::dereference() const noexcept 
 }
 
-/* TODO: Should const_iterator have a non-const dereference oeprator at all?
-template<class Key, class Value> inline  tree23<Key, Value>::const_iterator::operator*() noexcept	    
+template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() noexcept	    
 {
   return const_cast<const KeyValue&>(iter.dereference()); // invoke iterator::dereference() const noexcept 
 }
-*/
+
 
 /*
  Checks if any sibling--not just adjacent siblings, but also those that are two hops away--are 3-nodes, from which we can "steal" a key.
@@ -2058,7 +2040,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
          if (!copied && new_key < p3node->keys_values[src].key) {
 
                copied = true;
-               keys_values[dest].key = new_key; 
+               const_cast<Key&>(keys_values[dest].key) = new_key; 
                keys_values[dest].value = new_value; 
                ++dest;
 

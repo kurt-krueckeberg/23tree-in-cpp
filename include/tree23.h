@@ -32,9 +32,9 @@ template<class Key, class Value> class tree23 {
  class KeyValue {
                   
     public:
-     Key   key;
+     const Key   key;
      Value     value;
-     KeyValue() {} 
+     KeyValue() : key{}  {} 
      KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
      KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
 
@@ -43,11 +43,11 @@ template<class Key, class Value> class tree23 {
 
      KeyValue& operator=(KeyValue&& lhs)
      {
-        key = lhs.key;
+        const_cast<Key&>(key) = lhs.key;
         value = std::move(lhs.value);
      }
  
-     KeyValue& operator=(KeyValue& lhs)  { key = lhs.key; value = lhs.value;  } 
+     KeyValue& operator=(KeyValue& lhs)  { const_cast<Key&>(key) = lhs.key; value = lhs.value;  } 
 
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
@@ -317,10 +317,8 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         // TODO: KeyValue& is wrong. We don't want to change the key. Should we return pair<Key, Value&> instead? 
          typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
          const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
-
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -441,7 +439,7 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4
 template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, const Value& value, Node23 *ptr2parent) : \
           parent{ptr2parent}, totalItems{Node23::TwoNodeItems}
 {
-  keys_values[0].key = key;
+  const_cast<Key &>(keys_values[0].key) = key;
   keys_values[0].value = value;
  
   for(auto& child : children) {
@@ -2052,7 +2050,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
    }
    
    if (!copied) {
-        keys_values[dest].key = new_key; 
+        const_cast<Key&>(keys_values[dest].key) = new_key; 
         keys_values[dest].value = new_value; 
    }
      
@@ -2102,7 +2100,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
 	     // smallest value in the 4-node.
 
       {
-        keys_values[0].key = key; // key is the smallest value, so we put in the first position... 
+        const_cast<Key &>(keys_values[0].key) = key; // key is the smallest value, so we put in the first position... 
         keys_values[0].value = value;
 
         //...followed by the current p3node's keys and values
@@ -2128,7 +2126,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
       {  
         keys_values[0] = p3node->keys_values[0];
  
-        keys_values[1].key = key;
+        const_cast<Key &>(keys_values[1].key) = key;
         keys_values[1].value = value; 
         
         keys_values[2] = p3node->keys_values[1];
@@ -2152,7 +2150,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
                keys_values[i] = p3node->keys_values[i]; 
          } 
     
-         keys_values[2].key = key; // key is the largest value in 4-node
+         const_cast<Key &>(keys_values[2].key) = key; // key is the largest value in 4-node
          keys_values[2].value = value;
     
          for(auto i = 0; i < Node23::ThreeNodeChildren; ++i) { // connect p3node's current children in the same order 
@@ -2789,12 +2787,12 @@ template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo3Node
 
       keys_values[1] = std::move(keys_values[0]);  
 
-      keys_values[0].key = new_key;
+      const_cast<Key &>(keys_values[0].key) = new_key;
       keys_values[0].value = new_value; 
 
   } else {
 
-      keys_values[1].key = new_key;
+      const_cast<Key &>(keys_values[1].key) = new_key;
       keys_values[1].value = new_value;
 
       // Note: This tells us that newChild will be the right most child, and the existing children do not need to move.
@@ -2856,12 +2854,12 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
 
        keys_values[1]= std::move(keys_values[0]);
 
-       keys_values[0].key = key;
+       const_cast<Key &>(keys_values[0].key) = key;
        keys_values[0].value = new_value;
 
    } else { // key > keys_values[0].key
 
-       keys_values[1].key = key;
+       const_cast<Key &>(keys_values[1].key) = key;
        keys_values[1].value = new_value;  
    }
 
@@ -2878,12 +2876,12 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
 
        keys_values[1] = std::move(keys_values[0]); 
 
-       keys_values[0].key = key;
+       const_cast<Key &>(keys_values[0].key) = key;
        keys_values[0].value = std::move(new_value);
 
    } else { // key > keys_values[0].key
 
-       keys_values[1].key = key;
+       const_cast<Key &>(keys_values[1].key) = key;
        keys_values[1].value = std::move(new_value);  
    }
 
