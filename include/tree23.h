@@ -326,10 +326,9 @@ template<class Key, class Value> class tree23 {
          iterator& operator--() noexcept;
          iterator operator--(int) noexcept;
          
-         // should operator*() be const?
-         typename tree23<Key, Value>::KeyValue& operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         reference operator*() noexcept { return dereference(); } 
 
-         const typename tree23<Key, Value>::KeyValue& operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const reference operator*() const noexcept { return dereference(); }
          
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
@@ -356,8 +355,8 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; 
+         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; 
          const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
@@ -1707,6 +1706,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
  return *this;
 }
   
+/*
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::operator*()  noexcept	    
 {
   return dereference();
@@ -1716,7 +1716,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::KeyVa
 {
   return dereference();
 }
-  
+*/
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::operator++() noexcept	    
 {
   increment();
@@ -1817,7 +1817,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
  return *this;
 }
-
+  
 template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
 {
   return iter.dereference(); // invoke iterator::dereference() const noexcept 
@@ -1827,7 +1827,7 @@ template<class Key, class Value> inline const typename tree23<Key, Value>::KeyVa
 {
   return const_cast<const KeyValue&>(iter.dereference()); // invoke iterator::dereference() const noexcept 
 }
-
+  
 
 /*
  Checks if any sibling--not just adjacent siblings, but also those that are two hops away--are 3-nodes, from which we can "steal" a key.
