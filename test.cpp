@@ -180,11 +180,11 @@ void test_const_iterator_methods(const std::vector<int>& input)
 
   tree23<int, int>::const_iterator citer3 = citer2; // Invokes the copy constructor.
 
-  auto pair1 = *--citer3; 
+  auto key_value1 = *--citer3; 
   
-  std::pair<const int, const int&> pair2 = *++citer3; 
+  const tree23<int, int>::KeyValue& key_value2 = *++citer3; 
   
-  std::pair<const int, const int&> pair3 = *++citer3; 
+  const tree23<int, int>::KeyValue& key_value3 = *++citer3; 
      
   int debug = 10;
   
@@ -211,12 +211,11 @@ void test_nonconst_iterator(const std::vector<int>& input)
 
   tree23<int, int> nonconst_tree = const_cast<nonconst_tree23&>(tree);
 
-  tree23<int, int>::iterator iter = nonconst_tree.begin(); // This calls the non-const version of begin()
+  tree23<int, int>::iterator iter = nonconst_tree.begin();
 
   for (; iter != nonconst_tree.end(); ++iter) {
  
-        //--cout << (*iter).key << ", " << endl << flush;
-        cout << (*iter).first << ", " << endl << flush;
+        cout << (*iter).key << ", " << endl << flush;
   }
   cout << endl;
 }
@@ -264,7 +263,7 @@ void print_with_forward_iterator(const tree23<int, int>& tree)
 
   for( ; citer != cend_iter; ++citer) {
 
-       cout << (*citer).first << ", ";
+       cout << (*citer).key << ", ";
        cout << flush;
   } 
 }
@@ -315,9 +314,9 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
  for(; iter != iter_begin; --iter) {
 
-   auto _pair = *iter;
+   const tree23<int, int>::KeyValue& key_value = *iter;
 
-   cout << _pair.first << ", " << flush;
+   cout << key_value.key << ", " << flush;
  } 
 
 }
@@ -342,23 +341,23 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
   
  for(; riter != riter_end; ++riter) {
 
-    auto pair_ = *riter; // causes compiler error.
+    const auto& key_value = *riter; // causes compiler error.
 
-    cout << pair_.first << ", " << flush;
+    cout << key_value.key << ", " << flush;
  }
 }
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 {
 
- tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
- tree23<int, int>::const_reverse_iterator criter_end = tree.rend();
+ tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
+ tree23<int, int>::const_reverse_iterator riter_end = tree.rend();
 
- for(; criter != criter_end; ++criter) {
+ for(; riter != riter_end; ++riter) {
 
-   pair<const int, const int&> pair_ = *criter; //error: conversion from ‘const tree23<int, int>::KeyValue’ to non-scalar type ‘std::pair<const int, const int&>’ requested
+   const tree23<int, int>::KeyValue& key_value = *riter;
 
-   cout << pair_.first << ", " << flush;
+   cout << key_value.key << ", " << flush;
  } 
 }
 
@@ -386,9 +385,9 @@ void print_tree(const tree23<int, int>& tree)
     
   tree23<int, int>::const_iterator const_iter = tree.begin();
   
-  for(const auto& pair_ : tree) {
+  for(const auto& key_value : tree) {
       
-      cout << pair_.first << flush;
+      cout << key_value.key << flush;
   }
   cout << endl;
 }

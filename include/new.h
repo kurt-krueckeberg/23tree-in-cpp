@@ -345,8 +345,8 @@ template<class Key, class Value> class tree23 {
          iterator operator--(int) noexcept;
          
          // should operator*() be const?
-         std::pair<const Key, Value&>        operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
-         std::pair<const Key, const Value&>  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         std::pair<const Key, Value>&        operator*() noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
+         const std::pair<const Key, Value>&  operator*() const noexcept; // KeyValue& is wrong. We don't want to change the key. How about std::pair<Key, Value&>?
 
          /*TODO: This should be changed
           typename tree23<Key, Value>::KeyValue *operator->() noexcept;
@@ -375,8 +375,7 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-         //--std::pair<const Key, const Value&>   operator*() noexcept; 
-         std::pair<const Key, const Value&>   operator*() const noexcept; 
+          const std::pair<const Key, Value>& operator*() const noexcept; 
 
          /* TODO: Correct this:
          const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
