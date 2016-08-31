@@ -1460,7 +1460,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   }
 
   // Determine child_index such that pnode == pnode->parent->children[child_index]
-  int child_index = getChildIndex(pnode);
+  int child_index = getChildIndex(pnode); // BUG: This blows up if pnode == root.get())
 
   int suc_key_index;
 
