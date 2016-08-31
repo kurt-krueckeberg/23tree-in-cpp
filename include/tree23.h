@@ -1107,7 +1107,19 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 {
   if (current->isLeaf()) { // If leaf node
 
-     return getLeafNodePredecessor(current, key_index);
+     if (current == tree.root.get()) { // root is leaf      
+
+         if (tree.root->isThreeNode() && key_index == 1) {
+
+             return std::make_pair(current, 0);
+         }
+                  
+         return std::make_pair(nullptr, 0);
+            
+     } else {
+
+        return getLeafNodePredecessor(current, key_index);
+     }
 
   } else { // else internal node
 
@@ -1393,8 +1405,20 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                                                                                                            int index_of_key) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
+     
+     if (current == tree.root.get()) { // root is leaf      
 
-     return getLeafNodeSuccessor(current, index_of_key);
+         if (tree.root->isThreeNode() && key_index == 0) {
+
+             return std::make_pair(current, 1);
+         }
+                  
+         return std::make_pair(nullptr, 0);
+ 
+     } else {
+
+        return getLeafNodeSuccessor(current, index_of_key);
+     }
 
   } else { // else internal node
 

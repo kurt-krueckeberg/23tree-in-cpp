@@ -26,10 +26,7 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. There is a Segmentation Fault error using the `test_remove()` case. It is due to `getSuccessor()` calling `getLeafNodeSuccessor()`, when the current node is the root.
-`getChildIndex(pnode)` blows up when `pnode == root.get()`.
-
-2. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
+1. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
 external iterators and an insert iterator of some sort to clone a tree.
 
 Do the same thing with DestroyTree(): change it, too, to use external iterators.
