@@ -26,8 +26,43 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-Comments: std::map stores nodes of type `pair<const Key, Value>`, and map<>::iterator returns `pair<const Key, Value>&`. Is there a way to convert the existing code
-to use `pair<const Key, Value>`? 
+Comments:
+
+Rename KeyValue to something else, I don't know what, `KeyValue_internal`. Then provide it with a conversion operator to the class which we want iterator to return, 
+say, `std::pair<const Key, Value&>` or `KeyValue_outer`
+
+
+    class KeyValue_internal { 
+
+       //...
+
+      public: 
+       KeyValue_internal::operator KeyValue_outer(); 
+       //...
+    };
+
+Where `KeyValue_outer` is defined as 
+
+    struct KeyValue_outer {
+          const Key key;
+          Value& value;
+        public:
+           KeyValue(Key k, Value& v) : key{k}, value{v} {}         
+    };
+ 
+    KeyValue_internal::operator KeyValue_outer()  
+    {
+       return KeyValue_outer{key, value};
+    }  
+
+    KeyValue_internal::operator std::pair<const Key, Value&>()  
+    {
+       return std::pair<const Key, Value&>{key, value};
+    } 
+
+Have class iterator return `KeyValue_outer&` and class `const_iterator` return `const KeyValue_outer`/
+
+class ConstKeyValue
 
 1. Started to change `iterator::operator*()` to return `std::pair<const Key, Value&>` and change `const_iterator::operator*()` to return
 `std::pair<const Key, Value&>` and `std::pair<const Key, const Value&>` respectively. I also started to change all the test code in test.cpp.

@@ -48,6 +48,7 @@ template<class Key, class Value> class tree23 {
      }
  
      KeyValue& operator=(KeyValue& lhs)  { key = lhs.key; value = lhs.value;  } 
+
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
          ostr << "{" << key_value.key << ',' <<  key_value.value <<  "}, ";
