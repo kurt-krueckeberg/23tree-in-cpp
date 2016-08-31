@@ -50,8 +50,11 @@ int main(int argc, char** argv)
        
        try {
 
-//        run_tests(other_cases, base_case, &test_reverse_iterators);
-          run_tests(other_cases, base_case, &test_remove);
+          run_tests(other_cases, base_case, &test_forward_iterator);
+
+          cout << "\nEND OF TEST =====================\n";
+
+          run_tests(other_cases, base_case, &test_backward_iterator);
               
        } catch(std::exception& e) { 
       

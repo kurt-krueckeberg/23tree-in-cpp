@@ -80,28 +80,22 @@ void test_insert(const vector<int>& test_case)
   
    int i = 0;
     
-   for (auto& key : test_case) {
+   tree = insert_vec_into_tree(test_case);
 
-      cout << "Inserting: " << key << std::endl;
+   print_tree(tree);  // or to print debug info change to: debug_print_tree(tree);      
+
+   cout << flush << "\nTesting find(v) of all keys v inserted so for. First, reprinting the tree.\n" << flush;
+
+   print_tree(tree);  
+
+   for (auto key : test_case) {
       
-      tree.insert(key, key);
-
-      print_tree(tree);  // or to print debug info change to: debug_print_tree(tree);      
-      
-    }
-
-    cout << flush << "\nTesting find(v) of all keys v inserted so for. First, reprinting the tree.\n" << flush;
-
-    print_tree(tree);  
-
-    for (auto key : test_case) {
-      
-         string result_msg = tree.find(key) ? " found " : " not found ";
+        string result_msg = tree.find(key) ? " found " : " not found ";
            
-         cout << "Key " << key << " was " << result_msg << endl; 
-    } 
+        cout << "Key " << key << " was " << result_msg << endl; 
+   } 
 
-    return; 
+   return; 
 }
 
 void test_remove(const std::vector<int>& test_case)
