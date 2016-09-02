@@ -1937,44 +1937,44 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 /*
  Does a pre-order traversal, using recursion and copying the source node, the first parameter, to the node, the second parameter.
  */
-template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
-        std::unique_ptr<typename tree23<Key, Value>::Node23>& NodeCopy) noexcept
+template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& srcNode, \
+        std::unique_ptr<typename tree23<Key, Value>::Node23>& destNode) noexcept
 {
-  if (Node2Copy != nullptr) { 
+  if (srcNode != nullptr) { 
                               
-   switch (Node2Copy->totalItems) {
+   switch (srcNode->totalItems) {
 
       case 1: // two node
       {    
-            NodeCopy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems);
+            destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems);
              
-            NodeCopy->parent = Node2Copy->parent;
+            destNode->parent = srcNode->parent;
             
-            CloneTree(Node2Copy->children[0], NodeCopy->children[0]); 
+            CloneTree(srcNode->children[0], destNode->children[0]); 
             
-            CloneTree(Node2Copy->children[1], NodeCopy->children[1]); 
+            CloneTree(srcNode->children[1], destNode->children[1]); 
 
             break;
 
       }   // end case
       case 2: // three node
       {
-            NodeCopy = std::make_unique<Node23>(Node2Copy->keys_values, Node2Copy->parent, Node2Copy->totalItems); 
+            destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems); 
 
-            NodeCopy->parent = Node2Copy->parent;
+            destNode->parent = srcNode->parent;
             
-            CloneTree(Node2Copy->children[0], NodeCopy->children[0]);
+            CloneTree(srcNode->children[0], destNode->children[0]);
             
-            CloneTree(Node2Copy->children[1], NodeCopy->children[1]);
+            CloneTree(srcNode->children[1], destNode->children[1]);
             
-            CloneTree(Node2Copy->children[2], NodeCopy->children[2]);
+            CloneTree(srcNode->children[2], destNode->children[2]);
 
             break;
       } // end case
    }  // end switch
  } else {
 
-    NodeCopy = nullptr;
+    destNode = nullptr;
  } 
 }
 
