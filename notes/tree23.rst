@@ -539,9 +539,9 @@ Deletion
 
 The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #. ``void tree23<Key, Value>::remove(Key key)`` psuedocode 
 
-Calls ``findRemovalStartNode(...)``, which returns:
+Calls ``findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept)``, which returns:
 
-1. Node23 * of node with key, or nullptr if key not found.
+1. ``Node23 *`` of node with key, or ``nullptr`` if key not found.
 2. index of key
 3. an ``stack<int>`` that contains the child indecies we descended from the root to the node with the key.
 
@@ -554,11 +554,13 @@ If it is an internal node
 delete swapped key from leaf node 
 
 if leaf is now empty
-   fixTree(empty_leaf_node)  
+ ``fixTree(pLeaf, descent_indecies)``  
+
+fixTree
 
 fixTree Parameters
 
-1. pnode: an empty node, initially a leaf. During recursive calls, pnode is an empty internal 2-node with only one non-nullptr child.  
+1. pLeaf: initially an empty leaf node. Later, during recursive calls, pnode is an empty internal 2-node with only one non-nullptr child.  
 2. child_index: The child index in the parent such that ``pnode->parent->children[child_index] == pnode``. 
 
 fixTree pseudo code
