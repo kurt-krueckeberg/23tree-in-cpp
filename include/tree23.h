@@ -2245,35 +2245,12 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
 template<class Key, class Value> inline int tree23<Key, Value>::getHeight() const noexcept
 {
   return height;
-
-  /* This is a double check, a sort of assertion  
-  int depth = 0;
-
-  for (auto current = root.get(); current != nullptr; current = current->children[0].get()) {
-
-       ++depth;
-  }
-
-  return depth;
-  */
 }
 
 template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
 {
    DoInOrderTraverse(f, root);
 }
-
-/*
-template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::postOrderTraverse(Functor f) const noexcept
-{
-   DoPostOrderTraverse(f, root);
-}
-
-template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::preOrderTraverse(Functor f) const noexcept
-{
-   DoPreOrderTraverse(f, root);
-}
-*/
 
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
 {
@@ -2305,7 +2282,18 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
             break;
    }
 }
+
 /*
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::postOrderTraverse(Functor f) const noexcept
+{
+   DoPostOrderTraverse(f, root);
+}
+
+template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::preOrderTraverse(Functor f) const noexcept
+{
+   DoPreOrderTraverse(f, root);
+}
+
 template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::DoPostOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
 {
    if (current == nullptr) {
