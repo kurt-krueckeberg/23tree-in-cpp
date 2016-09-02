@@ -26,11 +26,6 @@ does a no-op, and none of the member varibles changes.
 
 ## TODO
 
-1. Change `CloneTree()` to either use a functor and call DoInOrderTraversal() rather than having CloneTree() do its own in order traversal, or better yet, use the
-external iterators and an insert iterator of some sort to clone a tree.
-
-Do the same thing with DestroyTree(): change it, too, to use external iterators.
-
 It would be best to read up on `iterators`. `iterator_traits`, `reverse_iterator` and `const_reverse_iterator`, as well as on how to implement a custom iterator
 properly. See C++Prog. Lang 4th edition and Modern C++ Programming by Scott Meyers. He has an good discussion about compiler type checking involving template and 
 how, and how it all works from the comipler's point of view. I also need to understand again what an explicit constructor does. 

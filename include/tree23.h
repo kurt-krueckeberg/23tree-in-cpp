@@ -1958,7 +1958,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 }   
 
 /*
- Does pre-order traversal, copying source node, whose reference is the first parameter to the node reference in the second parameter.
+ Does a pre-order traversal, using recursion and copying the source node, the first parameter, to the node, the second parameter.
  */
 template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& Node2Copy, \
         std::unique_ptr<typename tree23<Key, Value>::Node23>& NodeCopy) noexcept
@@ -2002,7 +2002,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 }
 
 /*
- * Post order traversal, deleting nodes
+ * Does a post order tree traversal, using recursion and deleting nodes as they are visited.
  */
 template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::unique_ptr<Node23> &current) noexcept 
 {
@@ -2019,7 +2019,7 @@ template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::uniqu
    current.reset(); // deletes the underlying pointer. 
 }
 
-// Move constructor
+// Move constructorusing external iterator
 template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)}, height{lhs.height}
 {
   lhs.height = 0;
