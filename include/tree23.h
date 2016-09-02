@@ -2892,13 +2892,19 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
 /*
  remove pseudo code:
 
+ Call findRemovalStartNode
+     It returns
+        1. Node23 * of node with key
+        2. index of key
+        3. an stack<int> that contains the child indecies we descended from the root.
+
  If key does not exist
     return
  else
     save its node pointer and the index within keys[].
 
  If it is an internal node
-    swap the key with the key's in order successor's, which will always be in a leaf. Thus deletion always starts at a leaf node.
+    swap the key with the key's in order successor's, which will always be in a leaf, enabling deletion to starts at a leaf node.
     
  delete swapped key from leaf node 
 

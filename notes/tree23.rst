@@ -537,5 +537,37 @@ and the insertion examples at `Balanced Trees <http://algs4.cs.princeton.edu/33b
 Deletion
 ^^^^^^^^
 
-The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #.   
-TODO: Finish this.
+The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #. ``void tree23<Key, Value>::remove(Key key)`` psuedocode 
+
+Calls ``findRemovalStartNode(...)``, which returns:
+
+1. Node23 * of node with key, or nullptr if key not found.
+2. index of key
+3. an ``stack<int>`` that contains the child indecies we descended from the root to the node with the key.
+
+If key does not exist
+  return
+
+If it is an internal node
+  swap the key with the key's in order successor's, which will always be in a leaf, enabling deletion to starts at a leaf node.
+    
+delete swapped key from leaf node 
+
+if leaf is now empty
+   fixTree(empty_leaf_node)  
+
+fixTree Parameters
+
+1. pnode: an empty node, initially a leaf. During recursive calls, pnode is an empty internal 2-node with only one non-nullptr child.  
+2. child_index: The child index in the parent such that ``pnode->parent->children[child_index] == pnode``. 
+
+fixTree pseudo code
+
+fixTree is called when a node has become empty, and the tree needs to be rebalanced. It is initially called when a leaf node becomes empty. It first attempts
+to barrow a key from a 3-node sibling. silbingHasTwoItems() is called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(), which will supply a
+remove a key/value from sibling, and then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
+
+If no adjacent sibling is a 3-node, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
+sibling. Upon return, pnode is deleted from the tree by a calling to unique_ptr<Node23>::reset().  
+
+If the parent of pnode has now become empty (because merge2Nodes was called), a recursive call to fixTree is made.
