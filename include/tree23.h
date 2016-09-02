@@ -229,13 +229,13 @@ template<class Key, class Value> class tree23 {
 
     void shiftChildren(Node23 *node, Node23 *sibling, int node_index, int sibling_index) noexcept;
      
-    // Traversal recursive subroutines. CloneTree() uses These are not really needed
     template<typename Functor> void DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
 
+    /*
     template<typename Functor> void DoPostOrderTraverse(Functor f,  const std::unique_ptr<Node23>& root) const noexcept;
 
     template<typename Functor> void DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
-
+    */  
     /* 
      * Can a functor be used instead along with pre-order traversal to clone the tree: CloneTreeFunctor(...)?
     */
@@ -415,11 +415,13 @@ template<class Key, class Value> class tree23 {
     // Depth-first traversals
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
 
+    /*
     // traverse() is synonymous with inOrderTraverse()
     template<typename Functor> void traverse(Functor f) const noexcept { DoInOrderTraverse(f, root); }
 
     template<typename Functor> void postOrderTraverse(Functor f) const noexcept;
     template<typename Functor> void preOrderTraverse(Functor f) const noexcept;
+     */
 };
 
 
@@ -2261,6 +2263,7 @@ template<class Key, class Value> template<typename Functor> inline void tree23<K
    DoInOrderTraverse(f, root);
 }
 
+/*
 template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::postOrderTraverse(Functor f) const noexcept
 {
    DoPostOrderTraverse(f, root);
@@ -2270,6 +2273,7 @@ template<class Key, class Value> template<typename Functor> inline void tree23<K
 {
    DoPreOrderTraverse(f, root);
 }
+*/
 
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
 {
@@ -2301,7 +2305,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
             break;
    }
 }
-
+/*
 template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::DoPostOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
 {
    if (current == nullptr) {
@@ -2365,6 +2369,7 @@ template<class Key, class Value> template<typename Functor> inline void tree23<K
             break;
    }
 }
+*/
 
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::levelOrderTraverse(Functor f) const noexcept
 {
