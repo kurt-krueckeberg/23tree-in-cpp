@@ -538,3 +538,4 @@ Deletion
 ^^^^^^^^
 
 The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #.   
+TODO: Finish this.

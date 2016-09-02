@@ -50,7 +50,7 @@ int main(int argc, char** argv)
        
        try {
 
-          run_tests(other_cases, base_case, &test_forward_iterator);
+          run_tests(other_cases, base_case, &test_reverse_iterators);
 
           cout << "\nEND OF TEST =====================\n";
 

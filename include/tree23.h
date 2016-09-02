@@ -27,7 +27,7 @@ template<class Key, class Value> class tree23 {
   
   public:
    /* 
-     Class KeyValue is used by Node23, which holds two arrays of KeyValue. 
+     Class KeyValue is used by Node23, which contains std::arrry<KeyValue, 2>. 
     */
  class KeyValue {
                   
@@ -56,9 +56,8 @@ template<class Key, class Value> class tree23 {
      }
    };
    /*
-    * The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23> and
-    * contained in the std::array<std::unique_ptr<KeyValue>, 3> named keys_values. Each Node23's three children are contained
-    * in the std::array<std::unique_ptr<Node23>, 3> named children;
+    * The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>'s. Each Nod23 has one or two keys and their 
+    * associated values. Each has a parent pointer, and each has an array of child pointers: std::array<std::unique_ptr<KeyValue>, 3>. 
     */ 
    class Node23 {
 
@@ -191,10 +190,11 @@ template<class Key, class Value> class tree23 {
         }
     };
 
-    std::unique_ptr<Node23> root;
-    int height;
+    std::unique_ptr<Node23> root; 
 
-    // subroutines called by insert()
+    int height;   // adjusted by insert() and remove()
+
+    // Subroutines called by insert()
     int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node23 *&pinsert_start) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node23> leftChild, std::unique_ptr<Node23> rightChild) noexcept;  
@@ -240,31 +240,30 @@ template<class Key, class Value> class tree23 {
      * Can a functor be used instead along with pre-order traversal to clone the tree: CloneTreeFunctor(...)?
     */
 
-   // Called by copy constructor and copy assignment operators.
+   // Called by copy constructor and copy assignment operators, respectively.
    void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
 
-   // Useful utilities. For example, class iterator uses these methods.
-   const Node23 *getSmallestNode(const Node23 *subtree_root) const noexcept;	    
-
   public:
+    // Container typedef's used by STL.
 
-    typedef tree23<Key, Value>::KeyValue value_type;
-    typedef int difference_type;
-    typedef tree23<Key, Value>::KeyValue* pointer;
-    typedef tree23<Key, Value>::KeyValue& reference;
+    using value_type          = tree23<Key, Value>::KeyValue; 
+    using difference_type = long int;
+    using pointer             = tree23<Key, Value>::KeyValue*; 
+    using reference           = tree23<Key, Value>::KeyValue&; 
     
-   /*
-     1. end is a logical sate representing one-past the last element.
-     2. beg is a logical sate representing the first element.
-     3. in_interval is the state of not being at end or beg, sort of the in-between state.
+   /*  iterator_position gives the three finite state for an iterators: beg, end, or in_interval.
 
-     The actual value of current will be the same for beg and first_node, and it will be the same for last_node and end.
-     The value of key_index will be zero for state beg. It will be either zero or one for first_node, depending on whether the smallest node is a 2- or 3-node. 
+     1. end -- is a logical sate representing one-past the last, largest key/value in the tree. When at 'end' state, the value of current and key_index
+        will be the same as for the last, largest key/value.  
+     2. beg -- is a logical sate representing the first element.
+     3. in_interval -- is the state of 'not being at end or beg', a sort of the in-between beg and end state.
+
+     The value of key_index will be zero for state beg. 
      The value of key_index will be current->totalItems - 1 for state end.
     */
                                 
-    enum class iterator_position {beg, in_interval, end}; // possible finite states of iterator. 
+    enum class iterator_position {beg, in_interval, end}; 
 
     class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
                                                  
@@ -317,8 +316,9 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         typename tree23<Key, Value>::KeyValue&         dereference() noexcept; 
-         const typename tree23<Key, Value>::KeyValue&   dereference() const noexcept; 
+         reference dereference() noexcept { return const_cast<reference>(current->keys_values[key_index]); } 
+
+         const reference  dereference() const noexcept { return  const_cast<const reference>(current->keys_values[key_index]);} 
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -336,7 +336,7 @@ template<class Key, class Value> class tree23 {
     class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
       private:
 
-        iterator iter;
+        iterator iter; 
       public:
          
          explicit const_iterator(const tree23<Key, Value>& lhs);
@@ -355,8 +355,11 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-         const typename tree23<Key, Value>::KeyValue&  operator*() noexcept; 
-         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept; 
+         const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept 
+         {
+           return iter.dereference(); 
+         } 
+
          const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
     };
 
@@ -932,26 +935,6 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
                                  typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree}, position{pos} 
 {
   initialize(position);
-/*
-  if (tree.root.get() == nullptr) {
-         
-      current = nullptr;
-      key_index = 0;
-      position = iterator_position::end;
-
-  } else if (position == iterator_position::end) {
-
-      seekToLargest(pos);  // Go to the largest node, and thus allow decrement() to be called on a non-empty tree.
-
-   } else if (position == iterator_position::beg) {
-
-      seekToSmallest(position); // Go to the smallest node, and thus allow increment() to be called
-
-   } else { // any other position value is invalid
-
-      throw std::logic_error("iterator constructor called with wrong position paramater");
-   }
-*/
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
@@ -1067,14 +1050,11 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 /*
  getChildIndex(Node23 *pnode)
 
- Requires:
- pnode a node in the tree for which we want child_index such that
+ Requires: pnode a node in the tree for which we want child_index such that
 
- current->parent->children[child_index] == current
+      current->parent->children[child_index] == current
 
- Returns:
- child_index as shown above. 
-
+ Returns: child_index as shown above. 
  */
 
 template<class Key, class Value> int tree23<Key, Value>::iterator::getChildIndex(const typename tree23<Key, Value>::Node23 *p) const noexcept
@@ -1626,16 +1606,18 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   return std::make_pair(pnode, suc_key_index); 
 }
- 
+/* 
 template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() noexcept
 {
    return const_cast<typename tree23<Key, Value>::KeyValue&>( current->keys_values[key_index] ); 
 }
-  
+*/  
+/*
 template<class Key, class Value> inline const  typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::iterator::dereference() const noexcept
 {
  return  current->keys_values[key_index];
 }
+*/
 
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::increment() noexcept	    
@@ -1841,17 +1823,12 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
  return *this;
 }
-  
+/*  
 template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
 {
   return iter.dereference(); // invoke iterator::dereference() const noexcept 
 }
-
-template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() noexcept	    
-{
-  return const_cast<const KeyValue&>(iter.dereference()); // invoke iterator::dereference() const noexcept 
-}
-  
+*/
 
 /*
  Checks if any sibling--not just adjacent siblings, but also those that are two hops away--are 3-nodes, from which we can "steal" a key.
