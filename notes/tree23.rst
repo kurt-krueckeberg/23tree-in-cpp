@@ -305,8 +305,8 @@ a ``const Node23&`` and an ``int`` that indicates the current level of the tree.
        }
     }
 
-Using External Iterators
-~~~~~~~~~~~~~~~~~~~~~~~~
+By External Iterators
+~~~~~~~~~~~~~~~~~~~~~
      
 Since the predecessor and successor of any key (except the tree's min and maximum) can always be found, an external bidirectional iterator can be supplied. The iterator
 maintains a pointer to the current node, the current index into ``keys_values``, and the current iterator state, where state can be ``beg``, ``end``, or ``in_interval``. 
@@ -537,9 +537,14 @@ and the insertion examples at `Balanced Trees <http://algs4.cs.princeton.edu/33b
 Deletion
 ^^^^^^^^
 
-The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #. ``void tree23<Key, Value>::remove(Key key)`` psuedocode 
+The deletion algorithm is based on the examples in slides # through # and the pseudo code in slide #. 
 
-Calls ``findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept)``, which returns:
+psuedocode 
+~~~~~~~~~~
+
+``void tree23<Key, Value>::remove(Key key)`` pseudocode: 
+
+It first calls ``findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept)``, which returns:
 
 1. ``Node23 *`` of node with key, or ``nullptr`` if key not found.
 2. index of key
@@ -557,6 +562,7 @@ if leaf is now empty
  ``fixTree(pLeaf, descent_indecies)``  
 
 fixTree
+~~~~~~~
 
 fixTree Parameters
 

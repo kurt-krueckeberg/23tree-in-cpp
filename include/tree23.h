@@ -16,7 +16,7 @@
 
 template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
-//...that is required by these friend functions
+//...required by these friend functions
 template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node23& node23); 
 template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node4& node4); 
 
@@ -26,10 +26,8 @@ template<class Key, class Value> class tree23 {
   class Node4;    
   
   public:
-   /* 
-     Class KeyValue is used by Node23, which contains std::arrry<KeyValue, 2>. 
-    */
- class KeyValue {
+      
+ class KeyValue {  // Class KeyValue is used by Node23.
                   
     public:
      const Key   key;
@@ -56,8 +54,7 @@ template<class Key, class Value> class tree23 {
      }
    };
    /*
-    * The tree is made up of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>'s. Each Nod23 has one or two keys and their 
-    * associated values. Each has a parent pointer, and each has an array of child pointers: std::array<std::unique_ptr<KeyValue>, 3>. 
+    * The tree is consists of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>'s.
     */ 
    class Node23 {
 
@@ -66,15 +63,15 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
         Node23(Node4&);
-
+        // We disallow copy construction and assignment...
         Node23(const Node23&) = delete; 
         Node23& operator=(const Node23&) = delete; 
 
-        // Just copy the keys and values. 
-	Node23(const std::array<KeyValue, 2>& lhs_keys_values, Node23 * const lhs_parent, int lhs_totalItems) noexcept; 
-
         Node23(Node23&&); // ...but we allow move assignment and move construction.
         Node23& operator=(Node23&&) noexcept;
+
+        // Constructor for just coping the keys and values. 
+	Node23(const std::array<KeyValue, 2>& lhs_keys_values, Node23 * const lhs_parent, int lhs_totalItems) noexcept; 
 
         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
         constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
@@ -147,7 +144,7 @@ template<class Key, class Value> class tree23 {
   using key_value_type = tree23<Key, Value>::KeyValue;
       
   private: 
-    class Node4 { // Class Node4 is used during insert().
+    class Node4 { // Class Node4 is only used to aid insert()
 
        // Always hold three keys and four children. 
       friend class tree23<Key, Value>; 
@@ -168,10 +165,10 @@ template<class Key, class Value> class tree23 {
     public: 
         Node4() noexcept {}
 
-        /* Constructor that takes an internal 3-node */
+        // Constructor that takes an internal 3-node 
         Node4(Node23 *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node23> heap_2node) noexcept;
 
-        /* Constructor for a leaf 3-node, all child pointers will be zero. */
+        // Constructor for a leaf 3-node, all child pointers will be zero. 
         Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept;
 
         Node4& operator=(Node4&& lhs) noexcept;
@@ -231,14 +228,11 @@ template<class Key, class Value> class tree23 {
      
     template<typename Functor> void DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
 
-    /*
+    /* These methods work but have been commented out
     template<typename Functor> void DoPostOrderTraverse(Functor f,  const std::unique_ptr<Node23>& root) const noexcept;
 
     template<typename Functor> void DoPreOrderTraverse(Functor f, const std::unique_ptr<Node23>& root) const noexcept;
     */  
-    /* 
-     * Can a functor be used instead along with pre-order traversal to clone the tree: CloneTreeFunctor(...)?
-    */
 
    // Called by copy constructor and copy assignment operators, respectively.
    void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
@@ -252,10 +246,10 @@ template<class Key, class Value> class tree23 {
     using pointer             = tree23<Key, Value>::KeyValue*; 
     using reference           = tree23<Key, Value>::KeyValue&; 
     
-   /*  iterator_position gives the three finite state for an iterators: beg, end, or in_interval.
+   /*  iterator_position gives the three possible finite state for an iterators: 
 
-     1. end -- is a logical sate representing one-past the last, largest key/value in the tree. When at 'end' state, the value of current and key_index
-        will be the same as for the last, largest key/value.  
+     1. end -- is a logical sate representing one-past the last, largest key/value in the tree. When at 'end' state, the value
+        of current and key_index will be the same as for the last, largest key/value.  
      2. beg -- is a logical sate representing the first element.
      3. in_interval -- is the state of 'not being at end or beg', a sort of the in-between beg and end state.
 
@@ -314,11 +308,11 @@ template<class Key, class Value> class tree23 {
          iterator(iterator&& lhs); 
  
          bool operator==(const iterator& lhs) const;
-         bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
+         constexpr bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         reference dereference() noexcept { return const_cast<reference>(current->keys_values[key_index]); } 
+         constexpr reference dereference() noexcept { return const_cast<reference>(current->keys_values[key_index]); } 
 
-         const reference  dereference() const noexcept { return  const_cast<const reference>(current->keys_values[key_index]);} 
+         constexpr const reference  dereference() const noexcept { return  const_cast<const reference>(current->keys_values[key_index]);} 
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -360,7 +354,7 @@ template<class Key, class Value> class tree23 {
            return iter.dereference(); 
          } 
 
-         const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } // KeyValue& or pair<Key, Value&>????
+         const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } 
     };
 
     iterator begin() noexcept;  
@@ -546,8 +540,9 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_
      return ostr;
   }
 
-  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty 2-node leaf is itself
-  // also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one non-nullptr child.
+  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty
+  // 2-node leaf is itself also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one
+  //  non-nullptr child.
   int count = 0;
 
   for(auto i = 0; i < TwoNodeChildren; ++i) {
@@ -941,12 +936,12 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::begin() noexcept
 {
-    return iterator{*this, iterator_position::beg};
+  return iterator{*this, iterator_position::beg};
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::begin() const noexcept
 {
-    return const_iterator{*this, iterator_position::beg};
+  return const_iterator{*this, iterator_position::beg};
 }
 
 /*
@@ -955,17 +950,17 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator tree23<Key, Value>::end() noexcept
 {
-    return iterator(const_cast<tree23<Key, Value>&>(*this), iterator_position::end);
+   return iterator(const_cast<tree23<Key, Value>&>(*this), iterator_position::end);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-    return const_iterator(const_cast<tree23<Key, Value>&>(*this), tree23<Key, Value>::iterator_position::end);
+   return const_iterator(const_cast<tree23<Key, Value>&>(*this), tree23<Key, Value>::iterator_position::end);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rbegin() noexcept
 {
-    return reverse_iterator{ end() }; 
+   return reverse_iterator{ end() }; 
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_reverse_iterator tree23<Key, Value>::rbegin() const noexcept
@@ -1040,8 +1035,8 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 
         return true;
 
-    } else if (lhs.position == position && lhs.current == current && lhs.key_index == key_index) { // else check whether position, current and key_index are all equal.
-
+    } else if (lhs.position == position && lhs.current == current && lhs.key_index == key_index) { // else check whether position, current and key_index
+                                                                                                   // are all equal.
         return true;
    }
  }
@@ -1050,9 +1045,9 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 }
 
 /*
- getChildIndex(Node23 *pnode)
+ int getChildIndex(Node23 *pnode)
 
- Requires: pnode a node in the tree for which we want child_index such that
+ Requires: pnode is a node in the tree for which we want child_index such that
 
       current->parent->children[child_index] == current
 
@@ -1076,14 +1071,11 @@ template<class Key, class Value> int tree23<Key, Value>::iterator::getChildIndex
 /*
 Two cases have to be considered: when current is an internal node and when current is a leaf node.
 
-case 1. current is leaf node. 
-If current is a leaf node, we check if it is a 3-node. If it is, and if key_index is 0, the predecessor is the second key of current. However, if key_index is 0,
-then we ascend the parent nodes as long as the parent is the right-most child (of its parent). If we reach the root, there is no predecessor.
+If current is a leaf node, we check if it is a 3-node. If it is, and if key_index is 0, the predecessor is the second
+key of current. However, if key_index is 0, then we ascend the parent nodes as long as the parent is the right-most
+child (of its parent). If we reach the root, there is no predecessor.
 
-Else upon reaching a parent (before the root) that is a middle or left-most child (of its parent), we find the smallest key in the parent's "right" subtree, where  
-
-
-Questions: Will position ever be end or beg, or does calling code ensure that it never is?
+Else upon reaching a parent (before the root) that is a middle or left-most child (of its parent), we find the smallest key in the parent's "right" subtree.
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node23 *, int> tree23<Key, Value>::iterator::getPredecessor(const typename  tree23<Key, Value>::Node23 *current, int key_index) const noexcept
 {
@@ -1130,8 +1122,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
         leftChild = pnode->children[0].get();
  }
- // Question: Does it take into account that fact that a node may have already been visited in order?
- // Get the largest node in the subtree rooted at the leftChild, i.e., its right most node...
+
  for (const Node23 *cursor = leftChild; cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
 
     pnode = cursor;
@@ -1560,7 +1551,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                  /        |          \
               [10]       [35]        [70, 100]
              /   \       /  \        /  |  \
-           [5]  [15]   [20] [50, 55]                   <-- pnode points to key 55 in leaf node [50, 55]. 
+           [5]  [15]   [20] [50, 55]             <-- pnode points to key 55 in leaf node [50, 55]. 
            / \   / \   / \  / \   
           0   0 0   0 0   0 0  0  ... 
     
@@ -2732,8 +2723,9 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
 /*
   Requires: currentRoot is the root. tree::root was moved to the parameter currentRoot by the caller. currentRoot has been down sized to a 2-node.
             rightChild is a heap allocated 2-node unique_ptr<Node23> holding the largest key (and its associated value) in the formerly 3-node root.   
-            new_key is such that pCurrentRoot->keys_values[0].key < new_key < leftChild->keys_values[0].key, and will be added above the current root, growing the tree upward
-            one level. 
+            new_key is such that pCurrentRoot->keys_values[0].key < new_key < leftChild->keys_values[0].key, and will be added above the current root,
+            growing the tree upward one level. 
+
   Promises: A new root is added growing the tree upward one level.
  */
 template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node23> currentRoot, \
@@ -2885,16 +2877,15 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
 /*
  remove pseudo code:
 
- Call findRemovalStartNode
-     It returns
-        1. Node23 * of node with key
-        2. index of key
-        3. an stack<int> that contains the child indecies we descended from the root.
+ Call findRemovalStartNode. It returns:
+      1. Node23 * of node with key
+      2. index of key
+      3. an stack<int> that contains the 'history' of child indecies we descended from the root.
 
  If key does not exist
     return
  else
-    save its node pointer and the index within keys[].
+    save its node pointer and the index within keys_values[].
 
  If it is an internal node
     swap the key with the key's in order successor's, which will always be in a leaf, enabling deletion to starts at a leaf node.
@@ -2904,7 +2895,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
  if leaf is now empty
      fixTree(empty_leaf_node)  
 
- Comment: A a stack of indecies records the route taken descending.
+ Comment: A stack<int> of indecies records the route taken descending to the node containing 'key'.
  */
 template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 {
@@ -3033,8 +3024,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::removeL
  Overview
  ======== 
  fixTree is called when a node has become empty, and the tree needs to be rebalanced. It is initially called when a leaf node becomes empty. It first attempts
- to barrow a key from a 3-node sibling. silbingHasTwoItems() is called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(), which will supply a
- remove a key/value from sibling, and then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
+ to barrow a key from a 3-node sibling. silbingHasTwoItems() is called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(),
+ which will supply a remove a key/value from sibling, and then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
 
  If no adjacent sibling is a 3-node, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
  sibling. Upon return, pnode is deleted from the tree by a calling to unique_ptr<Node23>::reset().  
@@ -3090,13 +3081,13 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
 template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
 {
-   // case 1: The root is a leaf
+   // The root is a leaf
    if (root->isLeaf()){
 
       root = nullptr; // deletes the memory held by the unique_ptr<Node>.
 
    } else {
-   // case 2: recursive remove() case
+   // recursive remove() case:
    // If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
    // node pointer before doing the assignment.
       root = std::move(root->getNonNullChild());  
@@ -3417,8 +3408,8 @@ template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::No
  Requires: The pnode->parent is a 3-node, and all pnode's siblings are 2-nodes.
 
  Promises: Merges one of the keys/values of pnode->parent with one of pnode's 2-node siblings to rebalance the tree. It shifts the children of the
- effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node (which only occurs during a recursive call to
- fixTree()). 
+ effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node (which only occurs during
+ a recursive call to fixTree()). 
  
  */
 template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node23> \
