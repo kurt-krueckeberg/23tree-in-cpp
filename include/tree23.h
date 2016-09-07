@@ -378,14 +378,15 @@ template<class Key, class Value> class tree23 {
 
     std::ostream& test_height(std::ostream& ostr) const noexcept;
 
-    std::string test_invariant(const Node23& p) const noexcept; // new
+    std::string test_invariant(const Node23& p) const noexcept; 
 
-    tree23(const tree23&) noexcept; // TODO: Not implemented
-    tree23& operator=(const tree23&) noexcept; // TODO: Implemented?
+    tree23(const tree23&) noexcept; 
 
-    tree23(tree23&&) noexcept;
+    tree23& operator=(const tree23&) noexcept; 
 
-    tree23& operator=(tree23&&) noexcept;
+    tree23(tree23&&) noexcept; // move constructor
+
+    tree23& operator=(tree23&&) noexcept; // move assignemtn
 
     int getHeight() const noexcept;
     void insert(Key key, const Value& value);
@@ -408,16 +409,7 @@ template<class Key, class Value> class tree23 {
 
     // Depth-first traversals
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
-
-    /*
-    // traverse() is synonymous with inOrderTraverse()
-    template<typename Functor> void traverse(Functor f) const noexcept { DoInOrderTraverse(f, root); }
-
-    template<typename Functor> void postOrderTraverse(Functor f) const noexcept;
-    template<typename Functor> void preOrderTraverse(Functor f) const noexcept;
-     */
 };
-
 
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
@@ -1916,7 +1908,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
   // traverse the tree copying each of its nodes
  if (root == lhs.root) { // are they the same?
 
-       return;
+      return;
   }
 
   DestroyTree(root); // free all the nodes of the current tree 
@@ -1995,6 +1987,23 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, V
   lhs.height = 0;
 }   
 
+// Copy assignment
+template<class Key, class Value> tree23<Key, Value>& tree23<Key, Value>::operator=(const tree23<Key, Value>& lhs) noexcept
+{
+  if (this == &lhs)  {
+      
+      return *this;
+  }
+  
+  DestroyTree(root); // free all the nodes of the current tree 
+
+  height = lhs.height;
+  
+  // Traverse in pre-order using the clone functor. See todo.txt
+  CloneTree(lhs.root, root);
+
+   return *this;
+}
 // Move assignment
 template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::operator=(tree23<Key, Value>&& lhs) noexcept
 {
