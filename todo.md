@@ -1,3 +1,7 @@
+# TODO
+
+Integrate the new versions of the nested tree23 classes Node23 and Node4 found in include/new-nested-tree23.h into include/tree23.h 
+
 # Overview 
 
 ### Implementation Links and Discusssion
