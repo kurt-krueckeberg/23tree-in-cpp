@@ -1,6 +1,37 @@
 # TODO
 
-Integrate the new versions of the nested tree23 classes Node23 and Node4 found in include/new-nested-tree23.h into include/tree23.h 
+1. The new versions of the nested tree23 classes Node23 and Node4 found in include/new-nested-tree23.h have been merged into include/new-tree23.h 
+Most of the old `Node23::XXXX() methods are still there. Remove them. Make sure `std::pair<const Key,Value>` behaves like KeyValue.
+
+Make sure `pair<const Key, Value>` behaves like KeyValue did:
+
+    class KeyValue {  // Class KeyValue is used by Node23.
+
+    const Key   key;
+    Value     value;
+    KeyValue() : key{}  {} 
+    KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} // Does pair have this? If not, shouldn't I provide a partial template specialization?
+    KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
+
+    KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} // Does pair have this? If not, shouldn't I provide a partial template specialization?
+    KeyValue(const KeyValue& lhs) : key{lhs.key}, value{lhs.value} {} // Does pair have this? If not, shouldn't I provide a partial template specialization?
+
+    KeyValue& operator=(KeyValue&& lhs) // Does pair have this? If not, shouldn't I provide a partial template specialization?
+    {
+       const_cast<Key&>(key) = lhs.key;
+       value = std::move(lhs.value);
+    }
+ 
+    KeyValue& operator=(KeyValue& lhs)  { const_cast<Key&>(key) = lhs.key; value = lhs.value;  } 
+
+    friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
+    {
+        ostr << "{" << key_value.key << ',' <<  key_value.value <<  "}, ";
+        return ostr;
+    }
+
+
+2. Implement emplace after understanding perfect forwarding
 
 # Overview 
 

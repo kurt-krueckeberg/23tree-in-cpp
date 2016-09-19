@@ -106,6 +106,9 @@ template<class Key, class Value> class tree23 {
            void insertKeyInLeaf(Key key, const Value& value);
            void insertKeyInLeaf(Key key, Value&& new_value);
   }; 
+
+  private:
+
   class Node4 { // Class Node4 is only used to aid insert()
      public:
          using value_type = std::pair<const Key, Value>;
