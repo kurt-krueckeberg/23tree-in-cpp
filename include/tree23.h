@@ -33,8 +33,7 @@ template<class Key, class Value> class tree23 {
 
         using value_type = std::pair<const Key, Value>; // <-- Try to use this with the partial template specialization
      
-        using const_pair_first_type = const Key;
-        using nonconst_pair_first_type = Key;
+        using pair_first_type = const Key;
         using pair_second_type = Value;
    
      private:
@@ -394,8 +393,7 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
 };
 
-
-// partial template specialization
+/*
 template<class T1, class T2>
 std::pair<T1, T2>& std::pair<T1, T2>::operator=(std::pair< tree23<T1, T2>::Node23::const_pair_first_type, tree23<T1, T2>::Node23::pair_second_type2>&& lhs)
 {
@@ -404,7 +402,7 @@ std::pair<T1, T2>& std::pair<T1, T2>::operator=(std::pair< tree23<T1, T2>::Node2
   return *thhis;
 
 }
-
+*/
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].first, largest key in node4, and its associate value. 
   Its children become the former the two tight most children of node4. Their ownership is transferred to the 2-node.
@@ -2038,7 +2036,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
 
          }  else {
 
-               keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
+               const_cast<Key&>(keys_values[dest].first) = p3node->keys_values[src].first;  
+               keys_values[dest].second = std::move(p3node->keys_values[src].second);  
                ++dest;
                ++src;
          } 
@@ -2840,7 +2839,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
 {
    if (key < keys_values[0].first) {
 
-       keys_values[1]= std::move(keys_values[0]);
+       const_cast<Key&>(keys_values[1].first) = keys_values[0].first;
+       keys_values[1].second = std::move(keys_values[0].second);
 
        const_cast<Key &>(keys_values[0].first) = key;
        keys_values[0].second = new_value;
@@ -3016,7 +3016,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::removeL
   
   if (isThreeNode() && key == keys_values[0].first) {
 
-      keys_values[0] = std::move(keys_values[1]);   // removes keys_values[0].first
+      const_cast<Key&>(keys_values[0].first) = keys_values[1].first;  
+      keys_values[0].second = std::move(keys_values[1].second); 
       
   }  // ...otherwise, we don't need to overwrite keys_values[0].first; we just decrease totalItems. 
 
