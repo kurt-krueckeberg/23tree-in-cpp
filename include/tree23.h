@@ -32,7 +32,11 @@ template<class Key, class Value> class tree23 {
      public:
 
         using value_type = std::pair<const Key, Value>; // <-- Try to use this with the partial template specialization
-
+     
+        using const_pair_first_type = const Key;
+        using nonconst_pair_first_type = Key;
+        using pair_second_type = Value;
+   
      private:
 
         static const int TwoNodeItems = 1;
@@ -389,6 +393,17 @@ template<class Key, class Value> class tree23 {
     // Depth-first traversals
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
 };
+
+
+// partial template specialization
+template<class T1, class T2>
+std::pair<T1, T2>& std::pair<T1, T2>::operator=(std::pair< tree23<T1, T2>::Node23::const_pair_first_type, tree23<T1, T2>::Node23::pair_second_type2>&& lhs)
+{
+  first = const_cast<tree23<T1, T2>::Node23::nonconst_pair_first_type&>(lhs.first);
+  second = lhs.second;
+  return *thhis;
+
+}
 
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].first, largest key in node4, and its associate value. 
