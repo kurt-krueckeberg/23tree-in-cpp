@@ -31,8 +31,8 @@ template<class Key, class Value> class tree23 {
      friend class tree23<Key, Value>;
      public:
 
-        using value_type = std::pair<const Key, Value>;
-       
+        using value_type = std::pair<const Key, Value>; // <-- Try to use this with the partial template specialization
+
      private:
 
         static const int TwoNodeItems = 1;
