@@ -444,7 +444,9 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_ke
   // invokes the default move constructor of std::array, as it has non defined.
   for (auto i = 0; i < totalItems; ++i) {
 
-     keys_values[i] = std::move(lhs.keys_values[i]); 
+     //--keys_values[i] = std::move(lhs.keys_values[i]); 
+     keys_values[i].first = const_cast<Key&>(lhs.keys_values[i].first); 
+     keys_values[i].second = std::move(lhs.keys_values[i].second); 
   }
 }
 
