@@ -1,6 +1,8 @@
 # TODO
 
-1. See tod.txt 
+1. The new version of the tree23 code and the test cases for it are found in **include/new-tree23.h** and **mew-test.cpp**. Once the code is finally debugged, compiles
+   with out error and has been tested, the files can be renamed **include/tree23.h** and **test.cpp**, respecitvely.
+
 2. Implement emplace after understanding perfect forwarding
 
 # Overview 

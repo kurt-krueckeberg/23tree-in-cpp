@@ -80,28 +80,22 @@ void test_insert(const vector<int>& test_case)
   
    int i = 0;
     
-   for (auto& key : test_case) {
+   tree = insert_vec_into_tree(test_case);
 
-      cout << "Inserting: " << key << std::endl;
+   print_tree(tree);  // or to print debug info change to: debug_print_tree(tree);      
+
+   cout << flush << "\nTesting find(v) of all keys v inserted so for. First, reprinting the tree.\n" << flush;
+
+   print_tree(tree);  
+
+   for (auto key : test_case) {
       
-      tree.insert(key, key);
-
-      print_tree(tree);  // or to print debug info change to: debug_print_tree(tree);      
-      
-    }
-
-    cout << flush << "\nTesting find(v) of all keys v inserted so for. First, reprinting the tree.\n" << flush;
-
-    print_tree(tree);  
-
-    for (auto key : test_case) {
-      
-         string result_msg = tree.find(key) ? " found " : " not found ";
+        string result_msg = tree.find(key) ? " found " : " not found ";
            
-         cout << "Key " << key << " was " << result_msg << endl; 
-    } 
+        cout << "Key " << key << " was " << result_msg << endl; 
+   } 
 
-    return; 
+   return; 
 }
 
 void test_remove(const std::vector<int>& test_case)
@@ -145,7 +139,8 @@ void test_copy_ctor(const std::vector<int>& input)
 
   tree23<int, int> tree_copy{tree};
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ", "; };
   
   cout << "input tree first followed by its copy" << endl;
 
@@ -180,11 +175,16 @@ void test_const_iterator_methods(const std::vector<int>& input)
 
   tree23<int, int>::const_iterator citer3 = citer2; // Invokes the copy constructor.
 
-  auto pair1 = *--citer3; 
+  auto key_value1 = *--citer3; 
+ /* 
+  const tree23<int, int>::KeyValue& key_value2 = *++citer3; 
   
-  std::pair<const int, const int&> pair2 = *++citer3; 
+  const tree23<int, int>::KeyValue& key_value3 = *++citer3;   
+  */
+
+  const tree23<int, int>::value_type& key_value2 = *++citer3; 
   
-  std::pair<const int, const int&> pair3 = *++citer3; 
+  const tree23<int, int>::value_type& key_value3 = *++citer3; 
      
   int debug = 10;
   
@@ -197,7 +197,8 @@ void test_nonconst_iterator(const std::vector<int>& input)
 
   tree23<int, int> tree_copy{tree};
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ", "; };
   
   cout << "input tree first followed by its copy" << endl;
 
@@ -211,7 +212,7 @@ void test_nonconst_iterator(const std::vector<int>& input)
 
   tree23<int, int> nonconst_tree = const_cast<nonconst_tree23&>(tree);
 
-  tree23<int, int>::iterator iter = nonconst_tree.begin(); // This calls the non-const version of begin()
+  tree23<int, int>::iterator iter = nonconst_tree.begin();
 
   for (; iter != nonconst_tree.end(); ++iter) {
  
@@ -238,7 +239,8 @@ void test_forward_iterator(const std::vector<int>& test_case)
   
   cout << "\n\nIn order print of tree:\n";
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ", "; };
 
   tree.inOrderTraverse(lambda_closure);
   
@@ -264,6 +266,7 @@ void print_with_forward_iterator(const tree23<int, int>& tree)
 
   for( ; citer != cend_iter; ++citer) {
 
+       //--cout << (*citer).key << ", ";
        cout << (*citer).first << ", ";
        cout << flush;
   } 
@@ -286,7 +289,8 @@ void test_backward_iterator(const std::vector<int>& input)
  
   cout << "\n\nIn order print of tree:\n";
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ", "; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ", "; };
 
   tree.inOrderTraverse(lambda_closure);
   
@@ -315,9 +319,11 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
  for(; iter != iter_begin; --iter) {
 
-   auto _pair = *iter;
+   //--const tree23<int, int>::KeyValue& key_value = *iter;
+   const tree23<int, int>::value_type& key_value = *iter;
 
-   cout << _pair.first << ", " << flush;
+   //--cout << key_value.key << ", " << flush;
+   cout << key_value.first << ", " << flush;
  } 
 
 }
@@ -342,23 +348,26 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
   
  for(; riter != riter_end; ++riter) {
 
-    auto pair_ = *riter; // causes compiler error.
+    const auto& key_value = *riter; // causes compiler error.
 
-    cout << pair_.first << ", " << flush;
+    //--cout << key_value.key << ", " << flush;
+    cout << key_value.first << ", " << flush;
  }
 }
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 {
 
- tree23<int, int>::const_reverse_iterator criter = tree.rbegin();
- tree23<int, int>::const_reverse_iterator criter_end = tree.rend();
+ tree23<int, int>::const_reverse_iterator riter = tree.rbegin();
+ tree23<int, int>::const_reverse_iterator riter_end = tree.rend();
 
- for(; criter != criter_end; ++criter) {
+ for(; riter != riter_end; ++riter) {
 
-   pair<const int, const int&> pair_ = *criter; //error: conversion from ‘const tree23<int, int>::KeyValue’ to non-scalar type ‘std::pair<const int, const int&>’ requested
+   //--const tree23<int, int>::KeyValue& key_value = *riter;
+   const tree23<int, int>::value_type& key_value = *riter;
 
-   cout << pair_.first << ", " << flush;
+   //--cout << key_value.key << ", " << flush;
+   cout << key_value.first << ", " << flush;
  } 
 }
 
@@ -379,16 +388,18 @@ void print_tree(const tree23<int, int>& tree)
 
   cout << "\n\nIn order print of tree: ";
   
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ' '; };
 /*
   tree.inOrderTraverse(lambda_closure);
  */ 
     
   tree23<int, int>::const_iterator const_iter = tree.begin();
   
-  for(const auto& pair_ : tree) {
+  for(const auto& key_value : tree) {
       
-      cout << pair_.first << flush;
+      //--cout << key_value.key << flush;
+      cout << key_value.first << flush;
   }
   cout << endl;
 }
@@ -407,7 +418,8 @@ void debug_print_tree(const tree23<int, int> & tree)
 
   cout << "\n\nIn order print of tree: ";
 
-  auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  //--auto lambda_closure = [](const tree23<int, int>::KeyValue& key_value ){ cout << key_value.key << ' '; };
+  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ' '; };
 
   tree.inOrderTraverse(lambda_closure);
   
