@@ -52,7 +52,6 @@ template<class Key, class Value> class tree23 {
 
         void move_keys_values(std::array<std::unique_ptr<value_type>, 2>&& lhs);
 
-        //--void move_children(std::array<std::unique_ptr<Node23>, 3>&& lhs);
         void move_children(std::array<std::unique_ptr<Node23>, 3>& lhs);
 
         void removeLeafKey(Key key) noexcept;
@@ -236,7 +235,6 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_interval, end}; 
 
-    //--class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
     class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::value_type> { 
                                                  
        friend class tree23<Key, Value>;   
@@ -302,11 +300,9 @@ template<class Key, class Value> class tree23 {
 
          const reference operator*() const noexcept { return dereference(); }
          
-         //--typename tree23<Key, Value>::KeyValue *operator->() noexcept;
          typename tree23<Key, Value>::value_type *operator->() noexcept;
     };
 
-    //--class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
     class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::value_type> {
       private:
 
@@ -329,13 +325,11 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-         //--const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept 
          const typename tree23<Key, Value>::value_type&  operator*() const noexcept 
          {
            return iter.dereference(); 
          } 
 
-         //--const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } 
          const typename tree23<Key, Value>::value_type *operator->() const noexcept { return &this->operator*(); } 
     };
 
@@ -442,13 +436,11 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_ke
   // invokes the default move constructor of std::array, as it has non defined.
   for (auto i = 0; i < totalItems; ++i) {
 
-     //--keys_values[i] = std::move(lhs.keys_values[i]); 
      keys_values[i].first = const_cast<Key&>(lhs.keys_values[i].first); 
      keys_values[i].second = std::move(lhs.keys_values[i].second); 
   }
 }
 
-//--template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_children(std::array<std::unique_ptr<Node23>, 3>&& lhs)
 template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_children(std::array<std::unique_ptr<Node23>, 3>& lhs)
 {
   for (auto i = 0; i < getChildCount(); ++i) {
@@ -2484,7 +2476,6 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 
   if (found_index != Node23::NotFoundIndex) { // new_key already exists. Overwrite its associated value with the new value.
 
-       //--pinsert_start->keys_values[found_index].second = new_value;
        pinsert_start->keys_values[found_index].second = new_value;
        return;  
   }
