@@ -38,11 +38,10 @@ template<class Key, class Value> class tree23 {
       
       KeyValue(Key k, Value&& v) : p1{k, std::move(v)} {} 
 
-      // TODO: In ctor below explicitly delete p1.p1.first by invoking its dtor.
       KeyValue(KeyValue&& lhs) : p1{lhs.p1.first, std::move(lhs.p1.second)} {}
 
       KeyValue& operator=(const KeyValue& lhs);  
-      KeyValue& operator=(KeyValue&& lhs); // TODO: <-- Explicitly invoke p1.seconds's dtor?
+      KeyValue& operator=(KeyValue&& lhs); 
       
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
@@ -168,10 +167,6 @@ template<class Key, class Value> class tree23 {
            void insertKeyInLeaf(Key key, Value&& new_value);
       }; 
 
-  using node23_type = tree23<Key, Value>::Node23;
-  using value_type = std::pair<const Key, Value>; 
-  using const_value_type = const std::pair<const Key, Value>; 
-      
   private: 
     class Node4 { // Class Node4 is only used to aid insert()
 
@@ -270,12 +265,10 @@ template<class Key, class Value> class tree23 {
   public:
     // Container typedef's used by STL.
 
-/*TODO: Change these to std::pair<cont Key, Value>
-    using value_type          = tree23<Key, Value>::KeyValue; 
+    using value_type          = std::pair<const Key, Value>; 
     using difference_type = long int;
-    using pointer             = tree23<Key, Value>::KeyValue*; 
-    using reference           = tree23<Key, Value>::KeyValue&; 
- */   
+    using pointer             = value_type*; 
+    using reference           = value_type&; 
 
    /*  iterator_position gives the three possible finite state for an iterators: 
 
@@ -289,8 +282,6 @@ template<class Key, class Value> class tree23 {
     */
                                 
     enum class iterator_position {beg, in_interval, end}; 
-
-    //--class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::KeyValue> { 
 
     class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::value_type> { 
                                                  
@@ -344,11 +335,9 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          constexpr bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         // TODO: This next two methods don't need const_cast<> anymore.
-         //++constexpr reference dereference() noexcept { return const_cast<reference>(current->keys_values[key_index]); } 
+         constexpr reference dereference() noexcept { return const_cast<std::pair<const Key, Value>&>(current->keys_values[key_index].p2); } 
 
-         constexpr std::pair<const Key, Value>& dereference() noexcept { return const_cast<std::pair<const Key, Value>&>(current->keys_values[key_index].p2); } 
-
+         //--constexpr const std::pair<const Key, Value>& dereference() const noexcept { return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].p2);} 
          constexpr const std::pair<const Key, Value>& dereference() const noexcept { return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].p2);} 
 
          iterator& operator++() noexcept; 
@@ -357,16 +346,12 @@ template<class Key, class Value> class tree23 {
          iterator& operator--() noexcept;
          iterator operator--(int) noexcept;
          
-         //--reference operator*() noexcept { return dereference(); } 
          std::pair<const Key, Value>& operator*() noexcept { return dereference(); } 
 
-         //--const reference operator*() const noexcept { return dereference(); }
          const std::pair<const Key, Value>& operator*() const noexcept { return dereference(); }
          
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
-
-    //--class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const typename tree23<Key, Value>::KeyValue> {
 
     class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const value_type> {
       private:
@@ -390,14 +375,11 @@ template<class Key, class Value> class tree23 {
          const_iterator& operator--() noexcept;
          const_iterator operator--(int) noexcept;
 
-         //--const typename tree23<Key, Value>::KeyValue&  operator*() const noexcept 
-         //--reference&  operator*() const noexcept 
          const std::pair<const Key,Value>&  operator*() const noexcept 
          {
            return iter.dereference(); 
          } 
 
-         //--const typename tree23<Key, Value>::KeyValue *operator->() const noexcept { return &this->operator*(); } 
          const std::pair<const Key, Value> *operator->() const noexcept { return &this->operator*(); } 
     };
 
@@ -2295,11 +2277,7 @@ template<class Key, class Value> template<typename Functor> inline void tree23<K
 {
    DoInOrderTraverse(f, root);
 }
-/*
- TOODO: Change current->keys_values[0] to 
-               current->keys_values[0].p2 
-   and Change all fun
- */
+
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const std::unique_ptr<Node23>& current) const noexcept
 {
    if (current == nullptr) {
@@ -2312,7 +2290,6 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 1: // two node
             DoInOrderTraverse(f, current->children[0]);
  
-            //--f(const_cast<const KeyValue&>(current->keys_values[0]));
             f(current->keys_values[0].p2);
 
             DoInOrderTraverse(f, current->children[1]);
@@ -2321,12 +2298,10 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 2: // three node
             DoInOrderTraverse(f, current->children[0]);
 
-            //--f(const_cast<const KeyValue&>(current->keys_values[0]));
             f(current->keys_values[0].p2);
 
             DoInOrderTraverse(f, current->children[1]);
  
-            //--f(const_cast<const KeyValue&>(current->keys_values[1]));
             f(current->keys_values[1].p2);
 
             DoInOrderTraverse(f, current->children[2]);
