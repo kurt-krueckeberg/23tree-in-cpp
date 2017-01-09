@@ -28,8 +28,8 @@ template<class Key, class Value> class tree23 {
   union KeyValue {
       friend class tree23<Key, Value>;
  
-      std::pair<Key, Value>        p1; // write to this one...
-      std::pair<const Key, Value>  p2;  // but return this one.
+      std::pair<Key, Value>        p1;  // write to this member thereby eliminating constantly casting: const_cast<Key>(p.first) = some_noconst_key;
+      std::pair<const Key, Value>  p2;  // but always return this member of the union.
       
       KeyValue() {} 
       KeyValue(Key key, const Value& value) : p1{key, value} {}
@@ -51,35 +51,7 @@ template<class Key, class Value> class tree23 {
   };
 
   public:
- /*     
- class KeyValue {  // Class KeyValue is used by Node23.
-                  
-    public:
-     const Key   key;
-     Value     value;
-     KeyValue() : key{}  {} 
-     KeyValue(Key k, Value&& v) : key{k}, value{std::move(v)} {} 
-     KeyValue(Key k, const Value& v) : key{k}, value{v} {} 
-
-     KeyValue(KeyValue&& lhs) : key{lhs.key}, value{std::move(lhs.value)} {} 
-     KeyValue(const KeyValue& lhs) : key{lhs.key}, value{lhs.value} {} 
-
-     KeyValue& operator=(KeyValue&& lhs)
-     {
-        const_cast<Key&>(key) = lhs.key;
-        value = std::move(lhs.value);
-     }
- 
-     KeyValue& operator=(KeyValue& lhs)  { const_cast<Key&>(key) = lhs.key; value = lhs.value;  } 
-
-     friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
-     {
-         ostr << "{" << key_value.key << ',' <<  key_value.p1.first <<  "}, ";
-	 return ostr;
-     }
-   };
-  */
-   
+  
    /*
     * The tree is consists of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>'s.
     */ 
@@ -90,6 +62,7 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
         Node23(Node4&);
+
         // We disallow copy construction and assignment...
         Node23(const Node23&) = delete; 
         Node23& operator=(const Node23&) = delete; 
@@ -103,8 +76,8 @@ template<class Key, class Value> class tree23 {
         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
         constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
 
-        constexpr bool isThreeNode() const noexcept { return (totalItems == Node23::ThreeNodeItems) ? true : false; }
-        constexpr bool isTwoNode() const noexcept { return (totalItems == Node23::TwoNodeItems) ? true : false; }
+        constexpr bool isThreeNode() const noexcept { return (totalItems == Node23::ThreeNode) ? true : false; }
+        constexpr bool isTwoNode() const noexcept { return (totalItems == Node23::TwoNode) ? true : false; }
         
         constexpr int getTotalItems() const noexcept { return totalItems; }
         constexpr int getChildCount() const noexcept { return totalItems + 1; }
@@ -135,9 +108,9 @@ template<class Key, class Value> class tree23 {
 
            Node23 *parent;
 
-           static const int TwoNodeItems = 1;
+           static const int TwoNode = 1;
            static const int TwoNodeChildren = 2;
-           static const int ThreeNodeItems = 2;
+           static const int ThreeNode = 2;
            static const int ThreeNodeChildren = 3;
            static const int NotFoundIndex = -1;
                
@@ -151,7 +124,7 @@ template<class Key, class Value> class tree23 {
 
            void removeLeafKey(Key key) noexcept;
        
-           int totalItems; // set to either Node23::TwoNodeItems or Node23::ThreeNodeItems
+           int totalItems; // set to either Node23::TwoNode or Node23::ThreeNode
 
            void connectChild(int childIndex, std::unique_ptr<Node23> child)  noexcept;
            void connectChild(std::unique_ptr<Node23>& dest, std::unique_ptr<Node23> src)  noexcept;
@@ -337,8 +310,8 @@ template<class Key, class Value> class tree23 {
 
          constexpr reference dereference() noexcept { return const_cast<std::pair<const Key, Value>&>(current->keys_values[key_index].p2); } 
 
-         //--constexpr const std::pair<const Key, Value>& dereference() const noexcept { return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].p2);} 
-         constexpr const std::pair<const Key, Value>& dereference() const noexcept { return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].p2);} 
+         constexpr const std::pair<const Key, Value>& dereference() const noexcept { \
+                         return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].p2);} 
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -354,8 +327,8 @@ template<class Key, class Value> class tree23 {
     };
 
     class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const value_type> {
-      private:
 
+      private:
         iterator iter; 
       public:
          
@@ -441,7 +414,7 @@ template<class Key, class Value> class tree23 {
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
   Its children become the former the two tight most children of node4. Their ownership is transferred to the 2-node.
  */
-template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4) : totalItems{Node23::TwoNodeItems}, parent{node4.parent}
+template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4) : totalItems{Node23::TwoNode}, parent{node4.parent}
 {
   keys_values[0] = std::move(node4.keys_values[2]); // Prefer move() to default copy assignment.
 
@@ -453,7 +426,7 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Node4& node4
   Constructs a new 2-node that is a leaf node; i.e., its children are nullptr.
  */
 template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, const Value& value, Node23 *ptr2parent) : \
-          parent{ptr2parent}, totalItems{Node23::TwoNodeItems}
+          parent{ptr2parent}, totalItems{Node23::TwoNode}
 {
   keys_values[0].p1.first = key;
   keys_values[0].p1.second = value;
@@ -523,7 +496,7 @@ template<class Key, class Value> typename tree23<Key, Value>::Node23& tree23<Key
 
 template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node23::test_keys_ordering(std::ostream& ostr) const noexcept
 {
- if (totalItems == Node23::ThreeNodeItems) {
+ if (totalItems == Node23::ThreeNode) {
 
      if (keys_values[0].p1.first >= keys_values[1].p1.first) {
 
@@ -771,12 +744,12 @@ template<class Key, class Value> std::string tree23<Key, Value>::test_invariant(
          node.test_remove_invariant(oss);
          break;
 
-      case Node23::TwoNodeItems:
+      case Node23::TwoNode:
 
          node.test_2node_invariant(oss, root.get());
          break;   
       
-      case Node23::ThreeNodeItems:
+      case Node23::ThreeNode:
 
          node.test_3node_invariant(oss, root.get());
          break;   
@@ -887,24 +860,6 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::print
 
    ostr << "]";
    return ostr;
-/*
-   for (auto& pChild : children) {
-       
-       if (pChild == nullptr) {
-           
-           ostr << "nullptr, ";   
-           
-       } else {
-           
-         for (auto i = 0; i < pChild->totalItems; ++i) {  
-            
-            ostr << "{ " << pChild->keys[i] << ", " << pChild->values[i] << "}, ";
-         } 
-       }
-   }
-   ostr << std::endl; 
-   return ostr;
-*/
 }
 
 // Called by begin()
@@ -2061,7 +2016,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
    int dest = 0;
    int src = 0;
 
-   while (src < Node23::ThreeNodeItems) {
+   while (src < Node23::ThreeNode) {
   
          if (!copied && new_key < p3node->keys_values[src].p1.first) {
 
@@ -2133,7 +2088,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
         keys_values[0].p1.second = value;
 
         //...followed by the current p3node's keys and values
-        for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {
+        for(auto i = 0; i < Node23::ThreeNode; ++i) {
  
               keys_values[i + 1] = std::move(p3node->keys_values[i]); // Added move() 07/11/2016
         } 
@@ -2174,7 +2129,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node
 	      //  key > p3node->keys_values[1].p1.first
 
       { 
-         for(auto i = 0; i < Node23::ThreeNodeItems; ++i) {   
+         for(auto i = 0; i < Node23::ThreeNode; ++i) {   
                                
                keys_values[i] = p3node->keys_values[i]; 
          } 
@@ -2715,7 +2670,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo2Node
 { 
   keys_values[0] = std::move(node4.keys_values[0]);
 
-  totalItems = Node23::TwoNodeItems; 
+  totalItems = Node23::TwoNode; 
 
   // Take ownership of the two left most children of node4 
   connectChild(0, std::move(node4.children[0]));
@@ -2765,7 +2720,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node23::convertTo3Node
   // insert newChild
   connectChild(child_index, std::move(newChild));
 
-  totalItems = Node23::ThreeNodeItems; 
+  totalItems = Node23::ThreeNode; 
 } 
 
 template<class Key, class Value> void  tree23<Key, Value>::Node23::connectChild(int childIndex, std::unique_ptr<typename tree23<Key, Value>::Node23> child) noexcept 
@@ -2812,7 +2767,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
    return;
 }
 /*
-  Requires: this is a 2-node, ie, this->totalItems == Node23::TwoNodeItems
+  Requires: this is a 2-node, ie, this->totalItems == Node23::TwoNode
   rvalue or universal reference version.
  */
 template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertKeyInLeaf(Key key, Value&& new_value)
@@ -2830,7 +2785,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
        keys_values[1].p1.second = std::move(new_value);  
    }
 
-   totalItems = Node23::ThreeNodeItems; 
+   totalItems = Node23::ThreeNode; 
    return;
 }
 /*
@@ -3098,8 +3053,8 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
         sibling->keys_values[0] = std::move(sibling->keys_values[1]);
      } 
 
-     node->totalItems = Node23::TwoNodeItems;
-     sibling->totalItems = Node23::TwoNodeItems;
+     node->totalItems = Node23::TwoNode;
+     sibling->totalItems = Node23::TwoNode;
 
      // Check if leaf node case... 
      if (node->isLeaf()) return;
@@ -3146,7 +3101,7 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
             // handles two hops left
             node->keys_values[0] = std::move(parent->keys_values[0]);
 
-            node->totalItems = Node23::TwoNodeItems;
+            node->totalItems = Node23::TwoNode;
 
             parent->keys_values[0]= std::move(middleChild->keys_values[0]);
 
@@ -3156,7 +3111,7 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
 
             sibling->keys_values[0] = std::move(sibling->keys_values[1]);              
 
-            sibling->totalItems = Node23::TwoNodeItems;
+            sibling->totalItems = Node23::TwoNode;
 
             // Shift the children appropriately below.
             shiftChildrenLeft(node, middleChild, sibling);
@@ -3166,14 +3121,14 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
 
             // handle two hops
             node->keys_values[0] = std::move(parent->keys_values[1]);
-            node->totalItems = Node23::TwoNodeItems;
+            node->totalItems = Node23::TwoNode;
 
             parent->keys_values[1]= std::move(middleChild->keys_values[0]);
             middleChild->keys_values[0] = std::move(parent->keys_values[0]); 
 
             parent->keys_values[0] = std::move(sibling->keys_values[1]);
 
-            sibling->totalItems = Node23::TwoNodeItems;
+            sibling->totalItems = Node23::TwoNode;
 
             // Shift the children appropriately below.
             shiftChildrenRight(node, middleChild, sibling);
@@ -3196,7 +3151,7 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
            
            node->keys_values[0] = std::move(parent->keys_values[0]); 
            parent->keys_values[0] = std::move(sibling->keys_values[1]); 
-           sibling->totalItems = Node23::TwoNodeItems;
+           sibling->totalItems = Node23::TwoNode;
 
            shiftChildrenRight(node, sibling);
            break;      
@@ -3218,7 +3173,7 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
                shiftChildrenRight(node, sibling); 
             }
            
-            sibling->totalItems = Node23::TwoNodeItems;
+            sibling->totalItems = Node23::TwoNode;
             break;
 
          case 2: 
@@ -3226,15 +3181,15 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
            node->keys_values[0] = std::move(parent->keys_values[1]); 
            parent->keys_values[1] = std::move(sibling->keys_values[0]); 
            sibling->keys_values[0] = std::move(sibling->keys_values[1]);
-           sibling->totalItems = Node23::TwoNodeItems;
+           sibling->totalItems = Node23::TwoNode;
            
            shiftChildrenLeft(node, sibling); 
            break;
     }
   }
 
-  node->totalItems = Node23::TwoNodeItems; 
-  sibling->totalItems = Node23::TwoNodeItems;
+  node->totalItems = Node23::TwoNode; 
+  sibling->totalItems = Node23::TwoNode;
   return;
 }
 /*
@@ -3396,8 +3351,8 @@ tree23<Key, Value>::merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept
 
           parent->keys_values[0] = std::move(parent->keys_values[1]);
           
-          parent->children[1]->totalItems = Node23::ThreeNodeItems;
-          parent->totalItems = Node23::TwoNodeItems;
+          parent->children[1]->totalItems = Node23::ThreeNode;
+          parent->totalItems = Node23::TwoNode;
 
           node2Delete = std::move(parent->children[0]); 
 
@@ -3422,8 +3377,8 @@ tree23<Key, Value>::merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept
           parent->children[0]->keys_values[1] = std::move(parent->keys_values[0]);
           parent->keys_values[0] = std::move(parent->keys_values[1]);
 
-          parent->children[0]->totalItems = Node23::ThreeNodeItems;
-          parent->totalItems = Node23::TwoNodeItems;
+          parent->children[0]->totalItems = Node23::ThreeNode;
+          parent->totalItems = Node23::TwoNode;
 
           node2Delete = std::move(parent->children[1]); 
 
@@ -3444,8 +3399,8 @@ tree23<Key, Value>::merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept
           // Move parent's key_values[1] into children[1]->keys_values[1].
           parent->children[1]->keys_values[1] = std::move(parent->keys_values[1]);
 
-          parent->children[1]->totalItems = Node23::ThreeNodeItems;
-          parent->totalItems = Node23::TwoNodeItems;
+          parent->children[1]->totalItems = Node23::ThreeNode;
+          parent->totalItems = Node23::TwoNode;
     
           node2Delete = std::move(parent->children[2]); 
 
@@ -3498,7 +3453,7 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
 
   parent->totalItems = 0;
   
-  sibling->totalItems = Node23::ThreeNodeItems;
+  sibling->totalItems = Node23::ThreeNode;
 
   if (sibling->isLeaf()) {
 
