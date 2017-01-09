@@ -2982,8 +2982,8 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::removeL
 /*
  Overview
  ======== 
- fixTree is called when a node has become empty, and the tree needs to be rebalanced. It is initially called when a leaf node becomes empty. It first attempts
- to barrow a key from a 3-node sibling. silbingHasTwoItems() is called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(),
+ fixTree is called when a node has become empty, and the tree therefore needs to be rebalanced. It is initially called when a leaf node becomes empty. It first
+ attempts to barrow a key from a 3-node sibling. silbingHasTwoItems() is first called to determine if any 3-node sibling exists. If one does, it calls barrowSiblingKey(),
  which will supply a remove a key/value from sibling, and then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
 
  If no adjacent sibling is a 3-node, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
@@ -3043,7 +3043,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
    // The root is a leaf
    if (root->isLeaf()){
 
-      root = nullptr; // deletes the memory held by the unique_ptr<Node>.
+      root = nullptr; // also forces the memory held by the unique_ptr<Node> to be deleted.
 
    } else {
    // recursive remove() case:
@@ -3084,7 +3084,7 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
  // If node is an internal node, this implies fixTree() has recursed, and node will have only subtree, one non-nullptr child.
  if (parent->isTwoNode()) {
 
-     // barrowSiblingKey keys and their associated values. 
+     // bring down parent key and its associated value. 
      node->keys_values[0] = std::move(parent->keys_values[0]);  
 
      if (sibling_index < child_index) {  // sibling is to left of node
@@ -3101,9 +3101,10 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
      node->totalItems = Node23::TwoNodeItems;
      sibling->totalItems = Node23::TwoNodeItems;
 
-     // Check if this is a recursive case or leaf node case. 
+     // Check if leaf node case... 
      if (node->isLeaf()) return;
 
+     // ...or a recursive case 
      if (sibling_index < child_index) {  // If sibling is to left of node...
 
          // ...detemine if the left child is the non-nullptr child, make it the right child; otherwise, 
@@ -3179,15 +3180,15 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node2
             return;
         }  
      
-     // All one hop causes are handled below, like this one hop example:     
-            /* 
-              (20,      40)            (30,     40)
-             /      |     \    ==>     /     |    \
-          Hole   (30,35)   50         20    35     50
-            |    /  | \    /\        / \   /  \    /\
-            C   29 32  37 60 70     C  29 32   37 60 70
+   // All the one hop causes are handled below, like this one hop example:     
+   /* 
+          (20,      40)            (30,     40)
+         /      |     \    ==>     /     |    \
+      Hole   (30,35)   50         20    35     50
+        |    /  | \    /\        / \   /  \    /\
+        C   29 32  37 60 70     C  29 32   37 60 70
 
-          where C is the sole child */
+      where C is the sole child */
 
      switch (sibling_index) { 
 
