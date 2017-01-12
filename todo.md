@@ -86,7 +86,7 @@ This is the red black tree increment method fo stdlibc++ below that was used to 
         return local_Rb_tree_increment(const_cast<_Rb_tree_node_base*>(__x));
       }
 
-From http://www.sgi.com/tech/stl/stl_tree.h
+From http://www.sgi.com/tech/stl/stl\_tree.h
 
     struct _Rb_tree_base_iterator
     {

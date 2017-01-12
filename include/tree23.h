@@ -248,13 +248,13 @@ template<class Key, class Value> class tree23 {
      1. end -- is a logical sate representing one-past the last, largest key/value in the tree. When at 'end' state, the value
         of current and key_index will be the same as for the last, largest key/value.  
      2. beg -- is a logical sate representing the first element.
-     3. in_interval -- is the state of 'not being at end or beg', a sort of the in-between beg and end state.
+     3. in_between -- is the state of 'not being at end or beg', a sort of the in-between beg and end state.
 
      The value of key_index will be zero for state beg. 
      The value of key_index will be current->totalItems - 1 for state end.
     */
                                 
-    enum class iterator_position {beg, in_interval, end}; 
+    enum class iterator_position {beg, in_between, end}; 
 
     class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::value_type> { 
                                                  
@@ -999,7 +999,7 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 {
  if (&lhs.tree == &tree) {
 
-    // If we are not in_interval...
+    // If we are not in_between...
     if (lhs.position == iterator_position::end && position == iterator_position::end) { // check whethert both iterators are at the end...
 
         return true;
@@ -1322,8 +1322,8 @@ Requires:
 
 2. If position is end,  current and key_index MUST point to last key in tree.
   
-3. If position is in_interval, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
-the state can only be in_interval if the first node is a 3-node.
+3. If position is in_between, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
+the state can only be in_between if the first node is a 3-node.
 
 Returns:
 
@@ -1588,24 +1588,24 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator& t
            break;
       
      case iterator_position::beg:
-     case iterator_position::in_interval:
+     case iterator_position::in_between:
      {
            std::pair<const Node23 *, int> pair = getSuccessor(current, key_index);
 
            if (pair.first == nullptr) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
 
-                // There current doesn't change, nor key_index, but the state becomes 'end', one-past last key. 
+                // Therefore current doesn't change, nor key_index, but the state becomes 'end', one-past last key. 
                 position = iterator_position::end;
 
            } else if (current == pair.first) {
 
                 key_index = pair.second; // current has no change, but key_index has.
   
-           } else {  // curent has changed, so we adjust current and key_index. To ensure position is no longer 'beg', we unconditionally set position to 'in_interval'.
+           } else {  // curent has changed, so we adjust current and key_index. To ensure position is no longer 'beg', we unconditionally set position to 'in_between'.
 
                current = pair.first;
                key_index = pair.second;
-               position = iterator_position::in_interval; 
+               position = iterator_position::in_between; 
            }
      }
            break;
@@ -1629,8 +1629,8 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
      // no op. Since current and key_index still point to smallest key and its value., we don't change them. 
      break;
 
-   case iterator_position::in_interval: // 'in_interval' means current and key_index range from the second key/value in tree and its last key/value.
-                                        // 'in_interval' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
+   case iterator_position::in_between: // 'in_between' means current and key_index range from the second key/value in tree and its last key/value.
+                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
                                         //  first key/value.  
     {      
        std::pair<const Node23 *,int> pair = getPredecessor(current, key_index); // returns current and key_index of predecessor
@@ -1654,8 +1654,8 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
 
    case iterator_position::end:
 
-        // current and key_index already point to last key/value, so we merely change the position state to indicate they are 'in_interval'.
-        position = iterator_position::in_interval;
+        // current and key_index already point to last key/value, so we merely change the position state to indicate they are 'in_between'.
+        position = iterator_position::in_between;
         break;
 
    default:
@@ -1789,12 +1789,6 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
 
  return *this;
 }
-/*  
-template<class Key, class Value> inline const typename tree23<Key, Value>::KeyValue& tree23<Key, Value>::const_iterator::operator*() const noexcept	    
-{
-  return iter.dereference(); // invoke iterator::dereference() const noexcept 
-}
-*/
 
 /*
  Checks if any sibling--not just adjacent siblings, but also those that are two hops away--are 3-nodes, from which we can "steal" a key.
@@ -1824,7 +1818,8 @@ template<class Key, class Value> bool tree23<Key, Value>::Node23::siblingHasTwoI
  } 
 
  /* 
-   3-node parent cases below. Determine if any immediate sibling is a 3-node. There will only be two children to inspect when the parent is a 3-node and child_index is 1.
+   3-node parent cases below. Determine if any immediate sibling is a 3-node. There will only be two children to inspect when the parent is a 3-node and child_index
+   is 1.
    */
   switch (child_index) {
       case 0:
@@ -1840,7 +1835,6 @@ template<class Key, class Value> bool tree23<Key, Value>::Node23::siblingHasTwoI
         } else {
 
 	    return false;
-  
         }
         break;
 
@@ -2006,8 +2000,6 @@ template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::
 
 1. p3node is a leaf 3-node. 
 2. new_key and new_value are the new key and value passed to insert().
-
-  Overview:
 
  */
 template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node23 *p3node, Key new_key, const Value& new_value) noexcept : parent{p3node->parent} 
@@ -2245,7 +2237,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 1: // two node
             DoInOrderTraverse(f, current->children[0]);
  
-            f(current->keys_values[0].p2);
+            f(current->keys_values[0].p2);   // current->key(1)
 
             DoInOrderTraverse(f, current->children[1]);
             break;
