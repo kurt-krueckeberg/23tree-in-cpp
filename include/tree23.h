@@ -1205,7 +1205,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
               if (__parent == tree.root.get()) {
                   
                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no predecessor.
-                                                      // To indicate this we set current to nullptr and key_index to 0.
+                                                      // To indicate this we set current, the member of the pair, to nullptr and key_index, the second member, to 0.
               }
 
               prior_node = pnode;
@@ -1280,7 +1280,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                   
                     
                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no predecessor.
-                                                      // To indicate this we set current to nullptr and key_index to 0.
+                                                      // To indicate this we set current, the member of the pair, to nullptr and key_index, the second member, to 0.
               }
           
               prior_node = pnode;
