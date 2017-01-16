@@ -17,7 +17,8 @@ int main(int argc, char** argv)
   vector<int> test_case {50, 39, 15, 65, 69, 150, 125, 20, 70, 100, 40, 34, 37, 30, 10, 33, 36, 38, 85, 90, 60, 35, 80, 89};
   vector<int> v2;
 
-  transform(test_case.begin(), test_case.end(), back_inserter(v2), [=](int element) { return element * -1; });
+  // Append negative values for every vector element.
+  transform(test_case.begin(), test_case.end(), back_inserter(v2), [](int element) { return element * -1; });
 
   copy(v2.begin(), v2.end(), back_inserter(test_case));
 
