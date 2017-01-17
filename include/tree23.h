@@ -2264,9 +2264,9 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
    if (proot == nullptr) return;
       
-   auto initial_level = 1; // initial, top level is 1, the root.
+   auto initial_level = 1; // initial, top root level is 1.
    
-   // 1. pair.first  is: const tree<Key, Value>::Node23*
+   // 1. pair.first  is: const tree<Key, Value>::Node23*, the current node to visit.
    // 2. pair.second is: current level of tree.
    queue.push(std::make_pair(proot, initial_level));
 
@@ -2282,7 +2282,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
         
         if (current != nullptr && !current->isLeaf()) {
 
-            if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily...
+            if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily  ...
 
                    //...when only and only one of the empty 2-node's children will be nullptr. 
                    queue.push( std::make_pair( (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1) ); 
