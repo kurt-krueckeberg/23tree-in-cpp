@@ -394,6 +394,9 @@ template<class Key, class Value> class tree23 {
     /* 
     TODO: implement later:
     void insert(Key key, Value&& value);
+
+    template<class Args>
+    const_iterator emplace(const_iterator position, Args&&... args);
     */
     bool find(Key key) const noexcept;
 
@@ -3482,5 +3485,13 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
   }
   // Further test that it is not in the leaf
 }
+
+// TODO:
+template<class Key, class Value>  template<class Args>
+typename tree23<Key, Value>::const_iterator tree23<Key, Value>::emplace(typename tree23<Key, Value>::const_iterator position, Args&&... args)
+{
+ // model after stl_map emplace() template method.
+}
+
 */
 #endif
