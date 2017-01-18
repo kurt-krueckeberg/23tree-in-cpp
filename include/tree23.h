@@ -25,10 +25,10 @@ template<class Key, class Value> class tree23 {
   private:
   class Node4;    
 
-  union KeyValue {
+  union KeyValue { // A union is used to hold to two Key/Value pairs, one of which, p1, has a non-const Key. p1 is used for writing to....
       friend class tree23<Key, Value>;
  
-      std::pair<Key, Value>        p1;  // write to this member thereby eliminating constantly casting: const_cast<Key>(p.first) = some_noconst_key;
+      std::pair<Key, Value>        p1;  // ...thereby eliminating constantly casting: const_cast<Key>(p.first) = some_noconst_key;
       std::pair<const Key, Value>  p2;  // but always return this member of the union.
       
       KeyValue() {} 
@@ -53,7 +53,7 @@ template<class Key, class Value> class tree23 {
   public:
   
    /*
-    * The tree is consists of heap-allocated Node23 nodes, each managed by std::unique_ptr<Node23>'s.
+    * The tree is consists of heap-allocated Node23 nodes managed by std::unique_ptr<Node23>'s.
     */ 
    class Node23 {
 
