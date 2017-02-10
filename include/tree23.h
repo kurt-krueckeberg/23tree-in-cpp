@@ -395,8 +395,17 @@ template<class Key, class Value> class tree23 {
     TODO: implement later:
     void insert(Key key, Value&& value);
 
+    The method below should be modeled after map<K,T>::emplace(const_iterator position, Args&&... args);
+
     template<class Args>
-    const_iterator emplace(const_iterator position, Args&&... args);
+    const_iterator emplace(const_iterator position, Args&&... args)
+    {
+        void *place = &...; // From const_iterator position determine the existing Node23::keys_values[0].p2.second -- which is of type Value -- that goes here.
+
+    	new(place)  Value(std::forward<Args>(__args)...); // construct in place
+    }
+
+  $str = 'find . -type f -name "' . $param1 . '" exec grep -nH "' . $argv[2] . '" {} \;';
     */
     bool find(Key key) const noexcept;
 
