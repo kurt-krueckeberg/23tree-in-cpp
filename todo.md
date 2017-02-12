@@ -39,6 +39,9 @@ So `template< class U1, class U2 > constexpr pair( U1&& x, U2&& y );` is used. S
 
     template<class Key, class Value> void emplace(Key&& key, Value&& v); // method of class KeyValue
 
+Questions: Does this imply that the current tree23<Key, Value> code can be written to take advantage of this pair constructor, or would I need the complex-and-awful
+piecewise_construct pair constructor?
+
 For Help See These Links
 
 1. [vt] - Variadic Templates C++11 
