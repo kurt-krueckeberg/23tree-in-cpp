@@ -1,6 +1,6 @@
 # TODO
 
-1. Implement emplace after understanding the Qs below
+Implement emplace after understanding the Qs below
 
     template<class Key, class Value> class tree23 {
     
@@ -13,9 +13,10 @@
     template<class Key, class Value>  template<class Args>
     void tree23<Key, Value>::emplace(Args&&... args)
     {
-    
-    Q1:  How do you get the key, which is the first argument, so you can set the value of pair::first?
-    Q2:  How do you get the remaining arguments, minus the first argument, so you can std::forward() them to pair::second?
+     /* 
+       Q1:  How do you get the key, which is the first argument, so you can set the value of pair::first?
+       Q2:  How do you get the remaining arguments, minus the first argument, so you can std::forward() them to pair::second?
+      */
     }
 
 Answer: Note this clue from http://en.cppreference.com/w/cpp/container/map/emplace, which mentions that pair's template constructor is used for
@@ -30,7 +31,15 @@ So `template< class U1, class U2 > constexpr pair( U1&& x, U2&& y );` is used. S
 
     template<class Key, class Value> void emplace(Key&& key, Value&& v);
 
-# Overview 
+For Help See These Links
+
+1. [vt] - Variadic Templates C++11 
+2. [cpp] - std::map emplace()
+
+[vt]: <https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2r1.cbclx01/variadic_templates.htm>
+[cpp]: <http://en.cppreference.com/w/cpp/container/map/emplace>
+
+## Overview 
 
 ### Implementation Links and Discusssion
 
