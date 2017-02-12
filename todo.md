@@ -1,6 +1,34 @@
 # TODO
 
-1. Implement emplace after understanding perfect forwarding
+1. Implement emplace after understanding the Qs below
+
+    template<class Key, class Value> class tree23 {
+    
+       //...
+       public:
+       //...
+        template <class... Args> void emplace (Args&&... args);
+    };
+
+    template<class Key, class Value>  template<class Args>
+    void tree23<Key, Value>::emplace(Args&&... args)
+    {
+    
+    Q1:  How do you get the key, which is the first argument, so you can set the value of pair::first?
+    Q2:  How do you get the remaining arguments, minus the first argument, so you can std::forward() them to pair::second?
+    }
+
+Answer: Note this clue from http://en.cppreference.com/w/cpp/container/map/emplace, which mentions that pair's template constructor is used for
+`tempate<class Args...> iterator map<key, value>::emplace(Args&&...args);
+
+    std::map<std::string, std::string> m;
+ 
+    // uses pair's template constructor
+    m.emplace("d", "ddd"); //<-- The key is "d", the 
+
+So `template< class U1, class U2 > constexpr pair( U1&& x, U2&& y );` is used. So if I don't use pair, then maybe this will work:
+
+    template<class Key, class Value> void emplace(Key&& key, Value&& v);
 
 # Overview 
 
