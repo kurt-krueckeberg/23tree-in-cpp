@@ -1,58 +1,6 @@
-# TODO
+# Overview 
 
-Implement emplace after understanding the Qs below
-
-    template<class Key, class Value> class tree23 {
-    
-       //...
-       public:
-       //...
-        template <class... Args> void emplace (Args&&... args);
-    };
-
-    template<class Key, class Value>  template<class Args>
-    void tree23<Key, Value>::emplace(Args&&... args)
-    {
-     /* 
-       Q1:  How do you get the key, which is the first argument, so you can set the value of pair::first?
-       Q2:  How do you get the remaining arguments, minus the first argument, so you can std::forward() them to pair::second?
-      */
-    }
-
-Answer: This cppreference.com article on map's [emplace method](http://en.cppreference.com/w/cpp/container/map/emplace) mentions that pair's template move constructor is
-call for `tempate<class Args...> iterator map<key, value>::emplace(Args&&...args);
-
-    std::map<std::string, std::string> m;
- 
-    // uses pair's template constructor
-    m.emplace("d", "ddd"); //<-- The key is "d", the 
-
-The std::pair code called is:
-
-    template<class _U1, class _U2, class = typename
-	       enable_if<__and_<is_convertible<_U1, _T1>,
-				is_convertible<_U2, _T2>>::value>::type>
-	constexpr pair(_U1&& __x, _U2&& __y)
-	: first(std::forward<_U1>(__x)), second(std::forward<_U2>(__y)) { }
-
-So `template< class U1, class U2 > constexpr pair( U1&& x, U2&& y );` is used. So if I don't use pair, then maybe this will work:
-
-    template<class Key, class Value> void emplace(Key&& key, Value&& v); // method of class KeyValue
-
-Questions: Does this imply that the current tree23<Key, Value> code can be written to take advantage of this pair constructor, or would I need the complex-and-awful
-piecewise_construct pair constructor?
-
-For Help See These Links
-
-1. [vt] - Variadic Templates C++11 
-2. [cpp] - std::map emplace()
-
-[vt]: <https://www.ibm.com/support/knowledgecenter/en/SSLTBW_2.1.0/com.ibm.zos.v2r1.cbclx01/variadic_templates.htm>
-[cpp]: <http://en.cppreference.com/w/cpp/container/map/emplace>
-
-## Overview 
-
-### Implementation Links and Discusssion
+## Implementation Links and Discusssion
 
 1. [odu] - Traversing Trees with Iterator, an STL-compatible iterator Q&A teaching discussion
 2. [geeksforgeeks] - Conceptual Discussion with C code implementation using a stack.
@@ -68,7 +16,7 @@ For Help See These Links
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-### Top level pseudo code.
+## Top level pseudo code.
 
 `begin()` calls a constructor that sets position to `beg`, and it calls `seekToSmallest()` to set `current` and `key_index` to the first key.  `end()` likewise calls
 a constructor that sets position to `end`, and it calls `seekToLargest()` to set `current` and `key_index` to the last key.
@@ -76,7 +24,7 @@ a constructor that sets position to `end`, and it calls `seekToLargest()` to set
 If the `position` is 'beg', `decrement()` does a no-op, and none of the member varibles changes. If the `position` is 'end' and `increment()` is called, it, too,
 does a no-op, and none of the member varibles changes. 
 
-### Red Black code
+## Red Black code
 
 This is the red black tree increment method fo stdlibc++ below that was used to guide the findLeafNodeSuccessor() code:
 
