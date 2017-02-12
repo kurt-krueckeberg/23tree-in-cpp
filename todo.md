@@ -19,17 +19,25 @@ Implement emplace after understanding the Qs below
       */
     }
 
-Answer: Note this clue from http://en.cppreference.com/w/cpp/container/map/emplace, which mentions that pair's template constructor is used for
-`tempate<class Args...> iterator map<key, value>::emplace(Args&&...args);
+Answer: This cppreference.com article on map's [emplace method](http://en.cppreference.com/w/cpp/container/map/emplace) mentions that pair's template move constructor is
+call for `tempate<class Args...> iterator map<key, value>::emplace(Args&&...args);
 
     std::map<std::string, std::string> m;
  
     // uses pair's template constructor
     m.emplace("d", "ddd"); //<-- The key is "d", the 
 
+The std::pair code called is:
+
+    template<class _U1, class _U2, class = typename
+	       enable_if<__and_<is_convertible<_U1, _T1>,
+				is_convertible<_U2, _T2>>::value>::type>
+	constexpr pair(_U1&& __x, _U2&& __y)
+	: first(std::forward<_U1>(__x)), second(std::forward<_U2>(__y)) { }
+
 So `template< class U1, class U2 > constexpr pair( U1&& x, U2&& y );` is used. So if I don't use pair, then maybe this will work:
 
-    template<class Key, class Value> void emplace(Key&& key, Value&& v);
+    template<class Key, class Value> void emplace(Key&& key, Value&& v); // method of class KeyValue
 
 For Help See These Links
 
