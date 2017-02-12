@@ -391,15 +391,33 @@ template<class Key, class Value> class tree23 {
     void insert(Key key, const Value& value);
     bool isEmpty() const noexcept;
 
+    // TODO: Should emplace() return an iterator?
+    template<class... Args> void emplace(Args&&... args);
+
     /* 
     TODO: implement later:
     void insert(Key key, Value&& value);
+
+
+    The method below should be modeled after map<K,T>::emplace(Args&&... args);
+    template<class.. Args>
+    const_iterator emplace(const_iterator position, Args&&... args)
+    {
+        // Find the insertion position
+
+        Value *place = &keys_values[0].p2.second;
+
+    	new((void*)place)  Value(std::forward<Args>(__args)...); // However, first element is key!
+    }
+
 
     The method below should be modeled after map<K,T>::emplace(const_iterator position, Args&&... args);
 
     template<class Args>
     const_iterator emplace(const_iterator position, Args&&... args)
     {
+        // test that position is valid
+
         void *place = &...; // From const_iterator position determine the existing Node23::keys_values[0].p2.second -- which is of type Value -- that goes here.
 
     	new(place)  Value(std::forward<Args>(__args)...); // construct in place
@@ -2508,6 +2526,50 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDes
 
   return false;
 }
+/*
+NOT Yet Implemented.....
+
+template<class Key, class Value> template <class... Args>
+void tree23<Key, Value>::emplace(Args&&... args)
+{
+  if (root == nullptr) {
+      
+      // Create the initial unique_ptr<Node23> in the tree.
+      CreateRoot(std::forward<Args>(args)...); // TODO: Either overload CreateRoot() or make EmplaceRoot(). Note: the key is the first argument.
+      return;
+  }
+
+  // The code is the tree23<K, V>::insert() code. It has not been modified to work with emplace(), which needs to do
+  //    ::new((void*)place)  Value(std::forward<Args>(__args)...); 
+  // but not use the first element, which is the key.
+
+  std::stack<int> child_indecies; 
+
+  Node23 *pinsert_start;
+
+  int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
+
+  if (found_index != Node23::NotFoundIndex) { // new_key already exists. Overwrite its associated value with the new value.
+
+       //pinsert_start->keys_values[found_index].p1.second = new_value;
+
+       pinsert_start->p1
+       return;  
+  }
+
+  // new_key was not found in the tree; therefore we know pinsert_start is a leaf.
+  if (pinsert_start->isThreeNode()) { 
+    
+      // Converts pinsert_start from a 3-node to a 2-node.
+      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
+
+  } else { // else we have room to insert new_new_key/new_value into leaf node.
+      
+     pinsert_start->insertKeyInLeaf(new_key, new_value);
+  }
+
+}
+*/
 /*
 Parameters:
 
