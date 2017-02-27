@@ -2896,7 +2896,9 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
  
   if (!premove_start->isLeaf()) { // If it is an internal node...
 
-      // ...get its in order successor, which will be keys_values[0].p1.first of a leaf node.
+      // ...its in order successor will be at
+      //       keys_values[0].p1.first
+      // of a leaf node.
       pLeaf = remove_getSuccessor(premove_start, found_index, descent_indecies); 
           
       /*  
@@ -2905,7 +2907,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
        */
       std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
         
-  } else { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+  { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
       
       pLeaf = premove_start;
   } 
@@ -3051,7 +3053,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
       node2Delete.reset(); 
 
-       if (parent->isEmpty()) { 
+      if (parent->isEmpty()) { 
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
@@ -3067,7 +3069,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
       root = nullptr; // also forces the memory held by the unique_ptr<Node> to be deleted.
 
    } else {
-   // recursive remove() case:
+   // recursive remove case:
    // If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
    // node pointer before doing the assignment.
       root = std::move(root->getNonNullChild());  
