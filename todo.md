@@ -16,15 +16,9 @@
 [cmu]: <https://www.cs.cmu.edu/~adamchik/15-121/lectures/Trees/trees.html>
 [csohio]: <http://grail.cba.csuohio.edu/~matos/notes/cis-265/lecture-notes/11-26slide.pdf>
 
-## Improvement to Delete/Remove
+## Correct
 
-The `remove()` code is convoluted because totalItems can become zero before the actual Node23 has been freed. Perhaps using an external datastructre to do remove-related housekeeping, like temporarily this temporary change of `Node23::totalItems`, would make for cleaner code with fewer special case if-tests that check for `totalItems == 0`. Perhaps this can be achieved with stack-based data structure, like simply changing the child descent indecies to be a struct, say:
-
-    struct RemoveHousekeeper {
-       int child_descent_index;  // like current code
-       Node23 *parent;   // might be useful
-       int totalItems;   // used during delete when totalItems can become 0.
-    };
+Compare include/tree23.h and the newer version include/tree23.h that does not compile.
 
 ## Top level pseudo code.
 
