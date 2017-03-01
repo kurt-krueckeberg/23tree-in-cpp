@@ -82,6 +82,7 @@ template<class Key, class Value> class tree23 {
         constexpr int getTotalItems() const noexcept { return totalItems; }
         constexpr int getChildCount() const noexcept { return totalItems + 1; }
         constexpr std::unique_ptr<Node23>& getNonNullChild() noexcept;
+        constexpr int getSoleChildIndex() const noexcept;
 
 	std::ostream& test_parent_ptr(std::ostream& ostr, const Node23 *root) const noexcept;
 
@@ -459,6 +460,11 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, con
 template<class Key, class Value> inline constexpr std::unique_ptr<typename tree23<Key, Value>::Node23>& tree23<Key, Value>::Node23::getNonNullChild() noexcept
 {
   return (children[0] == nullptr) ?  children[1] : children[0];
+}
+
+template<class Key, class Value> inline constexpr int tree23<Key, Value>::Node23::getSoleChildIndex() const noexcept
+{
+  return (children[0] != nullptr) ? 0 : 1; 
 }
 
 template<class Key, class Value> inline void tree23<Key, Value>::Node23::move_keys_values(std::array<std::unique_ptr<KeyValue>, 2>&& lhs)
@@ -3127,7 +3133,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node
   if (node->isLeaf()) return;
 
   // Determine which child of node is non-nullptr.
-  int sole_child = node->children[0] != nullptr ? 0 : 1;
+  int sole_child = node->getSoleChildIndex();
 
   // If sole_child is 1, then shift it left.
   if (sole_child == 1) {
@@ -3149,7 +3155,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
   if (node->isLeaf()) return;
 
   // Determine which child of node is non-nullptr.
-  int sole_child = node->children[0] != nullptr ? 0 : 1;
+  int sole_child = node->getSoleChildIndex();
 
   if (sole_child == 0) {
 
@@ -3167,7 +3173,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node
   if (node->isLeaf()) return;
 
   // Determine which child of node is non-nullptr.
-  int sole_child = node->children[0] != nullptr ? 0 : 1;
+  int sole_child = node->getSoleChildIndex();
 
   // If sole_child is 1, then shift it left.
   if (sole_child == 1) {
@@ -3192,7 +3198,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
   if (node->isLeaf()) return;
 
   // Determine which child of node is non-nullptr.
-  int sole_child = node->children[0] != nullptr ? 0 : 1;
+  int sole_child = node->getSoleChildIndex();
 
   if (sole_child == 0) {
 
