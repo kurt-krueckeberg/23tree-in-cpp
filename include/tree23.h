@@ -395,14 +395,7 @@ template<class Key, class Value> class tree23 {
     // TODO: Should emplace() return an iterator?
     /*
     template<class... Args> void emplace(Key key, Args&&... args);
-    {
-        // Find the insertion position
-        // Same logic as insert, but instead of doing a copy or move, we do in-place construction.
-        Value *place = &keys_values[0].const_key_pair.second;
-
-    	new((void*)place)  Value(std::forward<Args>(__args)...); // However, first element is key!
-    }
-    */
+     */
     bool find(Key key) const noexcept;
 
     const Value& operator[](Key key) const;
@@ -2444,7 +2437,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
   if (found_index != Node23::NotFoundIndex) { // new_key already exists. Overwrite its associated value with the new value.
 
        // delete current Value:
-
+       // Q: Does this also reclaim memory?
        pinsert_start->~keys_values[found_index].nc_key_pair.second; // explicitly invoke destructor of Value object at pinsert_start->keys_values[found_index]
 
        void *location = ...
