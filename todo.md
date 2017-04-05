@@ -2,13 +2,9 @@
 
 ### Variadic Templates
 
-1. [C++ Templates What is a variadic template function?]  -  C++ Templates What is a variadic template function?
-2. [Variadic Templates in C++]                            -  Variadic Templates in C++
-3. [Ellipses and Variadic Templates]                      -  Ellipses and Variadic Templates
-
-[C++ Templates What is a variadic template function?]: <https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en>
-[Variadic Templates in C++]: <http://eli.thegreenplace.net/2014/variadic-templates-in-c/>
-[Ellipses and Variadic Templates]: <https://msdn.microsoft.com/en-us/library/dn439779.aspx>
+1. [C++ Templates What is a variadic template function?]: <https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en>
+2. [Variadic Templates in C++]: <http://eli.thegreenplace.net/2014/variadic-templates-in-c/>
+3. [Ellipses and Variadic Templates]: <https://msdn.microsoft.com/en-us/library/dn439779.aspx>
 
 ## Technical References 
 
