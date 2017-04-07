@@ -61,7 +61,8 @@ template<class Key, class Value> class tree23 {
 
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
-        /*++ For use with emplace(Key, Args arg...).
+        /*++ For use with 
+	Key, Args arg...).
         template<class... Args> Node23(Key key, Args arg..., Node23 *ptr2parent=nullptr);
          */
         Node23(Node4&);
@@ -204,6 +205,8 @@ template<class Key, class Value> class tree23 {
 
     /*
      TODO: Note: This can be written with the parameters in a different order.
+    template<class... Args> void split(Node23 *current, Key new_key, Args&&...args, std::stack<int>& child_indecies, \
+       std::unique_ptr<Node23> heap_2node) noexcept;
      */
     void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
             std::unique_ptr<Node23> heap_2node) noexcept;
