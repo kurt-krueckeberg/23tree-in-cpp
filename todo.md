@@ -9,6 +9,7 @@ Read these articles to understand variadic template functions. Examine the examp
 -. [Practical Uses of Variadic Templates](https://crascit.com/2015/03/21/practical-uses-for-variadic-templates/)
 -. [Variadic Templates in C++](http://eli.thegreenplace.net/2014/variadic-templates-in-c/)
 -. [How vector emplace() and emplace\_back() use Variadic Templates] (http://enki-tech.blogspot.com/2012/08/c11-vector-improved-how-it-works.html)
+-. [Variadic Templates for the Doubters](C++11 variadic templates, for the doubters)
 -. [Can't Understand Variadic templates in C++](http://stackoverflow.com/questions/30937379/cant-understand-variadic-templates-in-c)
 
 ## Technical References on Trees and Their Iterators 
