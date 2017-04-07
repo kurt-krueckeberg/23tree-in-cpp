@@ -4,13 +4,13 @@
 
 Read these articles to understand variadic template functions. Examine the examples in them and understand them. 
 
--. [Lecture Slides on Variadic templates by jarne Stroutrup](https://parasol.tamu.edu/people/bs/622-GP/variadic-templates-and-tuples.pdf) 
--. [C++ Templates What is a variadic template function?](https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en)
--. [Practical Uses of Variadic Templates](https://crascit.com/2015/03/21/practical-uses-for-variadic-templates/)
--. [Variadic Templates in C++](http://eli.thegreenplace.net/2014/variadic-templates-in-c/)
--. [How vector emplace() and emplace\_back() use Variadic Templates] (http://enki-tech.blogspot.com/2012/08/c11-vector-improved-how-it-works.html)
--. [Variadic Templates for the Doubters](C++11 variadic templates, for the doubters)
--. [Can't Understand Variadic templates in C++](http://stackoverflow.com/questions/30937379/cant-understand-variadic-templates-in-c)
+- [Lecture Slides on Variadic templates by jarne Stroutrup](https://parasol.tamu.edu/people/bs/622-GP/variadic-templates-and-tuples.pdf) 
+- [C++ Templates What is a variadic template function?](https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en)
+- [Practical Uses of Variadic Templates](https://crascit.com/2015/03/21/practical-uses-for-variadic-templates/)
+- [Variadic Templates in C++](http://eli.thegreenplace.net/2014/variadic-templates-in-c/)
+- [How vector emplace() and emplace\_back() use Variadic Templates] (http://enki-tech.blogspot.com/2012/08/c11-vector-improved-how-it-works.html)
+- [Variadic Templates for the Doubters](C++11 variadic templates, for the doubters)
+- [Can't Understand Variadic templates in C++](http://stackoverflow.com/questions/30937379/cant-understand-variadic-templates-in-c)
 
 ## Technical References on Trees and Their Iterators 
 
