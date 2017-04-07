@@ -440,6 +440,18 @@ template<class Key, class Value> tree23<Key, Value>::Node23::Node23(Key key, con
        child = nullptr; 
   } 
 }
+
+template<class Key, class Value> template<class... Args>  tree23<Key, Value>::Node23::Node23(Key key, Args... arg, Node23 *ptr2parent) : \
+          parent{ptr2parent}, totalItems{Node23::TwoNode}
+{
+  keys_values[0].nc_pair.first = key;
+  keys_values[0].nc_pair.second = value;
+ 
+  for(auto& child : children) {
+
+       child = nullptr; 
+  } 
+}
 /*
  "this" must be 2-node with only one non-nullptr child
  */
@@ -2420,7 +2432,7 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDes
 /* can I rename this CreateRoot()?
 template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args... arg) noexcept
 {
-   root = std::make_unique<Node23>(key, std::forward<Args>(args)...);
+   root = std::make_unique<Node23>(key, std::forward<Args>(args)...); // Uses variadic template constructor of Node23.
    height = 1; // first node added to tree, the root.
 }
 
@@ -2437,13 +2449,14 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
   // The code is the tree23<K, V>::insert() code. It has not been modified to work with emplace(), which needs to do
   //    ::new((void*)place)  Value(std::forward<Args>(__args)...); 
   // but not use the first element, which is the key.
+
   std::stack<int> child_indecies; 
 
   Node23 *pinsert_start;
 
   int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
 
-  if (found_index != Node23::NotFoundIndex) { // new_key already exists. Overwrite its associated value with the new value.
+  if (found_index != Node23::NotFoundIndex) { // if new_key already exists, overwrite its associated value.
 
        // delete current Value.
        pinsert_start->~keys_values[found_index].nc_pair.second; // explicitly invoke destructor of Value object at pinsert_start->keys_values[found_index]
@@ -2460,8 +2473,11 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
     
       // Converts pinsert_start from a 3-node to a 2-node.
 
+      //
       // TODO: Do I create a template<class... Args> version of split()?
-      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
+      //
+      //
+      split(pinsert_start, new_key, args..., child_indecies, std::unique_ptr<Node23>{nullptr}); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       

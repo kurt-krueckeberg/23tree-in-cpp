@@ -2,12 +2,12 @@
 
 ### Variadic Templates
 
-1. [C++ Templates What is a variadic template function?](https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en)
-2. [Variadic Templates in C++](http://eli.thegreenplace.net/2014/variadic-templates-in-c/)
-3. [Ellipses and Variadic Templates](https://msdn.microsoft.com/en-us/library/dn439779.aspx)
+1. [Ellipses and Variadic Templates](https://msdn.microsoft.com/en-us/library/dn439779.aspx)
+2. [C++ Templates What is a variadic template function?](https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en)
+3. [Variadic Templates in C++](http://eli.thegreenplace.net/2014/variadic-templates-in-c/)
 4. [Can't Understand Variadic templates in C++](http://stackoverflow.com/questions/30937379/cant-understand-variadic-templates-in-c)
 
-## Technical References 
+## Technical References on Trees and Their Iterators 
 
 ### Implementation Links and Discusssion
 
