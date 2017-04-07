@@ -1,6 +1,6 @@
 ## Getting up to speed on Emplace
 
-### Variadic Templates
+### Understanding Variadic Templates and How to Use Them
 
 1. [Ellipses and Variadic Templates](https://msdn.microsoft.com/en-us/library/dn439779.aspx)
 2. [C++ Templates What is a variadic template function?](https://www.ibm.com/developerworks/community/blogs/5894415f-be62-4bc0-81c5-3956e82276f3/entry/c_templates_what_is_a_variadic_template_function41?lang=en)
