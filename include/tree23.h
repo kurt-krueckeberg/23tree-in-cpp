@@ -202,6 +202,9 @@ template<class Key, class Value> class tree23 {
    
     void CreateRoot(Key key, const Value& value) noexcept;
 
+    /*
+     TODO: Note: This can be written with the parameters in a different order.
+     */
     void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
             std::unique_ptr<Node23> heap_2node) noexcept;
 
@@ -2430,13 +2433,15 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDes
   return false;
 }
 /* can I rename this CreateRoot()?
-template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args... arg) noexcept
+template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... arg) noexcept
 {
    root = std::make_unique<Node23>(key, std::forward<Args>(args)...); // Uses variadic template constructor of Node23.
    height = 1; // first node added to tree, the root.
 }
 
 NOT Yet Implemented.....
+See split() variadic template method in ~/test/main.cpp
+
 template<class Key, class Value> template <class... Args>
 void tree23<Key, Value>::emplace(Key key, Args&&... arg)
 {
@@ -2474,10 +2479,9 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
       // Converts pinsert_start from a 3-node to a 2-node.
 
       //
-      // TODO: Do I create a template<class... Args> version of split()?
+      // TODO: Create a template<class... Args> version of split()?
       //
-      //
-      split(pinsert_start, new_key, args..., child_indecies, std::unique_ptr<Node23>{nullptr}); 
+      split(pinsert_start, new_key, std::forward<Args>(args)..., child_indecies, std::unique_ptr<Node23>{nullptr}); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       
@@ -3438,12 +3442,6 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
        return;  // already exists.
   }
   // Further test that it is not in the leaf
-}
-// TODO:
-template<class Key, class Value>  template<class Args>
-typename tree23<Key, Value>::const_iterator tree23<Key, Value>::emplace(typename tree23<Key, Value>::const_iterator position, Args&&... args)
-{
- // model after stl_map emplace() template method.
 }
 */
 #endif
