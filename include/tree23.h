@@ -204,7 +204,8 @@ template<class Key, class Value> class tree23 {
     void CreateRoot(Key key, const Value& value) noexcept;
 
     /*
-     TODO: Note: This can be written with the parameters in a different order.
+     Prospective
+
     template<class... Args> void split(Node23 *current, Key new_key, Args&&...args, std::stack<int>& child_indecies, \
        std::unique_ptr<Node23> heap_2node) noexcept;
      */
