@@ -61,10 +61,10 @@ template<class Key, class Value> class tree23 {
 
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
-        /*++ For use with 
-	Key, Args arg...).
-        template<class... Args> Node23(Key key, Args arg..., Node23 *ptr2parent=nullptr);
-         */
+
+        //  This constructor is used when tree23::emplace(arg...) is called.
+        template<class... Args> Node23(Key key, Args... arg, Node23 *ptr2parent=nullptr);
+        
         Node23(Node4&);
 
         // We disallow copy construction and assignment...
@@ -452,7 +452,10 @@ template<class Key, class Value> template<class... Args>  tree23<Key, Value>::No
           parent{ptr2parent}, totalItems{Node23::TwoNode}
 {
   keys_values[0].nc_pair.first = key;
-  keys_values[0].nc_pair.second = value;
+
+  void *location = &keys_values[0].nc_pair.second;
+
+  new(location)  Value(std::forward<Args>(arg)...);
  
   for(auto& child : children) {
 
