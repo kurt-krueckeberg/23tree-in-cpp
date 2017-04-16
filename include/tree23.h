@@ -62,7 +62,7 @@ template<class Key, class Value> class tree23 {
      public:   
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
 
-        //  This constructor is used when tree23::emplace(arg...) is called.
+        // Used when tree23::emplace(arg...) is called.
         template<class... Args> Node23(Key key, Args... arg, Node23 *ptr2parent=nullptr);
         
         Node23(Node4&);
@@ -203,6 +203,7 @@ template<class Key, class Value> class tree23 {
    
     void CreateRoot(Key key, const Value& value) noexcept;
 
+    template<class... Args> void EmplaceRoot(Key key, Args&&... arg) noexcept;
     /*
      Prospective
 
@@ -2439,13 +2440,14 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node23::NodeDes
 
   return false;
 }
-/* can I rename this CreateRoot()?
-template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... arg) noexcept
+// can I rename this CreateRoot()?
+
+template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... args) noexcept
 {
-   root = std::make_unique<Node23>(key, std::forward<Args>(args)...); // Uses variadic template constructor of Node23.
+   root = std::make_unique<Node23>(key, std::forward<Args>(args)...); // Uses Node23's variadic template constructor.
    height = 1; // first node added to tree, the root.
 }
-
+/*
 NOT Yet Implemented.....
 See split() variadic template method in ~/test/main.cpp
 
