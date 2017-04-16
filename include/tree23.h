@@ -404,9 +404,8 @@ template<class Key, class Value> class tree23 {
     bool isEmpty() const noexcept;
 
     // TODO: Should emplace() return an iterator?
-    /*
-    template<class... Args> void emplace(Key key, Args&&... args);
-     */
+    template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
+       
     bool find(Key key) const noexcept;
 
     const Value& operator[](Key key) const;
@@ -2447,12 +2446,11 @@ template<class Key, class Value> template<class... Args> inline void tree23<Key,
    root = std::make_unique<Node23>(key, std::forward<Args>(args)...); // Uses Node23's variadic template constructor.
    height = 1; // first node added to tree, the root.
 }
-/*
-NOT Yet Implemented.....
-See split() variadic template method in ~/test/main.cpp
+
+// See split() variadic template method in ~/test/main.cpp
 
 template<class Key, class Value> template <class... Args>
-void tree23<Key, Value>::emplace(Key key, Args&&... arg)
+void tree23<Key, Value>::emplace(Key key, Args&&... args)
 {
   if (root == nullptr) {
       
@@ -2468,7 +2466,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
 
   Node23 *pinsert_start;
 
-  int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
+  int found_index = findInsertNode(key, child_indecies, pinsert_start);
 
   if (found_index != Node23::NotFoundIndex) { // if new_key already exists, overwrite its associated value.
 
@@ -2477,7 +2475,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
 
        void *location = &pinsert_start->keys_values[found_index].const_pair.second;
 
-       new(location) Value(std::forward<Args>(arg)... );
+       new(location) Value(std::forward<Args>(args)... );
   
        return;  
   }
@@ -2489,15 +2487,16 @@ void tree23<Key, Value>::emplace(Key key, Args&&... arg)
 
       //
       // TODO: Create a template<class... Args> version of split()?
-      //
-      split(pinsert_start, new_key, std::forward<Args>(args)..., child_indecies, std::unique_ptr<Node23>{nullptr}); 
+      // This version of split() not yet implemented.
+      split(pinsert_start, key, std::forward<Args>(args)..., child_indecies, std::unique_ptr<Node23>{nullptr});  
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
-      
-     pinsert_start->insertKeyInLeaf(new_key, new_value);
+
+     // TODO: Line below won't compile 
+     // pinsert_start->insertKeyInLeaf(key, std::forward<Args>(args)...); // <-- BUG  was "->insertKeyInLeaf(key, new_value);
   }
 }
-*/
+  
 /*
 Parameters:
 1. pnode is the 3-node that needs to be split into two 2-nodes.
