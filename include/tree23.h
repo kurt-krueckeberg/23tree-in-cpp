@@ -204,14 +204,15 @@ template<class Key, class Value> class tree23 {
     void CreateRoot(Key key, const Value& value) noexcept;
 
     template<class... Args> void EmplaceRoot(Key key, Args&&... arg) noexcept;
+
+    void split(Node23 *current, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node, \
+               Key new_key, const Value& new_value) noexcept;
     /*
      Prospective
 
-    template<class... Args> void split(Node23 *current, Key new_key, Args&&...args, std::stack<int>& child_indecies, \
-       std::unique_ptr<Node23> heap_2node) noexcept;
+    template<class... Args> void split(Node23 *current,, std::stack<int>& child_indecies, \
+       std::unique_ptr<Node23> heap_2node, Key new_key, Args&&...args) noexcept;
      */
-    void split(Node23 *current, Key new_key, const Value& new_value, std::stack<int>& child_indecies, \
-            std::unique_ptr<Node23> heap_2node) noexcept;
 
     // Subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
@@ -2343,7 +2344,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
   if (pinsert_start->isThreeNode()) { 
     
       // split() converts pinsert_start from a 3-node to a 2-node.
-      split(pinsert_start, new_key, new_value, child_indecies, std::unique_ptr<Node23>{nullptr}); 
+      split(pinsert_start, child_indecies, std::unique_ptr<Node23>{nullptr}, new_key, new_value); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       
@@ -2468,11 +2469,12 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
 
   int found_index = findInsertNode(key, child_indecies, pinsert_start);
 
-  if (found_index != Node23::NotFoundIndex) { // if new_key already exists, overwrite its associated value.
+  if (found_index != Node23::NotFoundIndex) { // if key already exists, overwrite its associated value.
 
-       // delete current Value.
-       pinsert_start->~keys_values[found_index].nc_pair.second; // explicitly invoke destructor of Value object at pinsert_start->keys_values[found_index]
+       // Destruct the current value by explicitly invoking Value's destructor. 
+       pinsert_start->~keys_values[found_index].nc_pair.second; 
 
+       // Now use its location to instantate the new Value with the forwarded arguments.
        void *location = &pinsert_start->keys_values[found_index].const_pair.second;
 
        new(location) Value(std::forward<Args>(args)... );
@@ -2480,7 +2482,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
        return;  
   }
 
-  // new_key was not found in the tree; therefore we know pinsert_start is a leaf.
+  // key is not in the tree; therefore we know pinsert_start must be a leaf.
   if (pinsert_start->isThreeNode()) { 
     
       // Converts pinsert_start from a 3-node to a 2-node.
@@ -2488,7 +2490,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
       //
       // TODO: Create a template<class... Args> version of split()?
       // This version of split() not yet implemented.
-      split(pinsert_start, key, std::forward<Args>(args)..., child_indecies, std::unique_ptr<Node23>{nullptr});  
+      split(pinsert_start, key, child_indecies, std::unique_ptr<Node23>{nullptr}, std::forward<Args>(args)...);  
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
 
@@ -2549,7 +2551,9 @@ and we are done. If the parent is a 3-node, we recurse, which may ulimately resu
        }
  }
 */
-template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, Key new_key, const Value& new_value, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node)  noexcept
+
+template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node, \
+                                                                Key new_key, const Value& new_value) noexcept
 {
   // get the actual parent              
   Node23 *parent = pnode->parent;
@@ -2609,12 +2613,81 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, K
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split it.
-     split(parent, node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second, child_indecies, std::move(larger_2node)); 
+     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second); 
   } 
 
   return;
 }
+/* TODO: Not yet implemented. See TODOes
+template<class Key, class Value> template<class... Args> void tree23<Key, Value>::split(Node23 *pnode, std::stack<int>& child_indecies, \
+                                                                          Key new_key, std::unique_ptr<Node23> heap_2node, Args&&...args) noexcept
+{
+  // get the actual parent              
+  Node23 *parent = pnode->parent;
+  
+  // Debug only next line:
+  Node23 *pheap_2node = heap_2node.get(); // debug-only line?
+      
+  // Create 4-node on stack that will aid in splitting the 3-node that receives new_key (and new_value).
+  Node4 node4;
 
+  int child_index;
+ 
+  if (pnode->isLeaf()) { // pnode->isLeaf() if and only if heap_2node == nullptr
+
+      //--node4 = Node4{pnode, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
+      node4 = Node4{pnode, new_key, std::forward<Args>(args)...}; // TODO: We need a variadic version of Node4 apparently.
+
+  } else { // It is an internal leaf, so we need to get its child_index such that:
+           // pnode == pnode->parent->children[child_index]. 
+
+      child_index = child_indecies.top();
+      child_indecies.pop();
+
+      //--node4 = Node4{pnode, new_key, new_value, child_index, std::move(heap_2node)}; 
+      node4 = Node4{pnode, std::move(heap_2node), new_key, std::forward<Args>(args)...}; // TODO: Variadic version needed
+  }
+   
+  // 
+  //   Next we check if the 3-node, pnode, is the root. If so, we create a new top level Node23 and make it the new root.
+  //   If not, we use node4 to 
+  //  
+  //    1.) We downsize pnode to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
+  //        children of node4 as the two children of pnode. The code to do this is
+  //  
+  //           pnode->convertTo2Node(node4); 
+  //  
+  //    2.) We allocate a new Node23 2-node on the heap that will hold the largest value in node4, nod4.nc_pair.keys_values[2]. Its two children will be the
+  //        two right most children of node4. The code to do this this is the Node23 constructor that takes a Node4 reference as input.
+  //        std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+  //
+  pnode->convertTo2Node(std::move(node4)); 
+
+  // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].nc_pair.first, and whose children are the two right most children of node4
+  //    the children of pnode. This is what the Node23 constructor that takes a Node4 does.
+  std::unique_ptr<Node23> larger_2node{std::make_unique<Node23>(node4)}; 
+  
+  if (pnode == root.get()) {
+
+       // We pass node4.keys_values[1].nc_pair.first and node4.keys_values[1].nc_pair.second as the Key and Value for the new root.
+       // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].nc_pair.first.
+        
+       CreateNewRoot(node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second, std::move(root), std::move(larger_2node)); 
+
+  } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node,
+
+      // we convert it to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
+      parent->convertTo3Node(node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second, std::move(larger_2node));
+
+  } else { // parent is a 3-node, so we recurse.
+
+     // parent now has three items, so we can't insert the middle item. We recurse to split it.
+     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second); 
+  } 
+
+  return;
+}
+*/
 /*
   Requires: currentRoot is the root. tree::root was moved to the parameter currentRoot by the caller. currentRoot has been down sized to a 2-node.
             rightChild is a heap allocated 2-node unique_ptr<Node23> holding the largest key (and its associated value) in the formerly 3-node root.   
