@@ -63,6 +63,7 @@ template<class Key, class Value> class tree23 {
         Node23(Key key, const Value& value, Node23 *ptr2parent=nullptr);
 
         // Used when tree23::emplace(arg...) is called.
+        // TODO: Is this actually used--check to confirm.
         template<class... Args> Node23(Key key, Args... arg, Node23 *ptr2parent=nullptr);
         
         Node23(Node4&);
