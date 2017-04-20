@@ -1,4 +1,7 @@
-## Getting up to speed on Emplace
+## Thoughts on emplace()
+
+The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the
+case of emplace(), what do we do with the constructor arguments associated with a value that will be created in place from existing memory? See http://algs4.cs.princeton.edu/33balanced. 
 
 ### Understanding Variadic Templates and How to Use Them
 
