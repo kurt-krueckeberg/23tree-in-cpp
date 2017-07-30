@@ -25,10 +25,10 @@ template<class Key, class Value> class tree23 {
   private:
   class Node4;    
 
-  union KeyValue { // A union is used to hold to two Key/Value pairs, one of which, nc_pair, has a non-const Key. nc_pair is used for writing to....
+  union KeyValue { // A union is used to hold to two types of pairs, one of which (nc_pair) has a non-const Key; the other has a const Key.
       friend class tree23<Key, Value>;
  
-      std::pair<Key, Value>        nc_pair;  // ...thereby eliminating constantly casting: const_cast<Key>(p.first) = some_noconst_key;
+      std::pair<Key, Value>        nc_pair;  // ...this eliminates constantly casting of const_cast<Key>(p.first) = some_noconst_key;
       std::pair<const Key, Value>  const_pair;  // but always return this member of the union.
       
       KeyValue() {} 
@@ -38,7 +38,7 @@ template<class Key, class Value> class tree23 {
       
       KeyValue(Key k, Value&& v) : nc_pair{k, std::move(v)} {} 
 
-      KeyValue(KeyValue&& lhs) : nc_pair{lhs.nc_pair.first, std::move(lhs.nc_pair.second)} {}
+      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}//nc_pair{lhs.nc_pair.first, std::move(lhs.nc_pair.second)} {}
 
       KeyValue& operator=(const KeyValue& lhs);  
       KeyValue& operator=(KeyValue&& lhs); 
