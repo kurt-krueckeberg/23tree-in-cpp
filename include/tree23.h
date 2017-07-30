@@ -233,7 +233,7 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node23 *node, Node23 *sibling) noexcept;
     void shiftChildrenLeft(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
 
-    std::unique_ptr<Node23> mergeNodes(Node23 *pnode, int child_index) noexcept;
+    /* std::unique_ptr<Node23> mergeNodes(Node23 *pnode, int child_index) noexcept; */
     
     std::unique_ptr<Node23> merge2Nodes(Node23 *pnode, int child_index) noexcept;
     std::unique_ptr<Node23> merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept;
@@ -2942,11 +2942,12 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
  
  Input:
  1. pnode must be an internal node.
- 2. found_index is the index of the key being removed within pnode->keys[]
- 3. child_indecies is the stack of indecies into keys[] tracing the descent to the internal node pnode. 
+ 2. found_index is the index of the key being removed within pnode->keys[].
+ 3. reference to child_indecies (see Output). 
  Output:
  1. pointer to leaf node of in order successor
  2. child_indecies traces the descent route to the in order successor.
+ 3. child_indecies is the stack of indecies into keys[] tracing the descent from the root to the internal node pnode. 
 */
 
 template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::remove_getSuccessor(Node23 *pnode, int found_index, \
@@ -3024,16 +3025,39 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
       Node23 *parent = pnode->parent;
 
       // child_index is such that: parent->children[child_index] == pnode
-
+      /*-- Working but prior code 
       std::unique_ptr<Node23> node2Delete = mergeNodes(pnode, child_index); 
+       */
+      //++ start
+      std::unique_ptr<Node23> node2Delete;
 
-      node2Delete.reset(); 
+      if (pnode->parent->isTwoNode()) { 
+          /* 
+             When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
+             pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively by calling
+	     fixTree() again. 
+           */
+           node2Delete = merge2Nodes(pnode, !child_index); 
+    
+    
+      } else { // 
+    
+          /* 
+           * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
+           * its associated value) with a sibling. This now makes the parent a 2-node. We move the effected children involved appropriately.  We can then
+           * safely delete pnode from the tree.
+           */
+    
+         node2Delete = merge3NodeWith2Node(pnode, child_index);
+     }
+     //++ end    
+     node2Delete.reset(); 
 
-       if (parent->isEmpty()) { 
+     if (parent->isEmpty()) { 
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
-      }
+     }
   }   
 }
 
@@ -3329,30 +3353,29 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
  Upon return: Either the parent is empty or the tree is rebalanced tree.
  returns:  the std::unique_ptr<Node23> to be deleted.
   
- */
 template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node23> tree23<Key, Value>::mergeNodes(Node23 *pnode, int child_index) noexcept
 {
   if (pnode->parent->isTwoNode()) { 
-      /* 
-         When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
-         pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively by calling
-	 fixTree() again. 
-       */
-       return merge2Nodes(pnode, !child_index); 
+      // 
+      // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
+      // pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively by calling
+      // fixTree() again. 
+      return merge2Nodes(pnode, !child_index); 
 
 
   } else { // 
 
-      /* 
-       * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
-       * its associated value) with a sibling. This now makes the parent a 2-node. We move the effected children involved appropriately.  We can then
-       * safely delete pnode from the tree.
-       */
+      // 
+      // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
+      // its associated value) with a sibling. This now makes the parent a 2-node. We move the effected children involved appropriately.  We can then
+      // safely delete pnode from the tree.
+      //
 
     std::unique_ptr<Node23> node2Delete = merge3NodeWith2Node(pnode, child_index);
     return node2Delete;
   }
 }
+ */
 /*
  Overview
  ========
@@ -3495,7 +3518,7 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
       return node2Delete; 
   } 
 
-  // Recursive case: we adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
+  // Recursive case: This only occurs if fixTreewe adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
   std::unique_ptr<Node23>& nonemptyChild = pnode->getNonNullChild();
 
   // Is sibling to the left? 

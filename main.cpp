@@ -56,6 +56,8 @@ int main(int argc, char** argv)
           cout << "\nEND OF TEST =====================\n";
 
           run_tests(other_cases, base_case, &test_backward_iterator);
+
+          run_tests(other_cases, base_case, &test_remove);
               
        } catch(std::exception& e) { 
       
