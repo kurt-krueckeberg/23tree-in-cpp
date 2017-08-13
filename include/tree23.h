@@ -195,7 +195,7 @@ template<class Key, class Value> class tree23 {
 
     std::unique_ptr<Node23> root; 
 
-    int height;   // adjusted by insert() and remove()
+    int height;   // adjusted only by insert() and remove()
 
     // Subroutines called by insert()
     int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node23 *&pinsert_start) const noexcept;
@@ -209,7 +209,7 @@ template<class Key, class Value> class tree23 {
     void split(Node23 *current, std::stack<int>& child_indecies, std::unique_ptr<Node23> heap_2node, \
                Key new_key, const Value& new_value) noexcept;
     /*
-     Prospective
+     Prospective method:
 
     template<class... Args> void split(Node23 *current,, std::stack<int>& child_indecies, \
        std::unique_ptr<Node23> heap_2node, Key new_key, Args&&...args) noexcept;
@@ -233,8 +233,6 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node23 *node, Node23 *sibling) noexcept;
     void shiftChildrenLeft(Node23 *node, Node23 *middleChild, Node23 *sibling) noexcept;
 
-    /* std::unique_ptr<Node23> mergeNodes(Node23 *pnode, int child_index) noexcept; */
-    
     std::unique_ptr<Node23> merge2Nodes(Node23 *pnode, int child_index) noexcept;
     std::unique_ptr<Node23> merge3NodeWith2Node(Node23 *pnode, int child_index) noexcept;
 
@@ -254,18 +252,22 @@ template<class Key, class Value> class tree23 {
   public:
     // Container typedef's used by STL.
 
-    using value_type          = std::pair<const Key, Value>; 
+    using value_type      = std::pair<const Key, Value>; 
     using difference_type = long int;
-    using pointer             = value_type*; 
-    using reference           = value_type&; 
+    using pointer         = value_type*; 
+    using reference       = value_type&; 
 
-   /*  iterator_position gives the three possible finite state for an iterators: 
-     1. end -- is a logical sate representing one-past the last, largest key/value in the tree. When at 'end' state, the value
+   /*  iterator_position represents the three possible finite states for an iterators: 
+
+     1. end --  represents the logical state of one-past the last, largest key/value in the tree. When the iterator is at the 'end' state, the value
         of current and key_index will be the same as for the last, largest key/value.  
+
      2. beg -- is a logical sate representing the first element.
-     3. in_between -- is the state of 'not being at end or beg', a sort of the in-between beg and end state.
-     The value of key_index will be zero for state beg. 
-     The value of key_index will be current->totalItems - 1 for state end.
+
+     3. in_between -- is the state of being in-between--not being at either end or beg state.
+
+     The value of key_index will be zero when the state is beg. 
+     The value of key_index will be (current->totalItems - 1) when the state is end.
     */
                                 
     enum class iterator_position {beg, in_between, end}; 
@@ -376,8 +378,8 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
   
-    using  reverse_iterator      = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
-    using const_reverse_iterator = std::reverse_iterator<typename tree23<Key, Value>::const_iterator>;
+    using  reverse_iterator       = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
+    using  const_reverse_iterator = std::reverse_iterator<typename tree23<Key, Value>::const_iterator>;
 
     reverse_iterator rbegin() noexcept;  
     reverse_iterator rend() noexcept;  
@@ -2843,7 +2845,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node23::insertK
    return;
 }
 /*
- remove pseudo code:
+ pseudo code for remove(Key key):
  Call findRemovalStartNode. It returns:
       1. Node23 * of node with key
       2. index of key
@@ -2904,13 +2906,13 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   return;
 }
 /*
- * Assume tree is not empty. root is not nullptr.
+ * Assumes tree is not empty. root is not nullptr.
  */ 
 template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tree23<Key, Value>::findRemovalStartNode(Key key, std::stack<int>& child_indecies,\
                                                                                                                  int& found_index) const noexcept
 {
-    
   found_index = Node23::NotFoundIndex;
+
   Node23 *premove_start = root.get();
   
   while(1) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
@@ -3025,10 +3027,6 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
       Node23 *parent = pnode->parent;
 
       // child_index is such that: parent->children[child_index] == pnode
-      /*-- Working but prior code 
-      std::unique_ptr<Node23> node2Delete = mergeNodes(pnode, child_index); 
-       */
-      //++ start
       std::unique_ptr<Node23> node2Delete;
 
       if (pnode->parent->isTwoNode()) { 
@@ -3039,8 +3037,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
            */
            node2Delete = merge2Nodes(pnode, !child_index); 
     
-    
-      } else { // 
+      } else { 
     
           /* 
            * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
@@ -3050,8 +3047,8 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
     
          node2Delete = merge3NodeWith2Node(pnode, child_index);
      }
-     //++ end    
-     node2Delete.reset(); 
+     
+     node2Delete.reset(); // delete node2Delete's managed memory.
 
      if (parent->isEmpty()) { 
 
