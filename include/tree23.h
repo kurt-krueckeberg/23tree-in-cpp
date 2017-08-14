@@ -14,9 +14,9 @@
 #include "debug.h"
 #include "level-order-invariant-report.h"
 
-template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
+template<class Key, class Value> class tree23; // This forward declaration of template class tree23...
 
-//...required by these friend functions
+//...is required by these friend functions
 template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node23& node23); 
 template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node4& node4); 
 
@@ -218,7 +218,7 @@ template<class Key, class Value> class tree23 {
     // Subroutines called by remove()
     Node23* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
-    Node23 *remove_getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+    Node23 *getSuccessor(Node23 *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
 
     void fixTree(Node23 *pnode, std::stack<int>& child_indecies) noexcept;
 
@@ -2555,9 +2555,6 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, s
   // get the actual parent              
   Node23 *parent = pnode->parent;
   
-  // Debug only next line:
-  Node23 *pheap_2node = heap_2node.get(); // debug-only line?
-      
   // Create 4-node on stack that will aid in splitting the 3-node that receives new_key (and new_value).
   Node4 node4;
 
@@ -2602,14 +2599,14 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node23 *pnode, s
         
        CreateNewRoot(node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second, std::move(root), std::move(larger_2node)); 
 
-  } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node,
+  } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node, ...
 
-      // we convert it to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
+      // ...we convert the parent to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
       parent->convertTo3Node(node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second, std::move(larger_2node));
 
   } else { // parent is a 3-node, so we recurse.
 
-     // parent now has three items, so we can't insert the middle item. We recurse to split it.
+     // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
      split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].nc_pair.first, node4.keys_values[1].nc_pair.second); 
   } 
 
@@ -2876,7 +2873,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (!premove_start->isLeaf()) { // If it is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].nc_pair.first of a leaf node.
-      pLeaf = remove_getSuccessor(premove_start, found_index, descent_indecies); 
+      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
           
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
@@ -2938,7 +2935,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
  3. child_indecies is the stack of indecies into keys[] tracing the descent from the root to the internal node pnode. 
 */
 
-template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::remove_getSuccessor(Node23 *pnode, int found_index, \
+template<class Key, class Value> inline typename tree23<Key, Value>::Node23* tree23<Key, Value>::getSuccessor(Node23 *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
