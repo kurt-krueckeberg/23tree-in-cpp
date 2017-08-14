@@ -2311,12 +2311,14 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
   }
 
 /*
-  new_key will be inserted between the next largest value in the tree and the next smallest:
-        in order predecessor key < new_key < in order successor key
-   "stack<int> child_indecies" tracks each branch taken descending to the leaf where new_key should be inserted. This aids in creating 4-nodes
-   from internal 3-nodes. child_indecies tells us the branches take from the root to pinsert_start. 
-   Thus, for example, the code such as that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
-   branches.  "branches" can then be used to duplicate the exact descent braches take root leaf where new_key insertion should begin:
+  new_key will be inserted between the next largest value in the tree and the next smallest: in order predecessor key < new_key < in order successor key
+
+   "stack<int> child_indecies" tracks each branch taken descending to the leaf in which new_key should be inserted. This aids in creating 4-nodes
+   from internal 3-nodes. child_indecies tells us the branches taken from the root to pinsert_start. 
+
+   Thus, for example, in the code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
+   branches, "branches" can then be used to duplicate the exact descent braches taken from the root to the leaf where new_key insertion should begin:
+
        // convert stack to deque
        deque<int> branches;
        while (!child_indecies.empty()) {
