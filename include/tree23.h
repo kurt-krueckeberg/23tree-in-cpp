@@ -2372,28 +2372,11 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_key, std::stack<int>& child_indecies, \
                                                            typename tree23<Key, Value>::Node23 *&pinsert_start) const noexcept
 {
-   int found_index = Node23::NotFoundIndex;
+  int found_index = Node23::NotFoundIndex;
 
-   pinsert_start = root.get();
- /*
-   while(1) { // Search for new_key until found or if we search a leaf node and didn't find the key.
-   
-      int child_index; 
-      
-      bool found = pinsert_start->NodeDescentSearch(new_key, found_index, child_index); 
-   
-      if (found || pinsert_start->isLeaf()) {
-          break;  
-   
-      } else { 
-          
-         child_indecies.push(child_index); // remember which child node branch we took. Note: If the node is a leaf, nothing will be pushed onto the stack. 
-         
-         pinsert_start = pinsert_start->children[child_index].get();
-      }
-   }
-*/
   int child_index; 
+
+  pinsert_start = root.get();
 
   while(pinsert_start->NodeDescentSearch(new_key, found_index, child_index) == false && !pinsert_start->isLeaf()) { // Search for new_key until found or if we search a leaf node and didn't find the key.
    
