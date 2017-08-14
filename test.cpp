@@ -109,7 +109,8 @@ void test_remove(const std::vector<int>& test_case)
    
    cout << "Printing the tree before removals start.\n";
    
-   debug_print_tree(tree);
+   //--debug_print_tree(tree);
+   print_tree(tree); //++
    
    for(auto& key : removal_vec) {
 
@@ -119,7 +120,8 @@ void test_remove(const std::vector<int>& test_case)
 
        cout << "\nPrinting tree in order after removal: \n";
                
-       debug_print_tree(tree);   // to do regular print do: print_tree(tree);
+       //--debug_print_tree(tree);   // to do regular print do: print_tree(tree);
+       print_tree(tree);   // to do regular print do: print_tree(tree); //++
     }
        
     cout << flush << "\nTesting find(v) of all keys v removed so for. First, reprinting the tree.\n" << flush;
@@ -395,7 +397,7 @@ void print_tree(const tree23<int, int>& tree)
   for(const auto& key_value : tree) {
       
       //--cout << key_value.key << flush;
-      cout << key_value.first << flush;
+      cout << key_value.first << ", " << flush;
   }
   cout << endl;
 }

@@ -2914,29 +2914,21 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
   found_index = Node23::NotFoundIndex;
 
   Node23 *premove_start = root.get();
- 
-  while(1) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
+  
+  int child_index; 
 
-    int child_index; 
-    
-    bool found = premove_start->NodeDescentSearch(key, found_index, child_index); 
+  while(!premove_start->NodeDescentSearch(key, found_index, child_index)) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
 
-    if (found) {
-
-        break;  
-
-    } else if (premove_start->isLeaf()) {
+    if (premove_start->isLeaf()) {
 
         return nullptr;
-
-    } else {  // continue looking...
+    } 
         
-       child_indecies.push(child_index); // ...remembering which child node branch we took.
+    child_indecies.push(child_index); // ...remembering which child node branch we took.
 
-       premove_start = premove_start->children[child_index].get();
-    }
+    premove_start = premove_start->children[child_index].get();
   }  
-  
+ 
   return premove_start;
 }
 /*
