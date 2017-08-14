@@ -1,3 +1,7 @@
+## Possible Bug
+
+Is the exception thrown in main() valid or not?
+
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the
