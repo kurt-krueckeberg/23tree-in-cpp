@@ -343,11 +343,11 @@ current_level = 3 [10], [20], [39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [30, 60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [30, 60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [15] : parent(0x1f8a4b0), 0x1f88c20] } { [40] : parent(0x1f8a4b0), 0x1f8a5f0] } { [80] : parent(0x1f8a4b0), 0x1f8a4f0] }
+current_level = 2   { [15] : parent(0x1b334b0), 0x1b31c20] } { [40] : parent(0x1b334b0), 0x1b335f0] } { [80] : parent(0x1b334b0), 0x1b334f0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a6c0] } { [20] : parent(0x1f88c20), 0x1f8a430] } { [39] : parent(0x1f8a5f0), 0x1f8a570] } { [50] : parent(0x1f8a5f0), 0x1f8a680] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b336c0] } { [20] : parent(0x1b31c20), 0x1b33430] } { [39] : parent(0x1b335f0), 0x1b33570] } { [50] : parent(0x1b335f0), 0x1b33680] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -365,11 +365,11 @@ current_level = 3 [10], [20], [39, 40], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [15, 30] : parent(0x1f8a4b0), 0x1f88c20] } { [80] : parent(0x1f8a4b0), 0x1f8a4f0] }
+current_level = 2   { [15, 30] : parent(0x1b334b0), 0x1b31c20] } { [80] : parent(0x1b334b0), 0x1b334f0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a6c0] } { [20] : parent(0x1f88c20), 0x1f8a430] } { [39, 40] : parent(0x1f88c20), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b336c0] } { [20] : parent(0x1b31c20), 0x1b33430] } { [39, 40] : parent(0x1b31c20), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 10 15 20 30 39 40 60 70 80 90 100 
@@ -387,11 +387,11 @@ current_level = 3 [10], [20], [39], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [15, 30] : parent(0x1f8a4b0), 0x1f88c20] } { [80] : parent(0x1f8a4b0), 0x1f8a4f0] }
+current_level = 2   { [15, 30] : parent(0x1b334b0), 0x1b31c20] } { [80] : parent(0x1b334b0), 0x1b334f0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a6c0] } { [20] : parent(0x1f88c20), 0x1f8a430] } { [39] : parent(0x1f88c20), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b336c0] } { [20] : parent(0x1b31c20), 0x1b33430] } { [39] : parent(0x1b31c20), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 10 15 20 30 39 60 70 80 90 100 
@@ -409,11 +409,11 @@ current_level = 3 [10, 15], [39], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f88c20] } { [80] : parent(0x1f8a4b0), 0x1f8a4f0] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b31c20] } { [80] : parent(0x1b334b0), 0x1b334f0] }
 
-current_level = 3  { [10, 15] : parent(0x1f88c20), 0x1f8a6c0] } { [39] : parent(0x1f88c20), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 3  { [10, 15] : parent(0x1b31c20), 0x1b336c0] } { [39] : parent(0x1b31c20), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 10 15 30 39 60 70 80 90 100 
@@ -431,11 +431,11 @@ current_level = 3 [10], [30], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [15] : parent(0x1f8a4b0), 0x1f88c20] } { [80] : parent(0x1f8a4b0), 0x1f8a4f0] }
+current_level = 2   { [15] : parent(0x1b334b0), 0x1b31c20] } { [80] : parent(0x1b334b0), 0x1b334f0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a6c0] } { [30] : parent(0x1f88c20), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b336c0] } { [30] : parent(0x1b31c20), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 10 15 30 60 70 80 90 100 
@@ -451,9 +451,9 @@ current_level = 2 [15, 30], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60, 80] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [60, 80] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [15, 30] : parent(0x1f8a4f0), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 2  { [15, 30] : parent(0x1b334f0), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 15 30 60 70 80 90 100 
@@ -469,9 +469,9 @@ current_level = 2 [15], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 80] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30, 80] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [15] : parent(0x1f8a4f0), 0x1f8a570] } { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90, 100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 2  { [15] : parent(0x1b334f0), 0x1b33570] } { [70] : parent(0x1b334f0), 0x1b31c60] } { [90, 100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 15 30 70 80 90 100 
@@ -487,9 +487,9 @@ current_level = 2 [15], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70, 90] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [70, 90] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [15] : parent(0x1f8a4f0), 0x1f8a570] } { [80] : parent(0x1f8a4f0), 0x1f88c60] } { [100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 2  { [15] : parent(0x1b334f0), 0x1b33570] } { [80] : parent(0x1b334f0), 0x1b31c60] } { [100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 15 70 80 90 100 
@@ -505,9 +505,9 @@ current_level = 2 [70, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [90] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [90] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [70, 80] : parent(0x1f8a4f0), 0x1f88c60] } { [100] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 2  { [70, 80] : parent(0x1b334f0), 0x1b31c60] } { [100] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 70 80 90 100 
@@ -523,9 +523,9 @@ current_level = 2 [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [80] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [80] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [70] : parent(0x1f8a4f0), 0x1f88c60] } { [90] : parent(0x1f8a4f0), 0x1f8a3f0] }
+current_level = 2  { [70] : parent(0x1b334f0), 0x1b31c60] } { [90] : parent(0x1b334f0), 0x1b333f0] }
 
 
 In order print of tree: 70 80 90 
@@ -539,7 +539,7 @@ current_level = 1 [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80, 90] : parent(0), 0x1f8a3f0] }
+current_level = 1  { [80, 90] : parent(0), 0x1b333f0] }
 
 
 In order print of tree: 80 90 
@@ -553,7 +553,7 @@ current_level = 1 [90],
 Level order debug print of tree: 
 
 
-current_level = 1  { [90] : parent(0), 0x1f8a3f0] }
+current_level = 1  { [90] : parent(0), 0x1b333f0] }
 
 
 In order print of tree: 90 
@@ -612,11 +612,11 @@ current_level = 3 [10], [30], [40, 50], [70, 80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88c20] }
+current_level = 1    { [60] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20, 39] : parent(0x1f88c20), 0x1f8a4f0] } { [85, 90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20, 39] : parent(0x1b31c20), 0x1b334f0] } { [85, 90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [30] : parent(0x1f8a4f0), 0x1f8a430] } { [40, 50] : parent(0x1f8a4f0), 0x1f8a570] } { [70, 80] : parent(0x1f8a4b0), 0x1f8a3f0] } { [89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [30] : parent(0x1b334f0), 0x1b33430] } { [40, 50] : parent(0x1b334f0), 0x1b33570] } { [70, 80] : parent(0x1b334b0), 0x1b333f0] } { [89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -634,11 +634,11 @@ current_level = 3 [10], [39], [50], [70, 80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88c20] }
+current_level = 1    { [60] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20, 40] : parent(0x1f88c20), 0x1f8a4f0] } { [85, 90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20, 40] : parent(0x1b31c20), 0x1b334f0] } { [85, 90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [39] : parent(0x1f8a4f0), 0x1f8a430] } { [50] : parent(0x1f8a4f0), 0x1f8a570] } { [70, 80] : parent(0x1f8a4b0), 0x1f8a3f0] } { [89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [39] : parent(0x1b334f0), 0x1b33430] } { [50] : parent(0x1b334f0), 0x1b33570] } { [70, 80] : parent(0x1b334b0), 0x1b333f0] } { [89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 39 40 50 60 70 80 85 89 90 100 
@@ -656,11 +656,11 @@ current_level = 3 [10], [39], [50], [80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f88c20] }
+current_level = 1    { [70] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20, 40] : parent(0x1f88c20), 0x1f8a4f0] } { [85, 90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20, 40] : parent(0x1b31c20), 0x1b334f0] } { [85, 90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [39] : parent(0x1f8a4f0), 0x1f8a430] } { [50] : parent(0x1f8a4f0), 0x1f8a570] } { [80] : parent(0x1f8a4b0), 0x1f8a3f0] } { [89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [39] : parent(0x1b334f0), 0x1b33430] } { [50] : parent(0x1b334f0), 0x1b33570] } { [80] : parent(0x1b334b0), 0x1b333f0] } { [89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 39 40 50 70 80 85 89 90 100 
@@ -678,11 +678,11 @@ current_level = 3 [10], [39, 50], [80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f88c20] }
+current_level = 1    { [70] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20] : parent(0x1f88c20), 0x1f8a4f0] } { [85, 90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20] : parent(0x1b31c20), 0x1b334f0] } { [85, 90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [39, 50] : parent(0x1f8a4f0), 0x1f8a430] } { [80] : parent(0x1f8a4b0), 0x1f8a3f0] } { [89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [39, 50] : parent(0x1b334f0), 0x1b33430] } { [80] : parent(0x1b334b0), 0x1b333f0] } { [89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 39 50 70 80 85 89 90 100 
@@ -700,11 +700,11 @@ current_level = 3 [10], [39, 50], [85, 89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f88c20] }
+current_level = 1    { [80] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20] : parent(0x1f88c20), 0x1f8a4f0] } { [90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20] : parent(0x1b31c20), 0x1b334f0] } { [90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [39, 50] : parent(0x1f8a4f0), 0x1f8a430] } { [85, 89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [39, 50] : parent(0x1b334f0), 0x1b33430] } { [85, 89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 39 50 80 85 89 90 100 
@@ -722,11 +722,11 @@ current_level = 3 [10], [50], [85, 89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f88c20] }
+current_level = 1    { [80] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20] : parent(0x1f88c20), 0x1f8a4f0] } { [90] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20] : parent(0x1b31c20), 0x1b334f0] } { [90] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [85, 89] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [50] : parent(0x1b334f0), 0x1b33430] } { [85, 89] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 50 80 85 89 90 100 
@@ -744,11 +744,11 @@ current_level = 3 [10], [50], [85], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f88c20] }
+current_level = 1    { [80] : parent(0), 0x1b31c20] }
 
-current_level = 2   { [20] : parent(0x1f88c20), 0x1f8a4f0] } { [89] : parent(0x1f88c20), 0x1f8a4b0] }
+current_level = 2   { [20] : parent(0x1b31c20), 0x1b334f0] } { [89] : parent(0x1b31c20), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [85] : parent(0x1f8a4b0), 0x1f88c60] } { [100] : parent(0x1f8a4b0), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33470] } { [50] : parent(0x1b334f0), 0x1b33430] } { [85] : parent(0x1b334b0), 0x1b31c60] } { [100] : parent(0x1b334b0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 50 80 85 89 100 
@@ -764,9 +764,9 @@ current_level = 2 [10], [50], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 85] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [20, 85] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [89, 100] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b33470] } { [50] : parent(0x1b334f0), 0x1b33430] } { [89, 100] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 50 85 89 100 
@@ -782,9 +782,9 @@ current_level = 2 [10], [50], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 85] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [20, 85] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [89] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b33470] } { [50] : parent(0x1b334f0), 0x1b33430] } { [89] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 50 85 89 
@@ -800,9 +800,9 @@ current_level = 2 [10], [50, 89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [20] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a470] } { [50, 89] : parent(0x1f8a4f0), 0x1f8a430] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b33470] } { [50, 89] : parent(0x1b334f0), 0x1b33430] }
 
 
 In order print of tree: 10 20 50 89 
@@ -818,9 +818,9 @@ current_level = 2 [20], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [50] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [20] : parent(0x1f8a4f0), 0x1f8a470] } { [89] : parent(0x1f8a4f0), 0x1f8a430] }
+current_level = 2  { [20] : parent(0x1b334f0), 0x1b33470] } { [89] : parent(0x1b334f0), 0x1b33430] }
 
 
 In order print of tree: 20 50 89 
@@ -834,7 +834,7 @@ current_level = 1 [20, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20, 89] : parent(0), 0x1f8a470] }
+current_level = 1  { [20, 89] : parent(0), 0x1b33470] }
 
 
 In order print of tree: 20 89 
@@ -848,7 +848,7 @@ current_level = 1 [89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [89] : parent(0), 0x1f8a470] }
+current_level = 1  { [89] : parent(0), 0x1b33470] }
 
 
 In order print of tree: 89 
@@ -908,11 +908,11 @@ current_level = 3 [10, 20], [39], [50], [65, 69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60] : parent(0x1f8a4b0), 0x1f8a570] } { [90] : parent(0x1f8a4b0), 0x1f88c20] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60] : parent(0x1b334b0), 0x1b33570] } { [90] : parent(0x1b334b0), 0x1b31c20] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a5f0] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [65, 69] : parent(0x1f8a570), 0x1f8a430] } { [80] : parent(0x1f88c20), 0x1f8a6c0] } { [100] : parent(0x1f88c20), 0x1f8a470] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b335f0] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [65, 69] : parent(0x1b33570), 0x1b33430] } { [80] : parent(0x1b31c20), 0x1b336c0] } { [100] : parent(0x1b31c20), 0x1b33470] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -930,11 +930,11 @@ current_level = 3 [10, 20], [39], [50], [65, 69], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60, 70] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60, 70] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a5f0] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [65, 69] : parent(0x1f8a570), 0x1f8a430] } { [80, 90] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b335f0] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [65, 69] : parent(0x1b33570), 0x1b33430] } { [80, 90] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 
@@ -952,11 +952,11 @@ current_level = 3 [10, 20], [39], [50], [65, 69], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60, 70] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60, 70] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a5f0] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [65, 69] : parent(0x1f8a570), 0x1f8a430] } { [90] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b335f0] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [65, 69] : parent(0x1b33570), 0x1b33430] } { [90] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 90 
@@ -974,11 +974,11 @@ current_level = 3 [10, 20], [39], [50], [69], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60, 70] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60, 70] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a5f0] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [69] : parent(0x1f8a570), 0x1f8a430] } { [90] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b335f0] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [69] : parent(0x1b33570), 0x1b33430] } { [90] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 69 70 90 
@@ -996,11 +996,11 @@ current_level = 3 [10], [30], [50], [69], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60, 70] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [20] : parent(0x1b334b0), 0x1b334f0] } { [60, 70] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a5f0] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [69] : parent(0x1f8a570), 0x1f8a430] } { [90] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b335f0] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [69] : parent(0x1b33570), 0x1b33430] } { [90] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 40 50 60 69 70 90 
@@ -1018,11 +1018,11 @@ current_level = 3 [10], [30], [50, 69], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20] : parent(0x1f8a4b0), 0x1f8a4f0] } { [70] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [20] : parent(0x1b334b0), 0x1b334f0] } { [70] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a5f0] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [50, 69] : parent(0x1f8a570), 0x1f8a3f0] } { [90] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b335f0] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [50, 69] : parent(0x1b33570), 0x1b333f0] } { [90] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 40 50 69 70 90 
@@ -1040,11 +1040,11 @@ current_level = 3 [10], [30], [50], [70],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [40] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20] : parent(0x1f8a4b0), 0x1f8a4f0] } { [69] : parent(0x1f8a4b0), 0x1f8a570] }
+current_level = 2   { [20] : parent(0x1b334b0), 0x1b334f0] } { [69] : parent(0x1b334b0), 0x1b33570] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a5f0] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a570), 0x1f8a3f0] } { [70] : parent(0x1f8a570), 0x1f8a6c0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b335f0] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b33570), 0x1b333f0] } { [70] : parent(0x1b33570), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 40 50 69 70 
@@ -1060,9 +1060,9 @@ current_level = 2 [10], [30], [69, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 50] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [20, 50] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a5f0] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [69, 70] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b335f0] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [69, 70] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 50 69 70 
@@ -1078,9 +1078,9 @@ current_level = 2 [10], [30], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 69] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [20, 69] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a5f0] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [70] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b335f0] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [70] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 10 20 30 69 70 
@@ -1096,9 +1096,9 @@ current_level = 2 [20, 30], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [69] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [69] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a4f0), 0x1f88c60] } { [70] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [20, 30] : parent(0x1b334f0), 0x1b31c60] } { [70] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 20 30 69 70 
@@ -1114,9 +1114,9 @@ current_level = 2 [20], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [20] : parent(0x1f8a4f0), 0x1f88c60] } { [70] : parent(0x1f8a4f0), 0x1f8a6c0] }
+current_level = 2  { [20] : parent(0x1b334f0), 0x1b31c60] } { [70] : parent(0x1b334f0), 0x1b336c0] }
 
 
 In order print of tree: 20 30 70 
@@ -1130,7 +1130,7 @@ current_level = 1 [30, 70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1  { [30, 70] : parent(0), 0x1b336c0] }
 
 
 In order print of tree: 30 70 
@@ -1144,7 +1144,7 @@ current_level = 1 [30],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30] : parent(0), 0x1f8a6c0] }
+current_level = 1  { [30] : parent(0), 0x1b336c0] }
 
 
 In order print of tree: 30 
@@ -1204,11 +1204,11 @@ current_level = 3 [10, 20], [39], [50], [70, 80], [100], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a570), 0x1f8a4f0] } { [90, 125] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [30, 40] : parent(0x1b33570), 0x1b334f0] } { [90, 125] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a680] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70, 80] : parent(0x1f8a4b0), 0x1f8a6c0] } { [100] : parent(0x1f8a4b0), 0x1f8a5f0] } { [150] : parent(0x1f8a4b0), 0x1f8a3f0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b33680] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70, 80] : parent(0x1b334b0), 0x1b336c0] } { [100] : parent(0x1b334b0), 0x1b335f0] } { [150] : parent(0x1b334b0), 0x1b333f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -1226,11 +1226,11 @@ current_level = 3 [10, 20], [39], [50], [70], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a570), 0x1f8a4f0] } { [80, 100] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [30, 40] : parent(0x1b33570), 0x1b334f0] } { [80, 100] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a680] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70] : parent(0x1f8a4b0), 0x1f8a6c0] } { [90] : parent(0x1f8a4b0), 0x1f8a5f0] } { [150] : parent(0x1f8a4b0), 0x1f8a3f0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b33680] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70] : parent(0x1b334b0), 0x1b336c0] } { [90] : parent(0x1b334b0), 0x1b335f0] } { [150] : parent(0x1b334b0), 0x1b333f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 150 
@@ -1248,11 +1248,11 @@ current_level = 3 [10, 20], [39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a570), 0x1f8a4f0] } { [80] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [30, 40] : parent(0x1b33570), 0x1b334f0] } { [80] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a680] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70] : parent(0x1f8a4b0), 0x1f8a6c0] } { [90, 100] : parent(0x1f8a4b0), 0x1f8a5f0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b33680] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70] : parent(0x1b334b0), 0x1b336c0] } { [90, 100] : parent(0x1b334b0), 0x1b335f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 
@@ -1270,11 +1270,11 @@ current_level = 3 [10, 20], [39], [50], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a570), 0x1f8a4f0] } { [80] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [30, 40] : parent(0x1b33570), 0x1b334f0] } { [80] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a4f0), 0x1f8a680] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70] : parent(0x1f8a4b0), 0x1f8a6c0] } { [100] : parent(0x1f8a4b0), 0x1f8a5f0] }
+current_level = 3  { [10, 20] : parent(0x1b334f0), 0x1b33680] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70] : parent(0x1b334b0), 0x1b336c0] } { [100] : parent(0x1b334b0), 0x1b335f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 100 
@@ -1292,11 +1292,11 @@ current_level = 3 [10], [39], [50], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a570), 0x1f8a4f0] } { [80] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [30, 40] : parent(0x1b33570), 0x1b334f0] } { [80] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f8a680] } { [39] : parent(0x1f8a4f0), 0x1f88c60] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70] : parent(0x1f8a4b0), 0x1f8a6c0] } { [100] : parent(0x1f8a4b0), 0x1f8a5f0] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b33680] } { [39] : parent(0x1b334f0), 0x1b31c60] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70] : parent(0x1b334b0), 0x1b336c0] } { [100] : parent(0x1b334b0), 0x1b335f0] }
 
 
 In order print of tree: 10 30 39 40 50 60 70 80 100 
@@ -1314,11 +1314,11 @@ current_level = 3 [10, 39], [50], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a570] }
+current_level = 1    { [60] : parent(0), 0x1b33570] }
 
-current_level = 2   { [40] : parent(0x1f8a570), 0x1f8a4f0] } { [80] : parent(0x1f8a570), 0x1f8a4b0] }
+current_level = 2   { [40] : parent(0x1b33570), 0x1b334f0] } { [80] : parent(0x1b33570), 0x1b334b0] }
 
-current_level = 3  { [10, 39] : parent(0x1f8a4f0), 0x1f8a680] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [70] : parent(0x1f8a4b0), 0x1f8a6c0] } { [100] : parent(0x1f8a4b0), 0x1f8a5f0] }
+current_level = 3  { [10, 39] : parent(0x1b334f0), 0x1b33680] } { [50] : parent(0x1b334f0), 0x1b33430] } { [70] : parent(0x1b334b0), 0x1b336c0] } { [100] : parent(0x1b334b0), 0x1b335f0] }
 
 
 In order print of tree: 10 39 40 50 60 70 80 100 
@@ -1334,9 +1334,9 @@ current_level = 2 [10, 39], [50], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10, 39] : parent(0x1f8a4f0), 0x1f8a680] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [80, 100] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [10, 39] : parent(0x1b334f0), 0x1b33680] } { [50] : parent(0x1b334f0), 0x1b33430] } { [80, 100] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 10 39 40 50 60 80 100 
@@ -1352,9 +1352,9 @@ current_level = 2 [10, 39], [50], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10, 39] : parent(0x1f8a4f0), 0x1f8a680] } { [50] : parent(0x1f8a4f0), 0x1f8a430] } { [80] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [10, 39] : parent(0x1b334f0), 0x1b33680] } { [50] : parent(0x1b334f0), 0x1b33430] } { [80] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 10 39 40 50 60 80 
@@ -1370,9 +1370,9 @@ current_level = 2 [10], [40], [60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 50] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [39, 50] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [10] : parent(0x1f8a4f0), 0x1f8a680] } { [40] : parent(0x1f8a4f0), 0x1f8a430] } { [60] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [10] : parent(0x1b334f0), 0x1b33680] } { [40] : parent(0x1b334f0), 0x1b33430] } { [60] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 10 39 40 50 60 
@@ -1388,9 +1388,9 @@ current_level = 2 [39, 40], [60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [50] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [39, 40] : parent(0x1f8a4f0), 0x1f8a430] } { [60] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [39, 40] : parent(0x1b334f0), 0x1b33430] } { [60] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 39 40 50 60 
@@ -1406,9 +1406,9 @@ current_level = 2 [39], [60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [50] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [39] : parent(0x1f8a4f0), 0x1f8a430] } { [60] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [39] : parent(0x1b334f0), 0x1b33430] } { [60] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 39 50 60 
@@ -1422,7 +1422,7 @@ current_level = 1 [39, 50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [39, 50] : parent(0), 0x1f8a430] }
+current_level = 1  { [39, 50] : parent(0), 0x1b33430] }
 
 
 In order print of tree: 39 50 
@@ -1436,7 +1436,7 @@ current_level = 1 [39],
 Level order debug print of tree: 
 
 
-current_level = 1  { [39] : parent(0), 0x1f8a430] }
+current_level = 1  { [39] : parent(0), 0x1b33430] }
 
 
 In order print of tree: 39 
@@ -1500,11 +1500,11 @@ current_level = 3 [10], [30, 33], [35], [37], [39, 40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 50] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a4b0), 0x1f8a4f0] } { [38] : parent(0x1f8a4b0), 0x1f8a570] } { [70, 90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [20, 34] : parent(0x1b334b0), 0x1b334f0] } { [38] : parent(0x1b334b0), 0x1b33570] } { [70, 90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 33] : parent(0x1f8a4f0), 0x1f88c60] } { [35] : parent(0x1f8a4f0), 0x1f8a680] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [39, 40] : parent(0x1f8a570), 0x1f8a3f0] } { [60] : parent(0x1f8a470), 0x1f8a5f0] } { [80] : parent(0x1f8a470), 0x1f8a6c0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b31c20] } { [30, 33] : parent(0x1b334f0), 0x1b31c60] } { [35] : parent(0x1b334f0), 0x1b33680] } { [37] : parent(0x1b33570), 0x1b33430] } { [39, 40] : parent(0x1b33570), 0x1b333f0] } { [60] : parent(0x1b33470), 0x1b335f0] } { [80] : parent(0x1b33470), 0x1b336c0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -1522,11 +1522,11 @@ current_level = 3 [10], [30, 33], [35], [37], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 50] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a4b0), 0x1f8a4f0] } { [39] : parent(0x1f8a4b0), 0x1f8a570] } { [70, 90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [20, 34] : parent(0x1b334b0), 0x1b334f0] } { [39] : parent(0x1b334b0), 0x1b33570] } { [70, 90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 33] : parent(0x1f8a4f0), 0x1f88c60] } { [35] : parent(0x1f8a4f0), 0x1f8a680] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [40] : parent(0x1f8a570), 0x1f8a3f0] } { [60] : parent(0x1f8a470), 0x1f8a5f0] } { [80] : parent(0x1f8a470), 0x1f8a6c0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b31c20] } { [30, 33] : parent(0x1b334f0), 0x1b31c60] } { [35] : parent(0x1b334f0), 0x1b33680] } { [37] : parent(0x1b33570), 0x1b33430] } { [40] : parent(0x1b33570), 0x1b333f0] } { [60] : parent(0x1b33470), 0x1b335f0] } { [80] : parent(0x1b33470), 0x1b336c0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 39 40 50 60 70 80 90 100 
@@ -1544,11 +1544,11 @@ current_level = 3 [10], [30, 33], [35], [37], [40], [60, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 50] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a4b0), 0x1f8a4f0] } { [39] : parent(0x1f8a4b0), 0x1f8a570] } { [90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [20, 34] : parent(0x1b334b0), 0x1b334f0] } { [39] : parent(0x1b334b0), 0x1b33570] } { [90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 33] : parent(0x1f8a4f0), 0x1f88c60] } { [35] : parent(0x1f8a4f0), 0x1f8a680] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [40] : parent(0x1f8a570), 0x1f8a3f0] } { [60, 80] : parent(0x1f8a470), 0x1f8a5f0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [10] : parent(0x1b334f0), 0x1b31c20] } { [30, 33] : parent(0x1b334f0), 0x1b31c60] } { [35] : parent(0x1b334f0), 0x1b33680] } { [37] : parent(0x1b33570), 0x1b33430] } { [40] : parent(0x1b33570), 0x1b333f0] } { [60, 80] : parent(0x1b33470), 0x1b335f0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 39 40 50 60 80 90 100 
@@ -1566,11 +1566,11 @@ current_level = 3 [20], [30], [35], [37], [40], [60, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 50] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30, 34] : parent(0x1f8a4b0), 0x1f8a4f0] } { [39] : parent(0x1f8a4b0), 0x1f8a570] } { [90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30, 34] : parent(0x1b334b0), 0x1b334f0] } { [39] : parent(0x1b334b0), 0x1b33570] } { [90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [35] : parent(0x1f8a4f0), 0x1f8a680] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [40] : parent(0x1f8a570), 0x1f8a3f0] } { [60, 80] : parent(0x1f8a470), 0x1f8a5f0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [35] : parent(0x1b334f0), 0x1b33680] } { [37] : parent(0x1b33570), 0x1b33430] } { [40] : parent(0x1b33570), 0x1b333f0] } { [60, 80] : parent(0x1b33470), 0x1b335f0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 20 30 30 34 35 36 37 39 40 50 60 80 90 100 
@@ -1588,11 +1588,11 @@ current_level = 3 [20], [30, 35], [37], [40], [60, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 50] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [39] : parent(0x1f8a4b0), 0x1f8a570] } { [90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [39] : parent(0x1b334b0), 0x1b33570] } { [90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 35] : parent(0x1f8a4f0), 0x1f88c60] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [40] : parent(0x1f8a570), 0x1f8a3f0] } { [60, 80] : parent(0x1f8a470), 0x1f8a5f0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30, 35] : parent(0x1b334f0), 0x1b31c60] } { [37] : parent(0x1b33570), 0x1b33430] } { [40] : parent(0x1b33570), 0x1b333f0] } { [60, 80] : parent(0x1b33470), 0x1b335f0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 20 30 30 35 36 37 39 40 50 60 80 90 100 
@@ -1610,11 +1610,11 @@ current_level = 3 [20], [30, 35], [37], [40], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36, 60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [39] : parent(0x1f8a4b0), 0x1f8a570] } { [90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [39] : parent(0x1b334b0), 0x1b33570] } { [90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 35] : parent(0x1f8a4f0), 0x1f88c60] } { [37] : parent(0x1f8a570), 0x1f8a430] } { [40] : parent(0x1f8a570), 0x1f8a3f0] } { [80] : parent(0x1f8a470), 0x1f8a5f0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30, 35] : parent(0x1b334f0), 0x1b31c60] } { [37] : parent(0x1b33570), 0x1b33430] } { [40] : parent(0x1b33570), 0x1b333f0] } { [80] : parent(0x1b33470), 0x1b335f0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 20 30 30 35 36 37 39 40 60 80 90 100 
@@ -1632,11 +1632,11 @@ current_level = 3 [20], [30, 35], [39, 40], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [60] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30, 36] : parent(0x1f8a4b0), 0x1f8a4f0] } { [90] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30, 36] : parent(0x1b334b0), 0x1b334f0] } { [90] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 35] : parent(0x1f8a4f0), 0x1f88c60] } { [39, 40] : parent(0x1f8a4f0), 0x1f8a3f0] } { [80] : parent(0x1f8a470), 0x1f8a5f0] } { [100] : parent(0x1f8a470), 0x1f8a780] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30, 35] : parent(0x1b334f0), 0x1b31c60] } { [39, 40] : parent(0x1b334f0), 0x1b333f0] } { [80] : parent(0x1b33470), 0x1b335f0] } { [100] : parent(0x1b33470), 0x1b33780] }
 
 
 In order print of tree: 20 30 30 35 36 39 40 60 80 90 100 
@@ -1654,11 +1654,11 @@ current_level = 3 [20], [30, 35], [39, 40], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30, 35] : parent(0x1f8a4f0), 0x1f88c60] } { [39, 40] : parent(0x1f8a470), 0x1f8a3f0] } { [80, 90] : parent(0x1f8a470), 0x1f8a5f0] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30, 35] : parent(0x1b334f0), 0x1b31c60] } { [39, 40] : parent(0x1b33470), 0x1b333f0] } { [80, 90] : parent(0x1b33470), 0x1b335f0] }
 
 
 In order print of tree: 20 30 30 35 36 39 40 60 80 90 
@@ -1676,11 +1676,11 @@ current_level = 3 [20], [30], [39, 40], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [39, 40] : parent(0x1f8a470), 0x1f8a3f0] } { [80, 90] : parent(0x1f8a470), 0x1f8a5f0] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [39, 40] : parent(0x1b33470), 0x1b333f0] } { [80, 90] : parent(0x1b33470), 0x1b335f0] }
 
 
 In order print of tree: 20 30 30 36 39 40 60 80 90 
@@ -1698,11 +1698,11 @@ current_level = 3 [20], [30], [39, 40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [60] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [60] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [39, 40] : parent(0x1f8a470), 0x1f8a3f0] } { [90] : parent(0x1f8a470), 0x1f8a5f0] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [39, 40] : parent(0x1b33470), 0x1b333f0] } { [90] : parent(0x1b33470), 0x1b335f0] }
 
 
 In order print of tree: 20 30 30 36 39 40 60 90 
@@ -1720,11 +1720,11 @@ current_level = 3 [20], [30], [39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a4b0] }
+current_level = 1    { [36] : parent(0), 0x1b334b0] }
 
-current_level = 2   { [30] : parent(0x1f8a4b0), 0x1f8a4f0] } { [40] : parent(0x1f8a4b0), 0x1f8a470] }
+current_level = 2   { [30] : parent(0x1b334b0), 0x1b334f0] } { [40] : parent(0x1b334b0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [39] : parent(0x1f8a470), 0x1f8a3f0] } { [90] : parent(0x1f8a470), 0x1f8a5f0] }
+current_level = 3  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [39] : parent(0x1b33470), 0x1b333f0] } { [90] : parent(0x1b33470), 0x1b335f0] }
 
 
 In order print of tree: 20 30 30 36 39 40 90 
@@ -1740,9 +1740,9 @@ current_level = 2 [20], [30], [40, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 36] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30, 36] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [20] : parent(0x1f8a4f0), 0x1f88c20] } { [30] : parent(0x1f8a4f0), 0x1f88c60] } { [40, 90] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [20] : parent(0x1b334f0), 0x1b31c20] } { [30] : parent(0x1b334f0), 0x1b31c60] } { [40, 90] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 20 30 30 36 40 90 
@@ -1758,9 +1758,9 @@ current_level = 2 [30], [36], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 40] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30, 40] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [30] : parent(0x1f8a4f0), 0x1f88c20] } { [36] : parent(0x1f8a4f0), 0x1f88c60] } { [90] : parent(0x1f8a4f0), 0x1f8a5f0] }
+current_level = 2  { [30] : parent(0x1b334f0), 0x1b31c20] } { [36] : parent(0x1b334f0), 0x1b31c60] } { [90] : parent(0x1b334f0), 0x1b335f0] }
 
 
 In order print of tree: 30 30 36 40 90 
@@ -1776,9 +1776,9 @@ current_level = 2 [30], [36, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [30] : parent(0x1f8a4f0), 0x1f88c20] } { [36, 90] : parent(0x1f8a4f0), 0x1f88c60] }
+current_level = 2  { [30] : parent(0x1b334f0), 0x1b31c20] } { [36, 90] : parent(0x1b334f0), 0x1b31c60] }
 
 
 In order print of tree: 30 30 36 90 
@@ -1794,9 +1794,9 @@ current_level = 2 [30], [36, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [30] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [30] : parent(0x1f8a4f0), 0x1f88c20] } { [36, 90] : parent(0x1f8a4f0), 0x1f88c60] }
+current_level = 2  { [30] : parent(0x1b334f0), 0x1b31c20] } { [36, 90] : parent(0x1b334f0), 0x1b31c60] }
 
 
 In order print of tree: 30 30 36 90 
@@ -1812,9 +1812,9 @@ current_level = 2 [30], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f8a4f0] }
+current_level = 1   { [36] : parent(0), 0x1b334f0] }
 
-current_level = 2  { [30] : parent(0x1f8a4f0), 0x1f88c20] } { [90] : parent(0x1f8a4f0), 0x1f88c60] }
+current_level = 2  { [30] : parent(0x1b334f0), 0x1b31c20] } { [90] : parent(0x1b334f0), 0x1b31c60] }
 
 
 In order print of tree: 30 36 90 
@@ -1828,7 +1828,7 @@ current_level = 1 [30, 36],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 36] : parent(0), 0x1f88c20] }
+current_level = 1  { [30, 36] : parent(0), 0x1b31c20] }
 
 
 In order print of tree: 30 36 
@@ -1842,7 +1842,7 @@ current_level = 1 [30],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30] : parent(0), 0x1f88c20] }
+current_level = 1  { [30] : parent(0), 0x1b31c20] }
 
 
 In order print of tree: 30 
@@ -1911,13 +1911,13 @@ current_level = 4 [10, 15], [30], [34, 35], [37], [39], [50, 60], [69], [80], [8
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [90, 125] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [90, 125] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a4a0), 0x1f88c20] } { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [34, 35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [89] : parent(0x1f8a680), 0x1f8a5e0] } { [100] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10, 15] : parent(0x1b334a0), 0x1b31c20] } { [30] : parent(0x1b334a0), 0x1b31ef0] } { [34, 35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [89] : parent(0x1b33680), 0x1b335e0] } { [100] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -1937,13 +1937,13 @@ current_level = 4 [10], [30], [34, 35], [37], [39], [50, 60], [69], [80], [89], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [90, 125] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [90, 125] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10] : parent(0x1f8a4a0), 0x1f88c20] } { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [34, 35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [89] : parent(0x1f8a680), 0x1f8a5e0] } { [100] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10] : parent(0x1b334a0), 0x1b31c20] } { [30] : parent(0x1b334a0), 0x1b31ef0] } { [34, 35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [89] : parent(0x1b33680), 0x1b335e0] } { [100] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -1963,13 +1963,13 @@ current_level = 4 [10], [30], [34, 35], [37], [39], [50, 60], [69], [80], [90, 1
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [125] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [125] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10] : parent(0x1f8a4a0), 0x1f88c20] } { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [34, 35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90, 100] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10] : parent(0x1b334a0), 0x1b31c20] } { [30] : parent(0x1b334a0), 0x1b31ef0] } { [34, 35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90, 100] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 90 100 125 150 
@@ -1989,13 +1989,13 @@ current_level = 4 [10], [30], [34, 35], [37], [39], [50, 60], [69], [80], [90], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10] : parent(0x1f8a4a0), 0x1f88c20] } { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [34, 35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10] : parent(0x1b334a0), 0x1b31c20] } { [30] : parent(0x1b334a0), 0x1b31ef0] } { [34, 35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2015,13 +2015,13 @@ current_level = 4 [10], [30], [35], [37], [39], [50, 60], [69], [80], [90], [150
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10] : parent(0x1f8a4a0), 0x1f88c20] } { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10] : parent(0x1b334a0), 0x1b31c20] } { [30] : parent(0x1b334a0), 0x1b31ef0] } { [35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 20 30 33 35 36 37 38 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2041,13 +2041,13 @@ current_level = 4 [10, 20], [35], [37], [39], [50, 60], [69], [80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10, 20] : parent(0x1f8a4a0), 0x1f88c20] } { [35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10, 20] : parent(0x1b334a0), 0x1b31c20] } { [35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 20 33 35 36 37 38 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2067,13 +2067,13 @@ current_level = 4 [10], [35], [37], [39], [50, 60], [69], [80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a700] }
+current_level = 1     { [40] : parent(0), 0x1b33700] }
 
-current_level = 2    { [36] : parent(0x1f8a700), 0x1f88ca0] } { [85] : parent(0x1f8a700), 0x1f8a6c0] }
+current_level = 2    { [36] : parent(0x1b33700), 0x1b31ca0] } { [85] : parent(0x1b33700), 0x1b336c0] }
 
-current_level = 3   { [33] : parent(0x1f88ca0), 0x1f8a4a0] } { [38] : parent(0x1f88ca0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 3   { [33] : parent(0x1b31ca0), 0x1b334a0] } { [38] : parent(0x1b31ca0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 4  { [10] : parent(0x1f8a4a0), 0x1f88c20] } { [35] : parent(0x1f8a4a0), 0x1f8a560] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 4  { [10] : parent(0x1b334a0), 0x1b31c20] } { [35] : parent(0x1b334a0), 0x1b33560] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 35 36 37 38 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2091,11 +2091,11 @@ current_level = 3 [10, 33], [37], [39], [50, 60], [69], [80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 85] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 85] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [36, 38] : parent(0x1f8a6c0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [36, 38] : parent(0x1b336c0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10, 33] : parent(0x1f88c60), 0x1f88c20] } { [37] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10, 33] : parent(0x1b31c60), 0x1b31c20] } { [37] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 37 38 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2113,11 +2113,11 @@ current_level = 3 [10], [36], [39], [50, 60], [69], [80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 85] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 85] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33, 37] : parent(0x1f8a6c0), 0x1f88c60] } { [65, 70] : parent(0x1f8a6c0), 0x1f8a520] } { [100] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33, 37] : parent(0x1b336c0), 0x1b31c60] } { [65, 70] : parent(0x1b336c0), 0x1b33520] } { [100] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a520), 0x1f8a780] } { [90] : parent(0x1f8a680), 0x1f88ce0] } { [150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33520), 0x1b33780] } { [90] : parent(0x1b33680), 0x1b31ce0] } { [150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 37 39 40 50 60 65 69 70 80 85 90 100 150 
@@ -2135,11 +2135,11 @@ current_level = 3 [10], [36], [39], [50, 60], [69], [80], [100, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33, 37] : parent(0x1f8a6c0), 0x1f88c60] } { [65] : parent(0x1f8a6c0), 0x1f8a520] } { [85] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33, 37] : parent(0x1b336c0), 0x1b31c60] } { [65] : parent(0x1b336c0), 0x1b33520] } { [85] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a680), 0x1f8a780] } { [100, 150] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33680), 0x1b33780] } { [100, 150] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 37 39 40 50 60 65 69 70 80 85 100 150 
@@ -2157,11 +2157,11 @@ current_level = 3 [10], [36], [39], [50, 60], [69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33, 37] : parent(0x1f8a6c0), 0x1f88c60] } { [65] : parent(0x1f8a6c0), 0x1f8a520] } { [85] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33, 37] : parent(0x1b336c0), 0x1b31c60] } { [65] : parent(0x1b336c0), 0x1b33520] } { [85] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50, 60] : parent(0x1f8a520), 0x1f8a120] } { [69] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a680), 0x1f8a780] } { [100] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50, 60] : parent(0x1b33520), 0x1b33120] } { [69] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33680), 0x1b33780] } { [100] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 37 39 40 50 60 65 69 70 80 85 100 
@@ -2179,11 +2179,11 @@ current_level = 3 [10], [36], [39], [50], [65], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33, 37] : parent(0x1f8a6c0), 0x1f88c60] } { [60] : parent(0x1f8a6c0), 0x1f8a520] } { [85] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33, 37] : parent(0x1b336c0), 0x1b31c60] } { [60] : parent(0x1b336c0), 0x1b33520] } { [85] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [39] : parent(0x1f88c60), 0x1f8a4e0] } { [50] : parent(0x1f8a520), 0x1f8a120] } { [65] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a680), 0x1f8a780] } { [100] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [39] : parent(0x1b31c60), 0x1b334e0] } { [50] : parent(0x1b33520), 0x1b33120] } { [65] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33680), 0x1b33780] } { [100] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 37 39 40 50 60 65 70 80 85 100 
@@ -2201,11 +2201,11 @@ current_level = 3 [10], [36, 39], [50], [65], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33] : parent(0x1f8a6c0), 0x1f88c60] } { [60] : parent(0x1f8a6c0), 0x1f8a520] } { [85] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33] : parent(0x1b336c0), 0x1b31c60] } { [60] : parent(0x1b336c0), 0x1b33520] } { [85] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36, 39] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f8a520), 0x1f8a120] } { [65] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a680), 0x1f8a780] } { [100] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36, 39] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b33520), 0x1b33120] } { [65] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33680), 0x1b33780] } { [100] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 39 40 50 60 65 70 80 85 100 
@@ -2223,11 +2223,11 @@ current_level = 3 [10], [36], [50], [65], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33] : parent(0x1f8a6c0), 0x1f88c60] } { [60] : parent(0x1f8a6c0), 0x1f8a520] } { [85] : parent(0x1f8a6c0), 0x1f8a680] }
+current_level = 2   { [33] : parent(0x1b336c0), 0x1b31c60] } { [60] : parent(0x1b336c0), 0x1b33520] } { [85] : parent(0x1b336c0), 0x1b33680] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f8a520), 0x1f8a120] } { [65] : parent(0x1f8a520), 0x1f8a5a0] } { [80] : parent(0x1f8a680), 0x1f8a780] } { [100] : parent(0x1f8a680), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b33520), 0x1b33120] } { [65] : parent(0x1b33520), 0x1b335a0] } { [80] : parent(0x1b33680), 0x1b33780] } { [100] : parent(0x1b33680), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 40 50 60 65 70 80 85 100 
@@ -2245,11 +2245,11 @@ current_level = 3 [10], [36], [50], [65], [85, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [40] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [33] : parent(0x1f8a6c0), 0x1f88c60] } { [60, 70] : parent(0x1f8a6c0), 0x1f8a520] }
+current_level = 2   { [33] : parent(0x1b336c0), 0x1b31c60] } { [60, 70] : parent(0x1b336c0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f88c60), 0x1f88c20] } { [36] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f8a520), 0x1f8a120] } { [65] : parent(0x1f8a520), 0x1f8a5a0] } { [85, 100] : parent(0x1f8a520), 0x1f8a740] }
+current_level = 3  { [10] : parent(0x1b31c60), 0x1b31c20] } { [36] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b33520), 0x1b33120] } { [65] : parent(0x1b33520), 0x1b335a0] } { [85, 100] : parent(0x1b33520), 0x1b33740] }
 
 
 In order print of tree: 10 33 36 40 50 60 65 70 85 100 
@@ -2267,11 +2267,11 @@ current_level = 3 [33, 36], [50], [65], [85, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [60] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [40] : parent(0x1f8a6c0), 0x1f88c60] } { [70] : parent(0x1f8a6c0), 0x1f8a520] }
+current_level = 2   { [40] : parent(0x1b336c0), 0x1b31c60] } { [70] : parent(0x1b336c0), 0x1b33520] }
 
-current_level = 3  { [33, 36] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f88c60), 0x1f8a120] } { [65] : parent(0x1f8a520), 0x1f8a5a0] } { [85, 100] : parent(0x1f8a520), 0x1f8a740] }
+current_level = 3  { [33, 36] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b31c60), 0x1b33120] } { [65] : parent(0x1b33520), 0x1b335a0] } { [85, 100] : parent(0x1b33520), 0x1b33740] }
 
 
 In order print of tree: 33 36 40 50 60 65 70 85 100 
@@ -2289,11 +2289,11 @@ current_level = 3 [33, 36], [50], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [60] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [40] : parent(0x1f8a6c0), 0x1f88c60] } { [85] : parent(0x1f8a6c0), 0x1f8a520] }
+current_level = 2   { [40] : parent(0x1b336c0), 0x1b31c60] } { [85] : parent(0x1b336c0), 0x1b33520] }
 
-current_level = 3  { [33, 36] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f88c60), 0x1f8a120] } { [70] : parent(0x1f8a520), 0x1f8a5a0] } { [100] : parent(0x1f8a520), 0x1f8a740] }
+current_level = 3  { [33, 36] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b31c60), 0x1b33120] } { [70] : parent(0x1b33520), 0x1b335a0] } { [100] : parent(0x1b33520), 0x1b33740] }
 
 
 In order print of tree: 33 36 40 50 60 70 85 100 
@@ -2309,9 +2309,9 @@ current_level = 2 [33, 36], [50], [85, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [40, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33, 36] : parent(0x1f88c60), 0x1f8a160] } { [50] : parent(0x1f88c60), 0x1f8a120] } { [85, 100] : parent(0x1f88c60), 0x1f8a740] }
+current_level = 2  { [33, 36] : parent(0x1b31c60), 0x1b33160] } { [50] : parent(0x1b31c60), 0x1b33120] } { [85, 100] : parent(0x1b31c60), 0x1b33740] }
 
 
 In order print of tree: 33 36 40 50 70 85 100 
@@ -2327,9 +2327,9 @@ current_level = 2 [33], [40], [85, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [36, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a160] } { [40] : parent(0x1f88c60), 0x1f8a120] } { [85, 100] : parent(0x1f88c60), 0x1f8a740] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33160] } { [40] : parent(0x1b31c60), 0x1b33120] } { [85, 100] : parent(0x1b31c60), 0x1b33740] }
 
 
 In order print of tree: 33 36 40 70 85 100 
@@ -2345,9 +2345,9 @@ current_level = 2 [33], [40], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [36, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a160] } { [40] : parent(0x1f88c60), 0x1f8a120] } { [100] : parent(0x1f88c60), 0x1f8a740] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33160] } { [40] : parent(0x1b31c60), 0x1b33120] } { [100] : parent(0x1b31c60), 0x1b33740] }
 
 
 In order print of tree: 33 36 40 70 100 
@@ -2363,9 +2363,9 @@ current_level = 2 [33], [40, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f88c60] }
+current_level = 1   { [36] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a160] } { [40, 70] : parent(0x1f88c60), 0x1f8a120] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33160] } { [40, 70] : parent(0x1b31c60), 0x1b33120] }
 
 
 In order print of tree: 33 36 40 70 
@@ -2381,9 +2381,9 @@ current_level = 2 [33], [40],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f88c60] }
+current_level = 1   { [36] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a160] } { [40] : parent(0x1f88c60), 0x1f8a120] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33160] } { [40] : parent(0x1b31c60), 0x1b33120] }
 
 
 In order print of tree: 33 36 40 
@@ -2397,7 +2397,7 @@ current_level = 1 [36, 40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [36, 40] : parent(0), 0x1f8a120] }
+current_level = 1  { [36, 40] : parent(0), 0x1b33120] }
 
 
 In order print of tree: 36 40 
@@ -2411,7 +2411,7 @@ current_level = 1 [36],
 Level order debug print of tree: 
 
 
-current_level = 1  { [36] : parent(0), 0x1f8a120] }
+current_level = 1  { [36] : parent(0), 0x1b33120] }
 
 
 In order print of tree: 36 
@@ -2796,11 +2796,11 @@ current_level = 3 [10], [20, 30], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a120] }
+current_level = 1    { [39, 70] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f8a6c0] } { [50] : parent(0x1f8a120), 0x1f88ca0] } { [90] : parent(0x1f8a120), 0x1f8a780] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b336c0] } { [50] : parent(0x1b33120), 0x1b31ca0] } { [90] : parent(0x1b33120), 0x1b33780] }
 
-current_level = 3  { [10] : parent(0x1f8a6c0), 0x1f8a700] } { [20, 30] : parent(0x1f8a6c0), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f88ef0] } { [60] : parent(0x1f88ca0), 0x1f8a160] } { [80] : parent(0x1f8a780), 0x1f88c20] } { [100] : parent(0x1f8a780), 0x1f88c60] }
+current_level = 3  { [10] : parent(0x1b336c0), 0x1b33700] } { [20, 30] : parent(0x1b336c0), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b31ef0] } { [60] : parent(0x1b31ca0), 0x1b33160] } { [80] : parent(0x1b33780), 0x1b31c20] } { [100] : parent(0x1b33780), 0x1b31c60] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -2818,11 +2818,11 @@ current_level = 3 [10], [20, 30], [40], [60], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a120] }
+current_level = 1    { [39] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f8a6c0] } { [50, 70] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b336c0] } { [50, 70] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a6c0), 0x1f8a700] } { [20, 30] : parent(0x1f8a6c0), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f88ef0] } { [60] : parent(0x1f88ca0), 0x1f8a160] } { [80, 90] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 3  { [10] : parent(0x1b336c0), 0x1b33700] } { [20, 30] : parent(0x1b336c0), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b31ef0] } { [60] : parent(0x1b31ca0), 0x1b33160] } { [80, 90] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 
@@ -2840,11 +2840,11 @@ current_level = 3 [15], [30], [40], [60], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a120] }
+current_level = 1    { [39] : parent(0), 0x1b33120] }
 
-current_level = 2   { [20] : parent(0x1f8a120), 0x1f8a6c0] } { [50, 70] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b33120), 0x1b336c0] } { [50, 70] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [15] : parent(0x1f8a6c0), 0x1f8a700] } { [30] : parent(0x1f8a6c0), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f88ef0] } { [60] : parent(0x1f88ca0), 0x1f8a160] } { [80, 90] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336c0), 0x1b33700] } { [30] : parent(0x1b336c0), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b31ef0] } { [60] : parent(0x1b31ca0), 0x1b33160] } { [80, 90] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 30 39 40 50 60 70 80 90 
@@ -2862,11 +2862,11 @@ current_level = 3 [15], [30], [40], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a120] }
+current_level = 1    { [39] : parent(0), 0x1b33120] }
 
-current_level = 2   { [20] : parent(0x1f8a120), 0x1f8a6c0] } { [50, 70] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b33120), 0x1b336c0] } { [50, 70] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [15] : parent(0x1f8a6c0), 0x1f8a700] } { [30] : parent(0x1f8a6c0), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f88ef0] } { [60] : parent(0x1f88ca0), 0x1f8a160] } { [80] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336c0), 0x1b33700] } { [30] : parent(0x1b336c0), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b31ef0] } { [60] : parent(0x1b31ca0), 0x1b33160] } { [80] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 30 39 40 50 60 70 80 
@@ -2884,11 +2884,11 @@ current_level = 3 [15], [30], [40, 60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a120] }
+current_level = 1    { [39] : parent(0), 0x1b33120] }
 
-current_level = 2   { [20] : parent(0x1f8a120), 0x1f8a6c0] } { [70] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b33120), 0x1b336c0] } { [70] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [15] : parent(0x1f8a6c0), 0x1f8a700] } { [30] : parent(0x1f8a6c0), 0x1f8a740] } { [40, 60] : parent(0x1f88ca0), 0x1f88ef0] } { [80] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336c0), 0x1b33700] } { [30] : parent(0x1b336c0), 0x1b33740] } { [40, 60] : parent(0x1b31ca0), 0x1b31ef0] } { [80] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 30 39 40 60 70 80 
@@ -2906,11 +2906,11 @@ current_level = 3 [15], [30], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a120] }
+current_level = 1    { [40] : parent(0), 0x1b33120] }
 
-current_level = 2   { [20] : parent(0x1f8a120), 0x1f8a6c0] } { [70] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b33120), 0x1b336c0] } { [70] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [15] : parent(0x1f8a6c0), 0x1f8a700] } { [30] : parent(0x1f8a6c0), 0x1f8a740] } { [60] : parent(0x1f88ca0), 0x1f88ef0] } { [80] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336c0), 0x1b33700] } { [30] : parent(0x1b336c0), 0x1b33740] } { [60] : parent(0x1b31ca0), 0x1b31ef0] } { [80] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 30 40 60 70 80 
@@ -2926,9 +2926,9 @@ current_level = 2 [15, 20], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f88ca0] }
+current_level = 1   { [40, 70] : parent(0), 0x1b31ca0] }
 
-current_level = 2  { [15, 20] : parent(0x1f88ca0), 0x1f8a700] } { [60] : parent(0x1f88ca0), 0x1f88ef0] } { [80] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 2  { [15, 20] : parent(0x1b31ca0), 0x1b33700] } { [60] : parent(0x1b31ca0), 0x1b31ef0] } { [80] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 40 60 70 80 
@@ -2944,9 +2944,9 @@ current_level = 2 [15], [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 60] : parent(0), 0x1f88ca0] }
+current_level = 1   { [20, 60] : parent(0), 0x1b31ca0] }
 
-current_level = 2  { [15] : parent(0x1f88ca0), 0x1f8a700] } { [40] : parent(0x1f88ca0), 0x1f88ef0] } { [80] : parent(0x1f88ca0), 0x1f88c20] }
+current_level = 2  { [15] : parent(0x1b31ca0), 0x1b33700] } { [40] : parent(0x1b31ca0), 0x1b31ef0] } { [80] : parent(0x1b31ca0), 0x1b31c20] }
 
 
 In order print of tree: 15 20 40 60 80 
@@ -2962,9 +2962,9 @@ current_level = 2 [15], [40, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20] : parent(0), 0x1f88ca0] }
+current_level = 1   { [20] : parent(0), 0x1b31ca0] }
 
-current_level = 2  { [15] : parent(0x1f88ca0), 0x1f8a700] } { [40, 80] : parent(0x1f88ca0), 0x1f88ef0] }
+current_level = 2  { [15] : parent(0x1b31ca0), 0x1b33700] } { [40, 80] : parent(0x1b31ca0), 0x1b31ef0] }
 
 
 In order print of tree: 15 20 40 80 
@@ -2980,9 +2980,9 @@ current_level = 2 [20], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f88ca0] }
+current_level = 1   { [40] : parent(0), 0x1b31ca0] }
 
-current_level = 2  { [20] : parent(0x1f88ca0), 0x1f8a700] } { [80] : parent(0x1f88ca0), 0x1f88ef0] }
+current_level = 2  { [20] : parent(0x1b31ca0), 0x1b33700] } { [80] : parent(0x1b31ca0), 0x1b31ef0] }
 
 
 In order print of tree: 20 40 80 
@@ -2996,7 +2996,7 @@ current_level = 1 [20, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20, 80] : parent(0), 0x1f8a700] }
+current_level = 1  { [20, 80] : parent(0), 0x1b33700] }
 
 
 In order print of tree: 20 80 
@@ -3010,7 +3010,7 @@ current_level = 1 [20],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20] : parent(0), 0x1f8a700] }
+current_level = 1  { [20] : parent(0), 0x1b33700] }
 
 
 In order print of tree: 20 
@@ -3069,11 +3069,11 @@ current_level = 3 [10], [30], [40], [60, 70], [85], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f88ca0] } { [80, 89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b31ca0] } { [80, 89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f88ca0), 0x1f8a2e0] } { [30] : parent(0x1f88ca0), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60, 70] : parent(0x1f8a120), 0x1f88ef0] } { [85] : parent(0x1f8a120), 0x1f8a160] } { [90, 100] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [10] : parent(0x1b31ca0), 0x1b332e0] } { [30] : parent(0x1b31ca0), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60, 70] : parent(0x1b33120), 0x1b31ef0] } { [85] : parent(0x1b33120), 0x1b33160] } { [90, 100] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -3091,11 +3091,11 @@ current_level = 3 [10, 20], [40], [60, 70], [85], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [39] : parent(0x1f8a6c0), 0x1f88ca0] } { [80, 89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b336c0), 0x1b31ca0] } { [80, 89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ca0), 0x1f8a2e0] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60, 70] : parent(0x1f8a120), 0x1f88ef0] } { [85] : parent(0x1f8a120), 0x1f8a160] } { [90, 100] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [10, 20] : parent(0x1b31ca0), 0x1b332e0] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60, 70] : parent(0x1b33120), 0x1b31ef0] } { [85] : parent(0x1b33120), 0x1b33160] } { [90, 100] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 39 40 50 60 70 80 85 89 90 100 
@@ -3113,11 +3113,11 @@ current_level = 3 [10, 20], [40], [60, 70], [85], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [39] : parent(0x1f8a6c0), 0x1f88ca0] } { [80, 89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b336c0), 0x1b31ca0] } { [80, 89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ca0), 0x1f8a2e0] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60, 70] : parent(0x1f8a120), 0x1f88ef0] } { [85] : parent(0x1f8a120), 0x1f8a160] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [10, 20] : parent(0x1b31ca0), 0x1b332e0] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60, 70] : parent(0x1b33120), 0x1b31ef0] } { [85] : parent(0x1b33120), 0x1b33160] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 39 40 50 60 70 80 85 89 90 
@@ -3135,11 +3135,11 @@ current_level = 3 [10, 20], [40], [60], [85], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [39] : parent(0x1f8a6c0), 0x1f88ca0] } { [80, 89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b336c0), 0x1b31ca0] } { [80, 89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ca0), 0x1f8a2e0] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60] : parent(0x1f8a120), 0x1f88ef0] } { [85] : parent(0x1f8a120), 0x1f8a160] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [10, 20] : parent(0x1b31ca0), 0x1b332e0] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60] : parent(0x1b33120), 0x1b31ef0] } { [85] : parent(0x1b33120), 0x1b33160] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 39 40 50 60 80 85 89 90 
@@ -3157,11 +3157,11 @@ current_level = 3 [20], [40], [60], [85], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [39] : parent(0x1f8a6c0), 0x1f88ca0] } { [80, 89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b336c0), 0x1b31ca0] } { [80, 89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [20] : parent(0x1f88ca0), 0x1f8a2e0] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60] : parent(0x1f8a120), 0x1f88ef0] } { [85] : parent(0x1f8a120), 0x1f8a160] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [20] : parent(0x1b31ca0), 0x1b332e0] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60] : parent(0x1b33120), 0x1b31ef0] } { [85] : parent(0x1b33120), 0x1b33160] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 20 39 40 50 60 80 85 89 90 
@@ -3179,11 +3179,11 @@ current_level = 3 [20], [40], [60, 80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [39] : parent(0x1f8a6c0), 0x1f88ca0] } { [89] : parent(0x1f8a6c0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b336c0), 0x1b31ca0] } { [89] : parent(0x1b336c0), 0x1b33120] }
 
-current_level = 3  { [20] : parent(0x1f88ca0), 0x1f8a2e0] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [60, 80] : parent(0x1f8a120), 0x1f88ef0] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 3  { [20] : parent(0x1b31ca0), 0x1b332e0] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [60, 80] : parent(0x1b33120), 0x1b31ef0] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 20 39 40 50 60 80 89 90 
@@ -3199,9 +3199,9 @@ current_level = 2 [20, 39], [60, 80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f8a120] }
+current_level = 1   { [50, 89] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20, 39] : parent(0x1f8a120), 0x1f8a2e0] } { [60, 80] : parent(0x1f8a120), 0x1f88ef0] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [20, 39] : parent(0x1b33120), 0x1b332e0] } { [60, 80] : parent(0x1b33120), 0x1b31ef0] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 20 39 50 60 80 89 90 
@@ -3217,9 +3217,9 @@ current_level = 2 [20, 39], [60], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 80] : parent(0), 0x1f8a120] }
+current_level = 1   { [50, 80] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20, 39] : parent(0x1f8a120), 0x1f8a2e0] } { [60] : parent(0x1f8a120), 0x1f88ef0] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [20, 39] : parent(0x1b33120), 0x1b332e0] } { [60] : parent(0x1b33120), 0x1b31ef0] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 20 39 50 60 80 90 
@@ -3235,9 +3235,9 @@ current_level = 2 [20], [50], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 60] : parent(0), 0x1f8a120] }
+current_level = 1   { [39, 60] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a2e0] } { [50] : parent(0x1f8a120), 0x1f88ef0] } { [90] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b332e0] } { [50] : parent(0x1b33120), 0x1b31ef0] } { [90] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 20 39 50 60 90 
@@ -3253,9 +3253,9 @@ current_level = 2 [20], [50, 60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39] : parent(0), 0x1f8a120] }
+current_level = 1   { [39] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a2e0] } { [50, 60] : parent(0x1f8a120), 0x1f88ef0] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b332e0] } { [50, 60] : parent(0x1b33120), 0x1b31ef0] }
 
 
 In order print of tree: 20 39 50 60 
@@ -3271,9 +3271,9 @@ current_level = 2 [20], [60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a120] }
+current_level = 1   { [50] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a2e0] } { [60] : parent(0x1f8a120), 0x1f88ef0] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b332e0] } { [60] : parent(0x1b33120), 0x1b31ef0] }
 
 
 In order print of tree: 20 50 60 
@@ -3287,7 +3287,7 @@ current_level = 1 [20, 60],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20, 60] : parent(0), 0x1f8a2e0] }
+current_level = 1  { [20, 60] : parent(0), 0x1b332e0] }
 
 
 In order print of tree: 20 60 
@@ -3301,7 +3301,7 @@ current_level = 1 [20],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20] : parent(0), 0x1f8a2e0] }
+current_level = 1  { [20] : parent(0), 0x1b332e0] }
 
 
 In order print of tree: 20 
@@ -3361,11 +3361,11 @@ current_level = 3 [10], [30], [40], [60, 65], [70, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ca0), 0x1f8a120] } { [69, 90] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20, 39] : parent(0x1b31ca0), 0x1b33120] } { [69, 90] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a160] } { [40] : parent(0x1f8a120), 0x1f88ef0] } { [60, 65] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70, 80] : parent(0x1f8a6c0), 0x1f88c20] } { [100] : parent(0x1f8a6c0), 0x1f8a700] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33160] } { [40] : parent(0x1b33120), 0x1b31ef0] } { [60, 65] : parent(0x1b336c0), 0x1b332e0] } { [70, 80] : parent(0x1b336c0), 0x1b31c20] } { [100] : parent(0x1b336c0), 0x1b33700] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -3383,11 +3383,11 @@ current_level = 3 [10], [30], [40], [65], [70, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ca0), 0x1f8a120] } { [69, 90] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20, 39] : parent(0x1b31ca0), 0x1b33120] } { [69, 90] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a160] } { [40] : parent(0x1f8a120), 0x1f88ef0] } { [65] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70, 80] : parent(0x1f8a6c0), 0x1f88c20] } { [100] : parent(0x1f8a6c0), 0x1f8a700] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33160] } { [40] : parent(0x1b33120), 0x1b31ef0] } { [65] : parent(0x1b336c0), 0x1b332e0] } { [70, 80] : parent(0x1b336c0), 0x1b31c20] } { [100] : parent(0x1b336c0), 0x1b33700] }
 
 
 In order print of tree: 10 20 30 39 40 50 65 69 70 80 90 100 
@@ -3405,11 +3405,11 @@ current_level = 3 [10], [30, 39], [65], [70, 80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [69, 90] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [69, 90] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [65] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70, 80] : parent(0x1f8a6c0), 0x1f88c20] } { [100] : parent(0x1f8a6c0), 0x1f8a700] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [65] : parent(0x1b336c0), 0x1b332e0] } { [70, 80] : parent(0x1b336c0), 0x1b31c20] } { [100] : parent(0x1b336c0), 0x1b33700] }
 
 
 In order print of tree: 10 20 30 39 50 65 69 70 80 90 100 
@@ -3427,11 +3427,11 @@ current_level = 3 [10], [30, 39], [69], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [70, 90] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [70, 90] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [69] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70] : parent(0x1f8a6c0), 0x1f88c20] } { [100] : parent(0x1f8a6c0), 0x1f8a700] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [69] : parent(0x1b336c0), 0x1b332e0] } { [70] : parent(0x1b336c0), 0x1b31c20] } { [100] : parent(0x1b336c0), 0x1b33700] }
 
 
 In order print of tree: 10 20 30 39 50 69 70 70 90 100 
@@ -3449,11 +3449,11 @@ current_level = 3 [10], [30, 39], [69], [70, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [70] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [70] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [69] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70, 90] : parent(0x1f8a6c0), 0x1f88c20] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [69] : parent(0x1b336c0), 0x1b332e0] } { [70, 90] : parent(0x1b336c0), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 39 50 69 70 70 90 
@@ -3471,11 +3471,11 @@ current_level = 3 [10], [30, 39], [69], [70],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [70] : parent(0x1f88ca0), 0x1f8a6c0] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [70] : parent(0x1b31ca0), 0x1b336c0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [69] : parent(0x1f8a6c0), 0x1f8a2e0] } { [70] : parent(0x1f8a6c0), 0x1f88c20] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [69] : parent(0x1b336c0), 0x1b332e0] } { [70] : parent(0x1b336c0), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 39 50 69 70 70 
@@ -3491,9 +3491,9 @@ current_level = 2 [10], [30, 39], [70, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 69] : parent(0), 0x1f8a120] }
+current_level = 1   { [20, 69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [70, 70] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [70, 70] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 39 69 70 70 
@@ -3509,9 +3509,9 @@ current_level = 2 [10], [30, 39], [70, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 69] : parent(0), 0x1f8a120] }
+current_level = 1   { [20, 69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 39] : parent(0x1f8a120), 0x1f8a160] } { [70, 70] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 39] : parent(0x1b33120), 0x1b33160] } { [70, 70] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 39 69 70 70 
@@ -3527,9 +3527,9 @@ current_level = 2 [10], [30], [70, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 69] : parent(0), 0x1f8a120] }
+current_level = 1   { [20, 69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a160] } { [70, 70] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33160] } { [70, 70] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 69 70 70 
@@ -3545,9 +3545,9 @@ current_level = 2 [10], [30], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 70] : parent(0), 0x1f8a120] }
+current_level = 1   { [20, 70] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a160] } { [70] : parent(0x1f8a120), 0x1f88c20] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33160] } { [70] : parent(0x1b33120), 0x1b31c20] }
 
 
 In order print of tree: 10 20 30 70 70 
@@ -3563,9 +3563,9 @@ current_level = 2 [10], [30, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20] : parent(0), 0x1f8a120] }
+current_level = 1   { [20] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30, 70] : parent(0x1f8a120), 0x1f8a160] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30, 70] : parent(0x1b33120), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 70 
@@ -3581,9 +3581,9 @@ current_level = 2 [10], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a120] }
+current_level = 1   { [30] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [70] : parent(0x1f8a120), 0x1f8a160] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [70] : parent(0x1b33120), 0x1b33160] }
 
 
 In order print of tree: 10 30 70 
@@ -3597,7 +3597,7 @@ current_level = 1 [10, 70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [10, 70] : parent(0), 0x1f8a780] }
+current_level = 1  { [10, 70] : parent(0), 0x1b33780] }
 
 
 In order print of tree: 10 70 
@@ -3611,7 +3611,7 @@ current_level = 1 [70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [70] : parent(0), 0x1f8a780] }
+current_level = 1  { [70] : parent(0), 0x1b33780] }
 
 
 In order print of tree: 70 
@@ -3663,11 +3663,11 @@ current_level = 3 [10], [30], [40], [60, 70], [90], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f8a120] } { [80, 100] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b33120] } { [80, 100] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f8a120), 0x1f8a700] } { [60, 70] : parent(0x1f88ca0), 0x1f88c20] } { [90] : parent(0x1f88ca0), 0x1f8a160] } { [125, 150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b33120), 0x1b33700] } { [60, 70] : parent(0x1b31ca0), 0x1b31c20] } { [90] : parent(0x1b31ca0), 0x1b33160] } { [125, 150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -3685,11 +3685,11 @@ current_level = 3 [10], [30], [40], [60, 70], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f8a120] } { [80, 125] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b33120] } { [80, 125] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f8a120), 0x1f8a700] } { [60, 70] : parent(0x1f88ca0), 0x1f88c20] } { [90] : parent(0x1f88ca0), 0x1f8a160] } { [150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b33120), 0x1b33700] } { [60, 70] : parent(0x1b31ca0), 0x1b31c20] } { [90] : parent(0x1b31ca0), 0x1b33160] } { [150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 125 150 
@@ -3707,11 +3707,11 @@ current_level = 3 [10], [30], [40], [60], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [50] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f8a120] } { [80, 125] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b33120] } { [80, 125] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f8a120), 0x1f8a700] } { [60] : parent(0x1f88ca0), 0x1f88c20] } { [90] : parent(0x1f88ca0), 0x1f8a160] } { [150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b33120), 0x1b33700] } { [60] : parent(0x1b31ca0), 0x1b31c20] } { [90] : parent(0x1b31ca0), 0x1b33160] } { [150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 80 90 125 150 
@@ -3729,11 +3729,11 @@ current_level = 3 [10], [30], [40], [80, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [60] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f8a120] } { [125] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b33120] } { [125] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f8a120), 0x1f8a700] } { [80, 90] : parent(0x1f88ca0), 0x1f8a160] } { [150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b33120), 0x1b33700] } { [80, 90] : parent(0x1b31ca0), 0x1b33160] } { [150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 80 90 125 150 
@@ -3751,11 +3751,11 @@ current_level = 3 [10], [30], [40], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [60] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6c0), 0x1f8a120] } { [90] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20, 39] : parent(0x1b336c0), 0x1b33120] } { [90] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f8a120), 0x1f8a700] } { [80] : parent(0x1f88ca0), 0x1f8a160] } { [150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b33120), 0x1b33700] } { [80] : parent(0x1b31ca0), 0x1b33160] } { [150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 80 90 150 
@@ -3773,11 +3773,11 @@ current_level = 3 [10], [30], [40], [90, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [39] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20] : parent(0x1f8a6c0), 0x1f8a120] } { [60] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b336c0), 0x1b33120] } { [60] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [90, 150] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [90, 150] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 90 150 
@@ -3795,11 +3795,11 @@ current_level = 3 [10], [30], [40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a6c0] }
+current_level = 1    { [39] : parent(0), 0x1b336c0] }
 
-current_level = 2   { [20] : parent(0x1f8a6c0), 0x1f8a120] } { [60] : parent(0x1f8a6c0), 0x1f88ca0] }
+current_level = 2   { [20] : parent(0x1b336c0), 0x1b33120] } { [60] : parent(0x1b336c0), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [40] : parent(0x1f88ca0), 0x1f8a700] } { [90] : parent(0x1f88ca0), 0x1f8a2e0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [40] : parent(0x1b31ca0), 0x1b33700] } { [90] : parent(0x1b31ca0), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 90 
@@ -3815,9 +3815,9 @@ current_level = 2 [10], [30], [60, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 40] : parent(0), 0x1f8a120] }
+current_level = 1   { [20, 40] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f8a780] } { [30] : parent(0x1f8a120), 0x1f8a740] } { [60, 90] : parent(0x1f8a120), 0x1f8a2e0] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b33780] } { [30] : parent(0x1b33120), 0x1b33740] } { [60, 90] : parent(0x1b33120), 0x1b332e0] }
 
 
 In order print of tree: 10 20 30 40 60 90 
@@ -3833,9 +3833,9 @@ current_level = 2 [20], [40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 60] : parent(0), 0x1f8a120] }
+current_level = 1   { [30, 60] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a780] } { [40] : parent(0x1f8a120), 0x1f8a740] } { [90] : parent(0x1f8a120), 0x1f8a2e0] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b33780] } { [40] : parent(0x1b33120), 0x1b33740] } { [90] : parent(0x1b33120), 0x1b332e0] }
 
 
 In order print of tree: 20 30 40 60 90 
@@ -3851,9 +3851,9 @@ current_level = 2 [20], [40, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a120] }
+current_level = 1   { [30] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a780] } { [40, 90] : parent(0x1f8a120), 0x1f8a740] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b33780] } { [40, 90] : parent(0x1b33120), 0x1b33740] }
 
 
 In order print of tree: 20 30 40 90 
@@ -3869,9 +3869,9 @@ current_level = 2 [20], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a120] }
+current_level = 1   { [30] : parent(0), 0x1b33120] }
 
-current_level = 2  { [20] : parent(0x1f8a120), 0x1f8a780] } { [90] : parent(0x1f8a120), 0x1f8a740] }
+current_level = 2  { [20] : parent(0x1b33120), 0x1b33780] } { [90] : parent(0x1b33120), 0x1b33740] }
 
 
 In order print of tree: 20 30 90 
@@ -3885,7 +3885,7 @@ current_level = 1 [30, 90],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 90] : parent(0), 0x1f8a740] }
+current_level = 1  { [30, 90] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 30 90 
@@ -3899,7 +3899,7 @@ current_level = 1 [90],
 Level order debug print of tree: 
 
 
-current_level = 1  { [90] : parent(0), 0x1f8a740] }
+current_level = 1  { [90] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 90 
@@ -3965,13 +3965,13 @@ current_level = 4 [10], [30], [34], [36], [38], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a840] }
+current_level = 1     { [39] : parent(0), 0x1b33840] }
 
-current_level = 2    { [35] : parent(0x1f8a840), 0x1f88ca0] } { [70] : parent(0x1f8a840), 0x1f8a800] }
+current_level = 2    { [35] : parent(0x1b33840), 0x1b31ca0] } { [70] : parent(0x1b33840), 0x1b33800] }
 
-current_level = 3   { [20, 33] : parent(0x1f88ca0), 0x1f8a120] } { [37] : parent(0x1f88ca0), 0x1f8a3b0] } { [50] : parent(0x1f8a800), 0x1f8a6c0] } { [90] : parent(0x1f8a800), 0x1f88c60] }
+current_level = 3   { [20, 33] : parent(0x1b31ca0), 0x1b33120] } { [37] : parent(0x1b31ca0), 0x1b333b0] } { [50] : parent(0x1b33800), 0x1b336c0] } { [90] : parent(0x1b33800), 0x1b31c60] }
 
-current_level = 4  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a120), 0x1f8a740] } { [36] : parent(0x1f8a3b0), 0x1f8a700] } { [38] : parent(0x1f8a3b0), 0x1f88ce0] } { [40] : parent(0x1f8a6c0), 0x1f8a780] } { [60] : parent(0x1f8a6c0), 0x1f88c20] } { [80] : parent(0x1f88c60), 0x1f8a2e0] } { [100] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 4  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b33120), 0x1b33740] } { [36] : parent(0x1b333b0), 0x1b33700] } { [38] : parent(0x1b333b0), 0x1b31ce0] } { [40] : parent(0x1b336c0), 0x1b33780] } { [60] : parent(0x1b336c0), 0x1b31c20] } { [80] : parent(0x1b31c60), 0x1b332e0] } { [100] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -3989,11 +3989,11 @@ current_level = 3 [10], [30], [34], [36], [38], [50, 60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [35, 39] : parent(0), 0x1f88ca0] }
+current_level = 1    { [35, 39] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20, 33] : parent(0x1f88ca0), 0x1f8a120] } { [37] : parent(0x1f88ca0), 0x1f8a3b0] } { [70, 90] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [20, 33] : parent(0x1b31ca0), 0x1b33120] } { [37] : parent(0x1b31ca0), 0x1b333b0] } { [70, 90] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a120), 0x1f8a740] } { [36] : parent(0x1f8a3b0), 0x1f8a700] } { [38] : parent(0x1f8a3b0), 0x1f88ce0] } { [50, 60] : parent(0x1f88c60), 0x1f88c20] } { [80] : parent(0x1f88c60), 0x1f8a2e0] } { [100] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b33120), 0x1b33740] } { [36] : parent(0x1b333b0), 0x1b33700] } { [38] : parent(0x1b333b0), 0x1b31ce0] } { [50, 60] : parent(0x1b31c60), 0x1b31c20] } { [80] : parent(0x1b31c60), 0x1b332e0] } { [100] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 50 60 70 80 90 100 
@@ -4011,11 +4011,11 @@ current_level = 3 [10], [30], [34], [36, 37], [50, 60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 39] : parent(0), 0x1f88ca0] }
+current_level = 1    { [33, 39] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [35] : parent(0x1f88ca0), 0x1f8a3b0] } { [70, 90] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [35] : parent(0x1b31ca0), 0x1b333b0] } { [70, 90] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [36, 37] : parent(0x1f8a3b0), 0x1f8a700] } { [50, 60] : parent(0x1f88c60), 0x1f88c20] } { [80] : parent(0x1f88c60), 0x1f8a2e0] } { [100] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [36, 37] : parent(0x1b333b0), 0x1b33700] } { [50, 60] : parent(0x1b31c60), 0x1b31c20] } { [80] : parent(0x1b31c60), 0x1b332e0] } { [100] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 39 50 60 70 80 90 100 
@@ -4033,11 +4033,11 @@ current_level = 3 [10], [30], [34], [36, 37], [50], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 39] : parent(0), 0x1f88ca0] }
+current_level = 1    { [33, 39] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [35] : parent(0x1f88ca0), 0x1f8a3b0] } { [60, 80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [35] : parent(0x1b31ca0), 0x1b333b0] } { [60, 80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [36, 37] : parent(0x1f8a3b0), 0x1f8a700] } { [50] : parent(0x1f88c60), 0x1f88c20] } { [70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [36, 37] : parent(0x1b333b0), 0x1b33700] } { [50] : parent(0x1b31c60), 0x1b31c20] } { [70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 39 50 60 70 80 90 
@@ -4055,11 +4055,11 @@ current_level = 3 [10], [30], [34], [36, 37], [60, 70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [33, 50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [35] : parent(0x1f88ca0), 0x1f8a3b0] } { [80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [35] : parent(0x1b31ca0), 0x1b333b0] } { [80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [36, 37] : parent(0x1f8a3b0), 0x1f8a700] } { [60, 70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [36, 37] : parent(0x1b333b0), 0x1b33700] } { [60, 70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 50 60 70 80 90 
@@ -4077,11 +4077,11 @@ current_level = 3 [10], [30], [34], [37], [60, 70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [33, 50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [20] : parent(0x1f88ca0), 0x1f8a120] } { [36] : parent(0x1f88ca0), 0x1f8a3b0] } { [80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [20] : parent(0x1b31ca0), 0x1b33120] } { [36] : parent(0x1b31ca0), 0x1b333b0] } { [80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f88ef0] } { [30] : parent(0x1f8a120), 0x1f8a1a0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [37] : parent(0x1f8a3b0), 0x1f8a700] } { [60, 70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b31ef0] } { [30] : parent(0x1b33120), 0x1b331a0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [37] : parent(0x1b333b0), 0x1b33700] } { [60, 70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 20 30 33 34 36 37 50 60 70 80 90 
@@ -4099,11 +4099,11 @@ current_level = 3 [10, 30], [34], [37], [60, 70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [33, 36] : parent(0x1f88ca0), 0x1f8a3b0] } { [80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [33, 36] : parent(0x1b31ca0), 0x1b333b0] } { [80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10, 30] : parent(0x1f8a3b0), 0x1f88ef0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [37] : parent(0x1f8a3b0), 0x1f8a700] } { [60, 70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10, 30] : parent(0x1b333b0), 0x1b31ef0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [37] : parent(0x1b333b0), 0x1b33700] } { [60, 70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 30 33 34 36 37 50 60 70 80 90 
@@ -4121,11 +4121,11 @@ current_level = 3 [10, 30], [34], [37], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [33, 36] : parent(0x1f88ca0), 0x1f8a3b0] } { [80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [33, 36] : parent(0x1b31ca0), 0x1b333b0] } { [80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10, 30] : parent(0x1f8a3b0), 0x1f88ef0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [37] : parent(0x1f8a3b0), 0x1f8a700] } { [70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10, 30] : parent(0x1b333b0), 0x1b31ef0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [37] : parent(0x1b333b0), 0x1b33700] } { [70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 30 33 34 36 37 50 70 80 90 
@@ -4143,11 +4143,11 @@ current_level = 3 [10], [34], [37], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ca0] }
+current_level = 1    { [50] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [33, 36] : parent(0x1f88ca0), 0x1f8a3b0] } { [80] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [33, 36] : parent(0x1b31ca0), 0x1b333b0] } { [80] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a3b0), 0x1f88ef0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [37] : parent(0x1f8a3b0), 0x1f8a700] } { [70] : parent(0x1f88c60), 0x1f8a2e0] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b333b0), 0x1b31ef0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [37] : parent(0x1b333b0), 0x1b33700] } { [70] : parent(0x1b31c60), 0x1b332e0] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 33 34 36 37 50 70 80 90 
@@ -4165,11 +4165,11 @@ current_level = 3 [10], [34], [37], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f88ca0] }
+current_level = 1    { [36] : parent(0), 0x1b31ca0] }
 
-current_level = 2   { [33] : parent(0x1f88ca0), 0x1f8a3b0] } { [70] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 2   { [33] : parent(0x1b31ca0), 0x1b333b0] } { [70] : parent(0x1b31ca0), 0x1b31c60] }
 
-current_level = 3  { [10] : parent(0x1f8a3b0), 0x1f88ef0] } { [34] : parent(0x1f8a3b0), 0x1f8a740] } { [37] : parent(0x1f88c60), 0x1f8a700] } { [80, 90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b333b0), 0x1b31ef0] } { [34] : parent(0x1b333b0), 0x1b33740] } { [37] : parent(0x1b31c60), 0x1b33700] } { [80, 90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 10 33 34 36 37 70 80 90 
@@ -4185,9 +4185,9 @@ current_level = 2 [33, 34], [37], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [36, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33, 34] : parent(0x1f88c60), 0x1f8a740] } { [37] : parent(0x1f88c60), 0x1f8a700] } { [80, 90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 2  { [33, 34] : parent(0x1b31c60), 0x1b33740] } { [37] : parent(0x1b31c60), 0x1b33700] } { [80, 90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 33 34 36 37 70 80 90 
@@ -4203,9 +4203,9 @@ current_level = 2 [33], [37], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [36, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a740] } { [37] : parent(0x1f88c60), 0x1f8a700] } { [80, 90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33740] } { [37] : parent(0x1b31c60), 0x1b33700] } { [80, 90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 33 36 37 70 80 90 
@@ -4221,9 +4221,9 @@ current_level = 2 [33], [37], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f88c60] }
+current_level = 1   { [36, 70] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a740] } { [37] : parent(0x1f88c60), 0x1f8a700] } { [90] : parent(0x1f88c60), 0x1f8a160] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33740] } { [37] : parent(0x1b31c60), 0x1b33700] } { [90] : parent(0x1b31c60), 0x1b33160] }
 
 
 In order print of tree: 33 36 37 70 90 
@@ -4239,9 +4239,9 @@ current_level = 2 [33], [37, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f88c60] }
+current_level = 1   { [36] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [33] : parent(0x1f88c60), 0x1f8a740] } { [37, 70] : parent(0x1f88c60), 0x1f8a700] }
+current_level = 2  { [33] : parent(0x1b31c60), 0x1b33740] } { [37, 70] : parent(0x1b31c60), 0x1b33700] }
 
 
 In order print of tree: 33 36 37 70 
@@ -4257,9 +4257,9 @@ current_level = 2 [36], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [37] : parent(0), 0x1f88c60] }
+current_level = 1   { [37] : parent(0), 0x1b31c60] }
 
-current_level = 2  { [36] : parent(0x1f88c60), 0x1f8a740] } { [70] : parent(0x1f88c60), 0x1f8a700] }
+current_level = 2  { [36] : parent(0x1b31c60), 0x1b33740] } { [70] : parent(0x1b31c60), 0x1b33700] }
 
 
 In order print of tree: 36 37 70 
@@ -4273,7 +4273,7 @@ current_level = 1 [36, 37],
 Level order debug print of tree: 
 
 
-current_level = 1  { [36, 37] : parent(0), 0x1f8a740] }
+current_level = 1  { [36, 37] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 36 37 
@@ -4287,7 +4287,7 @@ current_level = 1 [37],
 Level order debug print of tree: 
 
 
-current_level = 1  { [37] : parent(0), 0x1f8a740] }
+current_level = 1  { [37] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 37 
@@ -4364,13 +4364,13 @@ current_level = 4 [10], [20, 30], [34, 35], [37, 38], [40, 50], [65], [70], [85]
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [15] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [60, 69] : parent(0x1f8a670), 0x1f8a430] } { [89, 125] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [15] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [60, 69] : parent(0x1b33670), 0x1b33430] } { [89, 125] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a740] } { [20, 30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [37, 38] : parent(0x1f8a630), 0x1f8a470] } { [40, 50] : parent(0x1f8a430), 0x1f8a3f0] } { [65] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [85] : parent(0x1f88ce0), 0x1f88ef0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33740] } { [20, 30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [37, 38] : parent(0x1b33630), 0x1b33470] } { [40, 50] : parent(0x1b33430), 0x1b333f0] } { [65] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [85] : parent(0x1b31ce0), 0x1b31ef0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -4390,13 +4390,13 @@ current_level = 4 [10], [20, 30], [34, 35], [38], [40, 50], [65], [70], [85], [9
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [15] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [60, 69] : parent(0x1f8a670), 0x1f8a430] } { [89, 125] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [15] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [60, 69] : parent(0x1b33670), 0x1b33430] } { [89, 125] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a740] } { [20, 30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40, 50] : parent(0x1f8a430), 0x1f8a3f0] } { [65] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [85] : parent(0x1f88ce0), 0x1f88ef0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33740] } { [20, 30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40, 50] : parent(0x1b33430), 0x1b333f0] } { [65] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [85] : parent(0x1b31ce0), 0x1b31ef0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -4416,13 +4416,13 @@ current_level = 4 [15], [30], [34, 35], [38], [40, 50], [65], [70], [85], [90, 1
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [20] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [60, 69] : parent(0x1f8a670), 0x1f8a430] } { [89, 125] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [20] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [60, 69] : parent(0x1b33670), 0x1b33430] } { [89, 125] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [15] : parent(0x1f88c20), 0x1f8a740] } { [30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40, 50] : parent(0x1f8a430), 0x1f8a3f0] } { [65] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [85] : parent(0x1f88ce0), 0x1f88ef0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [15] : parent(0x1b31c20), 0x1b33740] } { [30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40, 50] : parent(0x1b33430), 0x1b333f0] } { [65] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [85] : parent(0x1b31ce0), 0x1b31ef0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 30 33 34 35 36 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -4442,13 +4442,13 @@ current_level = 4 [15], [30], [34, 35], [38], [40], [60], [70], [85], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [20] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [89, 125] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [20] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [89, 125] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [15] : parent(0x1f88c20), 0x1f8a740] } { [30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [85] : parent(0x1f88ce0), 0x1f88ef0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [15] : parent(0x1b31c20), 0x1b33740] } { [30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [85] : parent(0x1b31ce0), 0x1b31ef0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 30 33 34 35 36 38 39 40 50 60 69 70 80 85 89 90 100 125 150 
@@ -4468,13 +4468,13 @@ current_level = 4 [15], [30], [34, 35], [38], [40], [60], [70], [85], [90], [150
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [20] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [89, 100] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [20] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [89, 100] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [15] : parent(0x1f88c20), 0x1f8a740] } { [30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [85] : parent(0x1f88ce0), 0x1f88ef0] } { [90] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [15] : parent(0x1b31c20), 0x1b33740] } { [30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [85] : parent(0x1b31ce0), 0x1b31ef0] } { [90] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 30 33 34 35 36 38 39 40 50 60 69 70 80 85 89 90 100 150 
@@ -4494,13 +4494,13 @@ current_level = 4 [15], [30], [34, 35], [38], [40], [60], [70], [89, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [20] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [100] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [20] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [100] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [15] : parent(0x1f88c20), 0x1f8a740] } { [30] : parent(0x1f88c20), 0x1f8a5f0] } { [34, 35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [15] : parent(0x1b31c20), 0x1b33740] } { [30] : parent(0x1b31c20), 0x1b335f0] } { [34, 35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [89, 90] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 30 33 34 35 36 38 39 40 50 60 69 70 80 89 90 100 150 
@@ -4520,13 +4520,13 @@ current_level = 4 [15], [30], [35], [38], [40], [60], [70], [89, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a6b0] }
+current_level = 1     { [39] : parent(0), 0x1b336b0] }
 
-current_level = 2    { [33] : parent(0x1f8a6b0), 0x1f8a370] } { [80] : parent(0x1f8a6b0), 0x1f8a670] }
+current_level = 2    { [33] : parent(0x1b336b0), 0x1b33370] } { [80] : parent(0x1b336b0), 0x1b33670] }
 
-current_level = 3   { [20] : parent(0x1f8a370), 0x1f88c20] } { [36] : parent(0x1f8a370), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [100] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 3   { [20] : parent(0x1b33370), 0x1b31c20] } { [36] : parent(0x1b33370), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [100] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 4  { [15] : parent(0x1f88c20), 0x1f8a740] } { [30] : parent(0x1f88c20), 0x1f8a5f0] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 4  { [15] : parent(0x1b31c20), 0x1b33740] } { [30] : parent(0x1b31c20), 0x1b335f0] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [89, 90] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 30 33 35 36 38 39 40 50 60 69 70 80 89 90 100 150 
@@ -4544,11 +4544,11 @@ current_level = 3 [15, 20], [35], [38], [40], [60], [70], [89, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 80] : parent(0), 0x1f8a670] }
+current_level = 1    { [39, 80] : parent(0), 0x1b33670] }
 
-current_level = 2   { [33, 36] : parent(0x1f8a670), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [100] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [33, 36] : parent(0x1b33670), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [100] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f8a630), 0x1f8a740] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 3  { [15, 20] : parent(0x1b33630), 0x1b33740] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [89, 90] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 33 35 36 38 39 40 50 60 69 70 80 89 90 100 150 
@@ -4566,11 +4566,11 @@ current_level = 3 [15, 20], [35], [38], [40], [60], [70], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 80] : parent(0), 0x1f8a670] }
+current_level = 1    { [39, 80] : parent(0), 0x1b33670] }
 
-current_level = 2   { [33, 36] : parent(0x1f8a670), 0x1f8a630] } { [50, 69] : parent(0x1f8a670), 0x1f8a430] } { [100] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [33, 36] : parent(0x1b33670), 0x1b33630] } { [50, 69] : parent(0x1b33670), 0x1b33430] } { [100] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f8a630), 0x1f8a740] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f8a430), 0x1f8a5b0] } { [90] : parent(0x1f88ce0), 0x1f8a570] } { [150] : parent(0x1f88ce0), 0x1f88ca0] }
+current_level = 3  { [15, 20] : parent(0x1b33630), 0x1b33740] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b33430), 0x1b335b0] } { [90] : parent(0x1b31ce0), 0x1b33570] } { [150] : parent(0x1b31ce0), 0x1b31ca0] }
 
 
 In order print of tree: 15 20 33 35 36 38 39 40 50 60 69 70 80 90 100 150 
@@ -4588,11 +4588,11 @@ current_level = 3 [15, 20], [35], [38], [40], [60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 69] : parent(0), 0x1f8a670] }
+current_level = 1    { [39, 69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [33, 36] : parent(0x1f8a670), 0x1f8a630] } { [50] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [33, 36] : parent(0x1b33670), 0x1b33630] } { [50] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f8a630), 0x1f8a740] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a630), 0x1f8a470] } { [40] : parent(0x1f8a430), 0x1f8a3f0] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [15, 20] : parent(0x1b33630), 0x1b33740] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33630), 0x1b33470] } { [40] : parent(0x1b33430), 0x1b333f0] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 15 20 33 35 36 38 39 40 50 60 69 70 80 90 100 
@@ -4610,11 +4610,11 @@ current_level = 3 [15, 20], [35], [38], [50, 60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 69] : parent(0), 0x1f8a670] }
+current_level = 1    { [36, 69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [33] : parent(0x1f8a670), 0x1f8a630] } { [40] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [33] : parent(0x1b33670), 0x1b33630] } { [40] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f8a630), 0x1f8a740] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a430), 0x1f8a470] } { [50, 60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [15, 20] : parent(0x1b33630), 0x1b33740] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33430), 0x1b33470] } { [50, 60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 15 20 33 35 36 38 40 50 60 69 70 80 90 100 
@@ -4632,11 +4632,11 @@ current_level = 3 [20], [35], [38], [50, 60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 69] : parent(0), 0x1f8a670] }
+current_level = 1    { [36, 69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [33] : parent(0x1f8a670), 0x1f8a630] } { [40] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [33] : parent(0x1b33670), 0x1b33630] } { [40] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [20] : parent(0x1f8a630), 0x1f8a740] } { [35] : parent(0x1f8a630), 0x1f8a3b0] } { [38] : parent(0x1f8a430), 0x1f8a470] } { [50, 60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [20] : parent(0x1b33630), 0x1b33740] } { [35] : parent(0x1b33630), 0x1b333b0] } { [38] : parent(0x1b33430), 0x1b33470] } { [50, 60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 20 33 35 36 38 40 50 60 69 70 80 90 100 
@@ -4654,11 +4654,11 @@ current_level = 3 [20, 35], [38], [50, 60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [36, 40] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [36, 40] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [20, 35] : parent(0x1f8a430), 0x1f8a740] } { [38] : parent(0x1f8a430), 0x1f8a470] } { [50, 60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [20, 35] : parent(0x1b33430), 0x1b33740] } { [38] : parent(0x1b33430), 0x1b33470] } { [50, 60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 20 35 36 38 40 50 60 69 70 80 90 100 
@@ -4676,11 +4676,11 @@ current_level = 3 [35], [38], [50, 60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [36, 40] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [36, 40] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [35] : parent(0x1f8a430), 0x1f8a740] } { [38] : parent(0x1f8a430), 0x1f8a470] } { [50, 60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [35] : parent(0x1b33430), 0x1b33740] } { [38] : parent(0x1b33430), 0x1b33470] } { [50, 60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 36 38 40 50 60 69 70 80 90 100 
@@ -4698,11 +4698,11 @@ current_level = 3 [35], [40], [60], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [38, 50] : parent(0x1f8a670), 0x1f8a430] } { [80] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [38, 50] : parent(0x1b33670), 0x1b33430] } { [80] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [35] : parent(0x1f8a430), 0x1f8a740] } { [40] : parent(0x1f8a430), 0x1f8a470] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [90, 100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [35] : parent(0x1b33430), 0x1b33740] } { [40] : parent(0x1b33430), 0x1b33470] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [90, 100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 40 50 60 69 70 80 90 100 
@@ -4720,11 +4720,11 @@ current_level = 3 [35], [40], [60], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [38, 50] : parent(0x1f8a670), 0x1f8a430] } { [90] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [38, 50] : parent(0x1b33670), 0x1b33430] } { [90] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [35] : parent(0x1f8a430), 0x1f8a740] } { [40] : parent(0x1f8a430), 0x1f8a470] } { [60] : parent(0x1f8a430), 0x1f88c60] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [35] : parent(0x1b33430), 0x1b33740] } { [40] : parent(0x1b33430), 0x1b33470] } { [60] : parent(0x1b33430), 0x1b31c60] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 40 50 60 69 70 90 100 
@@ -4742,11 +4742,11 @@ current_level = 3 [35], [40, 60], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [38] : parent(0x1f8a670), 0x1f8a430] } { [90] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [38] : parent(0x1b33670), 0x1b33430] } { [90] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [35] : parent(0x1f8a430), 0x1f8a740] } { [40, 60] : parent(0x1f8a430), 0x1f8a470] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [35] : parent(0x1b33430), 0x1b33740] } { [40, 60] : parent(0x1b33430), 0x1b33470] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 40 60 69 70 90 100 
@@ -4764,11 +4764,11 @@ current_level = 3 [35], [60], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a670] }
+current_level = 1    { [69] : parent(0), 0x1b33670] }
 
-current_level = 2   { [38] : parent(0x1f8a670), 0x1f8a430] } { [90] : parent(0x1f8a670), 0x1f88ce0] }
+current_level = 2   { [38] : parent(0x1b33670), 0x1b33430] } { [90] : parent(0x1b33670), 0x1b31ce0] }
 
-current_level = 3  { [35] : parent(0x1f8a430), 0x1f8a740] } { [60] : parent(0x1f8a430), 0x1f8a470] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 3  { [35] : parent(0x1b33430), 0x1b33740] } { [60] : parent(0x1b33430), 0x1b33470] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 60 69 70 90 100 
@@ -4784,9 +4784,9 @@ current_level = 2 [35, 38], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [69, 90] : parent(0), 0x1f88ce0] }
+current_level = 1   { [69, 90] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [35, 38] : parent(0x1f88ce0), 0x1f8a740] } { [70] : parent(0x1f88ce0), 0x1f8a5b0] } { [100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 2  { [35, 38] : parent(0x1b31ce0), 0x1b33740] } { [70] : parent(0x1b31ce0), 0x1b335b0] } { [100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 69 70 90 100 
@@ -4802,9 +4802,9 @@ current_level = 2 [35], [69], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38, 90] : parent(0), 0x1f88ce0] }
+current_level = 1   { [38, 90] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [35] : parent(0x1f88ce0), 0x1f8a740] } { [69] : parent(0x1f88ce0), 0x1f8a5b0] } { [100] : parent(0x1f88ce0), 0x1f8a570] }
+current_level = 2  { [35] : parent(0x1b31ce0), 0x1b33740] } { [69] : parent(0x1b31ce0), 0x1b335b0] } { [100] : parent(0x1b31ce0), 0x1b33570] }
 
 
 In order print of tree: 35 38 69 90 100 
@@ -4820,9 +4820,9 @@ current_level = 2 [35], [69, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38] : parent(0), 0x1f88ce0] }
+current_level = 1   { [38] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [35] : parent(0x1f88ce0), 0x1f8a740] } { [69, 100] : parent(0x1f88ce0), 0x1f8a5b0] }
+current_level = 2  { [35] : parent(0x1b31ce0), 0x1b33740] } { [69, 100] : parent(0x1b31ce0), 0x1b335b0] }
 
 
 In order print of tree: 35 38 69 100 
@@ -4838,9 +4838,9 @@ current_level = 2 [35], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38] : parent(0), 0x1f88ce0] }
+current_level = 1   { [38] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [35] : parent(0x1f88ce0), 0x1f8a740] } { [100] : parent(0x1f88ce0), 0x1f8a5b0] }
+current_level = 2  { [35] : parent(0x1b31ce0), 0x1b33740] } { [100] : parent(0x1b31ce0), 0x1b335b0] }
 
 
 In order print of tree: 35 38 100 
@@ -4854,7 +4854,7 @@ current_level = 1 [35, 100],
 Level order debug print of tree: 
 
 
-current_level = 1  { [35, 100] : parent(0), 0x1f8a740] }
+current_level = 1  { [35, 100] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 35 100 
@@ -4868,7 +4868,7 @@ current_level = 1 [35],
 Level order debug print of tree: 
 
 
-current_level = 1  { [35] : parent(0), 0x1f8a740] }
+current_level = 1  { [35] : parent(0), 0x1b33740] }
 
 
 In order print of tree: 35 
@@ -5253,11 +5253,11 @@ current_level = 3 [10], [20, 30], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a520] }
+current_level = 1    { [39, 70] : parent(0), 0x1b33520] }
 
-current_level = 2   { [15] : parent(0x1f8a520), 0x1f8a670] } { [50] : parent(0x1f8a520), 0x1f88cd0] } { [90] : parent(0x1f8a520), 0x1f8a730] }
+current_level = 2   { [15] : parent(0x1b33520), 0x1b33670] } { [50] : parent(0x1b33520), 0x1b31cd0] } { [90] : parent(0x1b33520), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f8a7b0] } { [20, 30] : parent(0x1f8a670), 0x1f8a6b0] } { [40] : parent(0x1f88cd0), 0x1f8a3e0] } { [60] : parent(0x1f88cd0), 0x1f8a770] } { [80] : parent(0x1f8a730), 0x1f8a420] } { [100] : parent(0x1f8a730), 0x1f8a6f0] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b337b0] } { [20, 30] : parent(0x1b33670), 0x1b336b0] } { [40] : parent(0x1b31cd0), 0x1b333e0] } { [60] : parent(0x1b31cd0), 0x1b33770] } { [80] : parent(0x1b33730), 0x1b33420] } { [100] : parent(0x1b33730), 0x1b336f0] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -5275,11 +5275,11 @@ current_level = 3 [15], [30], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a520] }
+current_level = 1    { [39, 70] : parent(0), 0x1b33520] }
 
-current_level = 2   { [20] : parent(0x1f8a520), 0x1f8a670] } { [50] : parent(0x1f8a520), 0x1f88cd0] } { [90] : parent(0x1f8a520), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b33520), 0x1b33670] } { [50] : parent(0x1b33520), 0x1b31cd0] } { [90] : parent(0x1b33520), 0x1b33730] }
 
-current_level = 3  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [30] : parent(0x1f8a670), 0x1f8a6b0] } { [40] : parent(0x1f88cd0), 0x1f8a3e0] } { [60] : parent(0x1f88cd0), 0x1f8a770] } { [80] : parent(0x1f8a730), 0x1f8a420] } { [100] : parent(0x1f8a730), 0x1f8a6f0] }
+current_level = 3  { [15] : parent(0x1b33670), 0x1b337b0] } { [30] : parent(0x1b33670), 0x1b336b0] } { [40] : parent(0x1b31cd0), 0x1b333e0] } { [60] : parent(0x1b31cd0), 0x1b33770] } { [80] : parent(0x1b33730), 0x1b33420] } { [100] : parent(0x1b33730), 0x1b336f0] }
 
 
 In order print of tree: 15 20 30 39 40 50 60 70 80 90 100 
@@ -5297,11 +5297,11 @@ current_level = 3 [15], [30], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a520] }
+current_level = 1    { [39] : parent(0), 0x1b33520] }
 
-current_level = 2   { [20] : parent(0x1f8a520), 0x1f8a670] } { [50, 70] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [20] : parent(0x1b33520), 0x1b33670] } { [50, 70] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [30] : parent(0x1f8a670), 0x1f8a6b0] } { [40] : parent(0x1f88cd0), 0x1f8a3e0] } { [60] : parent(0x1f88cd0), 0x1f8a770] } { [80, 100] : parent(0x1f88cd0), 0x1f8a420] }
+current_level = 3  { [15] : parent(0x1b33670), 0x1b337b0] } { [30] : parent(0x1b33670), 0x1b336b0] } { [40] : parent(0x1b31cd0), 0x1b333e0] } { [60] : parent(0x1b31cd0), 0x1b33770] } { [80, 100] : parent(0x1b31cd0), 0x1b33420] }
 
 
 In order print of tree: 15 20 30 39 40 50 60 70 80 100 
@@ -5319,11 +5319,11 @@ current_level = 3 [15, 30], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [70] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [70] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [15, 30] : parent(0x1f8a670), 0x1f8a7b0] } { [40] : parent(0x1f8a670), 0x1f8a3e0] } { [60] : parent(0x1f88cd0), 0x1f8a770] } { [80, 100] : parent(0x1f88cd0), 0x1f8a420] }
+current_level = 3  { [15, 30] : parent(0x1b33670), 0x1b337b0] } { [40] : parent(0x1b33670), 0x1b333e0] } { [60] : parent(0x1b31cd0), 0x1b33770] } { [80, 100] : parent(0x1b31cd0), 0x1b33420] }
 
 
 In order print of tree: 15 30 39 40 50 60 70 80 100 
@@ -5341,11 +5341,11 @@ current_level = 3 [15], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [30] : parent(0x1f8a520), 0x1f8a670] } { [70] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [30] : parent(0x1b33520), 0x1b33670] } { [70] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [40] : parent(0x1f8a670), 0x1f8a3e0] } { [60] : parent(0x1f88cd0), 0x1f8a770] } { [80, 100] : parent(0x1f88cd0), 0x1f8a420] }
+current_level = 3  { [15] : parent(0x1b33670), 0x1b337b0] } { [40] : parent(0x1b33670), 0x1b333e0] } { [60] : parent(0x1b31cd0), 0x1b33770] } { [80, 100] : parent(0x1b31cd0), 0x1b33420] }
 
 
 In order print of tree: 15 30 40 50 60 70 80 100 
@@ -5363,11 +5363,11 @@ current_level = 3 [15], [40], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a520] }
+current_level = 1    { [60] : parent(0), 0x1b33520] }
 
-current_level = 2   { [30] : parent(0x1f8a520), 0x1f8a670] } { [80] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [30] : parent(0x1b33520), 0x1b33670] } { [80] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [40] : parent(0x1f8a670), 0x1f8a3e0] } { [70] : parent(0x1f88cd0), 0x1f8a770] } { [100] : parent(0x1f88cd0), 0x1f8a420] }
+current_level = 3  { [15] : parent(0x1b33670), 0x1b337b0] } { [40] : parent(0x1b33670), 0x1b333e0] } { [70] : parent(0x1b31cd0), 0x1b33770] } { [100] : parent(0x1b31cd0), 0x1b33420] }
 
 
 In order print of tree: 15 30 40 60 70 80 100 
@@ -5383,9 +5383,9 @@ current_level = 2 [15], [40], [70, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 60] : parent(0), 0x1f8a670] }
+current_level = 1   { [30, 60] : parent(0), 0x1b33670] }
 
-current_level = 2  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [40] : parent(0x1f8a670), 0x1f8a3e0] } { [70, 80] : parent(0x1f8a670), 0x1f8a770] }
+current_level = 2  { [15] : parent(0x1b33670), 0x1b337b0] } { [40] : parent(0x1b33670), 0x1b333e0] } { [70, 80] : parent(0x1b33670), 0x1b33770] }
 
 
 In order print of tree: 15 30 40 60 70 80 
@@ -5401,9 +5401,9 @@ current_level = 2 [15], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 70] : parent(0), 0x1f8a670] }
+current_level = 1   { [30, 70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [60] : parent(0x1f8a670), 0x1f8a3e0] } { [80] : parent(0x1f8a670), 0x1f8a770] }
+current_level = 2  { [15] : parent(0x1b33670), 0x1b337b0] } { [60] : parent(0x1b33670), 0x1b333e0] } { [80] : parent(0x1b33670), 0x1b33770] }
 
 
 In order print of tree: 15 30 60 70 80 
@@ -5419,9 +5419,9 @@ current_level = 2 [15], [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a670] }
+current_level = 1   { [30] : parent(0), 0x1b33670] }
 
-current_level = 2  { [15] : parent(0x1f8a670), 0x1f8a7b0] } { [60, 80] : parent(0x1f8a670), 0x1f8a3e0] }
+current_level = 2  { [15] : parent(0x1b33670), 0x1b337b0] } { [60, 80] : parent(0x1b33670), 0x1b333e0] }
 
 
 In order print of tree: 15 30 60 80 
@@ -5437,9 +5437,9 @@ current_level = 2 [30], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60] : parent(0), 0x1f8a670] }
+current_level = 1   { [60] : parent(0), 0x1b33670] }
 
-current_level = 2  { [30] : parent(0x1f8a670), 0x1f8a7b0] } { [80] : parent(0x1f8a670), 0x1f8a3e0] }
+current_level = 2  { [30] : parent(0x1b33670), 0x1b337b0] } { [80] : parent(0x1b33670), 0x1b333e0] }
 
 
 In order print of tree: 30 60 80 
@@ -5453,7 +5453,7 @@ current_level = 1 [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [60, 80] : parent(0), 0x1f8a3e0] }
+current_level = 1  { [60, 80] : parent(0), 0x1b333e0] }
 
 
 In order print of tree: 60 80 
@@ -5467,7 +5467,7 @@ current_level = 1 [80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80] : parent(0), 0x1f8a3e0] }
+current_level = 1  { [80] : parent(0), 0x1b333e0] }
 
 
 In order print of tree: 80 
@@ -5526,11 +5526,11 @@ current_level = 3 [10], [30], [40], [60], [80, 85], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88cd0] }
+current_level = 1    { [50] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88cd0), 0x1f8a670] } { [70, 89] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [20, 39] : parent(0x1b31cd0), 0x1b33670] } { [70, 89] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f88ef0] } { [30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [60] : parent(0x1f8a520), 0x1f8a7b0] } { [80, 85] : parent(0x1f8a520), 0x1f8a420] } { [90, 100] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b31ef0] } { [30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [60] : parent(0x1b33520), 0x1b337b0] } { [80, 85] : parent(0x1b33520), 0x1b33420] } { [90, 100] : parent(0x1b33520), 0x1b333e0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -5548,11 +5548,11 @@ current_level = 3 [10], [30], [40], [70], [80], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88cd0] }
+current_level = 1    { [60] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88cd0), 0x1f8a670] } { [80, 89] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [20, 39] : parent(0x1b31cd0), 0x1b33670] } { [80, 89] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f88ef0] } { [30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [70] : parent(0x1f8a520), 0x1f8a7b0] } { [80] : parent(0x1f8a520), 0x1f8a420] } { [90, 100] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b31ef0] } { [30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [70] : parent(0x1b33520), 0x1b337b0] } { [80] : parent(0x1b33520), 0x1b33420] } { [90, 100] : parent(0x1b33520), 0x1b333e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 70 80 80 89 90 100 
@@ -5570,11 +5570,11 @@ current_level = 3 [10], [30], [40], [70], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88cd0] }
+current_level = 1    { [60] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88cd0), 0x1f8a670] } { [80, 90] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [20, 39] : parent(0x1b31cd0), 0x1b33670] } { [80, 90] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f88ef0] } { [30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [70] : parent(0x1f8a520), 0x1f8a7b0] } { [80] : parent(0x1f8a520), 0x1f8a420] } { [100] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b31ef0] } { [30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [70] : parent(0x1b33520), 0x1b337b0] } { [80] : parent(0x1b33520), 0x1b33420] } { [100] : parent(0x1b33520), 0x1b333e0] }
 
 
 In order print of tree: 10 20 30 39 40 60 70 80 80 90 100 
@@ -5592,11 +5592,11 @@ current_level = 3 [10], [30], [40], [70], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88cd0] }
+current_level = 1    { [60] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88cd0), 0x1f8a670] } { [80] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [20, 39] : parent(0x1b31cd0), 0x1b33670] } { [80] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f88ef0] } { [30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [70] : parent(0x1f8a520), 0x1f8a7b0] } { [80, 100] : parent(0x1f8a520), 0x1f8a420] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b31ef0] } { [30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [70] : parent(0x1b33520), 0x1b337b0] } { [80, 100] : parent(0x1b33520), 0x1b33420] }
 
 
 In order print of tree: 10 20 30 39 40 60 70 80 80 100 
@@ -5614,11 +5614,11 @@ current_level = 3 [10], [30], [40], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88cd0] }
+current_level = 1    { [60] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88cd0), 0x1f8a670] } { [80] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [20, 39] : parent(0x1b31cd0), 0x1b33670] } { [80] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f88ef0] } { [30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [70] : parent(0x1f8a520), 0x1f8a7b0] } { [100] : parent(0x1f8a520), 0x1f8a420] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b31ef0] } { [30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [70] : parent(0x1b33520), 0x1b337b0] } { [100] : parent(0x1b33520), 0x1b33420] }
 
 
 In order print of tree: 10 20 30 39 40 60 70 80 100 
@@ -5636,11 +5636,11 @@ current_level = 3 [20, 30], [40], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88cd0] }
+current_level = 1    { [60] : parent(0), 0x1b31cd0] }
 
-current_level = 2   { [39] : parent(0x1f88cd0), 0x1f8a670] } { [80] : parent(0x1f88cd0), 0x1f8a520] }
+current_level = 2   { [39] : parent(0x1b31cd0), 0x1b33670] } { [80] : parent(0x1b31cd0), 0x1b33520] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [70] : parent(0x1f8a520), 0x1f8a7b0] } { [100] : parent(0x1f8a520), 0x1f8a420] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [70] : parent(0x1b33520), 0x1b337b0] } { [100] : parent(0x1b33520), 0x1b33420] }
 
 
 In order print of tree: 20 30 39 40 60 70 80 100 
@@ -5656,9 +5656,9 @@ current_level = 2 [20, 30], [40], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [80, 100] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20, 30] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [80, 100] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 30 39 40 70 80 100 
@@ -5674,9 +5674,9 @@ current_level = 2 [20], [40], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [80, 100] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [80, 100] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 39 40 70 80 100 
@@ -5692,9 +5692,9 @@ current_level = 2 [20], [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [80] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [80] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 39 40 70 80 
@@ -5710,9 +5710,9 @@ current_level = 2 [20], [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20] : parent(0x1f8a670), 0x1f8a770] } { [40] : parent(0x1f8a670), 0x1f8a6b0] } { [80] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20] : parent(0x1b33670), 0x1b33770] } { [40] : parent(0x1b33670), 0x1b336b0] } { [80] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 39 40 70 80 
@@ -5728,9 +5728,9 @@ current_level = 2 [20, 39], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a670] }
+current_level = 1   { [70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20, 39] : parent(0x1f8a670), 0x1f8a770] } { [80] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20, 39] : parent(0x1b33670), 0x1b33770] } { [80] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 39 70 80 
@@ -5746,9 +5746,9 @@ current_level = 2 [20], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a670] }
+current_level = 1   { [70] : parent(0), 0x1b33670] }
 
-current_level = 2  { [20] : parent(0x1f8a670), 0x1f8a770] } { [80] : parent(0x1f8a670), 0x1f8a420] }
+current_level = 2  { [20] : parent(0x1b33670), 0x1b33770] } { [80] : parent(0x1b33670), 0x1b33420] }
 
 
 In order print of tree: 20 70 80 
@@ -5762,7 +5762,7 @@ current_level = 1 [70, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [70, 80] : parent(0), 0x1f8a420] }
+current_level = 1  { [70, 80] : parent(0), 0x1b33420] }
 
 
 In order print of tree: 70 80 
@@ -5776,7 +5776,7 @@ current_level = 1 [80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80] : parent(0), 0x1f8a420] }
+current_level = 1  { [80] : parent(0), 0x1b33420] }
 
 
 In order print of tree: 80 
@@ -5828,11 +5828,11 @@ current_level = 3 [10], [30], [40], [60], [69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50, 70] : parent(0), 0x1f8a520] }
+current_level = 1    { [50, 70] : parent(0), 0x1b33520] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a520), 0x1f8a670] } { [65] : parent(0x1f8a520), 0x1f8a3e0] } { [90] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [20, 39] : parent(0x1b33520), 0x1b33670] } { [65] : parent(0x1b33520), 0x1b333e0] } { [90] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [10] : parent(0x1f8a670), 0x1f8a420] } { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [69] : parent(0x1f8a3e0), 0x1f88ef0] } { [80] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a6b0] }
+current_level = 3  { [10] : parent(0x1b33670), 0x1b33420] } { [30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [69] : parent(0x1b333e0), 0x1b31ef0] } { [80] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b336b0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -5850,11 +5850,11 @@ current_level = 3 [20, 30], [40], [60], [69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50, 70] : parent(0), 0x1f8a520] }
+current_level = 1    { [50, 70] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [65] : parent(0x1f8a520), 0x1f8a3e0] } { [90] : parent(0x1f8a520), 0x1f88cd0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [65] : parent(0x1b33520), 0x1b333e0] } { [90] : parent(0x1b33520), 0x1b31cd0] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [69] : parent(0x1f8a3e0), 0x1f88ef0] } { [80] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a6b0] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [69] : parent(0x1b333e0), 0x1b31ef0] } { [80] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b336b0] }
 
 
 In order print of tree: 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -5872,11 +5872,11 @@ current_level = 3 [20, 30], [40], [60], [69], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [65, 70] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [65, 70] : parent(0x1b33520), 0x1b333e0] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [69] : parent(0x1f8a3e0), 0x1f88ef0] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a730] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [69] : parent(0x1b333e0), 0x1b31ef0] } { [80, 100] : parent(0x1b333e0), 0x1b33730] }
 
 
 In order print of tree: 20 30 39 40 50 60 65 69 70 80 100 
@@ -5894,11 +5894,11 @@ current_level = 3 [20, 30], [40], [60], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [69, 80] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [69, 80] : parent(0x1b33520), 0x1b333e0] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [70] : parent(0x1f8a3e0), 0x1f88ef0] } { [100] : parent(0x1f8a3e0), 0x1f8a730] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [70] : parent(0x1b333e0), 0x1b31ef0] } { [100] : parent(0x1b333e0), 0x1b33730] }
 
 
 In order print of tree: 20 30 39 40 50 60 69 70 80 100 
@@ -5916,11 +5916,11 @@ current_level = 3 [20, 30], [40], [60], [70, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [69] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [69] : parent(0x1b33520), 0x1b333e0] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [70, 100] : parent(0x1f8a3e0), 0x1f88ef0] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [70, 100] : parent(0x1b333e0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 60 69 70 100 
@@ -5938,11 +5938,11 @@ current_level = 3 [20, 30], [40], [69], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [70] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [70] : parent(0x1b33520), 0x1b333e0] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [69] : parent(0x1f8a3e0), 0x1f8a7b0] } { [100] : parent(0x1f8a3e0), 0x1f88ef0] }
+current_level = 3  { [20, 30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [69] : parent(0x1b333e0), 0x1b337b0] } { [100] : parent(0x1b333e0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 69 70 100 
@@ -5960,11 +5960,11 @@ current_level = 3 [30], [40], [69], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a520] }
+current_level = 1    { [50] : parent(0), 0x1b33520] }
 
-current_level = 2   { [39] : parent(0x1f8a520), 0x1f8a670] } { [70] : parent(0x1f8a520), 0x1f8a3e0] }
+current_level = 2   { [39] : parent(0x1b33520), 0x1b33670] } { [70] : parent(0x1b33520), 0x1b333e0] }
 
-current_level = 3  { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [69] : parent(0x1f8a3e0), 0x1f8a7b0] } { [100] : parent(0x1f8a3e0), 0x1f88ef0] }
+current_level = 3  { [30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [69] : parent(0x1b333e0), 0x1b337b0] } { [100] : parent(0x1b333e0), 0x1b31ef0] }
 
 
 In order print of tree: 30 39 40 50 69 70 100 
@@ -5980,9 +5980,9 @@ current_level = 2 [30], [40], [69, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 50] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 50] : parent(0), 0x1b33670] }
 
-current_level = 2  { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [69, 70] : parent(0x1f8a670), 0x1f8a7b0] }
+current_level = 2  { [30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [69, 70] : parent(0x1b33670), 0x1b337b0] }
 
 
 In order print of tree: 30 39 40 50 69 70 
@@ -5998,9 +5998,9 @@ current_level = 2 [30], [40], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 50] : parent(0), 0x1f8a670] }
+current_level = 1   { [39, 50] : parent(0), 0x1b33670] }
 
-current_level = 2  { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [40] : parent(0x1f8a670), 0x1f8a770] } { [70] : parent(0x1f8a670), 0x1f8a7b0] }
+current_level = 2  { [30] : parent(0x1b33670), 0x1b336f0] } { [40] : parent(0x1b33670), 0x1b33770] } { [70] : parent(0x1b33670), 0x1b337b0] }
 
 
 In order print of tree: 30 39 40 50 70 
@@ -6016,9 +6016,9 @@ current_level = 2 [30], [40, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39] : parent(0), 0x1f8a670] }
+current_level = 1   { [39] : parent(0), 0x1b33670] }
 
-current_level = 2  { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [40, 70] : parent(0x1f8a670), 0x1f8a770] }
+current_level = 2  { [30] : parent(0x1b33670), 0x1b336f0] } { [40, 70] : parent(0x1b33670), 0x1b33770] }
 
 
 In order print of tree: 30 39 40 70 
@@ -6034,9 +6034,9 @@ current_level = 2 [30], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a670] }
+current_level = 1   { [40] : parent(0), 0x1b33670] }
 
-current_level = 2  { [30] : parent(0x1f8a670), 0x1f8a6f0] } { [70] : parent(0x1f8a670), 0x1f8a770] }
+current_level = 2  { [30] : parent(0x1b33670), 0x1b336f0] } { [70] : parent(0x1b33670), 0x1b33770] }
 
 
 In order print of tree: 30 40 70 
@@ -6050,7 +6050,7 @@ current_level = 1 [40, 70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40, 70] : parent(0), 0x1f8a770] }
+current_level = 1  { [40, 70] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 40 70 
@@ -6064,7 +6064,7 @@ current_level = 1 [40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40] : parent(0), 0x1f8a770] }
+current_level = 1  { [40] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 40 
@@ -6124,11 +6124,11 @@ current_level = 3 [10, 20], [39, 40], [60], [80, 90], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [70, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [70, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a670), 0x1f8a560] } { [39, 40] : parent(0x1f8a670), 0x1f8a7b0] } { [60] : parent(0x1f8a520), 0x1f8a770] } { [80, 90] : parent(0x1f8a520), 0x1f88ef0] } { [125, 150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [10, 20] : parent(0x1b33670), 0x1b33560] } { [39, 40] : parent(0x1b33670), 0x1b337b0] } { [60] : parent(0x1b33520), 0x1b33770] } { [80, 90] : parent(0x1b33520), 0x1b31ef0] } { [125, 150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -6146,11 +6146,11 @@ current_level = 3 [10, 20], [39, 40], [70], [80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [80, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a670), 0x1f8a560] } { [39, 40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [125, 150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [10, 20] : parent(0x1b33670), 0x1b33560] } { [39, 40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [125, 150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 39 40 50 70 80 80 100 125 150 
@@ -6168,11 +6168,11 @@ current_level = 3 [10, 20], [40], [70], [80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [80, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a670), 0x1f8a560] } { [40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [125, 150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [10, 20] : parent(0x1b33670), 0x1b33560] } { [40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [125, 150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 40 50 70 80 80 100 125 150 
@@ -6190,11 +6190,11 @@ current_level = 3 [10, 20], [40], [70], [80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [80, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a670), 0x1f8a560] } { [40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [125, 150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [10, 20] : parent(0x1b33670), 0x1b33560] } { [40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [125, 150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 40 50 70 80 80 100 125 150 
@@ -6212,11 +6212,11 @@ current_level = 3 [20], [40], [70], [80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [80, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [20] : parent(0x1f8a670), 0x1f8a560] } { [40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [125, 150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [20] : parent(0x1b33670), 0x1b33560] } { [40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [125, 150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 20 30 40 50 70 80 80 100 125 150 
@@ -6234,11 +6234,11 @@ current_level = 3 [20], [40], [70], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [50] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [30] : parent(0x1f8a3e0), 0x1f8a670] } { [80, 100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [30] : parent(0x1b333e0), 0x1b33670] } { [80, 100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [20] : parent(0x1f8a670), 0x1f8a560] } { [40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [20] : parent(0x1b33670), 0x1b33560] } { [40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 20 30 40 50 70 80 80 100 150 
@@ -6256,11 +6256,11 @@ current_level = 3 [30, 40], [70], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [80] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [50] : parent(0x1f8a3e0), 0x1f8a670] } { [100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [50] : parent(0x1b333e0), 0x1b33670] } { [100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [30, 40] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a670), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [30, 40] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33670), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 30 40 50 70 80 80 100 150 
@@ -6278,11 +6278,11 @@ current_level = 3 [30], [70], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f8a3e0] }
+current_level = 1    { [80] : parent(0), 0x1b333e0] }
 
-current_level = 2   { [40] : parent(0x1f8a3e0), 0x1f8a670] } { [100] : parent(0x1f8a3e0), 0x1f8a520] }
+current_level = 2   { [40] : parent(0x1b333e0), 0x1b33670] } { [100] : parent(0x1b333e0), 0x1b33520] }
 
-current_level = 3  { [30] : parent(0x1f8a670), 0x1f8a7b0] } { [70] : parent(0x1f8a670), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 3  { [30] : parent(0x1b33670), 0x1b337b0] } { [70] : parent(0x1b33670), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 30 40 70 80 80 100 150 
@@ -6298,9 +6298,9 @@ current_level = 2 [40, 70], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [80, 100] : parent(0), 0x1f8a520] }
+current_level = 1   { [80, 100] : parent(0), 0x1b33520] }
 
-current_level = 2  { [40, 70] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 2  { [40, 70] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 40 70 80 80 100 150 
@@ -6316,9 +6316,9 @@ current_level = 2 [40], [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70, 100] : parent(0), 0x1f8a520] }
+current_level = 1   { [70, 100] : parent(0), 0x1b33520] }
 
-current_level = 2  { [40] : parent(0x1f8a520), 0x1f8a770] } { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 2  { [40] : parent(0x1b33520), 0x1b33770] } { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 40 70 80 100 150 
@@ -6334,9 +6334,9 @@ current_level = 2 [70, 80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [100] : parent(0), 0x1f8a520] }
+current_level = 1   { [100] : parent(0), 0x1b33520] }
 
-current_level = 2  { [70, 80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 2  { [70, 80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 70 80 100 150 
@@ -6352,9 +6352,9 @@ current_level = 2 [80], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [100] : parent(0), 0x1f8a520] }
+current_level = 1   { [100] : parent(0), 0x1b33520] }
 
-current_level = 2  { [80] : parent(0x1f8a520), 0x1f88ef0] } { [150] : parent(0x1f8a520), 0x1f8a6f0] }
+current_level = 2  { [80] : parent(0x1b33520), 0x1b31ef0] } { [150] : parent(0x1b33520), 0x1b336f0] }
 
 
 In order print of tree: 80 100 150 
@@ -6368,7 +6368,7 @@ current_level = 1 [80, 150],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80, 150] : parent(0), 0x1f88ef0] }
+current_level = 1  { [80, 150] : parent(0), 0x1b31ef0] }
 
 
 In order print of tree: 80 150 
@@ -6382,7 +6382,7 @@ current_level = 1 [80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80] : parent(0), 0x1f88ef0] }
+current_level = 1  { [80] : parent(0), 0x1b31ef0] }
 
 
 In order print of tree: 80 
@@ -6440,13 +6440,13 @@ current_level = 4 [10, 20], [33], [35], [37], [39, 40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1     { [38] : parent(0), 0x1f88d10] }
+current_level = 1     { [38] : parent(0), 0x1b31d10] }
 
-current_level = 2    { [34] : parent(0x1f88d10), 0x1f8a670] } { [70] : parent(0x1f88d10), 0x1f8a460] }
+current_level = 2    { [34] : parent(0x1b31d10), 0x1b33670] } { [70] : parent(0x1b31d10), 0x1b33460] }
 
-current_level = 3   { [30] : parent(0x1f8a670), 0x1f8a520] } { [36] : parent(0x1f8a670), 0x1f88c20] } { [50] : parent(0x1f8a460), 0x1f8a3e0] } { [90] : parent(0x1f8a460), 0x1f88cd0] }
+current_level = 3   { [30] : parent(0x1b33670), 0x1b33520] } { [36] : parent(0x1b33670), 0x1b31c20] } { [50] : parent(0x1b33460), 0x1b333e0] } { [90] : parent(0x1b33460), 0x1b31cd0] }
 
-current_level = 4  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [35] : parent(0x1f88c20), 0x1f8a6f0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39, 40] : parent(0x1f8a3e0), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [80] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a560] }
+current_level = 4  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [35] : parent(0x1b31c20), 0x1b336f0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39, 40] : parent(0x1b333e0), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [80] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b33560] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -6466,13 +6466,13 @@ current_level = 4 [10, 20], [33], [35], [37], [39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1     { [38] : parent(0), 0x1f88d10] }
+current_level = 1     { [38] : parent(0), 0x1b31d10] }
 
-current_level = 2    { [34] : parent(0x1f88d10), 0x1f8a670] } { [70] : parent(0x1f88d10), 0x1f8a460] }
+current_level = 2    { [34] : parent(0x1b31d10), 0x1b33670] } { [70] : parent(0x1b31d10), 0x1b33460] }
 
-current_level = 3   { [30] : parent(0x1f8a670), 0x1f8a520] } { [36] : parent(0x1f8a670), 0x1f88c20] } { [40] : parent(0x1f8a460), 0x1f8a3e0] } { [90] : parent(0x1f8a460), 0x1f88cd0] }
+current_level = 3   { [30] : parent(0x1b33670), 0x1b33520] } { [36] : parent(0x1b33670), 0x1b31c20] } { [40] : parent(0x1b33460), 0x1b333e0] } { [90] : parent(0x1b33460), 0x1b31cd0] }
 
-current_level = 4  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [35] : parent(0x1f88c20), 0x1f8a6f0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f8a3e0), 0x1f8a770] } { [60] : parent(0x1f8a3e0), 0x1f8a7b0] } { [80] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a560] }
+current_level = 4  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [35] : parent(0x1b31c20), 0x1b336f0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b333e0), 0x1b33770] } { [60] : parent(0x1b333e0), 0x1b337b0] } { [80] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b33560] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 60 70 80 90 100 
@@ -6490,11 +6490,11 @@ current_level = 3 [10, 20], [33], [35], [37], [39, 60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 38] : parent(0), 0x1f8a670] }
+current_level = 1    { [34, 38] : parent(0), 0x1b33670] }
 
-current_level = 2   { [30] : parent(0x1f8a670), 0x1f8a520] } { [36] : parent(0x1f8a670), 0x1f88c20] } { [70, 90] : parent(0x1f8a670), 0x1f88cd0] }
+current_level = 2   { [30] : parent(0x1b33670), 0x1b33520] } { [36] : parent(0x1b33670), 0x1b31c20] } { [70, 90] : parent(0x1b33670), 0x1b31cd0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [35] : parent(0x1f88c20), 0x1f8a6f0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39, 60] : parent(0x1f88cd0), 0x1f8a770] } { [80] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a560] }
+current_level = 3  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [35] : parent(0x1b31c20), 0x1b336f0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39, 60] : parent(0x1b31cd0), 0x1b33770] } { [80] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b33560] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 60 70 80 90 100 
@@ -6512,11 +6512,11 @@ current_level = 3 [10, 20], [33], [35], [37], [39], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 38] : parent(0), 0x1f8a670] }
+current_level = 1    { [34, 38] : parent(0), 0x1b33670] }
 
-current_level = 2   { [30] : parent(0x1f8a670), 0x1f8a520] } { [36] : parent(0x1f8a670), 0x1f88c20] } { [60, 90] : parent(0x1f8a670), 0x1f88cd0] }
+current_level = 2   { [30] : parent(0x1b33670), 0x1b33520] } { [36] : parent(0x1b33670), 0x1b31c20] } { [60, 90] : parent(0x1b33670), 0x1b31cd0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [35] : parent(0x1f88c20), 0x1f8a6f0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88cd0), 0x1f8a770] } { [70] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a560] }
+current_level = 3  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [35] : parent(0x1b31c20), 0x1b336f0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31cd0), 0x1b33770] } { [70] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b33560] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 60 70 90 100 
@@ -6534,11 +6534,11 @@ current_level = 3 [10, 20], [33], [36, 37], [39], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 60] : parent(0), 0x1f8a670] }
+current_level = 1    { [34, 60] : parent(0), 0x1b33670] }
 
-current_level = 2   { [30] : parent(0x1f8a670), 0x1f8a520] } { [38] : parent(0x1f8a670), 0x1f88c20] } { [90] : parent(0x1f8a670), 0x1f88cd0] }
+current_level = 2   { [30] : parent(0x1b33670), 0x1b33520] } { [38] : parent(0x1b33670), 0x1b31c20] } { [90] : parent(0x1b33670), 0x1b31cd0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [36, 37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [70] : parent(0x1f88cd0), 0x1f8a730] } { [100] : parent(0x1f88cd0), 0x1f8a560] }
+current_level = 3  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [36, 37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31c20), 0x1b33770] } { [70] : parent(0x1b31cd0), 0x1b33730] } { [100] : parent(0x1b31cd0), 0x1b33560] }
 
 
 In order print of tree: 10 20 30 33 34 36 37 38 39 60 70 90 100 
@@ -6556,11 +6556,11 @@ current_level = 3 [10, 20], [33], [36, 37], [39], [70, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34] : parent(0), 0x1f8a670] }
+current_level = 1    { [34] : parent(0), 0x1b33670] }
 
-current_level = 2   { [30] : parent(0x1f8a670), 0x1f8a520] } { [38, 60] : parent(0x1f8a670), 0x1f88c20] }
+current_level = 2   { [30] : parent(0x1b33670), 0x1b33520] } { [38, 60] : parent(0x1b33670), 0x1b31c20] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [36, 37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [70, 90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 3  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [36, 37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31c20), 0x1b33770] } { [70, 90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 33 34 36 37 38 39 60 70 90 
@@ -6578,11 +6578,11 @@ current_level = 3 [10, 20], [33], [37], [39], [70, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a670] }
+current_level = 1    { [36] : parent(0), 0x1b33670] }
 
-current_level = 2   { [30] : parent(0x1f8a670), 0x1f8a520] } { [38, 60] : parent(0x1f8a670), 0x1f88c20] }
+current_level = 2   { [30] : parent(0x1b33670), 0x1b33520] } { [38, 60] : parent(0x1b33670), 0x1b31c20] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a520), 0x1f88ef0] } { [33] : parent(0x1f8a520), 0x1f8a6b0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [70, 90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 3  { [10, 20] : parent(0x1b33520), 0x1b31ef0] } { [33] : parent(0x1b33520), 0x1b336b0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31c20), 0x1b33770] } { [70, 90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 33 36 37 38 39 60 70 90 
@@ -6600,11 +6600,11 @@ current_level = 3 [10], [30], [37], [39], [70, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a670] }
+current_level = 1    { [36] : parent(0), 0x1b33670] }
 
-current_level = 2   { [20] : parent(0x1f8a670), 0x1f8a520] } { [38, 60] : parent(0x1f8a670), 0x1f88c20] }
+current_level = 2   { [20] : parent(0x1b33670), 0x1b33520] } { [38, 60] : parent(0x1b33670), 0x1b31c20] }
 
-current_level = 3  { [10] : parent(0x1f8a520), 0x1f88ef0] } { [30] : parent(0x1f8a520), 0x1f8a6b0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [70, 90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 3  { [10] : parent(0x1b33520), 0x1b31ef0] } { [30] : parent(0x1b33520), 0x1b336b0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31c20), 0x1b33770] } { [70, 90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 36 37 38 39 60 70 90 
@@ -6622,11 +6622,11 @@ current_level = 3 [10], [30], [37], [39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a670] }
+current_level = 1    { [36] : parent(0), 0x1b33670] }
 
-current_level = 2   { [20] : parent(0x1f8a670), 0x1f8a520] } { [38, 70] : parent(0x1f8a670), 0x1f88c20] }
+current_level = 2   { [20] : parent(0x1b33670), 0x1b33520] } { [38, 70] : parent(0x1b33670), 0x1b31c20] }
 
-current_level = 3  { [10] : parent(0x1f8a520), 0x1f88ef0] } { [30] : parent(0x1f8a520), 0x1f8a6b0] } { [37] : parent(0x1f88c20), 0x1f8a420] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 3  { [10] : parent(0x1b33520), 0x1b31ef0] } { [30] : parent(0x1b33520), 0x1b336b0] } { [37] : parent(0x1b31c20), 0x1b33420] } { [39] : parent(0x1b31c20), 0x1b33770] } { [90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 36 37 38 39 70 90 
@@ -6644,11 +6644,11 @@ current_level = 3 [10], [30], [38, 39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37] : parent(0), 0x1f8a670] }
+current_level = 1    { [37] : parent(0), 0x1b33670] }
 
-current_level = 2   { [20] : parent(0x1f8a670), 0x1f8a520] } { [70] : parent(0x1f8a670), 0x1f88c20] }
+current_level = 2   { [20] : parent(0x1b33670), 0x1b33520] } { [70] : parent(0x1b33670), 0x1b31c20] }
 
-current_level = 3  { [10] : parent(0x1f8a520), 0x1f88ef0] } { [30] : parent(0x1f8a520), 0x1f8a6b0] } { [38, 39] : parent(0x1f88c20), 0x1f8a770] } { [90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 3  { [10] : parent(0x1b33520), 0x1b31ef0] } { [30] : parent(0x1b33520), 0x1b336b0] } { [38, 39] : parent(0x1b31c20), 0x1b33770] } { [90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 37 38 39 70 90 
@@ -6664,9 +6664,9 @@ current_level = 2 [20, 30], [38, 39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [37, 70] : parent(0), 0x1f88c20] }
+current_level = 1   { [37, 70] : parent(0), 0x1b31c20] }
 
-current_level = 2  { [20, 30] : parent(0x1f88c20), 0x1f8a6b0] } { [38, 39] : parent(0x1f88c20), 0x1f8a770] } { [90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 2  { [20, 30] : parent(0x1b31c20), 0x1b336b0] } { [38, 39] : parent(0x1b31c20), 0x1b33770] } { [90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 20 30 37 38 39 70 90 
@@ -6682,9 +6682,9 @@ current_level = 2 [20, 30], [39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38, 70] : parent(0), 0x1f88c20] }
+current_level = 1   { [38, 70] : parent(0), 0x1b31c20] }
 
-current_level = 2  { [20, 30] : parent(0x1f88c20), 0x1f8a6b0] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 2  { [20, 30] : parent(0x1b31c20), 0x1b336b0] } { [39] : parent(0x1b31c20), 0x1b33770] } { [90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 20 30 38 39 70 90 
@@ -6700,9 +6700,9 @@ current_level = 2 [20], [39], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38, 70] : parent(0), 0x1f88c20] }
+current_level = 1   { [38, 70] : parent(0), 0x1b31c20] }
 
-current_level = 2  { [20] : parent(0x1f88c20), 0x1f8a6b0] } { [39] : parent(0x1f88c20), 0x1f8a770] } { [90] : parent(0x1f88c20), 0x1f8a730] }
+current_level = 2  { [20] : parent(0x1b31c20), 0x1b336b0] } { [39] : parent(0x1b31c20), 0x1b33770] } { [90] : parent(0x1b31c20), 0x1b33730] }
 
 
 In order print of tree: 20 38 39 70 90 
@@ -6718,9 +6718,9 @@ current_level = 2 [20], [39, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38] : parent(0), 0x1f88c20] }
+current_level = 1   { [38] : parent(0), 0x1b31c20] }
 
-current_level = 2  { [20] : parent(0x1f88c20), 0x1f8a6b0] } { [39, 70] : parent(0x1f88c20), 0x1f8a770] }
+current_level = 2  { [20] : parent(0x1b31c20), 0x1b336b0] } { [39, 70] : parent(0x1b31c20), 0x1b33770] }
 
 
 In order print of tree: 20 38 39 70 
@@ -6736,9 +6736,9 @@ current_level = 2 [20], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [38] : parent(0), 0x1f88c20] }
+current_level = 1   { [38] : parent(0), 0x1b31c20] }
 
-current_level = 2  { [20] : parent(0x1f88c20), 0x1f8a6b0] } { [70] : parent(0x1f88c20), 0x1f8a770] }
+current_level = 2  { [20] : parent(0x1b31c20), 0x1b336b0] } { [70] : parent(0x1b31c20), 0x1b33770] }
 
 
 In order print of tree: 20 38 70 
@@ -6752,7 +6752,7 @@ current_level = 1 [38, 70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [38, 70] : parent(0), 0x1f8a770] }
+current_level = 1  { [38, 70] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 38 70 
@@ -6766,7 +6766,7 @@ current_level = 1 [70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [70] : parent(0), 0x1f8a770] }
+current_level = 1  { [70] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 70 
@@ -6843,13 +6843,13 @@ current_level = 4 [10], [20], [33], [35], [37], [39], [50], [65], [70], [85, 89]
 Level order debug print of tree: 
 
 
-current_level = 1     { [38] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [38] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [69, 90] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [69, 90] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [40, 60] : parent(0x1f8a7b0), 0x1f8a560] } { [80] : parent(0x1f8a7b0), 0x1f8a520] } { [125] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [40, 60] : parent(0x1b337b0), 0x1b33560] } { [80] : parent(0x1b337b0), 0x1b33520] } { [125] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [39] : parent(0x1f8a560), 0x1f8a730] } { [50] : parent(0x1f8a560), 0x1f8a4e0] } { [65] : parent(0x1f8a560), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [85, 89] : parent(0x1f8a520), 0x1f8a6f0] } { [100] : parent(0x1f8a7f0), 0x1f8a670] } { [150] : parent(0x1f8a7f0), 0x1f8a830] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [39] : parent(0x1b33560), 0x1b33730] } { [50] : parent(0x1b33560), 0x1b334e0] } { [65] : parent(0x1b33560), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [85, 89] : parent(0x1b33520), 0x1b336f0] } { [100] : parent(0x1b337f0), 0x1b33670] } { [150] : parent(0x1b337f0), 0x1b33830] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -6869,13 +6869,13 @@ current_level = 4 [10], [20], [33], [35], [37], [39], [50], [65], [70], [85, 89]
 Level order debug print of tree: 
 
 
-current_level = 1     { [38] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [38] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [60, 80] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [60, 80] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [40] : parent(0x1f8a7b0), 0x1f8a560] } { [69] : parent(0x1f8a7b0), 0x1f8a520] } { [90] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [40] : parent(0x1b337b0), 0x1b33560] } { [69] : parent(0x1b337b0), 0x1b33520] } { [90] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [39] : parent(0x1f8a560), 0x1f8a730] } { [50] : parent(0x1f8a560), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [85, 89] : parent(0x1f8a7f0), 0x1f8a6f0] } { [100, 150] : parent(0x1f8a7f0), 0x1f8a670] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [39] : parent(0x1b33560), 0x1b33730] } { [50] : parent(0x1b33560), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [85, 89] : parent(0x1b337f0), 0x1b336f0] } { [100, 150] : parent(0x1b337f0), 0x1b33670] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 150 
@@ -6895,13 +6895,13 @@ current_level = 4 [10], [20], [33], [35], [37], [39], [50], [65], [70], [85, 89]
 Level order debug print of tree: 
 
 
-current_level = 1     { [38] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [38] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [60, 80] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [60, 80] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [40] : parent(0x1f8a7b0), 0x1f8a560] } { [69] : parent(0x1f8a7b0), 0x1f8a520] } { [90] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [40] : parent(0x1b337b0), 0x1b33560] } { [69] : parent(0x1b337b0), 0x1b33520] } { [90] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [39] : parent(0x1f8a560), 0x1f8a730] } { [50] : parent(0x1f8a560), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [85, 89] : parent(0x1f8a7f0), 0x1f8a6f0] } { [150] : parent(0x1f8a7f0), 0x1f8a670] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [39] : parent(0x1b33560), 0x1b33730] } { [50] : parent(0x1b33560), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [85, 89] : parent(0x1b337f0), 0x1b336f0] } { [150] : parent(0x1b337f0), 0x1b33670] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 150 
@@ -6921,13 +6921,13 @@ current_level = 4 [10], [20], [33], [35], [37], [40, 50], [65], [70], [85, 89], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [80] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [80] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60, 69] : parent(0x1f8a7b0), 0x1f8a520] } { [90] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [60, 69] : parent(0x1b337b0), 0x1b33520] } { [90] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [40, 50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [85, 89] : parent(0x1f8a7f0), 0x1f8a6f0] } { [150] : parent(0x1f8a7f0), 0x1f8a670] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [40, 50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [85, 89] : parent(0x1b337f0), 0x1b336f0] } { [150] : parent(0x1b337f0), 0x1b33670] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 40 50 60 65 69 70 80 85 89 90 150 
@@ -6947,13 +6947,13 @@ current_level = 4 [10], [20], [33], [35], [37], [40, 50], [65], [70], [89], [150
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [85] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [85] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60, 69] : parent(0x1f8a7b0), 0x1f8a520] } { [90] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [60, 69] : parent(0x1b337b0), 0x1b33520] } { [90] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [40, 50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [89] : parent(0x1f8a7f0), 0x1f8a6f0] } { [150] : parent(0x1f8a7f0), 0x1f8a670] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [40, 50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [89] : parent(0x1b337f0), 0x1b336f0] } { [150] : parent(0x1b337f0), 0x1b33670] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 40 50 60 65 69 70 85 89 90 150 
@@ -6973,13 +6973,13 @@ current_level = 4 [10], [20], [33], [35], [37], [50], [65], [70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [85] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [85] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60, 69] : parent(0x1f8a7b0), 0x1f8a520] } { [90] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [60, 69] : parent(0x1b337b0), 0x1b33520] } { [90] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a520), 0x1f88c20] } { [89] : parent(0x1f8a7f0), 0x1f8a6f0] } { [150] : parent(0x1f8a7f0), 0x1f8a670] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b33520), 0x1b31c20] } { [89] : parent(0x1b337f0), 0x1b336f0] } { [150] : parent(0x1b337f0), 0x1b33670] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 50 60 65 69 70 85 89 90 150 
@@ -6999,13 +6999,13 @@ current_level = 4 [10], [20], [33], [35], [37], [50], [65], [70], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [30] : parent(0x1f8a4a0), 0x1f88ef0] } { [69] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [30] : parent(0x1b334a0), 0x1b31ef0] } { [69] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [15] : parent(0x1f88ef0), 0x1f8a6b0] } { [34, 36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [15] : parent(0x1b31ef0), 0x1b336b0] } { [34, 36] : parent(0x1b31ef0), 0x1b333e0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [10] : parent(0x1f8a6b0), 0x1f8a770] } { [20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a3e0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a7f0), 0x1f88c20] } { [89, 90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 4  { [10] : parent(0x1b336b0), 0x1b33770] } { [20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b333e0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b337f0), 0x1b31c20] } { [89, 90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 50 60 65 69 70 85 89 90 
@@ -7025,13 +7025,13 @@ current_level = 4 [15, 20], [33], [35], [37], [50], [65], [70], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [34] : parent(0x1f8a4a0), 0x1f88ef0] } { [69] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [34] : parent(0x1b334a0), 0x1b31ef0] } { [69] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [30] : parent(0x1f88ef0), 0x1f8a6b0] } { [36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [30] : parent(0x1b31ef0), 0x1b336b0] } { [36] : parent(0x1b31ef0), 0x1b333e0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [15, 20] : parent(0x1f8a6b0), 0x1f88d10] } { [33] : parent(0x1f8a6b0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a7f0), 0x1f88c20] } { [89, 90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 4  { [15, 20] : parent(0x1b336b0), 0x1b31d10] } { [33] : parent(0x1b336b0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b337f0), 0x1b31c20] } { [89, 90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 15 20 30 33 34 35 36 37 39 50 60 65 69 70 85 89 90 
@@ -7051,13 +7051,13 @@ current_level = 4 [15], [30], [35], [37], [50], [65], [70], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1     { [39] : parent(0), 0x1f8a4a0] }
+current_level = 1     { [39] : parent(0), 0x1b334a0] }
 
-current_level = 2    { [34] : parent(0x1f8a4a0), 0x1f88ef0] } { [69] : parent(0x1f8a4a0), 0x1f8a7b0] }
+current_level = 2    { [34] : parent(0x1b334a0), 0x1b31ef0] } { [69] : parent(0x1b334a0), 0x1b337b0] }
 
-current_level = 3   { [20] : parent(0x1f88ef0), 0x1f8a6b0] } { [36] : parent(0x1f88ef0), 0x1f8a3e0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 3   { [20] : parent(0x1b31ef0), 0x1b336b0] } { [36] : parent(0x1b31ef0), 0x1b333e0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 4  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [30] : parent(0x1f8a6b0), 0x1f8a420] } { [35] : parent(0x1f8a3e0), 0x1f8a460] } { [37] : parent(0x1f8a3e0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a7f0), 0x1f88c20] } { [89, 90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 4  { [15] : parent(0x1b336b0), 0x1b31d10] } { [30] : parent(0x1b336b0), 0x1b33420] } { [35] : parent(0x1b333e0), 0x1b33460] } { [37] : parent(0x1b333e0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b337f0), 0x1b31c20] } { [89, 90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 15 20 30 34 35 36 37 39 50 60 65 69 70 85 89 90 
@@ -7075,11 +7075,11 @@ current_level = 3 [15], [30], [36, 37], [50], [65], [70], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 69] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [39, 69] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [20, 35] : parent(0x1f8a7b0), 0x1f8a6b0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [20, 35] : parent(0x1b337b0), 0x1b336b0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [30] : parent(0x1f8a6b0), 0x1f8a420] } { [36, 37] : parent(0x1f8a6b0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a7f0), 0x1f88c20] } { [89, 90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 3  { [15] : parent(0x1b336b0), 0x1b31d10] } { [30] : parent(0x1b336b0), 0x1b33420] } { [36, 37] : parent(0x1b336b0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b337f0), 0x1b31c20] } { [89, 90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 15 20 30 35 36 37 39 50 60 65 69 70 85 89 90 
@@ -7097,11 +7097,11 @@ current_level = 3 [15], [35], [37], [50], [65], [70], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 69] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [39, 69] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [30, 36] : parent(0x1f8a7b0), 0x1f8a6b0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [30, 36] : parent(0x1b337b0), 0x1b336b0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [35] : parent(0x1f8a6b0), 0x1f8a420] } { [37] : parent(0x1f8a6b0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [70] : parent(0x1f8a7f0), 0x1f88c20] } { [89, 90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 3  { [15] : parent(0x1b336b0), 0x1b31d10] } { [35] : parent(0x1b336b0), 0x1b33420] } { [37] : parent(0x1b336b0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [70] : parent(0x1b337f0), 0x1b31c20] } { [89, 90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 15 30 35 36 37 39 50 60 65 69 70 85 89 90 
@@ -7119,11 +7119,11 @@ current_level = 3 [15], [35], [37], [50], [65], [85], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [39, 70] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [30, 36] : parent(0x1f8a7b0), 0x1f8a6b0] } { [60] : parent(0x1f8a7b0), 0x1f8a520] } { [89] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [30, 36] : parent(0x1b337b0), 0x1b336b0] } { [60] : parent(0x1b337b0), 0x1b33520] } { [89] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [35] : parent(0x1f8a6b0), 0x1f8a420] } { [37] : parent(0x1f8a6b0), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a520), 0x1f88cd0] } { [85] : parent(0x1f8a7f0), 0x1f88c20] } { [90] : parent(0x1f8a7f0), 0x1f8a6f0] }
+current_level = 3  { [15] : parent(0x1b336b0), 0x1b31d10] } { [35] : parent(0x1b336b0), 0x1b33420] } { [37] : parent(0x1b336b0), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b33520), 0x1b31cd0] } { [85] : parent(0x1b337f0), 0x1b31c20] } { [90] : parent(0x1b337f0), 0x1b336f0] }
 
 
 In order print of tree: 15 30 35 36 37 39 50 60 65 70 85 89 90 
@@ -7141,11 +7141,11 @@ current_level = 3 [15], [35], [37], [50], [65], [85, 89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 60] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [36, 60] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [30] : parent(0x1f8a7b0), 0x1f8a6b0] } { [39] : parent(0x1f8a7b0), 0x1f8a520] } { [70] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [30] : parent(0x1b337b0), 0x1b336b0] } { [39] : parent(0x1b337b0), 0x1b33520] } { [70] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [35] : parent(0x1f8a6b0), 0x1f8a420] } { [37] : parent(0x1f8a520), 0x1f8a870] } { [50] : parent(0x1f8a520), 0x1f8a4e0] } { [65] : parent(0x1f8a7f0), 0x1f88cd0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336b0), 0x1b31d10] } { [35] : parent(0x1b336b0), 0x1b33420] } { [37] : parent(0x1b33520), 0x1b33870] } { [50] : parent(0x1b33520), 0x1b334e0] } { [65] : parent(0x1b337f0), 0x1b31cd0] } { [85, 89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 15 30 35 36 37 39 50 60 65 70 85 89 
@@ -7163,11 +7163,11 @@ current_level = 3 [15], [35], [37, 50], [65], [85, 89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [60] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [30, 36] : parent(0x1f8a7b0), 0x1f8a6b0] } { [70] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [30, 36] : parent(0x1b337b0), 0x1b336b0] } { [70] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [15] : parent(0x1f8a6b0), 0x1f88d10] } { [35] : parent(0x1f8a6b0), 0x1f8a420] } { [37, 50] : parent(0x1f8a6b0), 0x1f8a870] } { [65] : parent(0x1f8a7f0), 0x1f88cd0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [15] : parent(0x1b336b0), 0x1b31d10] } { [35] : parent(0x1b336b0), 0x1b33420] } { [37, 50] : parent(0x1b336b0), 0x1b33870] } { [65] : parent(0x1b337f0), 0x1b31cd0] } { [85, 89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 15 30 35 36 37 50 60 65 70 85 89 
@@ -7185,11 +7185,11 @@ current_level = 3 [30], [36], [50], [65], [85, 89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [60] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [35, 37] : parent(0x1f8a7b0), 0x1f8a6b0] } { [70] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [35, 37] : parent(0x1b337b0), 0x1b336b0] } { [70] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [30] : parent(0x1f8a6b0), 0x1f88d10] } { [36] : parent(0x1f8a6b0), 0x1f8a420] } { [50] : parent(0x1f8a6b0), 0x1f8a870] } { [65] : parent(0x1f8a7f0), 0x1f88cd0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [30] : parent(0x1b336b0), 0x1b31d10] } { [36] : parent(0x1b336b0), 0x1b33420] } { [50] : parent(0x1b336b0), 0x1b33870] } { [65] : parent(0x1b337f0), 0x1b31cd0] } { [85, 89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 30 35 36 37 50 60 65 70 85 89 
@@ -7207,11 +7207,11 @@ current_level = 3 [30, 36], [50], [65], [85, 89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [60] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [37] : parent(0x1f8a7b0), 0x1f8a6b0] } { [70] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [37] : parent(0x1b337b0), 0x1b336b0] } { [70] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [30, 36] : parent(0x1f8a6b0), 0x1f88d10] } { [50] : parent(0x1f8a6b0), 0x1f8a870] } { [65] : parent(0x1f8a7f0), 0x1f88cd0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [30, 36] : parent(0x1b336b0), 0x1b31d10] } { [50] : parent(0x1b336b0), 0x1b33870] } { [65] : parent(0x1b337f0), 0x1b31cd0] } { [85, 89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 30 36 37 50 60 65 70 85 89 
@@ -7229,11 +7229,11 @@ current_level = 3 [30, 36], [50], [70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [65] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [65] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [37] : parent(0x1f8a7b0), 0x1f8a6b0] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [37] : parent(0x1b337b0), 0x1b336b0] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [30, 36] : parent(0x1f8a6b0), 0x1f88d10] } { [50] : parent(0x1f8a6b0), 0x1f8a870] } { [70] : parent(0x1f8a7f0), 0x1f88cd0] } { [89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [30, 36] : parent(0x1b336b0), 0x1b31d10] } { [50] : parent(0x1b336b0), 0x1b33870] } { [70] : parent(0x1b337f0), 0x1b31cd0] } { [89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 30 36 37 50 65 70 85 89 
@@ -7251,11 +7251,11 @@ current_level = 3 [36], [50], [70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1    { [65] : parent(0), 0x1f8a7b0] }
+current_level = 1    { [65] : parent(0), 0x1b337b0] }
 
-current_level = 2   { [37] : parent(0x1f8a7b0), 0x1f8a6b0] } { [85] : parent(0x1f8a7b0), 0x1f8a7f0] }
+current_level = 2   { [37] : parent(0x1b337b0), 0x1b336b0] } { [85] : parent(0x1b337b0), 0x1b337f0] }
 
-current_level = 3  { [36] : parent(0x1f8a6b0), 0x1f88d10] } { [50] : parent(0x1f8a6b0), 0x1f8a870] } { [70] : parent(0x1f8a7f0), 0x1f88cd0] } { [89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 3  { [36] : parent(0x1b336b0), 0x1b31d10] } { [50] : parent(0x1b336b0), 0x1b33870] } { [70] : parent(0x1b337f0), 0x1b31cd0] } { [89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 36 37 50 65 70 85 89 
@@ -7271,9 +7271,9 @@ current_level = 2 [37, 50], [70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [65, 85] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [65, 85] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [37, 50] : parent(0x1f8a7f0), 0x1f8a870] } { [70] : parent(0x1f8a7f0), 0x1f88cd0] } { [89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 2  { [37, 50] : parent(0x1b337f0), 0x1b33870] } { [70] : parent(0x1b337f0), 0x1b31cd0] } { [89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 37 50 65 70 85 89 
@@ -7289,9 +7289,9 @@ current_level = 2 [50], [70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [65, 85] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [65, 85] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [50] : parent(0x1f8a7f0), 0x1f8a870] } { [70] : parent(0x1f8a7f0), 0x1f88cd0] } { [89] : parent(0x1f8a7f0), 0x1f88c20] }
+current_level = 2  { [50] : parent(0x1b337f0), 0x1b33870] } { [70] : parent(0x1b337f0), 0x1b31cd0] } { [89] : parent(0x1b337f0), 0x1b31c20] }
 
 
 In order print of tree: 50 65 70 85 89 
@@ -7307,9 +7307,9 @@ current_level = 2 [50], [70, 89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [65] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [65] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [50] : parent(0x1f8a7f0), 0x1f8a870] } { [70, 89] : parent(0x1f8a7f0), 0x1f88cd0] }
+current_level = 2  { [50] : parent(0x1b337f0), 0x1b33870] } { [70, 89] : parent(0x1b337f0), 0x1b31cd0] }
 
 
 In order print of tree: 50 65 70 89 
@@ -7325,9 +7325,9 @@ current_level = 2 [50], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [65] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [65] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [50] : parent(0x1f8a7f0), 0x1f8a870] } { [89] : parent(0x1f8a7f0), 0x1f88cd0] }
+current_level = 2  { [50] : parent(0x1b337f0), 0x1b33870] } { [89] : parent(0x1b337f0), 0x1b31cd0] }
 
 
 In order print of tree: 50 65 89 
@@ -7341,7 +7341,7 @@ current_level = 1 [65, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [65, 89] : parent(0), 0x1f88cd0] }
+current_level = 1  { [65, 89] : parent(0), 0x1b31cd0] }
 
 
 In order print of tree: 65 89 
@@ -7355,7 +7355,7 @@ current_level = 1 [65],
 Level order debug print of tree: 
 
 
-current_level = 1  { [65] : parent(0), 0x1f88cd0] }
+current_level = 1  { [65] : parent(0), 0x1b31cd0] }
 
 
 In order print of tree: 65 
@@ -7740,11 +7740,11 @@ current_level = 3 [10, 15], [30], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [50] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6b0), 0x1f8a2d0] } { [70, 90] : parent(0x1f8a6b0), 0x1f8a8f0] }
+current_level = 2   { [20, 39] : parent(0x1b336b0), 0x1b332d0] } { [70, 90] : parent(0x1b336b0), 0x1b338f0] }
 
-current_level = 3  { [10, 15] : parent(0x1f8a2d0), 0x1f8a830] } { [30] : parent(0x1f8a2d0), 0x1f88d10] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [60] : parent(0x1f8a8f0), 0x1f8a730] } { [80] : parent(0x1f8a8f0), 0x1f8a6f0] } { [100] : parent(0x1f8a8f0), 0x1f8a8b0] }
+current_level = 3  { [10, 15] : parent(0x1b332d0), 0x1b33830] } { [30] : parent(0x1b332d0), 0x1b31d10] } { [40] : parent(0x1b332d0), 0x1b33590] } { [60] : parent(0x1b338f0), 0x1b33730] } { [80] : parent(0x1b338f0), 0x1b336f0] } { [100] : parent(0x1b338f0), 0x1b338b0] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -7762,11 +7762,11 @@ current_level = 3 [10, 15], [30], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [50] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a6b0), 0x1f8a2d0] } { [70] : parent(0x1f8a6b0), 0x1f8a8f0] }
+current_level = 2   { [20, 39] : parent(0x1b336b0), 0x1b332d0] } { [70] : parent(0x1b336b0), 0x1b338f0] }
 
-current_level = 3  { [10, 15] : parent(0x1f8a2d0), 0x1f8a830] } { [30] : parent(0x1f8a2d0), 0x1f88d10] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [60] : parent(0x1f8a8f0), 0x1f8a730] } { [80, 100] : parent(0x1f8a8f0), 0x1f8a6f0] }
+current_level = 3  { [10, 15] : parent(0x1b332d0), 0x1b33830] } { [30] : parent(0x1b332d0), 0x1b31d10] } { [40] : parent(0x1b332d0), 0x1b33590] } { [60] : parent(0x1b338f0), 0x1b33730] } { [80, 100] : parent(0x1b338f0), 0x1b336f0] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 100 
@@ -7784,11 +7784,11 @@ current_level = 3 [10], [20], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [50] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [15, 30] : parent(0x1f8a6b0), 0x1f8a2d0] } { [70] : parent(0x1f8a6b0), 0x1f8a8f0] }
+current_level = 2   { [15, 30] : parent(0x1b336b0), 0x1b332d0] } { [70] : parent(0x1b336b0), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f8a830] } { [20] : parent(0x1f8a2d0), 0x1f88d10] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [60] : parent(0x1f8a8f0), 0x1f8a730] } { [80, 100] : parent(0x1f8a8f0), 0x1f8a6f0] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b33830] } { [20] : parent(0x1b332d0), 0x1b31d10] } { [40] : parent(0x1b332d0), 0x1b33590] } { [60] : parent(0x1b338f0), 0x1b33730] } { [80, 100] : parent(0x1b338f0), 0x1b336f0] }
 
 
 In order print of tree: 10 15 20 30 40 50 60 70 80 100 
@@ -7806,11 +7806,11 @@ current_level = 3 [10], [20], [40], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [50] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [15, 30] : parent(0x1f8a6b0), 0x1f8a2d0] } { [80] : parent(0x1f8a6b0), 0x1f8a8f0] }
+current_level = 2   { [15, 30] : parent(0x1b336b0), 0x1b332d0] } { [80] : parent(0x1b336b0), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f8a830] } { [20] : parent(0x1f8a2d0), 0x1f88d10] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [70] : parent(0x1f8a8f0), 0x1f8a730] } { [100] : parent(0x1f8a8f0), 0x1f8a6f0] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b33830] } { [20] : parent(0x1b332d0), 0x1b31d10] } { [40] : parent(0x1b332d0), 0x1b33590] } { [70] : parent(0x1b338f0), 0x1b33730] } { [100] : parent(0x1b338f0), 0x1b336f0] }
 
 
 In order print of tree: 10 15 20 30 40 50 70 80 100 
@@ -7828,11 +7828,11 @@ current_level = 3 [10, 20], [40], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [50] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [30] : parent(0x1f8a6b0), 0x1f8a2d0] } { [80] : parent(0x1f8a6b0), 0x1f8a8f0] }
+current_level = 2   { [30] : parent(0x1b336b0), 0x1b332d0] } { [80] : parent(0x1b336b0), 0x1b338f0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a2d0), 0x1f8a830] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [70] : parent(0x1f8a8f0), 0x1f8a730] } { [100] : parent(0x1f8a8f0), 0x1f8a6f0] }
+current_level = 3  { [10, 20] : parent(0x1b332d0), 0x1b33830] } { [40] : parent(0x1b332d0), 0x1b33590] } { [70] : parent(0x1b338f0), 0x1b33730] } { [100] : parent(0x1b338f0), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 40 50 70 80 100 
@@ -7848,9 +7848,9 @@ current_level = 2 [10, 20], [40], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 50] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [30, 50] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10, 20] : parent(0x1f8a2d0), 0x1f8a830] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [80, 100] : parent(0x1f8a2d0), 0x1f8a6f0] }
+current_level = 2  { [10, 20] : parent(0x1b332d0), 0x1b33830] } { [40] : parent(0x1b332d0), 0x1b33590] } { [80, 100] : parent(0x1b332d0), 0x1b336f0] }
 
 
 In order print of tree: 10 20 30 40 50 80 100 
@@ -7866,9 +7866,9 @@ current_level = 2 [10], [40], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 50] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [20, 50] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a830] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [80, 100] : parent(0x1f8a2d0), 0x1f8a6f0] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b33830] } { [40] : parent(0x1b332d0), 0x1b33590] } { [80, 100] : parent(0x1b332d0), 0x1b336f0] }
 
 
 In order print of tree: 10 20 40 50 80 100 
@@ -7884,9 +7884,9 @@ current_level = 2 [10], [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 50] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [20, 50] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a830] } { [40] : parent(0x1f8a2d0), 0x1f8a590] } { [80] : parent(0x1f8a2d0), 0x1f8a6f0] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b33830] } { [40] : parent(0x1b332d0), 0x1b33590] } { [80] : parent(0x1b332d0), 0x1b336f0] }
 
 
 In order print of tree: 10 20 40 50 80 
@@ -7902,9 +7902,9 @@ current_level = 2 [10, 40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [50] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10, 40] : parent(0x1f8a2d0), 0x1f8a830] } { [80] : parent(0x1f8a2d0), 0x1f8a6f0] }
+current_level = 2  { [10, 40] : parent(0x1b332d0), 0x1b33830] } { [80] : parent(0x1b332d0), 0x1b336f0] }
 
 
 In order print of tree: 10 40 50 80 
@@ -7920,9 +7920,9 @@ current_level = 2 [10], [50],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [40] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a830] } { [50] : parent(0x1f8a2d0), 0x1f8a6f0] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b33830] } { [50] : parent(0x1b332d0), 0x1b336f0] }
 
 
 In order print of tree: 10 40 50 
@@ -7936,7 +7936,7 @@ current_level = 1 [10, 40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [10, 40] : parent(0), 0x1f8a830] }
+current_level = 1  { [10, 40] : parent(0), 0x1b33830] }
 
 
 In order print of tree: 10 40 
@@ -7950,7 +7950,7 @@ current_level = 1 [10],
 Level order debug print of tree: 
 
 
-current_level = 1  { [10] : parent(0), 0x1f8a830] }
+current_level = 1  { [10] : parent(0), 0x1b33830] }
 
 
 In order print of tree: 10 
@@ -8009,11 +8009,11 @@ current_level = 3 [10, 20], [39], [50, 60], [80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a8f0), 0x1f8a2d0] } { [85, 90] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30, 40] : parent(0x1b338f0), 0x1b332d0] } { [85, 90] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [50, 60] : parent(0x1f8a2d0), 0x1f8a6f0] } { [80] : parent(0x1f8a6b0), 0x1f8a830] } { [89] : parent(0x1f8a6b0), 0x1f8a590] } { [100] : parent(0x1f8a6b0), 0x1f8a730] }
+current_level = 3  { [10, 20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [50, 60] : parent(0x1b332d0), 0x1b336f0] } { [80] : parent(0x1b336b0), 0x1b33830] } { [89] : parent(0x1b336b0), 0x1b33590] } { [100] : parent(0x1b336b0), 0x1b33730] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -8031,11 +8031,11 @@ current_level = 3 [20], [39], [50, 60], [80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a8f0), 0x1f8a2d0] } { [85, 90] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30, 40] : parent(0x1b338f0), 0x1b332d0] } { [85, 90] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [50, 60] : parent(0x1f8a2d0), 0x1f8a6f0] } { [80] : parent(0x1f8a6b0), 0x1f8a830] } { [89] : parent(0x1f8a6b0), 0x1f8a590] } { [100] : parent(0x1f8a6b0), 0x1f8a730] }
+current_level = 3  { [20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [50, 60] : parent(0x1b332d0), 0x1b336f0] } { [80] : parent(0x1b336b0), 0x1b33830] } { [89] : parent(0x1b336b0), 0x1b33590] } { [100] : parent(0x1b336b0), 0x1b33730] }
 
 
 In order print of tree: 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -8053,11 +8053,11 @@ current_level = 3 [20], [39], [50, 60], [80], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a8f0), 0x1f8a2d0] } { [85] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30, 40] : parent(0x1b338f0), 0x1b332d0] } { [85] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [50, 60] : parent(0x1f8a2d0), 0x1f8a6f0] } { [80] : parent(0x1f8a6b0), 0x1f8a830] } { [89, 100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 3  { [20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [50, 60] : parent(0x1b332d0), 0x1b336f0] } { [80] : parent(0x1b336b0), 0x1b33830] } { [89, 100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 20 30 39 40 50 60 70 80 85 89 100 
@@ -8075,11 +8075,11 @@ current_level = 3 [20], [39], [60], [80], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a8f0), 0x1f8a2d0] } { [85] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30, 40] : parent(0x1b338f0), 0x1b332d0] } { [85] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [60] : parent(0x1f8a2d0), 0x1f8a6f0] } { [80] : parent(0x1f8a6b0), 0x1f8a830] } { [89, 100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 3  { [20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [60] : parent(0x1b332d0), 0x1b336f0] } { [80] : parent(0x1b336b0), 0x1b33830] } { [89, 100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 20 30 39 40 60 70 80 85 89 100 
@@ -8097,11 +8097,11 @@ current_level = 3 [20], [39], [60], [85], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a8f0), 0x1f8a2d0] } { [89] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30, 40] : parent(0x1b338f0), 0x1b332d0] } { [89] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [60] : parent(0x1f8a2d0), 0x1f8a6f0] } { [85] : parent(0x1f8a6b0), 0x1f8a830] } { [100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 3  { [20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [60] : parent(0x1b332d0), 0x1b336f0] } { [85] : parent(0x1b336b0), 0x1b33830] } { [100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 20 30 39 40 60 70 85 89 100 
@@ -8119,11 +8119,11 @@ current_level = 3 [20], [39], [60], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [40] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [30] : parent(0x1f8a8f0), 0x1f8a2d0] } { [70] : parent(0x1f8a8f0), 0x1f8a6b0] }
+current_level = 2   { [30] : parent(0x1b338f0), 0x1b332d0] } { [70] : parent(0x1b338f0), 0x1b336b0] }
 
-current_level = 3  { [20] : parent(0x1f8a2d0), 0x1f8a770] } { [39] : parent(0x1f8a2d0), 0x1f88d10] } { [60] : parent(0x1f8a6b0), 0x1f8a6f0] } { [89, 100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 3  { [20] : parent(0x1b332d0), 0x1b33770] } { [39] : parent(0x1b332d0), 0x1b31d10] } { [60] : parent(0x1b336b0), 0x1b336f0] } { [89, 100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 20 30 39 40 60 70 89 100 
@@ -8139,9 +8139,9 @@ current_level = 2 [20, 30], [60], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a6b0), 0x1f8a770] } { [60] : parent(0x1f8a6b0), 0x1f8a6f0] } { [89, 100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 2  { [20, 30] : parent(0x1b336b0), 0x1b33770] } { [60] : parent(0x1b336b0), 0x1b336f0] } { [89, 100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 20 30 40 60 70 89 100 
@@ -8157,9 +8157,9 @@ current_level = 2 [30], [60], [89, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [30] : parent(0x1f8a6b0), 0x1f8a770] } { [60] : parent(0x1f8a6b0), 0x1f8a6f0] } { [89, 100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 2  { [30] : parent(0x1b336b0), 0x1b33770] } { [60] : parent(0x1b336b0), 0x1b336f0] } { [89, 100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 30 40 60 70 89 100 
@@ -8175,9 +8175,9 @@ current_level = 2 [30], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60, 89] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [60, 89] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [30] : parent(0x1f8a6b0), 0x1f8a770] } { [70] : parent(0x1f8a6b0), 0x1f8a6f0] } { [100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 2  { [30] : parent(0x1b336b0), 0x1b33770] } { [70] : parent(0x1b336b0), 0x1b336f0] } { [100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 30 60 70 89 100 
@@ -8193,9 +8193,9 @@ current_level = 2 [60, 70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [89] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [89] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [60, 70] : parent(0x1f8a6b0), 0x1f8a6f0] } { [100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 2  { [60, 70] : parent(0x1b336b0), 0x1b336f0] } { [100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 60 70 89 100 
@@ -8211,9 +8211,9 @@ current_level = 2 [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [89] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [89] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [70] : parent(0x1f8a6b0), 0x1f8a6f0] } { [100] : parent(0x1f8a6b0), 0x1f8a590] }
+current_level = 2  { [70] : parent(0x1b336b0), 0x1b336f0] } { [100] : parent(0x1b336b0), 0x1b33590] }
 
 
 In order print of tree: 70 89 100 
@@ -8227,7 +8227,7 @@ current_level = 1 [70, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [70, 89] : parent(0), 0x1f8a6f0] }
+current_level = 1  { [70, 89] : parent(0), 0x1b336f0] }
 
 
 In order print of tree: 70 89 
@@ -8241,7 +8241,7 @@ current_level = 1 [70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [70] : parent(0), 0x1f8a6f0] }
+current_level = 1  { [70] : parent(0), 0x1b336f0] }
 
 
 In order print of tree: 70 
@@ -8301,11 +8301,11 @@ current_level = 3 [10], [30], [40, 50], [65], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 69] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [39, 69] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [20] : parent(0x1f8a2d0), 0x1f8a6b0] } { [60] : parent(0x1f8a2d0), 0x1f8a8f0] } { [80] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b332d0), 0x1b336b0] } { [60] : parent(0x1b332d0), 0x1b338f0] } { [80] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a6b0), 0x1f8a8b0] } { [30] : parent(0x1f8a6b0), 0x1f8a590] } { [40, 50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a8f0), 0x1f8a830] } { [70] : parent(0x1f8a730), 0x1f8a770] } { [90, 100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [10] : parent(0x1b336b0), 0x1b338b0] } { [30] : parent(0x1b336b0), 0x1b33590] } { [40, 50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b338f0), 0x1b33830] } { [70] : parent(0x1b33730), 0x1b33770] } { [90, 100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -8323,11 +8323,11 @@ current_level = 3 [10], [30], [50], [65], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 69] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [40, 69] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [20] : parent(0x1f8a2d0), 0x1f8a6b0] } { [60] : parent(0x1f8a2d0), 0x1f8a8f0] } { [80] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b332d0), 0x1b336b0] } { [60] : parent(0x1b332d0), 0x1b338f0] } { [80] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a6b0), 0x1f8a8b0] } { [30] : parent(0x1f8a6b0), 0x1f8a590] } { [50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a8f0), 0x1f8a830] } { [70] : parent(0x1f8a730), 0x1f8a770] } { [90, 100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [10] : parent(0x1b336b0), 0x1b338b0] } { [30] : parent(0x1b336b0), 0x1b33590] } { [50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b338f0), 0x1b33830] } { [70] : parent(0x1b33730), 0x1b33770] } { [90, 100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 10 20 30 40 50 60 65 69 70 80 90 100 
@@ -8345,11 +8345,11 @@ current_level = 3 [20, 30], [50], [65], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [69] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [40, 60] : parent(0x1f8a2d0), 0x1f8a8f0] } { [80] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [40, 60] : parent(0x1b332d0), 0x1b338f0] } { [80] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a8f0), 0x1f8a590] } { [50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a8f0), 0x1f8a830] } { [70] : parent(0x1f8a730), 0x1f8a770] } { [90, 100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [20, 30] : parent(0x1b338f0), 0x1b33590] } { [50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b338f0), 0x1b33830] } { [70] : parent(0x1b33730), 0x1b33770] } { [90, 100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 30 40 50 60 65 69 70 80 90 100 
@@ -8367,11 +8367,11 @@ current_level = 3 [20, 30], [50], [65], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [69] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [40, 60] : parent(0x1f8a2d0), 0x1f8a8f0] } { [80] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [40, 60] : parent(0x1b332d0), 0x1b338f0] } { [80] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [20, 30] : parent(0x1f8a8f0), 0x1f8a590] } { [50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a8f0), 0x1f8a830] } { [70] : parent(0x1f8a730), 0x1f8a770] } { [100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [20, 30] : parent(0x1b338f0), 0x1b33590] } { [50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b338f0), 0x1b33830] } { [70] : parent(0x1b33730), 0x1b33770] } { [100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 30 40 50 60 65 69 70 80 100 
@@ -8389,11 +8389,11 @@ current_level = 3 [20], [50], [65], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [69] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [40, 60] : parent(0x1f8a2d0), 0x1f8a8f0] } { [80] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [40, 60] : parent(0x1b332d0), 0x1b338f0] } { [80] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [20] : parent(0x1f8a8f0), 0x1f8a590] } { [50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a8f0), 0x1f8a830] } { [70] : parent(0x1f8a730), 0x1f8a770] } { [100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [20] : parent(0x1b338f0), 0x1b33590] } { [50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b338f0), 0x1b33830] } { [70] : parent(0x1b33730), 0x1b33770] } { [100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 40 50 60 65 69 70 80 100 
@@ -8411,11 +8411,11 @@ current_level = 3 [20], [50], [65], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a2d0] }
+current_level = 1    { [60] : parent(0), 0x1b332d0] }
 
-current_level = 2   { [40] : parent(0x1f8a2d0), 0x1f8a8f0] } { [70] : parent(0x1f8a2d0), 0x1f8a730] }
+current_level = 2   { [40] : parent(0x1b332d0), 0x1b338f0] } { [70] : parent(0x1b332d0), 0x1b33730] }
 
-current_level = 3  { [20] : parent(0x1f8a8f0), 0x1f8a590] } { [50] : parent(0x1f8a8f0), 0x1f8a6f0] } { [65] : parent(0x1f8a730), 0x1f8a830] } { [80, 100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 3  { [20] : parent(0x1b338f0), 0x1b33590] } { [50] : parent(0x1b338f0), 0x1b336f0] } { [65] : parent(0x1b33730), 0x1b33830] } { [80, 100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 40 50 60 65 70 80 100 
@@ -8431,9 +8431,9 @@ current_level = 2 [20, 40], [65], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60, 70] : parent(0), 0x1f8a730] }
+current_level = 1   { [60, 70] : parent(0), 0x1b33730] }
 
-current_level = 2  { [20, 40] : parent(0x1f8a730), 0x1f8a590] } { [65] : parent(0x1f8a730), 0x1f8a830] } { [80, 100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 2  { [20, 40] : parent(0x1b33730), 0x1b33590] } { [65] : parent(0x1b33730), 0x1b33830] } { [80, 100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 40 60 65 70 80 100 
@@ -8449,9 +8449,9 @@ current_level = 2 [20, 40], [65], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60, 80] : parent(0), 0x1f8a730] }
+current_level = 1   { [60, 80] : parent(0), 0x1b33730] }
 
-current_level = 2  { [20, 40] : parent(0x1f8a730), 0x1f8a590] } { [65] : parent(0x1f8a730), 0x1f8a830] } { [100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 2  { [20, 40] : parent(0x1b33730), 0x1b33590] } { [65] : parent(0x1b33730), 0x1b33830] } { [100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 40 60 65 80 100 
@@ -8467,9 +8467,9 @@ current_level = 2 [20], [60], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 80] : parent(0), 0x1f8a730] }
+current_level = 1   { [40, 80] : parent(0), 0x1b33730] }
 
-current_level = 2  { [20] : parent(0x1f8a730), 0x1f8a590] } { [60] : parent(0x1f8a730), 0x1f8a830] } { [100] : parent(0x1f8a730), 0x1f88d10] }
+current_level = 2  { [20] : parent(0x1b33730), 0x1b33590] } { [60] : parent(0x1b33730), 0x1b33830] } { [100] : parent(0x1b33730), 0x1b31d10] }
 
 
 In order print of tree: 20 40 60 80 100 
@@ -8485,9 +8485,9 @@ current_level = 2 [20], [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a730] }
+current_level = 1   { [40] : parent(0), 0x1b33730] }
 
-current_level = 2  { [20] : parent(0x1f8a730), 0x1f8a590] } { [60, 80] : parent(0x1f8a730), 0x1f8a830] }
+current_level = 2  { [20] : parent(0x1b33730), 0x1b33590] } { [60, 80] : parent(0x1b33730), 0x1b33830] }
 
 
 In order print of tree: 20 40 60 80 
@@ -8503,9 +8503,9 @@ current_level = 2 [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60] : parent(0), 0x1f8a730] }
+current_level = 1   { [60] : parent(0), 0x1b33730] }
 
-current_level = 2  { [40] : parent(0x1f8a730), 0x1f8a590] } { [80] : parent(0x1f8a730), 0x1f8a830] }
+current_level = 2  { [40] : parent(0x1b33730), 0x1b33590] } { [80] : parent(0x1b33730), 0x1b33830] }
 
 
 In order print of tree: 40 60 80 
@@ -8519,7 +8519,7 @@ current_level = 1 [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [60, 80] : parent(0), 0x1f8a830] }
+current_level = 1  { [60, 80] : parent(0), 0x1b33830] }
 
 
 In order print of tree: 60 80 
@@ -8533,7 +8533,7 @@ current_level = 1 [60],
 Level order debug print of tree: 
 
 
-current_level = 1  { [60] : parent(0), 0x1f8a830] }
+current_level = 1  { [60] : parent(0), 0x1b33830] }
 
 
 In order print of tree: 60 
@@ -8593,11 +8593,11 @@ current_level = 3 [10], [30], [40], [60], [80], [100], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [39, 70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20] : parent(0x1f8a8f0), 0x1f8a730] } { [50] : parent(0x1f8a8f0), 0x1f8a8b0] } { [90, 125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20] : parent(0x1b338f0), 0x1b33730] } { [50] : parent(0x1b338f0), 0x1b338b0] } { [90, 125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [40] : parent(0x1f8a8b0), 0x1f88d10] } { [60] : parent(0x1f8a8b0), 0x1f8a6b0] } { [80] : parent(0x1f8a2d0), 0x1f8a830] } { [100] : parent(0x1f8a2d0), 0x1f8a6f0] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [40] : parent(0x1b338b0), 0x1b31d10] } { [60] : parent(0x1b338b0), 0x1b336b0] } { [80] : parent(0x1b332d0), 0x1b33830] } { [100] : parent(0x1b332d0), 0x1b336f0] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -8615,11 +8615,11 @@ current_level = 3 [10], [30], [40], [60], [80, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [39, 70] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20] : parent(0x1f8a8f0), 0x1f8a730] } { [50] : parent(0x1f8a8f0), 0x1f8a8b0] } { [125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20] : parent(0x1b338f0), 0x1b33730] } { [50] : parent(0x1b338f0), 0x1b338b0] } { [125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [40] : parent(0x1f8a8b0), 0x1f88d10] } { [60] : parent(0x1f8a8b0), 0x1f8a6b0] } { [80, 90] : parent(0x1f8a2d0), 0x1f8a830] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [40] : parent(0x1b338b0), 0x1b31d10] } { [60] : parent(0x1b338b0), 0x1b336b0] } { [80, 90] : parent(0x1b332d0), 0x1b33830] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 125 150 
@@ -8637,11 +8637,11 @@ current_level = 3 [10], [30], [40], [60], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 80] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [39, 80] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20] : parent(0x1f8a8f0), 0x1f8a730] } { [50] : parent(0x1f8a8f0), 0x1f8a8b0] } { [125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20] : parent(0x1b338f0), 0x1b33730] } { [50] : parent(0x1b338f0), 0x1b338b0] } { [125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [40] : parent(0x1f8a8b0), 0x1f88d10] } { [60] : parent(0x1f8a8b0), 0x1f8a6b0] } { [90] : parent(0x1f8a2d0), 0x1f8a830] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [40] : parent(0x1b338b0), 0x1b31d10] } { [60] : parent(0x1b338b0), 0x1b336b0] } { [90] : parent(0x1b332d0), 0x1b33830] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 80 90 125 150 
@@ -8659,11 +8659,11 @@ current_level = 3 [10], [30], [40, 50], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [80] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a8f0), 0x1f8a730] } { [125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20, 39] : parent(0x1b338f0), 0x1b33730] } { [125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [40, 50] : parent(0x1f8a730), 0x1f88d10] } { [90] : parent(0x1f8a2d0), 0x1f8a830] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [40, 50] : parent(0x1b33730), 0x1b31d10] } { [90] : parent(0x1b332d0), 0x1b33830] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 40 50 80 90 125 150 
@@ -8681,11 +8681,11 @@ current_level = 3 [10], [30], [50], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [80] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a8f0), 0x1f8a730] } { [125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20, 39] : parent(0x1b338f0), 0x1b33730] } { [125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [50] : parent(0x1f8a730), 0x1f88d10] } { [90] : parent(0x1f8a2d0), 0x1f8a830] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [50] : parent(0x1b33730), 0x1b31d10] } { [90] : parent(0x1b332d0), 0x1b33830] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 50 80 90 125 150 
@@ -8703,11 +8703,11 @@ current_level = 3 [10], [30], [50], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [39] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20] : parent(0x1f8a8f0), 0x1f8a730] } { [90] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20] : parent(0x1b338f0), 0x1b33730] } { [90] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [50] : parent(0x1f8a2d0), 0x1f88d10] } { [125, 150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [50] : parent(0x1b332d0), 0x1b31d10] } { [125, 150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 50 90 125 150 
@@ -8725,11 +8725,11 @@ current_level = 3 [10], [30], [50], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a8f0] }
+current_level = 1    { [39] : parent(0), 0x1b338f0] }
 
-current_level = 2   { [20] : parent(0x1f8a8f0), 0x1f8a730] } { [125] : parent(0x1f8a8f0), 0x1f8a2d0] }
+current_level = 2   { [20] : parent(0x1b338f0), 0x1b33730] } { [125] : parent(0x1b338f0), 0x1b332d0] }
 
-current_level = 3  { [10] : parent(0x1f8a730), 0x1f8a7b0] } { [30] : parent(0x1f8a730), 0x1f8a770] } { [50] : parent(0x1f8a2d0), 0x1f88d10] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b33730), 0x1b337b0] } { [30] : parent(0x1b33730), 0x1b33770] } { [50] : parent(0x1b332d0), 0x1b31d10] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 50 125 150 
@@ -8745,9 +8745,9 @@ current_level = 2 [10, 20], [50], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 125] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [39, 125] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10, 20] : parent(0x1f8a2d0), 0x1f8a7b0] } { [50] : parent(0x1f8a2d0), 0x1f88d10] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 2  { [10, 20] : parent(0x1b332d0), 0x1b337b0] } { [50] : parent(0x1b332d0), 0x1b31d10] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 39 50 125 150 
@@ -8763,9 +8763,9 @@ current_level = 2 [10], [50], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 125] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [20, 125] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a7b0] } { [50] : parent(0x1f8a2d0), 0x1f88d10] } { [150] : parent(0x1f8a2d0), 0x1f8a590] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b337b0] } { [50] : parent(0x1b332d0), 0x1b31d10] } { [150] : parent(0x1b332d0), 0x1b33590] }
 
 
 In order print of tree: 10 20 50 125 150 
@@ -8781,9 +8781,9 @@ current_level = 2 [10], [50, 125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [20] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a7b0] } { [50, 125] : parent(0x1f8a2d0), 0x1f88d10] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b337b0] } { [50, 125] : parent(0x1b332d0), 0x1b31d10] }
 
 
 In order print of tree: 10 20 50 125 
@@ -8799,9 +8799,9 @@ current_level = 2 [10], [50],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20] : parent(0), 0x1f8a2d0] }
+current_level = 1   { [20] : parent(0), 0x1b332d0] }
 
-current_level = 2  { [10] : parent(0x1f8a2d0), 0x1f8a7b0] } { [50] : parent(0x1f8a2d0), 0x1f88d10] }
+current_level = 2  { [10] : parent(0x1b332d0), 0x1b337b0] } { [50] : parent(0x1b332d0), 0x1b31d10] }
 
 
 In order print of tree: 10 20 50 
@@ -8815,7 +8815,7 @@ current_level = 1 [10, 20],
 Level order debug print of tree: 
 
 
-current_level = 1  { [10, 20] : parent(0), 0x1f8a7b0] }
+current_level = 1  { [10, 20] : parent(0), 0x1b337b0] }
 
 
 In order print of tree: 10 20 
@@ -8829,7 +8829,7 @@ current_level = 1 [10],
 Level order debug print of tree: 
 
 
-current_level = 1  { [10] : parent(0), 0x1f8a7b0] }
+current_level = 1  { [10] : parent(0), 0x1b337b0] }
 
 
 In order print of tree: 10 
@@ -8893,11 +8893,11 @@ current_level = 3 [10], [30], [34, 35], [37], [39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 40] : parent(0), 0x1f8a730] }
+current_level = 1    { [36, 40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 33] : parent(0x1f8a730), 0x1f8a2d0] } { [38] : parent(0x1f8a730), 0x1f8a6b0] } { [60, 80] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [20, 33] : parent(0x1b33730), 0x1b332d0] } { [38] : parent(0x1b33730), 0x1b336b0] } { [60, 80] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f88ef0] } { [30] : parent(0x1f8a2d0), 0x1f8a6f0] } { [34, 35] : parent(0x1f8a2d0), 0x1f8a770] } { [37] : parent(0x1f8a6b0), 0x1f88d10] } { [39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a8f0), 0x1f8a7b0] } { [70] : parent(0x1f8a8f0), 0x1f8a830] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b31ef0] } { [30] : parent(0x1b332d0), 0x1b336f0] } { [34, 35] : parent(0x1b332d0), 0x1b33770] } { [37] : parent(0x1b336b0), 0x1b31d10] } { [39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b338f0), 0x1b337b0] } { [70] : parent(0x1b338f0), 0x1b33830] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -8915,11 +8915,11 @@ current_level = 3 [10], [30], [35], [37], [39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 40] : parent(0), 0x1f8a730] }
+current_level = 1    { [36, 40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a730), 0x1f8a2d0] } { [38] : parent(0x1f8a730), 0x1f8a6b0] } { [60, 80] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [20, 34] : parent(0x1b33730), 0x1b332d0] } { [38] : parent(0x1b33730), 0x1b336b0] } { [60, 80] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f88ef0] } { [30] : parent(0x1f8a2d0), 0x1f8a6f0] } { [35] : parent(0x1f8a2d0), 0x1f8a770] } { [37] : parent(0x1f8a6b0), 0x1f88d10] } { [39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a8f0), 0x1f8a7b0] } { [70] : parent(0x1f8a8f0), 0x1f8a830] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b31ef0] } { [30] : parent(0x1b332d0), 0x1b336f0] } { [35] : parent(0x1b332d0), 0x1b33770] } { [37] : parent(0x1b336b0), 0x1b31d10] } { [39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b338f0), 0x1b337b0] } { [70] : parent(0x1b338f0), 0x1b33830] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -8937,11 +8937,11 @@ current_level = 3 [10], [30], [35], [38, 39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 40] : parent(0), 0x1f8a730] }
+current_level = 1    { [34, 40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20] : parent(0x1f8a730), 0x1f8a2d0] } { [36] : parent(0x1f8a730), 0x1f8a6b0] } { [60, 80] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [20] : parent(0x1b33730), 0x1b332d0] } { [36] : parent(0x1b33730), 0x1b336b0] } { [60, 80] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f88ef0] } { [30] : parent(0x1f8a2d0), 0x1f8a6f0] } { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a8f0), 0x1f8a7b0] } { [70] : parent(0x1f8a8f0), 0x1f8a830] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b31ef0] } { [30] : parent(0x1b332d0), 0x1b336f0] } { [35] : parent(0x1b336b0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b338f0), 0x1b337b0] } { [70] : parent(0x1b338f0), 0x1b33830] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 34 35 36 38 39 40 50 60 70 80 90 100 
@@ -8959,11 +8959,11 @@ current_level = 3 [10, 30], [35], [38, 39], [50], [70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 60] : parent(0), 0x1f8a730] }
+current_level = 1    { [36, 60] : parent(0), 0x1b33730] }
 
-current_level = 2   { [34] : parent(0x1f8a730), 0x1f8a2d0] } { [40] : parent(0x1f8a730), 0x1f8a6b0] } { [80] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [34] : parent(0x1b33730), 0x1b332d0] } { [40] : parent(0x1b33730), 0x1b336b0] } { [80] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10, 30] : parent(0x1f8a2d0), 0x1f88ef0] } { [35] : parent(0x1f8a2d0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a6b0), 0x1f8a7b0] } { [70] : parent(0x1f8a8f0), 0x1f8a830] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10, 30] : parent(0x1b332d0), 0x1b31ef0] } { [35] : parent(0x1b332d0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b336b0), 0x1b337b0] } { [70] : parent(0x1b338f0), 0x1b33830] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 30 34 35 36 38 39 40 50 60 70 80 90 100 
@@ -8981,11 +8981,11 @@ current_level = 3 [10, 30], [35], [38, 39], [50], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [36, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [34] : parent(0x1f8a730), 0x1f8a2d0] } { [40] : parent(0x1f8a730), 0x1f8a6b0] } { [90] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [34] : parent(0x1b33730), 0x1b332d0] } { [40] : parent(0x1b33730), 0x1b336b0] } { [90] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10, 30] : parent(0x1f8a2d0), 0x1f88ef0] } { [35] : parent(0x1f8a2d0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a6b0), 0x1f8a7b0] } { [80] : parent(0x1f8a8f0), 0x1f8a830] } { [100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10, 30] : parent(0x1b332d0), 0x1b31ef0] } { [35] : parent(0x1b332d0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b336b0), 0x1b337b0] } { [80] : parent(0x1b338f0), 0x1b33830] } { [100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 30 34 35 36 38 39 40 50 70 80 90 100 
@@ -9003,11 +9003,11 @@ current_level = 3 [10], [35], [38, 39], [50], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [36, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [34] : parent(0x1f8a730), 0x1f8a2d0] } { [40] : parent(0x1f8a730), 0x1f8a6b0] } { [90] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [34] : parent(0x1b33730), 0x1b332d0] } { [40] : parent(0x1b33730), 0x1b336b0] } { [90] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [10] : parent(0x1f8a2d0), 0x1f88ef0] } { [35] : parent(0x1f8a2d0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a6b0), 0x1f8a7b0] } { [80] : parent(0x1f8a8f0), 0x1f8a830] } { [100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b332d0), 0x1b31ef0] } { [35] : parent(0x1b332d0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b336b0), 0x1b337b0] } { [80] : parent(0x1b338f0), 0x1b33830] } { [100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 10 34 35 36 38 39 40 50 70 80 90 100 
@@ -9025,11 +9025,11 @@ current_level = 3 [34, 35], [38, 39], [50], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a730] }
+current_level = 1    { [70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [36, 40] : parent(0x1f8a730), 0x1f8a6b0] } { [90] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [36, 40] : parent(0x1b33730), 0x1b336b0] } { [90] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [34, 35] : parent(0x1f8a6b0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a6b0), 0x1f8a7b0] } { [80] : parent(0x1f8a8f0), 0x1f8a830] } { [100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [34, 35] : parent(0x1b336b0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b336b0), 0x1b337b0] } { [80] : parent(0x1b338f0), 0x1b33830] } { [100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 34 35 36 38 39 40 50 70 80 90 100 
@@ -9047,11 +9047,11 @@ current_level = 3 [35], [38, 39], [50], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a730] }
+current_level = 1    { [70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [36, 40] : parent(0x1f8a730), 0x1f8a6b0] } { [90] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [36, 40] : parent(0x1b33730), 0x1b336b0] } { [90] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a6b0), 0x1f8a7b0] } { [80] : parent(0x1f8a8f0), 0x1f8a830] } { [100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [35] : parent(0x1b336b0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b336b0), 0x1b337b0] } { [80] : parent(0x1b338f0), 0x1b33830] } { [100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 35 36 38 39 40 50 70 80 90 100 
@@ -9069,11 +9069,11 @@ current_level = 3 [35], [38, 39], [50], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a730] }
+current_level = 1    { [40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [36] : parent(0x1f8a730), 0x1f8a6b0] } { [70] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [36] : parent(0x1b33730), 0x1b336b0] } { [70] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38, 39] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a8f0), 0x1f8a7b0] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [35] : parent(0x1b336b0), 0x1b33770] } { [38, 39] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b338f0), 0x1b337b0] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 35 36 38 39 40 50 70 90 100 
@@ -9091,11 +9091,11 @@ current_level = 3 [35], [38], [50], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a730] }
+current_level = 1    { [40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [36] : parent(0x1f8a730), 0x1f8a6b0] } { [70] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [36] : parent(0x1b33730), 0x1b336b0] } { [70] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38] : parent(0x1f8a6b0), 0x1f8a8b0] } { [50] : parent(0x1f8a8f0), 0x1f8a7b0] } { [90, 100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [35] : parent(0x1b336b0), 0x1b33770] } { [38] : parent(0x1b336b0), 0x1b338b0] } { [50] : parent(0x1b338f0), 0x1b337b0] } { [90, 100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 35 36 38 40 50 70 90 100 
@@ -9113,11 +9113,11 @@ current_level = 3 [35], [38], [70], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a730] }
+current_level = 1    { [40] : parent(0), 0x1b33730] }
 
-current_level = 2   { [36] : parent(0x1f8a730), 0x1f8a6b0] } { [90] : parent(0x1f8a730), 0x1f8a8f0] }
+current_level = 2   { [36] : parent(0x1b33730), 0x1b336b0] } { [90] : parent(0x1b33730), 0x1b338f0] }
 
-current_level = 3  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38] : parent(0x1f8a6b0), 0x1f8a8b0] } { [70] : parent(0x1f8a8f0), 0x1f8a7b0] } { [100] : parent(0x1f8a8f0), 0x1f8a590] }
+current_level = 3  { [35] : parent(0x1b336b0), 0x1b33770] } { [38] : parent(0x1b336b0), 0x1b338b0] } { [70] : parent(0x1b338f0), 0x1b337b0] } { [100] : parent(0x1b338f0), 0x1b33590] }
 
 
 In order print of tree: 35 36 38 40 70 90 100 
@@ -9133,9 +9133,9 @@ current_level = 2 [35], [38], [70, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 40] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [36, 40] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38] : parent(0x1f8a6b0), 0x1f8a8b0] } { [70, 100] : parent(0x1f8a6b0), 0x1f8a7b0] }
+current_level = 2  { [35] : parent(0x1b336b0), 0x1b33770] } { [38] : parent(0x1b336b0), 0x1b338b0] } { [70, 100] : parent(0x1b336b0), 0x1b337b0] }
 
 
 In order print of tree: 35 36 38 40 70 100 
@@ -9151,9 +9151,9 @@ current_level = 2 [35], [38], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [36, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38] : parent(0x1f8a6b0), 0x1f8a8b0] } { [100] : parent(0x1f8a6b0), 0x1f8a7b0] }
+current_level = 2  { [35] : parent(0x1b336b0), 0x1b33770] } { [38] : parent(0x1b336b0), 0x1b338b0] } { [100] : parent(0x1b336b0), 0x1b337b0] }
 
 
 In order print of tree: 35 36 38 70 100 
@@ -9169,9 +9169,9 @@ current_level = 2 [35], [38, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [36] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38, 100] : parent(0x1f8a6b0), 0x1f8a8b0] }
+current_level = 2  { [35] : parent(0x1b336b0), 0x1b33770] } { [38, 100] : parent(0x1b336b0), 0x1b338b0] }
 
 
 In order print of tree: 35 36 38 100 
@@ -9187,9 +9187,9 @@ current_level = 2 [35], [38],
 Level order debug print of tree: 
 
 
-current_level = 1   { [36] : parent(0), 0x1f8a6b0] }
+current_level = 1   { [36] : parent(0), 0x1b336b0] }
 
-current_level = 2  { [35] : parent(0x1f8a6b0), 0x1f8a770] } { [38] : parent(0x1f8a6b0), 0x1f8a8b0] }
+current_level = 2  { [35] : parent(0x1b336b0), 0x1b33770] } { [38] : parent(0x1b336b0), 0x1b338b0] }
 
 
 In order print of tree: 35 36 38 
@@ -9203,7 +9203,7 @@ current_level = 1 [35, 36],
 Level order debug print of tree: 
 
 
-current_level = 1  { [35, 36] : parent(0), 0x1f8a770] }
+current_level = 1  { [35, 36] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 35 36 
@@ -9217,7 +9217,7 @@ current_level = 1 [35],
 Level order debug print of tree: 
 
 
-current_level = 1  { [35] : parent(0), 0x1f8a770] }
+current_level = 1  { [35] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 35 
@@ -9294,13 +9294,13 @@ current_level = 4 [10, 15], [30], [34, 35], [37, 38], [40], [60, 65], [70, 80], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [85] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [85] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [20, 33] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [90, 125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [20, 33] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [90, 125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10, 15] : parent(0x1f88c20), 0x1f8a770] } { [30] : parent(0x1f88c20), 0x1f8a680] } { [34, 35] : parent(0x1f88c20), 0x1f88c60] } { [37, 38] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [89] : parent(0x1f8a500), 0x1f8a480] } { [100] : parent(0x1f8a500), 0x1f8a4c0] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10, 15] : parent(0x1b31c20), 0x1b33770] } { [30] : parent(0x1b31c20), 0x1b33680] } { [34, 35] : parent(0x1b31c20), 0x1b31c60] } { [37, 38] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [89] : parent(0x1b33500), 0x1b33480] } { [100] : parent(0x1b33500), 0x1b334c0] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -9320,13 +9320,13 @@ current_level = 4 [10, 15], [30], [35], [37, 38], [40], [60, 65], [70, 80], [89]
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [85] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [85] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [20, 33] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [90, 125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [20, 33] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [90, 125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10, 15] : parent(0x1f88c20), 0x1f8a770] } { [30] : parent(0x1f88c20), 0x1f8a680] } { [35] : parent(0x1f88c20), 0x1f88c60] } { [37, 38] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [89] : parent(0x1f8a500), 0x1f8a480] } { [100] : parent(0x1f8a500), 0x1f8a4c0] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10, 15] : parent(0x1b31c20), 0x1b33770] } { [30] : parent(0x1b31c20), 0x1b33680] } { [35] : parent(0x1b31c20), 0x1b31c60] } { [37, 38] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [89] : parent(0x1b33500), 0x1b33480] } { [100] : parent(0x1b33500), 0x1b334c0] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 33 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -9346,13 +9346,13 @@ current_level = 4 [10], [20], [35], [37, 38], [40], [60, 65], [70, 80], [89], [1
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [85] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [85] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [15, 30] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [90, 125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [15, 30] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [90, 125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20] : parent(0x1f88c20), 0x1f8a680] } { [35] : parent(0x1f88c20), 0x1f88c60] } { [37, 38] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [89] : parent(0x1f8a500), 0x1f8a480] } { [100] : parent(0x1f8a500), 0x1f8a4c0] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33770] } { [20] : parent(0x1b31c20), 0x1b33680] } { [35] : parent(0x1b31c20), 0x1b31c60] } { [37, 38] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [89] : parent(0x1b33500), 0x1b33480] } { [100] : parent(0x1b33500), 0x1b334c0] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -9372,13 +9372,13 @@ current_level = 4 [10], [20], [35], [37], [40], [60, 65], [70, 80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [85] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [85] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [15, 30] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [90, 125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [15, 30] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [90, 125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20] : parent(0x1f88c20), 0x1f8a680] } { [35] : parent(0x1f88c20), 0x1f88c60] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [89] : parent(0x1f8a500), 0x1f8a480] } { [100] : parent(0x1f8a500), 0x1f8a4c0] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33770] } { [20] : parent(0x1b31c20), 0x1b33680] } { [35] : parent(0x1b31c20), 0x1b31c60] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [89] : parent(0x1b33500), 0x1b33480] } { [100] : parent(0x1b33500), 0x1b334c0] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 35 36 37 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -9398,13 +9398,13 @@ current_level = 4 [10], [20], [35], [37], [40], [60, 65], [70, 80], [89, 90], [1
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [85] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [85] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [15, 30] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [15, 30] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20] : parent(0x1f88c20), 0x1f8a680] } { [35] : parent(0x1f88c20), 0x1f88c60] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [89, 90] : parent(0x1f8a500), 0x1f8a480] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33770] } { [20] : parent(0x1b31c20), 0x1b33680] } { [35] : parent(0x1b31c20), 0x1b31c60] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [89, 90] : parent(0x1b33500), 0x1b33480] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 35 36 37 39 40 50 60 65 69 70 80 85 89 90 125 150 
@@ -9424,13 +9424,13 @@ current_level = 4 [10], [20], [35], [37], [40], [60, 65], [70, 80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [89] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [89] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [15, 30] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [15, 30] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20] : parent(0x1f88c20), 0x1f8a680] } { [35] : parent(0x1f88c20), 0x1f88c60] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a500), 0x1f8a480] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33770] } { [20] : parent(0x1b31c20), 0x1b33680] } { [35] : parent(0x1b31c20), 0x1b31c60] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b33500), 0x1b33480] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 35 36 37 39 40 50 60 65 69 70 80 89 90 125 150 
@@ -9450,13 +9450,13 @@ current_level = 4 [10], [20, 30], [37], [40], [60, 65], [70, 80], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a640] }
+current_level = 1     { [50] : parent(0), 0x1b33640] }
 
-current_level = 2    { [36] : parent(0x1f8a640), 0x1f8a440] } { [89] : parent(0x1f8a640), 0x1f8a600] }
+current_level = 2    { [36] : parent(0x1b33640), 0x1b33440] } { [89] : parent(0x1b33640), 0x1b33600] }
 
-current_level = 3   { [15] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69] : parent(0x1f8a600), 0x1f8a5c0] } { [125] : parent(0x1f8a600), 0x1f8a500] }
+current_level = 3   { [15] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69] : parent(0x1b33600), 0x1b335c0] } { [125] : parent(0x1b33600), 0x1b33500] }
 
-current_level = 4  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a500), 0x1f8a480] } { [150] : parent(0x1f8a500), 0x1f8a6c0] }
+current_level = 4  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b33500), 0x1b33480] } { [150] : parent(0x1b33500), 0x1b336c0] }
 
 
 In order print of tree: 10 15 20 30 36 37 39 40 50 60 65 69 70 80 89 90 125 150 
@@ -9474,11 +9474,11 @@ current_level = 3 [10], [20, 30], [37], [40], [60, 65], [70, 80], [90, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a440] }
+current_level = 1    { [36, 50] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69, 89] : parent(0x1f8a440), 0x1f8a5c0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69, 89] : parent(0x1b33440), 0x1b335c0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90, 125] : parent(0x1f8a5c0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90, 125] : parent(0x1b335c0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 39 40 50 60 65 69 70 80 89 90 125 
@@ -9496,11 +9496,11 @@ current_level = 3 [10], [20, 30], [37], [40], [60, 65], [70, 80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 50] : parent(0), 0x1f8a440] }
+current_level = 1    { [36, 50] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [39] : parent(0x1f8a440), 0x1f88ce0] } { [69, 89] : parent(0x1f8a440), 0x1f8a5c0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [39] : parent(0x1b33440), 0x1b31ce0] } { [69, 89] : parent(0x1b33440), 0x1b335c0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [40] : parent(0x1f88ce0), 0x1f8a540] } { [60, 65] : parent(0x1f8a5c0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a5c0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [40] : parent(0x1b31ce0), 0x1b33540] } { [60, 65] : parent(0x1b335c0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b335c0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 39 40 50 60 65 69 70 80 89 90 
@@ -9518,11 +9518,11 @@ current_level = 3 [10], [20, 30], [37, 39], [60, 65], [70, 80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 69] : parent(0), 0x1f8a440] }
+current_level = 1    { [36, 69] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50] : parent(0x1f8a440), 0x1f88ce0] } { [89] : parent(0x1f8a440), 0x1f8a5c0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50] : parent(0x1b33440), 0x1b31ce0] } { [89] : parent(0x1b33440), 0x1b335c0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37, 39] : parent(0x1f88ce0), 0x1f88ca0] } { [60, 65] : parent(0x1f88ce0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a5c0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37, 39] : parent(0x1b31ce0), 0x1b31ca0] } { [60, 65] : parent(0x1b31ce0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b335c0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 39 50 60 65 69 70 80 89 90 
@@ -9540,11 +9540,11 @@ current_level = 3 [10], [20, 30], [37], [60, 65], [70, 80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 69] : parent(0), 0x1f8a440] }
+current_level = 1    { [36, 69] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50] : parent(0x1f8a440), 0x1f88ce0] } { [89] : parent(0x1f8a440), 0x1f8a5c0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50] : parent(0x1b33440), 0x1b31ce0] } { [89] : parent(0x1b33440), 0x1b335c0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [60, 65] : parent(0x1f88ce0), 0x1f88ef0] } { [70, 80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a5c0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [60, 65] : parent(0x1b31ce0), 0x1b31ef0] } { [70, 80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b335c0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 50 60 65 69 70 80 89 90 
@@ -9562,11 +9562,11 @@ current_level = 3 [10], [20, 30], [37], [60, 65], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36, 70] : parent(0), 0x1f8a440] }
+current_level = 1    { [36, 70] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50] : parent(0x1f8a440), 0x1f88ce0] } { [89] : parent(0x1f8a440), 0x1f8a5c0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50] : parent(0x1b33440), 0x1b31ce0] } { [89] : parent(0x1b33440), 0x1b335c0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [60, 65] : parent(0x1f88ce0), 0x1f88ef0] } { [80] : parent(0x1f8a5c0), 0x1f8a580] } { [90] : parent(0x1f8a5c0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [60, 65] : parent(0x1b31ce0), 0x1b31ef0] } { [80] : parent(0x1b335c0), 0x1b33580] } { [90] : parent(0x1b335c0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 50 60 65 70 80 89 90 
@@ -9584,11 +9584,11 @@ current_level = 3 [10], [20, 30], [37], [60, 65], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a440] }
+current_level = 1    { [36] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50, 80] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50, 80] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [60, 65] : parent(0x1f88ce0), 0x1f88ef0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [60, 65] : parent(0x1b31ce0), 0x1b31ef0] } { [89, 90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 50 60 65 80 89 90 
@@ -9606,11 +9606,11 @@ current_level = 3 [10], [20, 30], [37], [60], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a440] }
+current_level = 1    { [36] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50, 80] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50, 80] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20, 30] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [60] : parent(0x1f88ce0), 0x1f88ef0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20, 30] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [60] : parent(0x1b31ce0), 0x1b31ef0] } { [89, 90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 30 36 37 50 60 80 89 90 
@@ -9628,11 +9628,11 @@ current_level = 3 [10], [20], [37], [60], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [36] : parent(0), 0x1f8a440] }
+current_level = 1    { [36] : parent(0), 0x1b33440] }
 
-current_level = 2   { [15] : parent(0x1f8a440), 0x1f88c20] } { [50, 80] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [15] : parent(0x1b33440), 0x1b31c20] } { [50, 80] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [10] : parent(0x1f88c20), 0x1f8a770] } { [20] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88ce0), 0x1f88ca0] } { [60] : parent(0x1f88ce0), 0x1f88ef0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [10] : parent(0x1b31c20), 0x1b33770] } { [20] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31ce0), 0x1b31ca0] } { [60] : parent(0x1b31ce0), 0x1b31ef0] } { [89, 90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 10 15 20 36 37 50 60 80 89 90 
@@ -9650,11 +9650,11 @@ current_level = 3 [15, 20], [37], [60], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a440] }
+current_level = 1    { [50] : parent(0), 0x1b33440] }
 
-current_level = 2   { [36] : parent(0x1f8a440), 0x1f88c20] } { [80] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [36] : parent(0x1b33440), 0x1b31c20] } { [80] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88c20), 0x1f88ca0] } { [60] : parent(0x1f88ce0), 0x1f88ef0] } { [89, 90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [15, 20] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31c20), 0x1b31ca0] } { [60] : parent(0x1b31ce0), 0x1b31ef0] } { [89, 90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 15 20 36 37 50 60 80 89 90 
@@ -9672,11 +9672,11 @@ current_level = 3 [15, 20], [37], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a440] }
+current_level = 1    { [50] : parent(0), 0x1b33440] }
 
-current_level = 2   { [36] : parent(0x1f8a440), 0x1f88c20] } { [89] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [36] : parent(0x1b33440), 0x1b31c20] } { [89] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [15, 20] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88c20), 0x1f88ca0] } { [80] : parent(0x1f88ce0), 0x1f88ef0] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [15, 20] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31c20), 0x1b31ca0] } { [80] : parent(0x1b31ce0), 0x1b31ef0] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 15 20 36 37 50 80 89 90 
@@ -9694,11 +9694,11 @@ current_level = 3 [15], [37], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a440] }
+current_level = 1    { [50] : parent(0), 0x1b33440] }
 
-current_level = 2   { [36] : parent(0x1f8a440), 0x1f88c20] } { [89] : parent(0x1f8a440), 0x1f88ce0] }
+current_level = 2   { [36] : parent(0x1b33440), 0x1b31c20] } { [89] : parent(0x1b33440), 0x1b31ce0] }
 
-current_level = 3  { [15] : parent(0x1f88c20), 0x1f8a680] } { [37] : parent(0x1f88c20), 0x1f88ca0] } { [80] : parent(0x1f88ce0), 0x1f88ef0] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 3  { [15] : parent(0x1b31c20), 0x1b33680] } { [37] : parent(0x1b31c20), 0x1b31ca0] } { [80] : parent(0x1b31ce0), 0x1b31ef0] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 15 36 37 50 80 89 90 
@@ -9714,9 +9714,9 @@ current_level = 2 [15, 36], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f88ce0] }
+current_level = 1   { [50, 89] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [15, 36] : parent(0x1f88ce0), 0x1f8a680] } { [80] : parent(0x1f88ce0), 0x1f88ef0] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 2  { [15, 36] : parent(0x1b31ce0), 0x1b33680] } { [80] : parent(0x1b31ce0), 0x1b31ef0] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 15 36 50 80 89 90 
@@ -9732,9 +9732,9 @@ current_level = 2 [36], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f88ce0] }
+current_level = 1   { [50, 89] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [36] : parent(0x1f88ce0), 0x1f8a680] } { [80] : parent(0x1f88ce0), 0x1f88ef0] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 2  { [36] : parent(0x1b31ce0), 0x1b33680] } { [80] : parent(0x1b31ce0), 0x1b31ef0] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 36 50 80 89 90 
@@ -9750,9 +9750,9 @@ current_level = 2 [36, 50], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [89] : parent(0), 0x1f88ce0] }
+current_level = 1   { [89] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [36, 50] : parent(0x1f88ce0), 0x1f8a680] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 2  { [36, 50] : parent(0x1b31ce0), 0x1b33680] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 36 50 89 90 
@@ -9768,9 +9768,9 @@ current_level = 2 [36], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [89] : parent(0), 0x1f88ce0] }
+current_level = 1   { [89] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [36] : parent(0x1f88ce0), 0x1f8a680] } { [90] : parent(0x1f88ce0), 0x1f8a480] }
+current_level = 2  { [36] : parent(0x1b31ce0), 0x1b33680] } { [90] : parent(0x1b31ce0), 0x1b33480] }
 
 
 In order print of tree: 36 89 90 
@@ -9784,7 +9784,7 @@ current_level = 1 [36, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [36, 89] : parent(0), 0x1f8a680] }
+current_level = 1  { [36, 89] : parent(0), 0x1b33680] }
 
 
 In order print of tree: 36 89 
@@ -9798,7 +9798,7 @@ current_level = 1 [36],
 Level order debug print of tree: 
 
 
-current_level = 1  { [36] : parent(0), 0x1f8a680] }
+current_level = 1  { [36] : parent(0), 0x1b33680] }
 
 
 In order print of tree: 36 
@@ -10183,11 +10183,11 @@ current_level = 3 [10], [20], [39, 40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [30, 70] : parent(0), 0x1f8a120] }
+current_level = 1    { [30, 70] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f88ef0] } { [50] : parent(0x1f8a120), 0x1f8a600] } { [90] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b31ef0] } { [50] : parent(0x1b33120), 0x1b33600] } { [90] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f8a680] } { [20] : parent(0x1f88ef0), 0x1f88ce0] } { [39, 40] : parent(0x1f8a600), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80] : parent(0x1f88ca0), 0x1f8a160] } { [100] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b33680] } { [20] : parent(0x1b31ef0), 0x1b31ce0] } { [39, 40] : parent(0x1b33600), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80] : parent(0x1b31ca0), 0x1b33160] } { [100] : parent(0x1b31ca0), 0x1b31c60] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -10205,11 +10205,11 @@ current_level = 3 [10], [20], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39, 70] : parent(0), 0x1f8a120] }
+current_level = 1    { [39, 70] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f88ef0] } { [50] : parent(0x1f8a120), 0x1f8a600] } { [90] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b31ef0] } { [50] : parent(0x1b33120), 0x1b33600] } { [90] : parent(0x1b33120), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f8a680] } { [20] : parent(0x1f88ef0), 0x1f88ce0] } { [40] : parent(0x1f8a600), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80] : parent(0x1f88ca0), 0x1f8a160] } { [100] : parent(0x1f88ca0), 0x1f88c60] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b33680] } { [20] : parent(0x1b31ef0), 0x1b31ce0] } { [40] : parent(0x1b33600), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80] : parent(0x1b31ca0), 0x1b33160] } { [100] : parent(0x1b31ca0), 0x1b31c60] }
 
 
 In order print of tree: 10 15 20 39 40 50 60 70 80 90 100 
@@ -10227,11 +10227,11 @@ current_level = 3 [10], [20], [40], [60], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a120] }
+current_level = 1    { [39] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f88ef0] } { [50, 70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b31ef0] } { [50, 70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f8a680] } { [20] : parent(0x1f88ef0), 0x1f88ce0] } { [40] : parent(0x1f8a600), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80, 90] : parent(0x1f8a600), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b33680] } { [20] : parent(0x1b31ef0), 0x1b31ce0] } { [40] : parent(0x1b33600), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80, 90] : parent(0x1b33600), 0x1b33160] }
 
 
 In order print of tree: 10 15 20 39 40 50 60 70 80 90 
@@ -10249,11 +10249,11 @@ current_level = 3 [10, 15], [40], [60], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [39] : parent(0x1f8a120), 0x1f88ef0] } { [70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [39] : parent(0x1b33120), 0x1b31ef0] } { [70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ef0), 0x1f8a680] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80, 90] : parent(0x1f8a600), 0x1f8a160] }
+current_level = 3  { [10, 15] : parent(0x1b31ef0), 0x1b33680] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80, 90] : parent(0x1b33600), 0x1b33160] }
 
 
 In order print of tree: 10 15 39 40 50 60 70 80 90 
@@ -10271,11 +10271,11 @@ current_level = 3 [10, 15], [40], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [39] : parent(0x1f8a120), 0x1f88ef0] } { [70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [39] : parent(0x1b33120), 0x1b31ef0] } { [70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ef0), 0x1f8a680] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80] : parent(0x1f8a600), 0x1f8a160] }
+current_level = 3  { [10, 15] : parent(0x1b31ef0), 0x1b33680] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80] : parent(0x1b33600), 0x1b33160] }
 
 
 In order print of tree: 10 15 39 40 50 60 70 80 
@@ -10293,11 +10293,11 @@ current_level = 3 [10], [40], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [15] : parent(0x1f8a120), 0x1f88ef0] } { [70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [15] : parent(0x1b33120), 0x1b31ef0] } { [70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f8a680] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f8a600), 0x1f8a640] } { [80] : parent(0x1f8a600), 0x1f8a160] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b33680] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b33600), 0x1b33640] } { [80] : parent(0x1b33600), 0x1b33160] }
 
 
 In order print of tree: 10 15 40 50 60 70 80 
@@ -10313,9 +10313,9 @@ current_level = 2 [10], [40], [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [15, 50] : parent(0), 0x1f88ef0] }
+current_level = 1   { [15, 50] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [10] : parent(0x1f88ef0), 0x1f8a680] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60, 80] : parent(0x1f88ef0), 0x1f8a640] }
+current_level = 2  { [10] : parent(0x1b31ef0), 0x1b33680] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60, 80] : parent(0x1b31ef0), 0x1b33640] }
 
 
 In order print of tree: 10 15 40 50 60 80 
@@ -10331,9 +10331,9 @@ current_level = 2 [15], [50], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f88ef0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [15] : parent(0x1f88ef0), 0x1f8a680] } { [50] : parent(0x1f88ef0), 0x1f8a1a0] } { [80] : parent(0x1f88ef0), 0x1f8a640] }
+current_level = 2  { [15] : parent(0x1b31ef0), 0x1b33680] } { [50] : parent(0x1b31ef0), 0x1b331a0] } { [80] : parent(0x1b31ef0), 0x1b33640] }
 
 
 In order print of tree: 15 40 50 60 80 
@@ -10349,9 +10349,9 @@ current_level = 2 [15], [50, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f88ef0] }
+current_level = 1   { [40] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [15] : parent(0x1f88ef0), 0x1f8a680] } { [50, 80] : parent(0x1f88ef0), 0x1f8a1a0] }
+current_level = 2  { [15] : parent(0x1b31ef0), 0x1b33680] } { [50, 80] : parent(0x1b31ef0), 0x1b331a0] }
 
 
 In order print of tree: 15 40 50 80 
@@ -10367,9 +10367,9 @@ current_level = 2 [40], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [40] : parent(0x1f88ef0), 0x1f8a680] } { [80] : parent(0x1f88ef0), 0x1f8a1a0] }
+current_level = 2  { [40] : parent(0x1b31ef0), 0x1b33680] } { [80] : parent(0x1b31ef0), 0x1b331a0] }
 
 
 In order print of tree: 40 50 80 
@@ -10383,7 +10383,7 @@ current_level = 1 [40, 50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40, 50] : parent(0), 0x1f8a680] }
+current_level = 1  { [40, 50] : parent(0), 0x1b33680] }
 
 
 In order print of tree: 40 50 
@@ -10397,7 +10397,7 @@ current_level = 1 [40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40] : parent(0), 0x1f8a680] }
+current_level = 1  { [40] : parent(0), 0x1b33680] }
 
 
 In order print of tree: 40 
@@ -10456,11 +10456,11 @@ current_level = 3 [10, 20], [39], [50, 60], [80], [89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a600), 0x1f88ef0] } { [85, 90] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [30, 40] : parent(0x1b33600), 0x1b31ef0] } { [85, 90] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ef0), 0x1f8a260] } { [39] : parent(0x1f88ef0), 0x1f8a1a0] } { [50, 60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [89] : parent(0x1f8a120), 0x1f88ce0] } { [100] : parent(0x1f8a120), 0x1f8a640] }
+current_level = 3  { [10, 20] : parent(0x1b31ef0), 0x1b33260] } { [39] : parent(0x1b31ef0), 0x1b331a0] } { [50, 60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [89] : parent(0x1b33120), 0x1b31ce0] } { [100] : parent(0x1b33120), 0x1b33640] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -10478,11 +10478,11 @@ current_level = 3 [10, 20], [39], [50, 60], [80], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a600), 0x1f88ef0] } { [85] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [30, 40] : parent(0x1b33600), 0x1b31ef0] } { [85] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ef0), 0x1f8a260] } { [39] : parent(0x1f88ef0), 0x1f8a1a0] } { [50, 60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [89, 90] : parent(0x1f8a120), 0x1f88ce0] }
+current_level = 3  { [10, 20] : parent(0x1b31ef0), 0x1b33260] } { [39] : parent(0x1b31ef0), 0x1b331a0] } { [50, 60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [89, 90] : parent(0x1b33120), 0x1b31ce0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 
@@ -10500,11 +10500,11 @@ current_level = 3 [10], [39], [50, 60], [80], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a600), 0x1f88ef0] } { [85] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [30, 40] : parent(0x1b33600), 0x1b31ef0] } { [85] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f8a260] } { [39] : parent(0x1f88ef0), 0x1f8a1a0] } { [50, 60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [89, 90] : parent(0x1f8a120), 0x1f88ce0] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b33260] } { [39] : parent(0x1b31ef0), 0x1b331a0] } { [50, 60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [89, 90] : parent(0x1b33120), 0x1b31ce0] }
 
 
 In order print of tree: 10 30 39 40 50 60 70 80 85 89 90 
@@ -10522,11 +10522,11 @@ current_level = 3 [30], [40], [60], [80], [89, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [39, 50] : parent(0x1f8a600), 0x1f88ef0] } { [85] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [39, 50] : parent(0x1b33600), 0x1b31ef0] } { [85] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [30] : parent(0x1f88ef0), 0x1f8a260] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [89, 90] : parent(0x1f8a120), 0x1f88ce0] }
+current_level = 3  { [30] : parent(0x1b31ef0), 0x1b33260] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [89, 90] : parent(0x1b33120), 0x1b31ce0] }
 
 
 In order print of tree: 30 39 40 50 60 70 80 85 89 90 
@@ -10544,11 +10544,11 @@ current_level = 3 [30], [40], [60], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [39, 50] : parent(0x1f8a600), 0x1f88ef0] } { [89] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [39, 50] : parent(0x1b33600), 0x1b31ef0] } { [89] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [30] : parent(0x1f88ef0), 0x1f8a260] } { [40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [90] : parent(0x1f8a120), 0x1f88ce0] }
+current_level = 3  { [30] : parent(0x1b31ef0), 0x1b33260] } { [40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [90] : parent(0x1b33120), 0x1b31ce0] }
 
 
 In order print of tree: 30 39 40 50 60 70 80 89 90 
@@ -10566,11 +10566,11 @@ current_level = 3 [39, 40], [60], [80], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a600] }
+current_level = 1    { [70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [50] : parent(0x1f8a600), 0x1f88ef0] } { [89] : parent(0x1f8a600), 0x1f8a120] }
+current_level = 2   { [50] : parent(0x1b33600), 0x1b31ef0] } { [89] : parent(0x1b33600), 0x1b33120] }
 
-current_level = 3  { [39, 40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f8a120), 0x1f8a680] } { [90] : parent(0x1f8a120), 0x1f88ce0] }
+current_level = 3  { [39, 40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b33120), 0x1b33680] } { [90] : parent(0x1b33120), 0x1b31ce0] }
 
 
 In order print of tree: 39 40 50 60 70 80 89 90 
@@ -10586,9 +10586,9 @@ current_level = 2 [39, 40], [60], [80, 89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50, 70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [39, 40] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f88ef0), 0x1f8a160] } { [80, 89] : parent(0x1f88ef0), 0x1f8a680] }
+current_level = 2  { [39, 40] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b31ef0), 0x1b33160] } { [80, 89] : parent(0x1b31ef0), 0x1b33680] }
 
 
 In order print of tree: 39 40 50 60 70 80 89 
@@ -10604,9 +10604,9 @@ current_level = 2 [39], [60], [80, 89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [40, 70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [39] : parent(0x1f88ef0), 0x1f8a1a0] } { [60] : parent(0x1f88ef0), 0x1f8a160] } { [80, 89] : parent(0x1f88ef0), 0x1f8a680] }
+current_level = 2  { [39] : parent(0x1b31ef0), 0x1b331a0] } { [60] : parent(0x1b31ef0), 0x1b33160] } { [80, 89] : parent(0x1b31ef0), 0x1b33680] }
 
 
 In order print of tree: 39 40 60 70 80 89 
@@ -10622,9 +10622,9 @@ current_level = 2 [39], [70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 80] : parent(0), 0x1f88ef0] }
+current_level = 1   { [40, 80] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [39] : parent(0x1f88ef0), 0x1f8a1a0] } { [70] : parent(0x1f88ef0), 0x1f8a160] } { [89] : parent(0x1f88ef0), 0x1f8a680] }
+current_level = 2  { [39] : parent(0x1b31ef0), 0x1b331a0] } { [70] : parent(0x1b31ef0), 0x1b33160] } { [89] : parent(0x1b31ef0), 0x1b33680] }
 
 
 In order print of tree: 39 40 70 80 89 
@@ -10640,9 +10640,9 @@ current_level = 2 [40, 70], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [80] : parent(0), 0x1f88ef0] }
+current_level = 1   { [80] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [40, 70] : parent(0x1f88ef0), 0x1f8a160] } { [89] : parent(0x1f88ef0), 0x1f8a680] }
+current_level = 2  { [40, 70] : parent(0x1b31ef0), 0x1b33160] } { [89] : parent(0x1b31ef0), 0x1b33680] }
 
 
 In order print of tree: 40 70 80 89 
@@ -10658,9 +10658,9 @@ current_level = 2 [40], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [40] : parent(0x1f88ef0), 0x1f8a160] } { [89] : parent(0x1f88ef0), 0x1f8a680] }
+current_level = 2  { [40] : parent(0x1b31ef0), 0x1b33160] } { [89] : parent(0x1b31ef0), 0x1b33680] }
 
 
 In order print of tree: 40 70 89 
@@ -10674,7 +10674,7 @@ current_level = 1 [40, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40, 89] : parent(0), 0x1f8a160] }
+current_level = 1  { [40, 89] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 40 89 
@@ -10688,7 +10688,7 @@ current_level = 1 [89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [89] : parent(0), 0x1f8a160] }
+current_level = 1  { [89] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 89 
@@ -10748,11 +10748,11 @@ current_level = 3 [10, 20], [39, 40], [60], [69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50, 70] : parent(0), 0x1f8a120] }
+current_level = 1    { [50, 70] : parent(0), 0x1b33120] }
 
-current_level = 2   { [30] : parent(0x1f8a120), 0x1f88ef0] } { [65] : parent(0x1f8a120), 0x1f8a600] } { [90] : parent(0x1f8a120), 0x1f8a640] }
+current_level = 2   { [30] : parent(0x1b33120), 0x1b31ef0] } { [65] : parent(0x1b33120), 0x1b33600] } { [90] : parent(0x1b33120), 0x1b33640] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ef0), 0x1f88ca0] } { [39, 40] : parent(0x1f88ef0), 0x1f8a680] } { [60] : parent(0x1f8a600), 0x1f8a1a0] } { [69] : parent(0x1f8a600), 0x1f8a160] } { [80] : parent(0x1f8a640), 0x1f88ce0] } { [100] : parent(0x1f8a640), 0x1f8a260] }
+current_level = 3  { [10, 20] : parent(0x1b31ef0), 0x1b31ca0] } { [39, 40] : parent(0x1b31ef0), 0x1b33680] } { [60] : parent(0x1b33600), 0x1b331a0] } { [69] : parent(0x1b33600), 0x1b33160] } { [80] : parent(0x1b33640), 0x1b31ce0] } { [100] : parent(0x1b33640), 0x1b33260] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -10770,11 +10770,11 @@ current_level = 3 [10, 20], [39, 40], [60], [69], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [30] : parent(0x1f8a120), 0x1f88ef0] } { [65, 70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [30] : parent(0x1b33120), 0x1b31ef0] } { [65, 70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ef0), 0x1f88ca0] } { [39, 40] : parent(0x1f88ef0), 0x1f8a680] } { [60] : parent(0x1f8a600), 0x1f8a1a0] } { [69] : parent(0x1f8a600), 0x1f8a160] } { [80, 90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [10, 20] : parent(0x1b31ef0), 0x1b31ca0] } { [39, 40] : parent(0x1b31ef0), 0x1b33680] } { [60] : parent(0x1b33600), 0x1b331a0] } { [69] : parent(0x1b33600), 0x1b33160] } { [80, 90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 
@@ -10792,11 +10792,11 @@ current_level = 3 [10], [39, 40], [60], [69], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [30] : parent(0x1f8a120), 0x1f88ef0] } { [65, 70] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [30] : parent(0x1b33120), 0x1b31ef0] } { [65, 70] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f88ca0] } { [39, 40] : parent(0x1f88ef0), 0x1f8a680] } { [60] : parent(0x1f8a600), 0x1f8a1a0] } { [69] : parent(0x1f8a600), 0x1f8a160] } { [80, 90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b31ca0] } { [39, 40] : parent(0x1b31ef0), 0x1b33680] } { [60] : parent(0x1b33600), 0x1b331a0] } { [69] : parent(0x1b33600), 0x1b33160] } { [80, 90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 10 30 39 40 50 60 65 69 70 80 90 
@@ -10814,11 +10814,11 @@ current_level = 3 [10], [39, 40], [65], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [30] : parent(0x1f8a120), 0x1f88ef0] } { [69, 80] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [30] : parent(0x1b33120), 0x1b31ef0] } { [69, 80] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [10] : parent(0x1f88ef0), 0x1f88ca0] } { [39, 40] : parent(0x1f88ef0), 0x1f8a680] } { [65] : parent(0x1f8a600), 0x1f8a1a0] } { [70] : parent(0x1f8a600), 0x1f8a160] } { [90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [10] : parent(0x1b31ef0), 0x1b31ca0] } { [39, 40] : parent(0x1b31ef0), 0x1b33680] } { [65] : parent(0x1b33600), 0x1b331a0] } { [70] : parent(0x1b33600), 0x1b33160] } { [90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 10 30 39 40 50 65 69 70 80 90 
@@ -10836,11 +10836,11 @@ current_level = 3 [30], [40], [65], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a120] }
+current_level = 1    { [50] : parent(0), 0x1b33120] }
 
-current_level = 2   { [39] : parent(0x1f8a120), 0x1f88ef0] } { [69, 80] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [39] : parent(0x1b33120), 0x1b31ef0] } { [69, 80] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [30] : parent(0x1f88ef0), 0x1f88ca0] } { [40] : parent(0x1f88ef0), 0x1f8a680] } { [65] : parent(0x1f8a600), 0x1f8a1a0] } { [70] : parent(0x1f8a600), 0x1f8a160] } { [90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [30] : parent(0x1b31ef0), 0x1b31ca0] } { [40] : parent(0x1b31ef0), 0x1b33680] } { [65] : parent(0x1b33600), 0x1b331a0] } { [70] : parent(0x1b33600), 0x1b33160] } { [90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 30 39 40 50 65 69 70 80 90 
@@ -10858,11 +10858,11 @@ current_level = 3 [30, 40], [65], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a120] }
+current_level = 1    { [69] : parent(0), 0x1b33120] }
 
-current_level = 2   { [50] : parent(0x1f8a120), 0x1f88ef0] } { [80] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [50] : parent(0x1b33120), 0x1b31ef0] } { [80] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [30, 40] : parent(0x1f88ef0), 0x1f88ca0] } { [65] : parent(0x1f88ef0), 0x1f8a1a0] } { [70] : parent(0x1f8a600), 0x1f8a160] } { [90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [30, 40] : parent(0x1b31ef0), 0x1b31ca0] } { [65] : parent(0x1b31ef0), 0x1b331a0] } { [70] : parent(0x1b33600), 0x1b33160] } { [90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 30 40 50 65 69 70 80 90 
@@ -10880,11 +10880,11 @@ current_level = 3 [40], [65], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [69] : parent(0), 0x1f8a120] }
+current_level = 1    { [69] : parent(0), 0x1b33120] }
 
-current_level = 2   { [50] : parent(0x1f8a120), 0x1f88ef0] } { [80] : parent(0x1f8a120), 0x1f8a600] }
+current_level = 2   { [50] : parent(0x1b33120), 0x1b31ef0] } { [80] : parent(0x1b33120), 0x1b33600] }
 
-current_level = 3  { [40] : parent(0x1f88ef0), 0x1f88ca0] } { [65] : parent(0x1f88ef0), 0x1f8a1a0] } { [70] : parent(0x1f8a600), 0x1f8a160] } { [90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 3  { [40] : parent(0x1b31ef0), 0x1b31ca0] } { [65] : parent(0x1b31ef0), 0x1b331a0] } { [70] : parent(0x1b33600), 0x1b33160] } { [90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 40 50 65 69 70 80 90 
@@ -10900,9 +10900,9 @@ current_level = 2 [40, 50], [70], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [69, 80] : parent(0), 0x1f8a600] }
+current_level = 1   { [69, 80] : parent(0), 0x1b33600] }
 
-current_level = 2  { [40, 50] : parent(0x1f8a600), 0x1f88ca0] } { [70] : parent(0x1f8a600), 0x1f8a160] } { [90] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 2  { [40, 50] : parent(0x1b33600), 0x1b31ca0] } { [70] : parent(0x1b33600), 0x1b33160] } { [90] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 40 50 69 70 80 90 
@@ -10918,9 +10918,9 @@ current_level = 2 [40], [69], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 70] : parent(0), 0x1f8a600] }
+current_level = 1   { [50, 70] : parent(0), 0x1b33600] }
 
-current_level = 2  { [40] : parent(0x1f8a600), 0x1f88ca0] } { [69] : parent(0x1f8a600), 0x1f8a160] } { [80] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 2  { [40] : parent(0x1b33600), 0x1b31ca0] } { [69] : parent(0x1b33600), 0x1b33160] } { [80] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 40 50 69 70 80 
@@ -10936,9 +10936,9 @@ current_level = 2 [50, 69], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a600] }
+current_level = 1   { [70] : parent(0), 0x1b33600] }
 
-current_level = 2  { [50, 69] : parent(0x1f8a600), 0x1f8a160] } { [80] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 2  { [50, 69] : parent(0x1b33600), 0x1b33160] } { [80] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 50 69 70 80 
@@ -10954,9 +10954,9 @@ current_level = 2 [50], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a600] }
+current_level = 1   { [70] : parent(0), 0x1b33600] }
 
-current_level = 2  { [50] : parent(0x1f8a600), 0x1f8a160] } { [80] : parent(0x1f8a600), 0x1f88ce0] }
+current_level = 2  { [50] : parent(0x1b33600), 0x1b33160] } { [80] : parent(0x1b33600), 0x1b31ce0] }
 
 
 In order print of tree: 50 70 80 
@@ -10970,7 +10970,7 @@ current_level = 1 [50, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [50, 80] : parent(0), 0x1f8a160] }
+current_level = 1  { [50, 80] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 50 80 
@@ -10984,7 +10984,7 @@ current_level = 1 [50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [50] : parent(0), 0x1f8a160] }
+current_level = 1  { [50] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 50 
@@ -11044,11 +11044,11 @@ current_level = 3 [10], [30], [40], [60, 70], [90, 100], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ef0), 0x1f8a600] } { [80, 125] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [20, 39] : parent(0x1b31ef0), 0x1b33600] } { [80, 125] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f8a600), 0x1f88c60] } { [30] : parent(0x1f8a600), 0x1f8a1a0] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [60, 70] : parent(0x1f8a120), 0x1f8a160] } { [90, 100] : parent(0x1f8a120), 0x1f88ca0] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10] : parent(0x1b33600), 0x1b31c60] } { [30] : parent(0x1b33600), 0x1b331a0] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [60, 70] : parent(0x1b33120), 0x1b33160] } { [90, 100] : parent(0x1b33120), 0x1b31ca0] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -11066,11 +11066,11 @@ current_level = 3 [10], [30], [40], [60, 70], [100], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ef0), 0x1f8a600] } { [90, 125] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [20, 39] : parent(0x1b31ef0), 0x1b33600] } { [90, 125] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f8a600), 0x1f88c60] } { [30] : parent(0x1f8a600), 0x1f8a1a0] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [60, 70] : parent(0x1f8a120), 0x1f8a160] } { [100] : parent(0x1f8a120), 0x1f88ca0] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10] : parent(0x1b33600), 0x1b31c60] } { [30] : parent(0x1b33600), 0x1b331a0] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [60, 70] : parent(0x1b33120), 0x1b33160] } { [100] : parent(0x1b33120), 0x1b31ca0] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 90 100 125 150 
@@ -11088,11 +11088,11 @@ current_level = 3 [10], [30], [40], [60], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ef0), 0x1f8a600] } { [70, 100] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [20, 39] : parent(0x1b31ef0), 0x1b33600] } { [70, 100] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f8a600), 0x1f88c60] } { [30] : parent(0x1f8a600), 0x1f8a1a0] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [60] : parent(0x1f8a120), 0x1f8a160] } { [90] : parent(0x1f8a120), 0x1f88ca0] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10] : parent(0x1b33600), 0x1b31c60] } { [30] : parent(0x1b33600), 0x1b331a0] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [60] : parent(0x1b33120), 0x1b33160] } { [90] : parent(0x1b33120), 0x1b31ca0] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 90 100 150 
@@ -11110,11 +11110,11 @@ current_level = 3 [10], [30], [40], [60, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [20, 39] : parent(0x1f88ef0), 0x1f8a600] } { [100] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [20, 39] : parent(0x1b31ef0), 0x1b33600] } { [100] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f8a600), 0x1f88c60] } { [30] : parent(0x1f8a600), 0x1f8a1a0] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [60, 90] : parent(0x1f8a120), 0x1f8a160] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10] : parent(0x1b33600), 0x1b31c60] } { [30] : parent(0x1b33600), 0x1b331a0] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [60, 90] : parent(0x1b33120), 0x1b33160] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 90 100 150 
@@ -11132,11 +11132,11 @@ current_level = 3 [10, 20], [40], [60, 90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [39] : parent(0x1f88ef0), 0x1f8a600] } { [100] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b31ef0), 0x1b33600] } { [100] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a600), 0x1f88c60] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [60, 90] : parent(0x1f8a120), 0x1f8a160] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10, 20] : parent(0x1b33600), 0x1b31c60] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [60, 90] : parent(0x1b33120), 0x1b33160] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 39 40 50 60 90 100 150 
@@ -11154,11 +11154,11 @@ current_level = 3 [10, 20], [40], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [39] : parent(0x1f88ef0), 0x1f8a600] } { [100] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b31ef0), 0x1b33600] } { [100] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a600), 0x1f88c60] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [90] : parent(0x1f8a120), 0x1f8a160] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10, 20] : parent(0x1b33600), 0x1b31c60] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [90] : parent(0x1b33120), 0x1b33160] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 20 39 40 50 90 100 150 
@@ -11176,11 +11176,11 @@ current_level = 3 [10], [40], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88ef0] }
+current_level = 1    { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2   { [39] : parent(0x1f88ef0), 0x1f8a600] } { [100] : parent(0x1f88ef0), 0x1f8a120] }
+current_level = 2   { [39] : parent(0x1b31ef0), 0x1b33600] } { [100] : parent(0x1b31ef0), 0x1b33120] }
 
-current_level = 3  { [10] : parent(0x1f8a600), 0x1f88c60] } { [40] : parent(0x1f8a600), 0x1f88ce0] } { [90] : parent(0x1f8a120), 0x1f8a160] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 3  { [10] : parent(0x1b33600), 0x1b31c60] } { [40] : parent(0x1b33600), 0x1b31ce0] } { [90] : parent(0x1b33120), 0x1b33160] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 39 40 50 90 100 150 
@@ -11196,9 +11196,9 @@ current_level = 2 [10, 39], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 100] : parent(0), 0x1f8a120] }
+current_level = 1   { [50, 100] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10, 39] : parent(0x1f8a120), 0x1f88c60] } { [90] : parent(0x1f8a120), 0x1f8a160] } { [150] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 2  { [10, 39] : parent(0x1b33120), 0x1b31c60] } { [90] : parent(0x1b33120), 0x1b33160] } { [150] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 39 50 90 100 150 
@@ -11214,9 +11214,9 @@ current_level = 2 [10], [50], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 90] : parent(0), 0x1f8a120] }
+current_level = 1   { [39, 90] : parent(0), 0x1b33120] }
 
-current_level = 2  { [10] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f8a120), 0x1f8a160] } { [100] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 2  { [10] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b33120), 0x1b33160] } { [100] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 10 39 50 90 100 
@@ -11232,9 +11232,9 @@ current_level = 2 [39, 50], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [90] : parent(0), 0x1f8a120] }
+current_level = 1   { [90] : parent(0), 0x1b33120] }
 
-current_level = 2  { [39, 50] : parent(0x1f8a120), 0x1f8a160] } { [100] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 2  { [39, 50] : parent(0x1b33120), 0x1b33160] } { [100] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 39 50 90 100 
@@ -11250,9 +11250,9 @@ current_level = 2 [39], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a120] }
+current_level = 1   { [50] : parent(0), 0x1b33120] }
 
-current_level = 2  { [39] : parent(0x1f8a120), 0x1f8a160] } { [100] : parent(0x1f8a120), 0x1f8a680] }
+current_level = 2  { [39] : parent(0x1b33120), 0x1b33160] } { [100] : parent(0x1b33120), 0x1b33680] }
 
 
 In order print of tree: 39 50 100 
@@ -11266,7 +11266,7 @@ current_level = 1 [39, 50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [39, 50] : parent(0), 0x1f8a160] }
+current_level = 1  { [39, 50] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 39 50 
@@ -11280,7 +11280,7 @@ current_level = 1 [39],
 Level order debug print of tree: 
 
 
-current_level = 1  { [39] : parent(0), 0x1f8a160] }
+current_level = 1  { [39] : parent(0), 0x1b33160] }
 
 
 In order print of tree: 39 
@@ -11344,11 +11344,11 @@ current_level = 3 [10, 20], [33], [35], [37], [39, 40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 50] : parent(0), 0x1f8a600] }
+current_level = 1    { [34, 50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30] : parent(0x1f8a600), 0x1f8a120] } { [36, 38] : parent(0x1f8a600), 0x1f88ef0] } { [70, 90] : parent(0x1f8a600), 0x1f88ca0] }
+current_level = 2   { [30] : parent(0x1b33600), 0x1b33120] } { [36, 38] : parent(0x1b33600), 0x1b31ef0] } { [70, 90] : parent(0x1b33600), 0x1b31ca0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a120), 0x1f8a640] } { [33] : parent(0x1f8a120), 0x1f8a680] } { [35] : parent(0x1f88ef0), 0x1f88c60] } { [37] : parent(0x1f88ef0), 0x1f8a2a0] } { [39, 40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ca0), 0x1f8a1a0] } { [80] : parent(0x1f88ca0), 0x1f8a260] } { [100] : parent(0x1f88ca0), 0x1f88ce0] }
+current_level = 3  { [10, 20] : parent(0x1b33120), 0x1b33640] } { [33] : parent(0x1b33120), 0x1b33680] } { [35] : parent(0x1b31ef0), 0x1b31c60] } { [37] : parent(0x1b31ef0), 0x1b332a0] } { [39, 40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ca0), 0x1b331a0] } { [80] : parent(0x1b31ca0), 0x1b33260] } { [100] : parent(0x1b31ca0), 0x1b31ce0] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -11366,11 +11366,11 @@ current_level = 3 [10, 20], [33], [35], [37], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 50] : parent(0), 0x1f8a600] }
+current_level = 1    { [34, 50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30] : parent(0x1f8a600), 0x1f8a120] } { [36, 38] : parent(0x1f8a600), 0x1f88ef0] } { [70, 90] : parent(0x1f8a600), 0x1f88ca0] }
+current_level = 2   { [30] : parent(0x1b33600), 0x1b33120] } { [36, 38] : parent(0x1b33600), 0x1b31ef0] } { [70, 90] : parent(0x1b33600), 0x1b31ca0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a120), 0x1f8a640] } { [33] : parent(0x1f8a120), 0x1f8a680] } { [35] : parent(0x1f88ef0), 0x1f88c60] } { [37] : parent(0x1f88ef0), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ca0), 0x1f8a1a0] } { [80] : parent(0x1f88ca0), 0x1f8a260] } { [100] : parent(0x1f88ca0), 0x1f88ce0] }
+current_level = 3  { [10, 20] : parent(0x1b33120), 0x1b33640] } { [33] : parent(0x1b33120), 0x1b33680] } { [35] : parent(0x1b31ef0), 0x1b31c60] } { [37] : parent(0x1b31ef0), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ca0), 0x1b331a0] } { [80] : parent(0x1b31ca0), 0x1b33260] } { [100] : parent(0x1b31ca0), 0x1b31ce0] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 40 50 60 70 80 90 100 
@@ -11388,11 +11388,11 @@ current_level = 3 [10, 20], [33], [36, 37], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [35, 50] : parent(0), 0x1f8a600] }
+current_level = 1    { [35, 50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30] : parent(0x1f8a600), 0x1f8a120] } { [38] : parent(0x1f8a600), 0x1f88ef0] } { [70, 90] : parent(0x1f8a600), 0x1f88ca0] }
+current_level = 2   { [30] : parent(0x1b33600), 0x1b33120] } { [38] : parent(0x1b33600), 0x1b31ef0] } { [70, 90] : parent(0x1b33600), 0x1b31ca0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a120), 0x1f8a640] } { [33] : parent(0x1f8a120), 0x1f8a680] } { [36, 37] : parent(0x1f88ef0), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ca0), 0x1f8a1a0] } { [80] : parent(0x1f88ca0), 0x1f8a260] } { [100] : parent(0x1f88ca0), 0x1f88ce0] }
+current_level = 3  { [10, 20] : parent(0x1b33120), 0x1b33640] } { [33] : parent(0x1b33120), 0x1b33680] } { [36, 37] : parent(0x1b31ef0), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ca0), 0x1b331a0] } { [80] : parent(0x1b31ca0), 0x1b33260] } { [100] : parent(0x1b31ca0), 0x1b31ce0] }
 
 
 In order print of tree: 10 20 30 33 35 36 37 38 40 50 60 70 80 90 100 
@@ -11410,11 +11410,11 @@ current_level = 3 [10], [33], [36, 37], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [35, 50] : parent(0), 0x1f8a600] }
+current_level = 1    { [35, 50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [30] : parent(0x1f8a600), 0x1f8a120] } { [38] : parent(0x1f8a600), 0x1f88ef0] } { [70, 90] : parent(0x1f8a600), 0x1f88ca0] }
+current_level = 2   { [30] : parent(0x1b33600), 0x1b33120] } { [38] : parent(0x1b33600), 0x1b31ef0] } { [70, 90] : parent(0x1b33600), 0x1b31ca0] }
 
-current_level = 3  { [10] : parent(0x1f8a120), 0x1f8a640] } { [33] : parent(0x1f8a120), 0x1f8a680] } { [36, 37] : parent(0x1f88ef0), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ca0), 0x1f8a1a0] } { [80] : parent(0x1f88ca0), 0x1f8a260] } { [100] : parent(0x1f88ca0), 0x1f88ce0] }
+current_level = 3  { [10] : parent(0x1b33120), 0x1b33640] } { [33] : parent(0x1b33120), 0x1b33680] } { [36, 37] : parent(0x1b31ef0), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ca0), 0x1b331a0] } { [80] : parent(0x1b31ca0), 0x1b33260] } { [100] : parent(0x1b31ca0), 0x1b31ce0] }
 
 
 In order print of tree: 10 30 33 35 36 37 38 40 50 60 70 80 90 100 
@@ -11432,11 +11432,11 @@ current_level = 3 [30, 33], [36, 37], [40], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [38, 70] : parent(0), 0x1f8a600] }
+current_level = 1    { [38, 70] : parent(0), 0x1b33600] }
 
-current_level = 2   { [35] : parent(0x1f8a600), 0x1f8a120] } { [50] : parent(0x1f8a600), 0x1f88ef0] } { [90] : parent(0x1f8a600), 0x1f88ca0] }
+current_level = 2   { [35] : parent(0x1b33600), 0x1b33120] } { [50] : parent(0x1b33600), 0x1b31ef0] } { [90] : parent(0x1b33600), 0x1b31ca0] }
 
-current_level = 3  { [30, 33] : parent(0x1f8a120), 0x1f8a680] } { [36, 37] : parent(0x1f8a120), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80] : parent(0x1f88ca0), 0x1f8a260] } { [100] : parent(0x1f88ca0), 0x1f88ce0] }
+current_level = 3  { [30, 33] : parent(0x1b33120), 0x1b33680] } { [36, 37] : parent(0x1b33120), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80] : parent(0x1b31ca0), 0x1b33260] } { [100] : parent(0x1b31ca0), 0x1b31ce0] }
 
 
 In order print of tree: 30 33 35 36 37 38 40 50 60 70 80 90 100 
@@ -11454,11 +11454,11 @@ current_level = 3 [30, 33], [36, 37], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [38] : parent(0), 0x1f8a600] }
+current_level = 1    { [38] : parent(0), 0x1b33600] }
 
-current_level = 2   { [35] : parent(0x1f8a600), 0x1f8a120] } { [50, 70] : parent(0x1f8a600), 0x1f88ef0] }
+current_level = 2   { [35] : parent(0x1b33600), 0x1b33120] } { [50, 70] : parent(0x1b33600), 0x1b31ef0] }
 
-current_level = 3  { [30, 33] : parent(0x1f8a120), 0x1f8a680] } { [36, 37] : parent(0x1f8a120), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 3  { [30, 33] : parent(0x1b33120), 0x1b33680] } { [36, 37] : parent(0x1b33120), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 30 33 35 36 37 38 40 50 60 70 80 100 
@@ -11476,11 +11476,11 @@ current_level = 3 [30, 33], [36], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [38] : parent(0), 0x1f8a600] }
+current_level = 1    { [38] : parent(0), 0x1b33600] }
 
-current_level = 2   { [35] : parent(0x1f8a600), 0x1f8a120] } { [50, 70] : parent(0x1f8a600), 0x1f88ef0] }
+current_level = 2   { [35] : parent(0x1b33600), 0x1b33120] } { [50, 70] : parent(0x1b33600), 0x1b31ef0] }
 
-current_level = 3  { [30, 33] : parent(0x1f8a120), 0x1f8a680] } { [36] : parent(0x1f8a120), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 3  { [30, 33] : parent(0x1b33120), 0x1b33680] } { [36] : parent(0x1b33120), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 30 33 35 36 38 40 50 60 70 80 100 
@@ -11498,11 +11498,11 @@ current_level = 3 [30], [36], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [38] : parent(0), 0x1f8a600] }
+current_level = 1    { [38] : parent(0), 0x1b33600] }
 
-current_level = 2   { [35] : parent(0x1f8a600), 0x1f8a120] } { [50, 70] : parent(0x1f8a600), 0x1f88ef0] }
+current_level = 2   { [35] : parent(0x1b33600), 0x1b33120] } { [50, 70] : parent(0x1b33600), 0x1b31ef0] }
 
-current_level = 3  { [30] : parent(0x1f8a120), 0x1f8a680] } { [36] : parent(0x1f8a120), 0x1f8a2a0] } { [40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 3  { [30] : parent(0x1b33120), 0x1b33680] } { [36] : parent(0x1b33120), 0x1b332a0] } { [40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 30 35 36 38 40 50 60 70 80 100 
@@ -11520,11 +11520,11 @@ current_level = 3 [30, 35], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a600] }
+current_level = 1    { [50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [38] : parent(0x1f8a600), 0x1f8a120] } { [70] : parent(0x1f8a600), 0x1f88ef0] }
+current_level = 2   { [38] : parent(0x1b33600), 0x1b33120] } { [70] : parent(0x1b33600), 0x1b31ef0] }
 
-current_level = 3  { [30, 35] : parent(0x1f8a120), 0x1f8a680] } { [40] : parent(0x1f8a120), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 3  { [30, 35] : parent(0x1b33120), 0x1b33680] } { [40] : parent(0x1b33120), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 30 35 38 40 50 60 70 80 100 
@@ -11542,11 +11542,11 @@ current_level = 3 [30], [40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f8a600] }
+current_level = 1    { [50] : parent(0), 0x1b33600] }
 
-current_level = 2   { [35] : parent(0x1f8a600), 0x1f8a120] } { [70] : parent(0x1f8a600), 0x1f88ef0] }
+current_level = 2   { [35] : parent(0x1b33600), 0x1b33120] } { [70] : parent(0x1b33600), 0x1b31ef0] }
 
-current_level = 3  { [30] : parent(0x1f8a120), 0x1f8a680] } { [40] : parent(0x1f8a120), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 3  { [30] : parent(0x1b33120), 0x1b33680] } { [40] : parent(0x1b33120), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 30 35 40 50 60 70 80 100 
@@ -11562,9 +11562,9 @@ current_level = 2 [35, 40], [60], [80, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50, 70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [35, 40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80, 100] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 2  { [35, 40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80, 100] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 35 40 50 60 70 80 100 
@@ -11580,9 +11580,9 @@ current_level = 2 [35, 40], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50, 70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [35, 40] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 2  { [35, 40] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 35 40 50 60 70 80 
@@ -11598,9 +11598,9 @@ current_level = 2 [35], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 70] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50, 70] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [35] : parent(0x1f88ef0), 0x1f8a160] } { [60] : parent(0x1f88ef0), 0x1f8a1a0] } { [80] : parent(0x1f88ef0), 0x1f8a260] }
+current_level = 2  { [35] : parent(0x1b31ef0), 0x1b33160] } { [60] : parent(0x1b31ef0), 0x1b331a0] } { [80] : parent(0x1b31ef0), 0x1b33260] }
 
 
 In order print of tree: 35 50 60 70 80 
@@ -11616,9 +11616,9 @@ current_level = 2 [35], [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [35] : parent(0x1f88ef0), 0x1f8a160] } { [60, 80] : parent(0x1f88ef0), 0x1f8a1a0] }
+current_level = 2  { [35] : parent(0x1b31ef0), 0x1b33160] } { [60, 80] : parent(0x1b31ef0), 0x1b331a0] }
 
 
 In order print of tree: 35 50 60 80 
@@ -11634,9 +11634,9 @@ current_level = 2 [35], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f88ef0] }
+current_level = 1   { [50] : parent(0), 0x1b31ef0] }
 
-current_level = 2  { [35] : parent(0x1f88ef0), 0x1f8a160] } { [80] : parent(0x1f88ef0), 0x1f8a1a0] }
+current_level = 2  { [35] : parent(0x1b31ef0), 0x1b33160] } { [80] : parent(0x1b31ef0), 0x1b331a0] }
 
 
 In order print of tree: 35 50 80 
@@ -11650,7 +11650,7 @@ current_level = 1 [50, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [50, 80] : parent(0), 0x1f8a1a0] }
+current_level = 1  { [50, 80] : parent(0), 0x1b331a0] }
 
 
 In order print of tree: 50 80 
@@ -11664,7 +11664,7 @@ current_level = 1 [80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [80] : parent(0), 0x1f8a1a0] }
+current_level = 1  { [80] : parent(0), 0x1b331a0] }
 
 
 In order print of tree: 80 
@@ -11741,13 +11741,13 @@ current_level = 4 [10, 15], [30, 33], [35], [37], [39], [50], [65, 69], [80, 85]
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [36, 38] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [89, 125] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [36, 38] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [89, 125] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [35] : parent(0x1f88c20), 0x1f88ef0] } { [37] : parent(0x1f88c20), 0x1f88c60] } { [39] : parent(0x1f88c20), 0x1f8a730] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 85] : parent(0x1f8a370), 0x1f8a160] } { [90, 100] : parent(0x1f8a370), 0x1f8a260] } { [150] : parent(0x1f8a370), 0x1f8a330] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [35] : parent(0x1b31c20), 0x1b31ef0] } { [37] : parent(0x1b31c20), 0x1b31c60] } { [39] : parent(0x1b31c20), 0x1b33730] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 85] : parent(0x1b33370), 0x1b33160] } { [90, 100] : parent(0x1b33370), 0x1b33260] } { [150] : parent(0x1b33370), 0x1b33330] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -11767,13 +11767,13 @@ current_level = 4 [10, 15], [30, 33], [35], [37], [39], [50], [65, 69], [80, 85]
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [36, 38] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [89, 125] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [36, 38] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [89, 125] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [35] : parent(0x1f88c20), 0x1f88ef0] } { [37] : parent(0x1f88c20), 0x1f88c60] } { [39] : parent(0x1f88c20), 0x1f8a730] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 85] : parent(0x1f8a370), 0x1f8a160] } { [100] : parent(0x1f8a370), 0x1f8a260] } { [150] : parent(0x1f8a370), 0x1f8a330] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [35] : parent(0x1b31c20), 0x1b31ef0] } { [37] : parent(0x1b31c20), 0x1b31c60] } { [39] : parent(0x1b31c20), 0x1b33730] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 85] : parent(0x1b33370), 0x1b33160] } { [100] : parent(0x1b33370), 0x1b33260] } { [150] : parent(0x1b33370), 0x1b33330] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 100 125 150 
@@ -11793,13 +11793,13 @@ current_level = 4 [10, 15], [30, 33], [35], [37, 39], [50], [65, 69], [80, 85], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [36] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [89, 125] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [36] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [89, 125] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [35] : parent(0x1f88c20), 0x1f88ef0] } { [37, 39] : parent(0x1f88c20), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 85] : parent(0x1f8a370), 0x1f8a160] } { [100] : parent(0x1f8a370), 0x1f8a260] } { [150] : parent(0x1f8a370), 0x1f8a330] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [35] : parent(0x1b31c20), 0x1b31ef0] } { [37, 39] : parent(0x1b31c20), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 85] : parent(0x1b33370), 0x1b33160] } { [100] : parent(0x1b33370), 0x1b33260] } { [150] : parent(0x1b33370), 0x1b33330] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 40 50 60 65 69 70 80 85 89 100 125 150 
@@ -11819,13 +11819,13 @@ current_level = 4 [10, 15], [30, 33], [35], [37, 39], [50], [65, 69], [80], [100
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [36] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85, 125] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [36] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85, 125] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [35] : parent(0x1f88c20), 0x1f88ef0] } { [37, 39] : parent(0x1f88c20), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100] : parent(0x1f8a370), 0x1f8a260] } { [150] : parent(0x1f8a370), 0x1f8a330] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [35] : parent(0x1b31c20), 0x1b31ef0] } { [37, 39] : parent(0x1b31c20), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100] : parent(0x1b33370), 0x1b33260] } { [150] : parent(0x1b33370), 0x1b33330] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 40 50 60 65 69 70 80 85 100 125 150 
@@ -11845,13 +11845,13 @@ current_level = 4 [10, 15], [30, 33], [35], [37, 39], [50], [65, 69], [80], [100
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [36] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [36] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [35] : parent(0x1f88c20), 0x1f88ef0] } { [37, 39] : parent(0x1f88c20), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100, 125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [35] : parent(0x1b31c20), 0x1b31ef0] } { [37, 39] : parent(0x1b31c20), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100, 125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 39 40 50 60 65 69 70 80 85 100 125 
@@ -11871,13 +11871,13 @@ current_level = 4 [10, 15], [30, 33], [36], [39], [50], [65, 69], [80], [100, 12
 Level order debug print of tree: 
 
 
-current_level = 1     { [40] : parent(0), 0x1f8a6f0] }
+current_level = 1     { [40] : parent(0), 0x1b336f0] }
 
-current_level = 2    { [34] : parent(0x1f8a6f0), 0x1f8a1e0] } { [70] : parent(0x1f8a6f0), 0x1f8a6b0] }
+current_level = 2    { [34] : parent(0x1b336f0), 0x1b331e0] } { [70] : parent(0x1b336f0), 0x1b336b0] }
 
-current_level = 3   { [20] : parent(0x1f8a1e0), 0x1f8a120] } { [37] : parent(0x1f8a1e0), 0x1f88c20] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 3   { [20] : parent(0x1b331e0), 0x1b33120] } { [37] : parent(0x1b331e0), 0x1b31c20] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 4  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [36] : parent(0x1f88c20), 0x1f88ef0] } { [39] : parent(0x1f88c20), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100, 125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 4  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [36] : parent(0x1b31c20), 0x1b31ef0] } { [39] : parent(0x1b31c20), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100, 125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 10 15 20 30 33 34 36 37 39 40 50 60 65 69 70 80 85 100 125 
@@ -11895,11 +11895,11 @@ current_level = 3 [10, 15], [30, 33], [37, 39], [50], [65, 69], [80], [100, 125]
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 34] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [10, 15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [37, 39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100, 125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [10, 15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [37, 39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100, 125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 10 15 20 30 33 34 37 39 40 50 60 65 69 70 80 85 100 125 
@@ -11917,11 +11917,11 @@ current_level = 3 [15], [30, 33], [37, 39], [50], [65, 69], [80], [100, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 34] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [37, 39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100, 125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [37, 39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100, 125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 30 33 34 37 39 40 50 60 65 69 70 80 85 100 125 
@@ -11939,11 +11939,11 @@ current_level = 3 [15], [30, 33], [39], [50], [65, 69], [80], [100, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 37] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 37] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [100, 125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [100, 125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 30 33 37 39 40 50 60 65 69 70 80 85 100 125 
@@ -11961,11 +11961,11 @@ current_level = 3 [15], [30, 33], [39], [50], [65, 69], [80], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 37] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 37] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [30, 33] : parent(0x1f8a120), 0x1f8a2a0] } { [39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [30, 33] : parent(0x1b33120), 0x1b332a0] } { [39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 30 33 37 39 40 50 60 65 69 70 80 85 125 
@@ -11983,11 +11983,11 @@ current_level = 3 [15], [33], [39], [50], [65, 69], [80], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 37] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 37] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [65, 69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [33] : parent(0x1b33120), 0x1b332a0] } { [39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [65, 69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 33 37 39 40 50 60 65 69 70 80 85 125 
@@ -12005,11 +12005,11 @@ current_level = 3 [15], [33], [39], [50], [69], [80], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20, 37] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20, 37] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [39] : parent(0x1f8a120), 0x1f88c60] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [33] : parent(0x1b33120), 0x1b332a0] } { [39] : parent(0x1b33120), 0x1b31c60] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 33 37 39 40 50 60 69 70 80 85 125 
@@ -12027,11 +12027,11 @@ current_level = 3 [15], [33, 39], [50], [69], [80], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 70] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40, 70] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20] : parent(0x1f8a6b0), 0x1f8a120] } { [60] : parent(0x1f8a6b0), 0x1f88ce0] } { [85] : parent(0x1f8a6b0), 0x1f8a370] }
+current_level = 2   { [20] : parent(0x1b336b0), 0x1b33120] } { [60] : parent(0x1b336b0), 0x1b31ce0] } { [85] : parent(0x1b336b0), 0x1b33370] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [33, 39] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80] : parent(0x1f8a370), 0x1f8a160] } { [125] : parent(0x1f8a370), 0x1f8a260] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [33, 39] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80] : parent(0x1b33370), 0x1b33160] } { [125] : parent(0x1b33370), 0x1b33260] }
 
 
 In order print of tree: 15 20 33 39 40 50 60 69 70 80 85 125 
@@ -12049,11 +12049,11 @@ current_level = 3 [15], [33, 39], [50], [69], [80, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [20] : parent(0x1f8a6b0), 0x1f8a120] } { [60, 70] : parent(0x1f8a6b0), 0x1f88ce0] }
+current_level = 2   { [20] : parent(0x1b336b0), 0x1b33120] } { [60, 70] : parent(0x1b336b0), 0x1b31ce0] }
 
-current_level = 3  { [15] : parent(0x1f8a120), 0x1f8a1a0] } { [33, 39] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 125] : parent(0x1f88ce0), 0x1f8a160] }
+current_level = 3  { [15] : parent(0x1b33120), 0x1b331a0] } { [33, 39] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 125] : parent(0x1b31ce0), 0x1b33160] }
 
 
 In order print of tree: 15 20 33 39 40 50 60 69 70 80 125 
@@ -12071,11 +12071,11 @@ current_level = 3 [20], [39], [50], [69], [80, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [40] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [33] : parent(0x1f8a6b0), 0x1f8a120] } { [60, 70] : parent(0x1f8a6b0), 0x1f88ce0] }
+current_level = 2   { [33] : parent(0x1b336b0), 0x1b33120] } { [60, 70] : parent(0x1b336b0), 0x1b31ce0] }
 
-current_level = 3  { [20] : parent(0x1f8a120), 0x1f8a1a0] } { [39] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f88ce0), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 125] : parent(0x1f88ce0), 0x1f8a160] }
+current_level = 3  { [20] : parent(0x1b33120), 0x1b331a0] } { [39] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b31ce0), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 125] : parent(0x1b31ce0), 0x1b33160] }
 
 
 In order print of tree: 20 33 39 40 50 60 69 70 80 125 
@@ -12093,11 +12093,11 @@ current_level = 3 [33, 39], [50], [69], [80, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [60] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [40] : parent(0x1f8a6b0), 0x1f8a120] } { [70] : parent(0x1f8a6b0), 0x1f88ce0] }
+current_level = 2   { [40] : parent(0x1b336b0), 0x1b33120] } { [70] : parent(0x1b336b0), 0x1b31ce0] }
 
-current_level = 3  { [33, 39] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f8a120), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 125] : parent(0x1f88ce0), 0x1f8a160] }
+current_level = 3  { [33, 39] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b33120), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 125] : parent(0x1b31ce0), 0x1b33160] }
 
 
 In order print of tree: 33 39 40 50 60 69 70 80 125 
@@ -12115,11 +12115,11 @@ current_level = 3 [33], [50], [69], [80, 125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [60] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [40] : parent(0x1f8a6b0), 0x1f8a120] } { [70] : parent(0x1f8a6b0), 0x1f88ce0] }
+current_level = 2   { [40] : parent(0x1b336b0), 0x1b33120] } { [70] : parent(0x1b336b0), 0x1b31ce0] }
 
-current_level = 3  { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f8a120), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [80, 125] : parent(0x1f88ce0), 0x1f8a160] }
+current_level = 3  { [33] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b33120), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [80, 125] : parent(0x1b31ce0), 0x1b33160] }
 
 
 In order print of tree: 33 40 50 60 69 70 80 125 
@@ -12137,11 +12137,11 @@ current_level = 3 [33], [50], [69], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a6b0] }
+current_level = 1    { [60] : parent(0), 0x1b336b0] }
 
-current_level = 2   { [40] : parent(0x1f8a6b0), 0x1f8a120] } { [70] : parent(0x1f8a6b0), 0x1f88ce0] }
+current_level = 2   { [40] : parent(0x1b336b0), 0x1b33120] } { [70] : parent(0x1b336b0), 0x1b31ce0] }
 
-current_level = 3  { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f8a120), 0x1f8a220] } { [69] : parent(0x1f88ce0), 0x1f88ca0] } { [125] : parent(0x1f88ce0), 0x1f8a160] }
+current_level = 3  { [33] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b33120), 0x1b33220] } { [69] : parent(0x1b31ce0), 0x1b31ca0] } { [125] : parent(0x1b31ce0), 0x1b33160] }
 
 
 In order print of tree: 33 40 50 60 69 70 125 
@@ -12157,9 +12157,9 @@ current_level = 2 [33], [50], [69, 125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a120] }
+current_level = 1   { [40, 60] : parent(0), 0x1b33120] }
 
-current_level = 2  { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [50] : parent(0x1f8a120), 0x1f8a220] } { [69, 125] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2  { [33] : parent(0x1b33120), 0x1b332a0] } { [50] : parent(0x1b33120), 0x1b33220] } { [69, 125] : parent(0x1b33120), 0x1b31ca0] }
 
 
 In order print of tree: 33 40 50 60 69 125 
@@ -12175,9 +12175,9 @@ current_level = 2 [33], [60], [125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 69] : parent(0), 0x1f8a120] }
+current_level = 1   { [50, 69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [33] : parent(0x1f8a120), 0x1f8a2a0] } { [60] : parent(0x1f8a120), 0x1f8a220] } { [125] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2  { [33] : parent(0x1b33120), 0x1b332a0] } { [60] : parent(0x1b33120), 0x1b33220] } { [125] : parent(0x1b33120), 0x1b31ca0] }
 
 
 In order print of tree: 33 50 60 69 125 
@@ -12193,9 +12193,9 @@ current_level = 2 [50, 60], [125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [69] : parent(0), 0x1f8a120] }
+current_level = 1   { [69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [50, 60] : parent(0x1f8a120), 0x1f8a220] } { [125] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2  { [50, 60] : parent(0x1b33120), 0x1b33220] } { [125] : parent(0x1b33120), 0x1b31ca0] }
 
 
 In order print of tree: 50 60 69 125 
@@ -12211,9 +12211,9 @@ current_level = 2 [60], [125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [69] : parent(0), 0x1f8a120] }
+current_level = 1   { [69] : parent(0), 0x1b33120] }
 
-current_level = 2  { [60] : parent(0x1f8a120), 0x1f8a220] } { [125] : parent(0x1f8a120), 0x1f88ca0] }
+current_level = 2  { [60] : parent(0x1b33120), 0x1b33220] } { [125] : parent(0x1b33120), 0x1b31ca0] }
 
 
 In order print of tree: 60 69 125 
@@ -12227,7 +12227,7 @@ current_level = 1 [69, 125],
 Level order debug print of tree: 
 
 
-current_level = 1  { [69, 125] : parent(0), 0x1f88ca0] }
+current_level = 1  { [69, 125] : parent(0), 0x1b31ca0] }
 
 
 In order print of tree: 69 125 
@@ -12241,7 +12241,7 @@ current_level = 1 [125],
 Level order debug print of tree: 
 
 
-current_level = 1  { [125] : parent(0), 0x1f88ca0] }
+current_level = 1  { [125] : parent(0), 0x1b31ca0] }
 
 
 In order print of tree: 125 
@@ -12626,11 +12626,11 @@ current_level = 3 [10, 15], [30], [40], [60, 70], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [39] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [20] : parent(0x1f8a3f0), 0x1f88ce0] } { [50, 80] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b333f0), 0x1b31ce0] } { [50, 80] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a770] } { [30] : parent(0x1f88ce0), 0x1f8a5f0] } { [40] : parent(0x1f8a470), 0x1f8a430] } { [60, 70] : parent(0x1f8a470), 0x1f88ef0] } { [90, 100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33770] } { [30] : parent(0x1b31ce0), 0x1b335f0] } { [40] : parent(0x1b33470), 0x1b33430] } { [60, 70] : parent(0x1b33470), 0x1b31ef0] } { [90, 100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 15 20 30 39 40 50 60 70 80 90 100 
@@ -12648,11 +12648,11 @@ current_level = 3 [10, 15], [30], [50], [60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [40] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [20] : parent(0x1f8a3f0), 0x1f88ce0] } { [60, 80] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b333f0), 0x1b31ce0] } { [60, 80] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a770] } { [30] : parent(0x1f88ce0), 0x1f8a5f0] } { [50] : parent(0x1f8a470), 0x1f8a430] } { [60] : parent(0x1f8a470), 0x1f88ef0] } { [90, 100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33770] } { [30] : parent(0x1b31ce0), 0x1b335f0] } { [50] : parent(0x1b33470), 0x1b33430] } { [60] : parent(0x1b33470), 0x1b31ef0] } { [90, 100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 15 20 30 40 50 60 60 80 90 100 
@@ -12670,11 +12670,11 @@ current_level = 3 [10, 15], [30], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [40] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [20] : parent(0x1f8a3f0), 0x1f88ce0] } { [60, 90] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b333f0), 0x1b31ce0] } { [60, 90] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a770] } { [30] : parent(0x1f88ce0), 0x1f8a5f0] } { [60] : parent(0x1f8a470), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f88ef0] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33770] } { [30] : parent(0x1b31ce0), 0x1b335f0] } { [60] : parent(0x1b33470), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b31ef0] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 15 20 30 40 60 60 80 90 100 
@@ -12692,11 +12692,11 @@ current_level = 3 [10], [30], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [40] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [15] : parent(0x1f8a3f0), 0x1f88ce0] } { [60, 90] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [15] : parent(0x1b333f0), 0x1b31ce0] } { [60, 90] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f88ce0), 0x1f8a770] } { [30] : parent(0x1f88ce0), 0x1f8a5f0] } { [60] : parent(0x1f8a470), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f88ef0] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b31ce0), 0x1b33770] } { [30] : parent(0x1b31ce0), 0x1b335f0] } { [60] : parent(0x1b33470), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b31ef0] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 15 30 40 60 60 80 90 100 
@@ -12714,11 +12714,11 @@ current_level = 3 [10, 30], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [60] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [40] : parent(0x1f8a3f0), 0x1f88ce0] } { [90] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b333f0), 0x1b31ce0] } { [90] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [10, 30] : parent(0x1f88ce0), 0x1f8a770] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f88ef0] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10, 30] : parent(0x1b31ce0), 0x1b33770] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b31ef0] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 30 40 60 60 80 90 100 
@@ -12736,11 +12736,11 @@ current_level = 3 [30], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f8a3f0] }
+current_level = 1    { [60] : parent(0), 0x1b333f0] }
 
-current_level = 2   { [40] : parent(0x1f8a3f0), 0x1f88ce0] } { [90] : parent(0x1f8a3f0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b333f0), 0x1b31ce0] } { [90] : parent(0x1b333f0), 0x1b33470] }
 
-current_level = 3  { [30] : parent(0x1f88ce0), 0x1f8a770] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f88ef0] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [30] : parent(0x1b31ce0), 0x1b33770] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b31ef0] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 30 40 60 60 80 90 100 
@@ -12756,9 +12756,9 @@ current_level = 2 [30], [60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 80] : parent(0), 0x1f88ce0] }
+current_level = 1   { [40, 80] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [30] : parent(0x1f88ce0), 0x1f8a770] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [90, 100] : parent(0x1f88ce0), 0x1f8a590] }
+current_level = 2  { [30] : parent(0x1b31ce0), 0x1b33770] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [90, 100] : parent(0x1b31ce0), 0x1b33590] }
 
 
 In order print of tree: 30 40 60 80 90 100 
@@ -12774,9 +12774,9 @@ current_level = 2 [30], [60], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 90] : parent(0), 0x1f88ce0] }
+current_level = 1   { [40, 90] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [30] : parent(0x1f88ce0), 0x1f8a770] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [100] : parent(0x1f88ce0), 0x1f8a590] }
+current_level = 2  { [30] : parent(0x1b31ce0), 0x1b33770] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [100] : parent(0x1b31ce0), 0x1b33590] }
 
 
 In order print of tree: 30 40 60 90 100 
@@ -12792,9 +12792,9 @@ current_level = 2 [30, 60], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [90] : parent(0), 0x1f88ce0] }
+current_level = 1   { [90] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [30, 60] : parent(0x1f88ce0), 0x1f8a770] } { [100] : parent(0x1f88ce0), 0x1f8a590] }
+current_level = 2  { [30, 60] : parent(0x1b31ce0), 0x1b33770] } { [100] : parent(0x1b31ce0), 0x1b33590] }
 
 
 In order print of tree: 30 60 90 100 
@@ -12810,9 +12810,9 @@ current_level = 2 [30], [100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60] : parent(0), 0x1f88ce0] }
+current_level = 1   { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2  { [30] : parent(0x1f88ce0), 0x1f8a770] } { [100] : parent(0x1f88ce0), 0x1f8a590] }
+current_level = 2  { [30] : parent(0x1b31ce0), 0x1b33770] } { [100] : parent(0x1b31ce0), 0x1b33590] }
 
 
 In order print of tree: 30 60 100 
@@ -12826,7 +12826,7 @@ current_level = 1 [30, 60],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 60] : parent(0), 0x1f8a770] }
+current_level = 1  { [30, 60] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 30 60 
@@ -12840,7 +12840,7 @@ current_level = 1 [60],
 Level order debug print of tree: 
 
 
-current_level = 1  { [60] : parent(0), 0x1f8a770] }
+current_level = 1  { [60] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 60 
@@ -12854,7 +12854,7 @@ current_level = 1 [60],
 Level order debug print of tree: 
 
 
-current_level = 1  { [60] : parent(0), 0x1f8a770] }
+current_level = 1  { [60] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 60 
@@ -12905,11 +12905,11 @@ current_level = 3 [10, 20], [39], [50], [70], [85, 89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 80] : parent(0), 0x1f8a470] }
+current_level = 1    { [40, 80] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f88ce0] } { [60] : parent(0x1f8a470), 0x1f8a3f0] } { [90] : parent(0x1f8a470), 0x1f8a7f0] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b31ce0] } { [60] : parent(0x1b33470), 0x1b333f0] } { [90] : parent(0x1b33470), 0x1b337f0] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ce0), 0x1f8a770] } { [39] : parent(0x1f88ce0), 0x1f8a590] } { [50] : parent(0x1f8a3f0), 0x1f8a430] } { [70] : parent(0x1f8a3f0), 0x1f8a5f0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88f30] } { [100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 3  { [10, 20] : parent(0x1b31ce0), 0x1b33770] } { [39] : parent(0x1b31ce0), 0x1b33590] } { [50] : parent(0x1b333f0), 0x1b33430] } { [70] : parent(0x1b333f0), 0x1b335f0] } { [85, 89] : parent(0x1b337f0), 0x1b31f30] } { [100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -12927,11 +12927,11 @@ current_level = 3 [20], [39], [50], [70], [85, 89], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 80] : parent(0), 0x1f8a470] }
+current_level = 1    { [40, 80] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f88ce0] } { [60] : parent(0x1f8a470), 0x1f8a3f0] } { [90] : parent(0x1f8a470), 0x1f8a7f0] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b31ce0] } { [60] : parent(0x1b33470), 0x1b333f0] } { [90] : parent(0x1b33470), 0x1b337f0] }
 
-current_level = 3  { [20] : parent(0x1f88ce0), 0x1f8a770] } { [39] : parent(0x1f88ce0), 0x1f8a590] } { [50] : parent(0x1f8a3f0), 0x1f8a430] } { [70] : parent(0x1f8a3f0), 0x1f8a5f0] } { [85, 89] : parent(0x1f8a7f0), 0x1f88f30] } { [100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 3  { [20] : parent(0x1b31ce0), 0x1b33770] } { [39] : parent(0x1b31ce0), 0x1b33590] } { [50] : parent(0x1b333f0), 0x1b33430] } { [70] : parent(0x1b333f0), 0x1b335f0] } { [85, 89] : parent(0x1b337f0), 0x1b31f30] } { [100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 60 70 80 85 89 90 100 
@@ -12949,11 +12949,11 @@ current_level = 3 [20], [39], [50], [70], [85], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 80] : parent(0), 0x1f8a470] }
+current_level = 1    { [40, 80] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f88ce0] } { [60] : parent(0x1f8a470), 0x1f8a3f0] } { [90] : parent(0x1f8a470), 0x1f8a7f0] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b31ce0] } { [60] : parent(0x1b33470), 0x1b333f0] } { [90] : parent(0x1b33470), 0x1b337f0] }
 
-current_level = 3  { [20] : parent(0x1f88ce0), 0x1f8a770] } { [39] : parent(0x1f88ce0), 0x1f8a590] } { [50] : parent(0x1f8a3f0), 0x1f8a430] } { [70] : parent(0x1f8a3f0), 0x1f8a5f0] } { [85] : parent(0x1f8a7f0), 0x1f88f30] } { [100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 3  { [20] : parent(0x1b31ce0), 0x1b33770] } { [39] : parent(0x1b31ce0), 0x1b33590] } { [50] : parent(0x1b333f0), 0x1b33430] } { [70] : parent(0x1b333f0), 0x1b335f0] } { [85] : parent(0x1b337f0), 0x1b31f30] } { [100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 60 70 80 85 90 100 
@@ -12971,11 +12971,11 @@ current_level = 3 [20], [39], [50, 60], [85], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [80] : parent(0), 0x1f8a470] }
+current_level = 1    { [80] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30, 40] : parent(0x1f8a470), 0x1f88ce0] } { [90] : parent(0x1f8a470), 0x1f8a7f0] }
+current_level = 2   { [30, 40] : parent(0x1b33470), 0x1b31ce0] } { [90] : parent(0x1b33470), 0x1b337f0] }
 
-current_level = 3  { [20] : parent(0x1f88ce0), 0x1f8a770] } { [39] : parent(0x1f88ce0), 0x1f8a590] } { [50, 60] : parent(0x1f88ce0), 0x1f8a430] } { [85] : parent(0x1f8a7f0), 0x1f88f30] } { [100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 3  { [20] : parent(0x1b31ce0), 0x1b33770] } { [39] : parent(0x1b31ce0), 0x1b33590] } { [50, 60] : parent(0x1b31ce0), 0x1b33430] } { [85] : parent(0x1b337f0), 0x1b31f30] } { [100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 60 80 85 90 100 
@@ -12993,11 +12993,11 @@ current_level = 3 [20], [39], [50, 60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f88ce0] } { [80] : parent(0x1f8a470), 0x1f8a7f0] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b31ce0] } { [80] : parent(0x1b33470), 0x1b337f0] }
 
-current_level = 3  { [20] : parent(0x1f88ce0), 0x1f8a770] } { [39] : parent(0x1f88ce0), 0x1f8a590] } { [50, 60] : parent(0x1f8a7f0), 0x1f8a430] } { [90, 100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 3  { [20] : parent(0x1b31ce0), 0x1b33770] } { [39] : parent(0x1b31ce0), 0x1b33590] } { [50, 60] : parent(0x1b337f0), 0x1b33430] } { [90, 100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 39 40 50 60 80 90 100 
@@ -13013,9 +13013,9 @@ current_level = 2 [20, 30], [50, 60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 80] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 80] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a7f0), 0x1f8a770] } { [50, 60] : parent(0x1f8a7f0), 0x1f8a430] } { [90, 100] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 2  { [20, 30] : parent(0x1b337f0), 0x1b33770] } { [50, 60] : parent(0x1b337f0), 0x1b33430] } { [90, 100] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 40 50 60 80 90 100 
@@ -13031,9 +13031,9 @@ current_level = 2 [20, 30], [50, 60], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 80] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 80] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a7f0), 0x1f8a770] } { [50, 60] : parent(0x1f8a7f0), 0x1f8a430] } { [90] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 2  { [20, 30] : parent(0x1b337f0), 0x1b33770] } { [50, 60] : parent(0x1b337f0), 0x1b33430] } { [90] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 40 50 60 80 90 
@@ -13049,9 +13049,9 @@ current_level = 2 [20, 30], [50], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20, 30] : parent(0x1f8a7f0), 0x1f8a770] } { [50] : parent(0x1f8a7f0), 0x1f8a430] } { [80] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 2  { [20, 30] : parent(0x1b337f0), 0x1b33770] } { [50] : parent(0x1b337f0), 0x1b33430] } { [80] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 20 30 40 50 60 80 
@@ -13067,9 +13067,9 @@ current_level = 2 [30], [50], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f8a770] } { [50] : parent(0x1f8a7f0), 0x1f8a430] } { [80] : parent(0x1f8a7f0), 0x1f88ef0] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b33770] } { [50] : parent(0x1b337f0), 0x1b33430] } { [80] : parent(0x1b337f0), 0x1b31ef0] }
 
 
 In order print of tree: 30 40 50 60 80 
@@ -13085,9 +13085,9 @@ current_level = 2 [30], [50, 60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f8a770] } { [50, 60] : parent(0x1f8a7f0), 0x1f8a430] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b33770] } { [50, 60] : parent(0x1b337f0), 0x1b33430] }
 
 
 In order print of tree: 30 40 50 60 
@@ -13103,9 +13103,9 @@ current_level = 2 [30], [60],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f8a770] } { [60] : parent(0x1f8a7f0), 0x1f8a430] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b33770] } { [60] : parent(0x1b337f0), 0x1b33430] }
 
 
 In order print of tree: 30 40 60 
@@ -13119,7 +13119,7 @@ current_level = 1 [30, 40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 40] : parent(0), 0x1f8a770] }
+current_level = 1  { [30, 40] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 30 40 
@@ -13133,7 +13133,7 @@ current_level = 1 [30],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30] : parent(0), 0x1f8a770] }
+current_level = 1  { [30] : parent(0), 0x1b33770] }
 
 
 In order print of tree: 30 
@@ -13193,11 +13193,11 @@ current_level = 3 [10], [30, 39], [50], [65, 69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [20, 40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70, 90] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [20, 40] : parent(0x1b31ce0), 0x1b337f0] } { [70, 90] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a730] } { [30, 39] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [65, 69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b33730] } { [30, 39] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [65, 69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 65 69 70 80 90 100 
@@ -13215,11 +13215,11 @@ current_level = 3 [20], [30], [50], [65, 69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [30, 40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70, 90] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [30, 40] : parent(0x1b31ce0), 0x1b337f0] } { [70, 90] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [20] : parent(0x1f8a7f0), 0x1f8a730] } { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [65, 69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [20] : parent(0x1b337f0), 0x1b33730] } { [30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [65, 69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 20 30 30 40 50 60 65 69 70 80 90 100 
@@ -13237,11 +13237,11 @@ current_level = 3 [30, 30], [50], [65, 69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70, 90] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70, 90] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30, 30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [65, 69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [30, 30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [65, 69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 30 30 40 50 60 65 69 70 80 90 100 
@@ -13259,11 +13259,11 @@ current_level = 3 [30, 30], [50], [69], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70, 90] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70, 90] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30, 30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] } { [100] : parent(0x1f8a470), 0x1f8a590] }
+current_level = 3  { [30, 30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] } { [100] : parent(0x1b33470), 0x1b33590] }
 
 
 In order print of tree: 30 30 40 50 60 69 70 80 90 100 
@@ -13281,11 +13281,11 @@ current_level = 3 [30, 30], [50], [69], [80, 90],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30, 30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [69] : parent(0x1f8a470), 0x1f8a770] } { [80, 90] : parent(0x1f8a470), 0x1f8a430] }
+current_level = 3  { [30, 30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [69] : parent(0x1b33470), 0x1b33770] } { [80, 90] : parent(0x1b33470), 0x1b33430] }
 
 
 In order print of tree: 30 30 40 50 60 69 70 80 90 
@@ -13303,11 +13303,11 @@ current_level = 3 [30, 30], [50], [69], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30, 30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] }
+current_level = 3  { [30, 30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] }
 
 
 In order print of tree: 30 30 40 50 60 69 70 80 
@@ -13325,11 +13325,11 @@ current_level = 3 [30], [50], [69], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] }
+current_level = 3  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] }
 
 
 In order print of tree: 30 40 50 60 69 70 80 
@@ -13347,11 +13347,11 @@ current_level = 3 [30], [50], [69], [80],
 Level order debug print of tree: 
 
 
-current_level = 1    { [60] : parent(0), 0x1f88ce0] }
+current_level = 1    { [60] : parent(0), 0x1b31ce0] }
 
-current_level = 2   { [40] : parent(0x1f88ce0), 0x1f8a7f0] } { [70] : parent(0x1f88ce0), 0x1f8a470] }
+current_level = 2   { [40] : parent(0x1b31ce0), 0x1b337f0] } { [70] : parent(0x1b31ce0), 0x1b33470] }
 
-current_level = 3  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [69] : parent(0x1f8a470), 0x1f8a770] } { [80] : parent(0x1f8a470), 0x1f8a430] }
+current_level = 3  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [69] : parent(0x1b33470), 0x1b33770] } { [80] : parent(0x1b33470), 0x1b33430] }
 
 
 In order print of tree: 30 40 50 60 69 70 80 
@@ -13367,9 +13367,9 @@ current_level = 2 [30], [50], [70, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 60] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 60] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f88f30] } { [70, 80] : parent(0x1f8a7f0), 0x1f8a430] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b31f30] } { [70, 80] : parent(0x1b337f0), 0x1b33430] }
 
 
 In order print of tree: 30 40 50 60 70 80 
@@ -13385,9 +13385,9 @@ current_level = 2 [30], [60], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40, 70] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [60] : parent(0x1f8a7f0), 0x1f88f30] } { [80] : parent(0x1f8a7f0), 0x1f8a430] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [60] : parent(0x1b337f0), 0x1b31f30] } { [80] : parent(0x1b337f0), 0x1b33430] }
 
 
 In order print of tree: 30 40 60 70 80 
@@ -13403,9 +13403,9 @@ current_level = 2 [30], [60, 80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [60, 80] : parent(0x1f8a7f0), 0x1f88f30] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [60, 80] : parent(0x1b337f0), 0x1b31f30] }
 
 
 In order print of tree: 30 40 60 80 
@@ -13421,9 +13421,9 @@ current_level = 2 [30], [80],
 Level order debug print of tree: 
 
 
-current_level = 1   { [60] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [60] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [30] : parent(0x1f8a7f0), 0x1f88ef0] } { [80] : parent(0x1f8a7f0), 0x1f88f30] }
+current_level = 2  { [30] : parent(0x1b337f0), 0x1b31ef0] } { [80] : parent(0x1b337f0), 0x1b31f30] }
 
 
 In order print of tree: 30 60 80 
@@ -13437,7 +13437,7 @@ current_level = 1 [30, 80],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30, 80] : parent(0), 0x1f88ef0] }
+current_level = 1  { [30, 80] : parent(0), 0x1b31ef0] }
 
 
 In order print of tree: 30 80 
@@ -13451,7 +13451,7 @@ current_level = 1 [30],
 Level order debug print of tree: 
 
 
-current_level = 1  { [30] : parent(0), 0x1f88ef0] }
+current_level = 1  { [30] : parent(0), 0x1b31ef0] }
 
 
 In order print of tree: 30 
@@ -13503,11 +13503,11 @@ current_level = 3 [10, 20], [39], [50], [70, 80], [100], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40, 90] : parent(0), 0x1f8a470] }
+current_level = 1    { [40, 90] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f8a7f0] } { [60] : parent(0x1f8a470), 0x1f8a730] } { [125] : parent(0x1f8a470), 0x1f88ce0] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b337f0] } { [60] : parent(0x1b33470), 0x1b33730] } { [125] : parent(0x1b33470), 0x1b31ce0] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a7f0), 0x1f88ef0] } { [39] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [70, 80] : parent(0x1f8a730), 0x1f8a430] } { [100] : parent(0x1f88ce0), 0x1f8a3f0] } { [150] : parent(0x1f88ce0), 0x1f88f30] }
+current_level = 3  { [10, 20] : parent(0x1b337f0), 0x1b31ef0] } { [39] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [70, 80] : parent(0x1b33730), 0x1b33430] } { [100] : parent(0x1b31ce0), 0x1b333f0] } { [150] : parent(0x1b31ce0), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 100 125 150 
@@ -13525,11 +13525,11 @@ current_level = 3 [10, 20], [39], [50], [70, 80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f8a7f0] } { [60, 90] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b337f0] } { [60, 90] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a7f0), 0x1f88ef0] } { [39] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [70, 80] : parent(0x1f8a730), 0x1f8a430] } { [125, 150] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10, 20] : parent(0x1b337f0), 0x1b31ef0] } { [39] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [70, 80] : parent(0x1b33730), 0x1b33430] } { [125, 150] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 39 40 50 60 70 80 90 125 150 
@@ -13547,11 +13547,11 @@ current_level = 3 [10, 20], [39], [50], [80], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f8a7f0] } { [70, 90] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b337f0] } { [70, 90] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a7f0), 0x1f88ef0] } { [39] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [80] : parent(0x1f8a730), 0x1f8a430] } { [125, 150] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10, 20] : parent(0x1b337f0), 0x1b31ef0] } { [39] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [80] : parent(0x1b33730), 0x1b33430] } { [125, 150] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 39 40 50 70 80 90 125 150 
@@ -13569,11 +13569,11 @@ current_level = 3 [10, 20], [39], [50], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [30] : parent(0x1f8a470), 0x1f8a7f0] } { [70, 125] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [30] : parent(0x1b33470), 0x1b337f0] } { [70, 125] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10, 20] : parent(0x1f8a7f0), 0x1f88ef0] } { [39] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [90] : parent(0x1f8a730), 0x1f8a430] } { [150] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10, 20] : parent(0x1b337f0), 0x1b31ef0] } { [39] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [90] : parent(0x1b33730), 0x1b33430] } { [150] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 39 40 50 70 90 125 150 
@@ -13591,11 +13591,11 @@ current_level = 3 [10], [30], [50], [90], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [20] : parent(0x1f8a470), 0x1f8a7f0] } { [70, 125] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b33470), 0x1b337f0] } { [70, 125] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f88ef0] } { [30] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [90] : parent(0x1f8a730), 0x1f8a430] } { [150] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b31ef0] } { [30] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [90] : parent(0x1b33730), 0x1b33430] } { [150] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 40 50 70 90 125 150 
@@ -13613,11 +13613,11 @@ current_level = 3 [10], [30], [50, 70], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [20] : parent(0x1f8a470), 0x1f8a7f0] } { [125] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b33470), 0x1b337f0] } { [125] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f88ef0] } { [30] : parent(0x1f8a7f0), 0x1f8a590] } { [50, 70] : parent(0x1f8a730), 0x1f8a770] } { [150] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b31ef0] } { [30] : parent(0x1b337f0), 0x1b33590] } { [50, 70] : parent(0x1b33730), 0x1b33770] } { [150] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 40 50 70 125 150 
@@ -13635,11 +13635,11 @@ current_level = 3 [10], [30], [50], [125],
 Level order debug print of tree: 
 
 
-current_level = 1    { [40] : parent(0), 0x1f8a470] }
+current_level = 1    { [40] : parent(0), 0x1b33470] }
 
-current_level = 2   { [20] : parent(0x1f8a470), 0x1f8a7f0] } { [70] : parent(0x1f8a470), 0x1f8a730] }
+current_level = 2   { [20] : parent(0x1b33470), 0x1b337f0] } { [70] : parent(0x1b33470), 0x1b33730] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f88ef0] } { [30] : parent(0x1f8a7f0), 0x1f8a590] } { [50] : parent(0x1f8a730), 0x1f8a770] } { [125] : parent(0x1f8a730), 0x1f88f30] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b31ef0] } { [30] : parent(0x1b337f0), 0x1b33590] } { [50] : parent(0x1b33730), 0x1b33770] } { [125] : parent(0x1b33730), 0x1b31f30] }
 
 
 In order print of tree: 10 20 30 40 50 70 125 
@@ -13655,9 +13655,9 @@ current_level = 2 [10], [30], [50, 70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [20, 40] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [20, 40] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [10] : parent(0x1f8a7f0), 0x1f88ef0] } { [30] : parent(0x1f8a7f0), 0x1f8a590] } { [50, 70] : parent(0x1f8a7f0), 0x1f8a770] }
+current_level = 2  { [10] : parent(0x1b337f0), 0x1b31ef0] } { [30] : parent(0x1b337f0), 0x1b33590] } { [50, 70] : parent(0x1b337f0), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 40 50 70 
@@ -13673,9 +13673,9 @@ current_level = 2 [20], [40], [70],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30, 50] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [30, 50] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20] : parent(0x1f8a7f0), 0x1f88ef0] } { [40] : parent(0x1f8a7f0), 0x1f8a590] } { [70] : parent(0x1f8a7f0), 0x1f8a770] }
+current_level = 2  { [20] : parent(0x1b337f0), 0x1b31ef0] } { [40] : parent(0x1b337f0), 0x1b33590] } { [70] : parent(0x1b337f0), 0x1b33770] }
 
 
 In order print of tree: 20 30 40 50 70 
@@ -13691,9 +13691,9 @@ current_level = 2 [20], [40, 50],
 Level order debug print of tree: 
 
 
-current_level = 1   { [30] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [30] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20] : parent(0x1f8a7f0), 0x1f88ef0] } { [40, 50] : parent(0x1f8a7f0), 0x1f8a590] }
+current_level = 2  { [20] : parent(0x1b337f0), 0x1b31ef0] } { [40, 50] : parent(0x1b337f0), 0x1b33590] }
 
 
 In order print of tree: 20 30 40 50 
@@ -13709,9 +13709,9 @@ current_level = 2 [20], [50],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40] : parent(0), 0x1f8a7f0] }
+current_level = 1   { [40] : parent(0), 0x1b337f0] }
 
-current_level = 2  { [20] : parent(0x1f8a7f0), 0x1f88ef0] } { [50] : parent(0x1f8a7f0), 0x1f8a590] }
+current_level = 2  { [20] : parent(0x1b337f0), 0x1b31ef0] } { [50] : parent(0x1b337f0), 0x1b33590] }
 
 
 In order print of tree: 20 40 50 
@@ -13725,7 +13725,7 @@ current_level = 1 [40, 50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40, 50] : parent(0), 0x1f8a590] }
+current_level = 1  { [40, 50] : parent(0), 0x1b33590] }
 
 
 In order print of tree: 40 50 
@@ -13739,7 +13739,7 @@ current_level = 1 [50],
 Level order debug print of tree: 
 
 
-current_level = 1  { [50] : parent(0), 0x1f8a590] }
+current_level = 1  { [50] : parent(0), 0x1b33590] }
 
 
 In order print of tree: 50 
@@ -13803,11 +13803,11 @@ current_level = 3 [10], [30, 33], [35, 36], [38, 39], [50, 60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 34] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [35, 36] : parent(0x1f8a7f0), 0x1f88f30] } { [38, 39] : parent(0x1f88ce0), 0x1f88ef0] } { [50, 60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [35, 36] : parent(0x1b337f0), 0x1b31f30] } { [38, 39] : parent(0x1b31ce0), 0x1b31ef0] } { [50, 60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 50 60 70 80 90 100 
@@ -13825,11 +13825,11 @@ current_level = 3 [10], [30, 33], [35, 36], [38, 39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 34] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 34] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [35, 36] : parent(0x1f8a7f0), 0x1f88f30] } { [38, 39] : parent(0x1f88ce0), 0x1f88ef0] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [35, 36] : parent(0x1b337f0), 0x1b31f30] } { [38, 39] : parent(0x1b31ce0), 0x1b31ef0] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 34 35 36 37 38 39 40 60 70 80 90 100 
@@ -13847,11 +13847,11 @@ current_level = 3 [10], [30, 33], [36], [38, 39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 35] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 35] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [36] : parent(0x1f8a7f0), 0x1f88f30] } { [38, 39] : parent(0x1f88ce0), 0x1f88ef0] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [36] : parent(0x1b337f0), 0x1b31f30] } { [38, 39] : parent(0x1b31ce0), 0x1b31ef0] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 35 36 37 38 39 40 60 70 80 90 100 
@@ -13869,11 +13869,11 @@ current_level = 3 [10], [30, 33], [36], [39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 35] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 35] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [36] : parent(0x1f8a7f0), 0x1f88f30] } { [39] : parent(0x1f88ce0), 0x1f88ef0] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [36] : parent(0x1b337f0), 0x1b31f30] } { [39] : parent(0x1b31ce0), 0x1b31ef0] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 35 36 37 39 40 60 70 80 90 100 
@@ -13891,11 +13891,11 @@ current_level = 3 [10], [30], [35], [39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 33] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 33] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30] : parent(0x1f8a7f0), 0x1f8a3f0] } { [35] : parent(0x1f8a7f0), 0x1f88f30] } { [39] : parent(0x1f88ce0), 0x1f88ef0] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30] : parent(0x1b337f0), 0x1b333f0] } { [35] : parent(0x1b337f0), 0x1b31f30] } { [39] : parent(0x1b31ce0), 0x1b31ef0] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 35 37 39 40 60 70 80 90 100 
@@ -13913,11 +13913,11 @@ current_level = 3 [10], [30, 33], [39], [60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 70] : parent(0), 0x1f8a730] }
+current_level = 1    { [37, 70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20] : parent(0x1f8a730), 0x1f8a7f0] } { [40] : parent(0x1f8a730), 0x1f88ce0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b33730), 0x1b337f0] } { [40] : parent(0x1b33730), 0x1b31ce0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [39] : parent(0x1f88ce0), 0x1f88ef0] } { [60] : parent(0x1f88ce0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [39] : parent(0x1b31ce0), 0x1b31ef0] } { [60] : parent(0x1b31ce0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 37 39 40 60 70 80 90 100 
@@ -13935,11 +13935,11 @@ current_level = 3 [10], [30, 33], [40, 60], [80], [100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [70] : parent(0), 0x1f8a730] }
+current_level = 1    { [70] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20, 39] : parent(0x1f8a730), 0x1f8a7f0] } { [90] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20, 39] : parent(0x1b33730), 0x1b337f0] } { [90] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [40, 60] : parent(0x1f8a7f0), 0x1f8a430] } { [80] : parent(0x1f8a470), 0x1f8a590] } { [100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [40, 60] : parent(0x1b337f0), 0x1b33430] } { [80] : parent(0x1b33470), 0x1b33590] } { [100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 39 40 60 70 80 90 100 
@@ -13957,11 +13957,11 @@ current_level = 3 [10], [30, 33], [40, 60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a730] }
+current_level = 1    { [39] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20] : parent(0x1f8a730), 0x1f8a7f0] } { [70] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b33730), 0x1b337f0] } { [70] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30, 33] : parent(0x1f8a7f0), 0x1f8a3f0] } { [40, 60] : parent(0x1f8a470), 0x1f8a430] } { [90, 100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30, 33] : parent(0x1b337f0), 0x1b333f0] } { [40, 60] : parent(0x1b33470), 0x1b33430] } { [90, 100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 33 39 40 60 70 90 100 
@@ -13979,11 +13979,11 @@ current_level = 3 [10], [30], [40, 60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1    { [39] : parent(0), 0x1f8a730] }
+current_level = 1    { [39] : parent(0), 0x1b33730] }
 
-current_level = 2   { [20] : parent(0x1f8a730), 0x1f8a7f0] } { [70] : parent(0x1f8a730), 0x1f8a470] }
+current_level = 2   { [20] : parent(0x1b33730), 0x1b337f0] } { [70] : parent(0x1b33730), 0x1b33470] }
 
-current_level = 3  { [10] : parent(0x1f8a7f0), 0x1f8a5f0] } { [30] : parent(0x1f8a7f0), 0x1f8a3f0] } { [40, 60] : parent(0x1f8a470), 0x1f8a430] } { [90, 100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 3  { [10] : parent(0x1b337f0), 0x1b335f0] } { [30] : parent(0x1b337f0), 0x1b333f0] } { [40, 60] : parent(0x1b33470), 0x1b33430] } { [90, 100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 20 30 39 40 60 70 90 100 
@@ -13999,9 +13999,9 @@ current_level = 2 [10, 30], [40, 60], [90, 100],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a470] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [10, 30] : parent(0x1f8a470), 0x1f8a5f0] } { [40, 60] : parent(0x1f8a470), 0x1f8a430] } { [90, 100] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [10, 30] : parent(0x1b33470), 0x1b335f0] } { [40, 60] : parent(0x1b33470), 0x1b33430] } { [90, 100] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 30 39 40 60 70 90 100 
@@ -14017,9 +14017,9 @@ current_level = 2 [10, 30], [40, 60], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a470] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [10, 30] : parent(0x1f8a470), 0x1f8a5f0] } { [40, 60] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [10, 30] : parent(0x1b33470), 0x1b335f0] } { [40, 60] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 30 39 40 60 70 90 
@@ -14035,9 +14035,9 @@ current_level = 2 [10], [40, 60], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [39, 70] : parent(0), 0x1f8a470] }
+current_level = 1   { [39, 70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [10] : parent(0x1f8a470), 0x1f8a5f0] } { [40, 60] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [10] : parent(0x1b33470), 0x1b335f0] } { [40, 60] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 10 39 40 60 70 90 
@@ -14053,9 +14053,9 @@ current_level = 2 [39], [40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [40, 70] : parent(0), 0x1f8a470] }
+current_level = 1   { [40, 70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [39] : parent(0x1f8a470), 0x1f8a5f0] } { [40] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [39] : parent(0x1b33470), 0x1b335f0] } { [40] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 39 40 40 70 90 
@@ -14071,9 +14071,9 @@ current_level = 2 [40, 40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a470] }
+current_level = 1   { [70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [40, 40] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [40, 40] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 40 40 70 90 
@@ -14089,9 +14089,9 @@ current_level = 2 [40, 40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a470] }
+current_level = 1   { [70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [40, 40] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [40, 40] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 40 40 70 90 
@@ -14107,9 +14107,9 @@ current_level = 2 [40], [90],
 Level order debug print of tree: 
 
 
-current_level = 1   { [70] : parent(0), 0x1f8a470] }
+current_level = 1   { [70] : parent(0), 0x1b33470] }
 
-current_level = 2  { [40] : parent(0x1f8a470), 0x1f8a430] } { [90] : parent(0x1f8a470), 0x1f8a770] }
+current_level = 2  { [40] : parent(0x1b33470), 0x1b33430] } { [90] : parent(0x1b33470), 0x1b33770] }
 
 
 In order print of tree: 40 70 90 
@@ -14123,7 +14123,7 @@ current_level = 1 [40, 70],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40, 70] : parent(0), 0x1f8a430] }
+current_level = 1  { [40, 70] : parent(0), 0x1b33430] }
 
 
 In order print of tree: 40 70 
@@ -14137,7 +14137,7 @@ current_level = 1 [40],
 Level order debug print of tree: 
 
 
-current_level = 1  { [40] : parent(0), 0x1f8a430] }
+current_level = 1  { [40] : parent(0), 0x1b33430] }
 
 
 In order print of tree: 40 
@@ -14206,13 +14206,13 @@ current_level = 4 [10, 15], [30], [34], [36], [38], [40], [60], [69], [80], [89]
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [33, 37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [33, 37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [35] : parent(0x1f88f30), 0x1f8a300] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [65, 70] : parent(0x1f8a3c0), 0x1f88ef0] } { [90, 125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [35] : parent(0x1b31f30), 0x1b33300] } { [39] : parent(0x1b31f30), 0x1b33810] } { [65, 70] : parent(0x1b333c0), 0x1b31ef0] } { [90, 125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34] : parent(0x1f8a300), 0x1f8a2c0] } { [36] : parent(0x1f8a300), 0x1f8a7d0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [60] : parent(0x1f88ef0), 0x1f8a4b0] } { [69] : parent(0x1f88ef0), 0x1f8a890] } { [80] : parent(0x1f88ef0), 0x1f8a280] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [100] : parent(0x1f8a380), 0x1f8a120] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34] : parent(0x1b33300), 0x1b332c0] } { [36] : parent(0x1b33300), 0x1b337d0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [60] : parent(0x1b31ef0), 0x1b334b0] } { [69] : parent(0x1b31ef0), 0x1b33890] } { [80] : parent(0x1b31ef0), 0x1b33280] } { [89] : parent(0x1b33380), 0x1b33340] } { [100] : parent(0x1b33380), 0x1b33120] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 36 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -14232,13 +14232,13 @@ current_level = 4 [10, 15], [30], [34, 35], [38], [40], [60], [69], [80], [89], 
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [65, 70] : parent(0x1f8a3c0), 0x1f88ef0] } { [90, 125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [65, 70] : parent(0x1b333c0), 0x1b31ef0] } { [90, 125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [60] : parent(0x1f88ef0), 0x1f8a4b0] } { [69] : parent(0x1f88ef0), 0x1f8a890] } { [80] : parent(0x1f88ef0), 0x1f8a280] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [100] : parent(0x1f8a380), 0x1f8a120] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [60] : parent(0x1b31ef0), 0x1b334b0] } { [69] : parent(0x1b31ef0), 0x1b33890] } { [80] : parent(0x1b31ef0), 0x1b33280] } { [89] : parent(0x1b33380), 0x1b33340] } { [100] : parent(0x1b33380), 0x1b33120] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 60 65 69 70 80 85 89 90 100 125 150 
@@ -14258,13 +14258,13 @@ current_level = 4 [10, 15], [30], [34, 35], [38], [40], [60], [69, 70], [89], [1
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [65] : parent(0x1f8a3c0), 0x1f88ef0] } { [90, 125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [65] : parent(0x1b333c0), 0x1b31ef0] } { [90, 125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [60] : parent(0x1f88ef0), 0x1f8a4b0] } { [69, 70] : parent(0x1f88ef0), 0x1f8a890] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [100] : parent(0x1f8a380), 0x1f8a120] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [60] : parent(0x1b31ef0), 0x1b334b0] } { [69, 70] : parent(0x1b31ef0), 0x1b33890] } { [89] : parent(0x1b33380), 0x1b33340] } { [100] : parent(0x1b33380), 0x1b33120] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 60 65 69 70 85 89 90 100 125 150 
@@ -14284,13 +14284,13 @@ current_level = 4 [10, 15], [30], [34, 35], [38], [40], [60], [69, 70], [89, 100
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [65] : parent(0x1f8a3c0), 0x1f88ef0] } { [125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [65] : parent(0x1b333c0), 0x1b31ef0] } { [125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [60] : parent(0x1f88ef0), 0x1f8a4b0] } { [69, 70] : parent(0x1f88ef0), 0x1f8a890] } { [89, 100] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [60] : parent(0x1b31ef0), 0x1b334b0] } { [69, 70] : parent(0x1b31ef0), 0x1b33890] } { [89, 100] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 60 65 69 70 85 89 100 125 150 
@@ -14310,13 +14310,13 @@ current_level = 4 [10, 15], [30], [34, 35], [38], [40], [65], [70], [89, 100], [
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [69] : parent(0x1f8a3c0), 0x1f88ef0] } { [125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [69] : parent(0x1b333c0), 0x1b31ef0] } { [125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f88ef0), 0x1f8a4b0] } { [70] : parent(0x1f88ef0), 0x1f8a890] } { [89, 100] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b31ef0), 0x1b334b0] } { [70] : parent(0x1b31ef0), 0x1b33890] } { [89, 100] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 65 69 70 85 89 100 125 150 
@@ -14336,13 +14336,13 @@ current_level = 4 [10, 15], [30], [34, 35], [38], [40], [65], [70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1     { [50] : parent(0), 0x1f8a750] }
+current_level = 1     { [50] : parent(0), 0x1b33750] }
 
-current_level = 2    { [37] : parent(0x1f8a750), 0x1f88f30] } { [85] : parent(0x1f8a750), 0x1f8a3c0] }
+current_level = 2    { [37] : parent(0x1b33750), 0x1b31f30] } { [85] : parent(0x1b33750), 0x1b333c0] }
 
-current_level = 3   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [69] : parent(0x1f8a3c0), 0x1f88ef0] } { [125] : parent(0x1f8a3c0), 0x1f8a380] }
+current_level = 3   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [69] : parent(0x1b333c0), 0x1b31ef0] } { [125] : parent(0x1b333c0), 0x1b33380] }
 
-current_level = 4  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f88ef0), 0x1f8a4b0] } { [70] : parent(0x1f88ef0), 0x1f8a890] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 4  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b31ef0), 0x1b334b0] } { [70] : parent(0x1b31ef0), 0x1b33890] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 65 69 70 85 89 125 150 
@@ -14360,11 +14360,11 @@ current_level = 3 [10, 15], [30], [34, 35], [38], [40], [65, 70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [37, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20, 33] : parent(0x1f88f30), 0x1f88ce0] } { [39] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20, 33] : parent(0x1b31f30), 0x1b31ce0] } { [39] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f88ce0), 0x1f8a2c0] } { [38] : parent(0x1f8a810), 0x1f8a470] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65, 70] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b31ce0), 0x1b332c0] } { [38] : parent(0x1b33810), 0x1b33470] } { [40] : parent(0x1b33810), 0x1b33790] } { [65, 70] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 38 39 40 50 65 70 85 89 125 150 
@@ -14382,11 +14382,11 @@ current_level = 3 [10, 15], [30], [34, 35], [39, 40], [65, 70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [33, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [37] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [37] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f8a810), 0x1f8a2c0] } { [39, 40] : parent(0x1f8a810), 0x1f8a790] } { [65, 70] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b33810), 0x1b332c0] } { [39, 40] : parent(0x1b33810), 0x1b33790] } { [65, 70] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 39 40 50 65 70 85 89 125 150 
@@ -14404,11 +14404,11 @@ current_level = 3 [10, 15], [30], [34, 35], [40], [65, 70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [33, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [33, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [37] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [37] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [34, 35] : parent(0x1f8a810), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65, 70] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [34, 35] : parent(0x1b33810), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65, 70] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 33 34 35 37 40 50 65 70 85 89 125 150 
@@ -14426,11 +14426,11 @@ current_level = 3 [10, 15], [30], [35], [40], [65, 70], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [34, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [37] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [37] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [35] : parent(0x1f8a810), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65, 70] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [35] : parent(0x1b33810), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65, 70] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 34 35 37 40 50 65 70 85 89 125 150 
@@ -14448,11 +14448,11 @@ current_level = 3 [10, 15], [30], [35], [40], [65], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [34, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [37] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [37] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 15] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [35] : parent(0x1f8a810), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 15] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [35] : parent(0x1b33810), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 15 20 30 34 35 37 40 50 65 85 89 125 150 
@@ -14470,11 +14470,11 @@ current_level = 3 [10], [30], [35], [40], [65], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [34, 50] : parent(0), 0x1f88f30] }
+current_level = 1    { [34, 50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [37] : parent(0x1f88f30), 0x1f8a810] } { [85, 125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [37] : parent(0x1b31f30), 0x1b33810] } { [85, 125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10] : parent(0x1f88ce0), 0x1f8a430] } { [30] : parent(0x1f88ce0), 0x1f8a240] } { [35] : parent(0x1f8a810), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f8a380), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10] : parent(0x1b31ce0), 0x1b33430] } { [30] : parent(0x1b31ce0), 0x1b33240] } { [35] : parent(0x1b33810), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b33380), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 20 30 34 35 37 40 50 65 85 89 125 150 
@@ -14492,11 +14492,11 @@ current_level = 3 [10, 20], [35], [40], [65], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 85] : parent(0), 0x1f88f30] }
+current_level = 1    { [37, 85] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [34] : parent(0x1f88f30), 0x1f88ce0] } { [50] : parent(0x1f88f30), 0x1f8a810] } { [125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [34] : parent(0x1b31f30), 0x1b31ce0] } { [50] : parent(0x1b31f30), 0x1b33810] } { [125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10, 20] : parent(0x1f88ce0), 0x1f8a430] } { [35] : parent(0x1f88ce0), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10, 20] : parent(0x1b31ce0), 0x1b33430] } { [35] : parent(0x1b31ce0), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b33810), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 20 34 35 37 40 50 65 85 89 125 150 
@@ -14514,11 +14514,11 @@ current_level = 3 [10], [34], [40], [65], [89], [150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37, 85] : parent(0), 0x1f88f30] }
+current_level = 1    { [37, 85] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [50] : parent(0x1f88f30), 0x1f8a810] } { [125] : parent(0x1f88f30), 0x1f8a380] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [50] : parent(0x1b31f30), 0x1b33810] } { [125] : parent(0x1b31f30), 0x1b33380] }
 
-current_level = 3  { [10] : parent(0x1f88ce0), 0x1f8a430] } { [34] : parent(0x1f88ce0), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [89] : parent(0x1f8a380), 0x1f8a340] } { [150] : parent(0x1f8a380), 0x1f8a850] }
+current_level = 3  { [10] : parent(0x1b31ce0), 0x1b33430] } { [34] : parent(0x1b31ce0), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b33810), 0x1b334b0] } { [89] : parent(0x1b33380), 0x1b33340] } { [150] : parent(0x1b33380), 0x1b33850] }
 
 
 In order print of tree: 10 20 34 37 40 50 65 85 89 125 150 
@@ -14536,11 +14536,11 @@ current_level = 3 [10], [34], [40], [65], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [37] : parent(0), 0x1f88f30] }
+current_level = 1    { [37] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [20] : parent(0x1f88f30), 0x1f88ce0] } { [50, 89] : parent(0x1f88f30), 0x1f8a810] }
+current_level = 2   { [20] : parent(0x1b31f30), 0x1b31ce0] } { [50, 89] : parent(0x1b31f30), 0x1b33810] }
 
-current_level = 3  { [10] : parent(0x1f88ce0), 0x1f8a430] } { [34] : parent(0x1f88ce0), 0x1f8a2c0] } { [40] : parent(0x1f8a810), 0x1f8a790] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125, 150] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 3  { [10] : parent(0x1b31ce0), 0x1b33430] } { [34] : parent(0x1b31ce0), 0x1b332c0] } { [40] : parent(0x1b33810), 0x1b33790] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125, 150] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 10 20 34 37 40 50 65 89 125 150 
@@ -14558,11 +14558,11 @@ current_level = 3 [20, 34], [40], [65], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88f30] }
+current_level = 1    { [50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [37] : parent(0x1f88f30), 0x1f88ce0] } { [89] : parent(0x1f88f30), 0x1f8a810] }
+current_level = 2   { [37] : parent(0x1b31f30), 0x1b31ce0] } { [89] : parent(0x1b31f30), 0x1b33810] }
 
-current_level = 3  { [20, 34] : parent(0x1f88ce0), 0x1f8a2c0] } { [40] : parent(0x1f88ce0), 0x1f8a790] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125, 150] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 3  { [20, 34] : parent(0x1b31ce0), 0x1b332c0] } { [40] : parent(0x1b31ce0), 0x1b33790] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125, 150] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 20 34 37 40 50 65 89 125 150 
@@ -14580,11 +14580,11 @@ current_level = 3 [20], [37], [65], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1    { [50] : parent(0), 0x1f88f30] }
+current_level = 1    { [50] : parent(0), 0x1b31f30] }
 
-current_level = 2   { [34] : parent(0x1f88f30), 0x1f88ce0] } { [89] : parent(0x1f88f30), 0x1f8a810] }
+current_level = 2   { [34] : parent(0x1b31f30), 0x1b31ce0] } { [89] : parent(0x1b31f30), 0x1b33810] }
 
-current_level = 3  { [20] : parent(0x1f88ce0), 0x1f8a2c0] } { [37] : parent(0x1f88ce0), 0x1f8a790] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125, 150] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 3  { [20] : parent(0x1b31ce0), 0x1b332c0] } { [37] : parent(0x1b31ce0), 0x1b33790] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125, 150] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 20 34 37 50 65 89 125 150 
@@ -14600,9 +14600,9 @@ current_level = 2 [20, 34], [65], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f8a810] }
+current_level = 1   { [50, 89] : parent(0), 0x1b33810] }
 
-current_level = 2  { [20, 34] : parent(0x1f8a810), 0x1f8a2c0] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125, 150] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 2  { [20, 34] : parent(0x1b33810), 0x1b332c0] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125, 150] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 20 34 50 65 89 125 150 
@@ -14618,9 +14618,9 @@ current_level = 2 [20], [65], [125, 150],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f8a810] }
+current_level = 1   { [50, 89] : parent(0), 0x1b33810] }
 
-current_level = 2  { [20] : parent(0x1f8a810), 0x1f8a2c0] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125, 150] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 2  { [20] : parent(0x1b33810), 0x1b332c0] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125, 150] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 20 50 65 89 125 150 
@@ -14636,9 +14636,9 @@ current_level = 2 [20], [65], [125],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50, 89] : parent(0), 0x1f8a810] }
+current_level = 1   { [50, 89] : parent(0), 0x1b33810] }
 
-current_level = 2  { [20] : parent(0x1f8a810), 0x1f8a2c0] } { [65] : parent(0x1f8a810), 0x1f8a4b0] } { [125] : parent(0x1f8a810), 0x1f8a850] }
+current_level = 2  { [20] : parent(0x1b33810), 0x1b332c0] } { [65] : parent(0x1b33810), 0x1b334b0] } { [125] : parent(0x1b33810), 0x1b33850] }
 
 
 In order print of tree: 20 50 65 89 125 
@@ -14654,9 +14654,9 @@ current_level = 2 [20], [65, 89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a810] }
+current_level = 1   { [50] : parent(0), 0x1b33810] }
 
-current_level = 2  { [20] : parent(0x1f8a810), 0x1f8a2c0] } { [65, 89] : parent(0x1f8a810), 0x1f8a4b0] }
+current_level = 2  { [20] : parent(0x1b33810), 0x1b332c0] } { [65, 89] : parent(0x1b33810), 0x1b334b0] }
 
 
 In order print of tree: 20 50 65 89 
@@ -14672,9 +14672,9 @@ current_level = 2 [20], [89],
 Level order debug print of tree: 
 
 
-current_level = 1   { [50] : parent(0), 0x1f8a810] }
+current_level = 1   { [50] : parent(0), 0x1b33810] }
 
-current_level = 2  { [20] : parent(0x1f8a810), 0x1f8a2c0] } { [89] : parent(0x1f8a810), 0x1f8a4b0] }
+current_level = 2  { [20] : parent(0x1b33810), 0x1b332c0] } { [89] : parent(0x1b33810), 0x1b334b0] }
 
 
 In order print of tree: 20 50 89 
@@ -14688,7 +14688,7 @@ current_level = 1 [20, 89],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20, 89] : parent(0), 0x1f8a2c0] }
+current_level = 1  { [20, 89] : parent(0), 0x1b332c0] }
 
 
 In order print of tree: 20 89 
@@ -14702,7 +14702,7 @@ current_level = 1 [20],
 Level order debug print of tree: 
 
 
-current_level = 1  { [20] : parent(0), 0x1f8a2c0] }
+current_level = 1  { [20] : parent(0), 0x1b332c0] }
 
 
 In order print of tree: 20 
