@@ -2914,7 +2914,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
   found_index = Node23::NotFoundIndex;
 
   Node23 *premove_start = root.get();
-  
+ 
   while(1) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
 
     int child_index; 
@@ -2936,7 +2936,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node23 *tre
        premove_start = premove_start->children[child_index].get();
     }
   }  
-
+  
   return premove_start;
 }
 /*
