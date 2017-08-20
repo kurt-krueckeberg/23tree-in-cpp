@@ -2869,8 +2869,29 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (premove_start == nullptr) return;
 
   Node23 *pLeaf;
- 
+ /*
   if (!premove_start->isLeaf()) { // If it is an internal node...
+
+      // ...get its in order successor, which will be keys_values[0].nc_pair.first of a leaf node.
+      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
+          
+      //  
+      // Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
+      // keys_values[0].nc_pair.first.
+      //
+      std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
+        
+  } else { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+      
+      pLeaf = premove_start;
+  } 
+ */ 
+
+  if (premove_start->isLeaf()) {
+      
+      pLeaf = premove_start;  // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+       
+  } else {   // premove_start is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].nc_pair.first of a leaf node.
       pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
@@ -2880,12 +2901,9 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
        * keys_values[0].nc_pair.first.
        */
       std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
-        
-  } else { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
-      
-      pLeaf = premove_start;
-  } 
+   } 
   
+ 
   pLeaf->removeLeafKey(key); // remove key from leaf         
   
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
@@ -2996,6 +3014,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
   }
 
   int child_index = descent_indecies.top();
+
   descent_indecies.pop();
 
   // case 1. If the empty node has a sibling with two keys, then we can shift keys and barrow a key for pnode from its parent. 
@@ -3015,8 +3034,8 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
       if (pnode->parent->isTwoNode()) { 
           /* 
              When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
-             pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively by calling
-	     fixTree() again. 
+             pnode's sibling, which is pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively below 
+             by again calling fixTree(). 
            */
            node2Delete = merge2Nodes(pnode, !child_index); 
     
@@ -3024,7 +3043,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
     
           /* 
            * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
-           * its associated value) with a sibling. This now makes the parent a 2-node. We move the effected children involved appropriately.  We can then
+           * its associated value) with a sibling. This now makes the parent a 2-node. We move the affected children involved appropriately.  We can then
            * safely delete pnode from the tree.
            */
     
