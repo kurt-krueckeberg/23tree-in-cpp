@@ -407,11 +407,11 @@ void debug_print_tree(const tree23<int, int> & tree)
   level_order_print(tree);
    
   //--debug_levelOrderPrinter<tree23<int,int>> debugprintFunctor(tree, cout);
-  debug_printer<tree23<int,int>> debugprintFunctor(tree, cout);
+  DebugPrinter<tree23<int,int>> debug_printer(tree, cout);
 
   cout << "\nLevel order debug print of tree: \n" << flush;
   
-  tree.levelOrderTraverse(debugprintFunctor);
+  tree.levelOrderTraverse(debug_printer);
    
   cout << endl;
 

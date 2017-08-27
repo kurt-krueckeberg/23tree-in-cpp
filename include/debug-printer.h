@@ -1,5 +1,5 @@
-#ifndef debug_printer_13123
-#define debug_printer_13123
+#ifndef DebugPrinter_13123
+#define DebugPrinter_13123
 
 #include <utility>
 #include <string>
@@ -7,37 +7,37 @@
 #include "level-order-display.h"
 
 template<class Tree>
-class debug_printer : public levelOrderDisplay<Tree> {
+class DebugPrinter : public levelOrderDisplay<Tree> {
 
   public:
      
-     debug_printer(const Tree& in_tree, std::ostream& ostr);
-     debug_printer(debug_printer&); 
-     debug_printer(debug_printer&&) = delete;
-    ~debug_printer() {}
+     DebugPrinter(const Tree& in_tree, std::ostream& ostr);
+     DebugPrinter(DebugPrinter&); 
+     DebugPrinter(DebugPrinter&&) = delete;
+    ~DebugPrinter() {}
     
    virtual void display_level(std::ostream& ostr, int level) noexcept override;
    virtual void display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept override; 
 };
 
 template<class Tree>
-inline debug_printer<Tree>::debug_printer(const Tree& in_tree, std::ostream& ostr) : levelOrderDisplay<Tree>{in_tree, ostr} 
+inline DebugPrinter<Tree>::DebugPrinter(const Tree& in_tree, std::ostream& ostr) : levelOrderDisplay<Tree>{in_tree, ostr} 
 {
 }
 
 template<class Tree> 
-inline debug_printer<Tree>::debug_printer(debug_printer& lhs) : levelOrderDisplay<Tree>{lhs} 
+inline DebugPrinter<Tree>::DebugPrinter(DebugPrinter& lhs) : levelOrderDisplay<Tree>{lhs} 
 {
 }
 
 template<class Tree>
-inline void debug_printer<Tree>::display_level(std::ostream& ostr, int level) noexcept
+inline void DebugPrinter<Tree>::display_level(std::ostream& ostr, int level) noexcept
 {
    levelOrderDisplay<Tree>::display_level(ostr, level);
 }
 
 template<class Tree>
-inline void debug_printer<Tree>::display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept
+inline void DebugPrinter<Tree>::display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept
 {
    if (&node == nullptr) {
 

@@ -16,15 +16,15 @@ int main(int argc, char** argv)
   tree23<int, int> test_tree = { {50, 50}, {39, 39}, {15, 15}, {65, 65}, {69, 69}, {150, 150}, {125, 125}, {20, 20}, {70, 70}, {100, 100}, {40, 40}, {34, 34}, {37, 37}, {30, 30}, {10, 10}, {33, 33}, {36, 36}, \
    {38, 38}, {85, 85}, {90, 90}, {60, 60}, { 35, 35}, {80, 80}, {89, 89} };
 
-  debug_printer<tree23<int, int>> debugPrinter{test_tree, cout};
+  DebugPrinter<tree23<int, int>> debug_printer{test_tree, cout};
 
-  test_tree.levelOrderTraverse(debugPrinter); 
+  test_tree.levelOrderTraverse(debug_printer); 
 
   cout << endl;
 
   tree23<int, int> tree_copy{test_tree};
 
-  tree_copy.levelOrderTraverse(debugPrinter); 
+  tree_copy.levelOrderTraverse(debug_printer); 
     
   tree23<int, int> tree;
 
