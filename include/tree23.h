@@ -1,6 +1,7 @@
 #ifndef tree23_h_18932492374
 #define tree23_h_18932492374
 
+#include <initializer_list>
 #include <array>
 #include <memory>
 #include <queue>
@@ -244,7 +245,7 @@ template<class Key, class Value> class tree23 {
     */  
 
    // Called by copy constructor and copy assignment operators, respectively.
-   void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy) noexcept;
+   void CloneTree(const std::unique_ptr<Node23>& Node2Copy, std::unique_ptr<Node23>& NodeCopy, const Node23 * parent) noexcept;
    void DestroyTree(std::unique_ptr<Node23> &root) noexcept; 
 
   public:
@@ -386,6 +387,8 @@ template<class Key, class Value> class tree23 {
     const_reverse_iterator rend() const noexcept;  
      
     tree23() noexcept;
+
+    tree23(std::initializer_list<value_type> list); 
 
     void test_invariant() const noexcept;
 
@@ -1846,6 +1849,13 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : 
 
 }   
 
+template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initializer_list<typename tree23<Key, Value>::value_type> list) 
+{
+   for (auto& v : list) {
+       insert(v.first, v.second);  
+   }
+}
+
 template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept
 {
   // traverse the tree copying each of its nodes
@@ -1859,14 +1869,15 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
   height = lhs.height;
   
   // Traverse in pre-order using the clone functor. See todo.txt
-  CloneTree(lhs.root, root);
+  CloneTree(lhs.root, root, nullptr);
 }   
 
 /*
  Does a pre-order traversal, using recursion and copying the source node, the first parameter, into the destination node, the second parameter.
+ Note: We don't want to copy the parent of srcNode (only its key and value) into destNode. Instead we pass in the previously clone parent node of destNode.
  */
 template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& srcNode, \
-        std::unique_ptr<typename tree23<Key, Value>::Node23>& destNode) noexcept
+        std::unique_ptr<typename tree23<Key, Value>::Node23>& destNode, const typename tree23<Key, Value>::Node23 *parent) noexcept
 {
   if (srcNode != nullptr) { 
                               
@@ -1874,28 +1885,28 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 
       case 1: // two node
       {    
-            destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems);
+            destNode = std::make_unique<Node23>(srcNode->keys_values, const_cast<Node23 *>(parent), srcNode->totalItems);
              
-            destNode->parent = srcNode->parent; // TODO: Is this redundant? And is it correct? Aren't we setting the destNode::parent incorrectly? 
+            //destNode->parent = srcNode->parent; // TODO: Is this redundant? And is it correct? Aren't we setting the destNode::parent incorrectly? 
             
-            CloneTree(srcNode->children[0], destNode->children[0]); 
+            CloneTree(srcNode->children[0], destNode->children[0], destNode.get()); 
             
-            CloneTree(srcNode->children[1], destNode->children[1]); 
+            CloneTree(srcNode->children[1], destNode->children[1], destNode.get()); 
 
             break;
 
       }   
       case 2: // three node
       {
-            destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems); 
+            destNode = std::make_unique<Node23>(srcNode->keys_values, const_cast<Node23 *>(parent), srcNode->totalItems); 
 
-            destNode->parent = srcNode->parent;// TODO: Isn't this redundant? 
+            //destNode->parent = srcNode->parent;// TODO: Isn't this redundant? 
             
-            CloneTree(srcNode->children[0], destNode->children[0]);
+            CloneTree(srcNode->children[0], destNode->children[0], destNode.get());
             
-            CloneTree(srcNode->children[1], destNode->children[1]);
+            CloneTree(srcNode->children[1], destNode->children[1], destNode.get());
             
-            CloneTree(srcNode->children[2], destNode->children[2]);
+            CloneTree(srcNode->children[2], destNode->children[2], destNode.get());
 
             break;
       } // end case
