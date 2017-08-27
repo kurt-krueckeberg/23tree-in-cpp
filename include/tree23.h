@@ -52,10 +52,8 @@ template<class Key, class Value> class tree23 {
 
   public:
   
-   /*
-    * The tree is consists of heap-allocated Node23 nodes managed by std::unique_ptr<Node23>'s.
-    */ 
-   class Node23 {
+   // The tree is consists of heap-allocated Node23 nodes managed by std::unique_ptr<Node23>s.
+    class Node23 {
 
         friend class tree23<Key, Value>;             
 
@@ -424,6 +422,7 @@ template<class Key, class Value> class tree23 {
     // Depth-first traversals
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
 };
+
 
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
@@ -1864,7 +1863,7 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
 }   
 
 /*
- Does a pre-order traversal, using recursion and copying the source node, the first parameter, to the node, the second parameter.
+ Does a pre-order traversal, using recursion and copying the source node, the first parameter, into the destination node, the second parameter.
  */
 template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node23>& srcNode, \
         std::unique_ptr<typename tree23<Key, Value>::Node23>& destNode) noexcept
@@ -1877,7 +1876,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
       {    
             destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems);
              
-            destNode->parent = srcNode->parent;
+            destNode->parent = srcNode->parent; // TODO: Is this redundant? And is it correct? Aren't we setting the destNode::parent incorrectly? 
             
             CloneTree(srcNode->children[0], destNode->children[0]); 
             
@@ -1885,12 +1884,12 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 
             break;
 
-      }   // end case
+      }   
       case 2: // three node
       {
             destNode = std::make_unique<Node23>(srcNode->keys_values, srcNode->parent, srcNode->totalItems); 
 
-            destNode->parent = srcNode->parent;
+            destNode->parent = srcNode->parent;// TODO: Isn't this redundant? 
             
             CloneTree(srcNode->children[0], destNode->children[0]);
             
@@ -2869,23 +2868,6 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   if (premove_start == nullptr) return;
 
   Node23 *pLeaf;
- /*
-  if (!premove_start->isLeaf()) { // If it is an internal node...
-
-      // ...get its in order successor, which will be keys_values[0].nc_pair.first of a leaf node.
-      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
-          
-      //  
-      // Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
-      // keys_values[0].nc_pair.first.
-      //
-      std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
-        
-  } else { // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
-      
-      pLeaf = premove_start;
-  } 
- */ 
 
   if (premove_start->isLeaf()) {
       

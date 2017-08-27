@@ -33,7 +33,7 @@ class levelOrderDisplay  {
       
   public:
     levelOrderDisplay(const Tree& tree, std::ostream& ostr_lhs ); 
-    levelOrderDisplay(levelOrderDisplay&);
+    levelOrderDisplay(const levelOrderDisplay&);
     levelOrderDisplay(levelOrderDisplay&&) = delete;
 
     const Tree& getTree() const noexcept { return tree; }
@@ -57,17 +57,14 @@ inline levelOrderDisplay<Tree>::levelOrderDisplay(const Tree& in_tree, std::ostr
 template<class Tree>
 inline void levelOrderDisplay<Tree>::initializeTraverse() noexcept
 {
-// 
-// include/level-order-display.h:61:11: error: 'const class tree23<int, int>::Node23' has no member named 'getHeight' 
    height = tree.getHeight();	
    current_level = 0;
 }
 
 template<class Tree>
-inline levelOrderDisplay<Tree>::levelOrderDisplay(levelOrderDisplay& lhs) : tree{lhs.tree}, ostr{lhs.ostr}
+inline levelOrderDisplay<Tree>::levelOrderDisplay(const levelOrderDisplay& lhs) : tree{lhs.tree}, ostr{lhs.ostr}, height{lhs.height}
 {
-  lhs.height = height = tree.getHeight();	
-  lhs.current_level = current_level = 0;
+  current_level = 0;
 }
 
 
