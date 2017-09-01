@@ -147,7 +147,7 @@ template<class Key, class Value> class tree23 {
            void insertKeyInLeaf(Key key, const Value& value);
            void insertKeyInLeaf(Key key, Value&& new_value);
       }; 
-
+      
   private: 
     class Node4 { // Class Node4 is only used to aid insert()
 
@@ -255,6 +255,7 @@ template<class Key, class Value> class tree23 {
     using difference_type = long int;
     using pointer         = value_type*; 
     using reference       = value_type&; 
+    using node_type       = Node23; 
 
    /*  iterator_position represents the three possible finite states for an iterators: 
 

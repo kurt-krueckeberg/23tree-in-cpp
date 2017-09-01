@@ -42,7 +42,7 @@ class levelOrderDisplay  {
     virtual void initializeTraverse() noexcept;
 
     // template method, which invokes display methods below.
-    void operator()(const typename  Tree::Node23& node, int level) noexcept;
+    void operator()(const typename  Tree::node_type& node, int level) noexcept;
 
     virtual void display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept; 
     virtual void display_level(std::ostream& ostr,  int level) noexcept;
@@ -68,7 +68,7 @@ inline levelOrderDisplay<Tree>::levelOrderDisplay(const levelOrderDisplay& lhs) 
 }
 
 
-template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tree::Node23& node, int level) noexcept
+template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tree::node_type& node, int level) noexcept
 {
    // Did current_level change?
    if (current_level != level) { 
