@@ -1491,32 +1491,30 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
       again, 60 is the successor by applying the same reasoning.
       */
         {
-           const Node23 *prior_node = pnode;
+           const Node23 *prior_child = pnode;
            const Node23 *__parent = pnode->parent;
            
-           // Ascend the parent pointers as long as pnode is the right most child of its parent.
-           
+           // Ascend the tree, the parent pointers, as long as pnode is the right most child of its parent. 
            while(pnode == __parent->getRightMostChild())  { 
            
-               // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
+               // pnode is still the right most child. If it is also the root, there is no successor (because pnode was the largest node in the tree). 
                if (__parent == tree.root.get()) {
                   
-                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent (and its parent is now the root), it has no successor.
-                                                       // To indicate this we set current to nullptr and key_index to 0.
+                   return std::make_pair(nullptr, 0);  // To indicate no-successor we set current to nullptr and key_index to 0.
                }
            
-               prior_node = pnode;
+               prior_child = pnode;
                pnode = __parent;
                __parent = __parent->parent;
            }
            
-           prior_node = pnode; 
+           prior_child = pnode; 
            pnode = __parent;
-           
+ 
            // If pnode is a 3-node, determine if we ascended from the first child, children[0], or the middle child, children[1], and set suc_key_index accordingly. 
            if (pnode->isThreeNode()) {
 
-              suc_key_index = (prior_node == pnode->children[0].get()) ? 0 : 1; 
+              suc_key_index = (prior_child == pnode->children[0].get()) ? 0 : 1; 
 
            } else { // pnode is a 2-node
 
