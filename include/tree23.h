@@ -87,6 +87,8 @@ template<class Key, class Value> class tree23 {
 
         constexpr int getChildCount() const noexcept { return totalItems + 1; }
 
+        constexpr const Node23 *getRightMostChild() const noexcept { return children[getTotalItems()].get(); }
+
         constexpr std::unique_ptr<Node23>& getNonNullChild() noexcept;
 
         constexpr int getSoleChildIndex() const noexcept; // called from subroutine's of tree23<Key,Value>::remove(Key)
@@ -94,8 +96,6 @@ template<class Key, class Value> class tree23 {
 	std::ostream& test_parent_ptr(std::ostream& ostr, const Node23 *root) const noexcept;
 
         bool siblingHasTwoItems(int child_index, int& sibling_index) const noexcept;
-
-        std::ostream& test_keys_ordering(std::ostream& ostr) const noexcept;
 
         std::ostream& test_remove_invariant(std::ostream& ostr) const noexcept; 
 
@@ -535,19 +535,6 @@ template<class Key, class Value> typename tree23<Key, Value>::Node23& tree23<Key
 
 }
 
-template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node23::test_keys_ordering(std::ostream& ostr) const noexcept
-{
- if (totalItems == Node23::ThreeNode) {
-
-     if (keys_values[0].nc_pair.first >= keys_values[1].nc_pair.first) {
-
-        ostr << "error: " << keys_values[0].nc_pair.first << " is not less than " << keys_values[1].nc_pair.first << "\n";
-        return ostr;
-     }
-  }
-  return ostr;
-}
-
 template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node23::test_parent_ptr(std::ostream& ostr, const Node23 *root) const noexcept
 {
    if (this == root) { // If this is the root...
@@ -667,9 +654,6 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_
 
 template<class Key, class Value> std::ostream& tree23<Key, Value>::Node23::test_3node_invariant(std::ostream& ostr, const Node23 *root) const noexcept
 {
-  // If node is a 3-node, so we test keys[] ordering.
-  test_keys_ordering(ostr);
-  
   //  test parent pointer	
   test_parent_ptr(ostr, root);
 
@@ -1348,7 +1332,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
      
      if (current == tree.root.get()) { // root is leaf      
 
-         if (tree.root->isThreeNode() && key_index == 0) {
+         if (tree.root->isThreeNode() && key_index == 0) { // TODO: ??? This needs to be double checked
 
              return std::make_pair(current, 1);
          }
@@ -1511,12 +1495,13 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            const Node23 *__parent = pnode->parent;
            
            // Ascend the parent pointers as long as pnode is the right most child of its parent.
-           while(pnode == __parent->children[__parent->totalItems].get() )  {
+           
+           while(pnode == __parent-getRighMostChild())  { 
            
                // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
                if (__parent == tree.root.get()) {
                   
-                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent it has no successor.
+                   return std::make_pair(nullptr, 0);  // Because pnode is still the right most child of its parent (and its parent is now the root), it has no successor.
                                                        // To indicate this we set current to nullptr and key_index to 0.
                }
            
