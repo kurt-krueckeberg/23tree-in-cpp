@@ -1496,7 +1496,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            
            // Ascend the parent pointers as long as pnode is the right most child of its parent.
            
-           while(pnode == __parent-getRighMostChild())  { 
+           while(pnode == __parent->getRighMostChild())  { 
            
                // pnode is still the right most child but now its parent is the root, therefore there is no successor. 
                if (__parent == tree.root.get()) {
