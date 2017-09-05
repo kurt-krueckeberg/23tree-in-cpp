@@ -43,8 +43,9 @@ class levelOrderDisplay  {
 
     // template method, which invokes display methods below.
     void operator()(const typename  Tree::node_type& node, int level) noexcept;
+    void operator()(const typename  Tree::node_type* pnode, int level) noexcept;
 
-    virtual void display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept; 
+    virtual void display_node(std::ostream& ostr, const typename Tree::node_type& node) noexcept; 
     virtual void display_level(std::ostream& ostr,  int level) noexcept;
     
 };
@@ -81,6 +82,19 @@ template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tre
    display_node(ostr, node); 
 }
 
+template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tree::node_type* pnode, int level) noexcept
+{
+   // Did current_level change?
+   if (current_level != level) { 
+
+         current_level = level;
+
+         display_level(ostr, level);       
+   }
+   
+   display_node(ostr, *pnode); 
+}
+
 // Default implementation that derived class can use if they so desire to display current level of the tree that will next be displayed.
 template<class Tree>
 void levelOrderDisplay<Tree>::display_level(std::ostream& ostr, int level) noexcept
@@ -97,7 +111,7 @@ void levelOrderDisplay<Tree>::display_level(std::ostream& ostr, int level) noexc
 
 // Default implementation streams the node 
 template<class Tree> inline
-void  levelOrderDisplay<Tree>::display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept
+void  levelOrderDisplay<Tree>::display_node(std::ostream& ostr, const typename Tree::node_type& node) noexcept
 {
     if (&node == nullptr) {
         

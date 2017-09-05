@@ -1043,7 +1043,8 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 
 /*
  int getChildIndex(Node23 *pnode)
- Requires: pnode is a node in the tree for which we want child_index such that
+
+ Requires: pnode is not root, and  pnode is a node in the tree for which we want child_index such that
       current->parent->children[child_index] == current
  Returns: child_index as shown above. 
  */
