@@ -4,9 +4,9 @@
 #include <string>
 
 /* 
- *  "template design pattern" functor class for displaying tree23<Key, Value>::Node23 instances in level order. Its function call operator
+ *  "template design pattern" functor class for displaying tree23<Key, Value>::node_type instances in level order. Its function call operator
 
-    void operator()(const Tree::Node23& node)
+    void operator()(const Tree::node_type& node)
 
    calls two virtual methods that derived classes override: 
 

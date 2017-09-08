@@ -17,7 +17,7 @@ class DebugPrinter : public levelOrderDisplay<Tree> {
     ~DebugPrinter() {}
     
    virtual void display_level(std::ostream& ostr, int level) noexcept override;
-   virtual void display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept override; 
+   virtual void display_node(std::ostream& ostr, const typename Tree::node_type& node) noexcept override; 
 };
 
 template<class Tree>
@@ -37,7 +37,7 @@ inline void DebugPrinter<Tree>::display_level(std::ostream& ostr, int level) noe
 }
 
 template<class Tree>
-inline void DebugPrinter<Tree>::display_node(std::ostream& ostr, const typename Tree::Node23& node) noexcept
+inline void DebugPrinter<Tree>::display_node(std::ostream& ostr, const typename Tree::node_type& node) noexcept
 {
    if (&node == nullptr) {
 
