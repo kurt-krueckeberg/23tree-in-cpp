@@ -34,11 +34,11 @@ template<class Key, class Value> class tree23 {
       KeyValue() {} 
       KeyValue(Key key, const Value& value) : nc_pair{key, value} {}
       
-      KeyValue(const KeyValue& lhs) : nc_pair{lhs.key(), lhs.nc_pair.second} {}
+      KeyValue(const KeyValue& lhs) : nc_pair{lhs.nc_pair} {}
       
       KeyValue(Key k, Value&& v) : nc_pair{k, std::move(v)} {} 
 
-      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}//nc_pair{lhs.key(), std::move(lhs.nc_pair.second)} {}
+      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}//nc_pair{lhs.key(), std::move(lhs.value())} {}
 
       KeyValue& operator=(const KeyValue& lhs);  
       KeyValue& operator=(KeyValue&& lhs); 
@@ -51,7 +51,7 @@ template<class Key, class Value> class tree23 {
      
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
-         ostr << "{" << key_value.key() << ',' <<  key_value.nc_pair.second <<  "}, ";
+         ostr << "{" << key_value.key() << ',' <<  key_value.value() <<  "}, ";
 	 return ostr;
      }
   };
@@ -456,7 +456,7 @@ template<class Key, class Value> tree23<Key, Value>::Node::Node(Key key, const V
           parent{ptr2parent}, totalItems{Node::TwoNode}
 {
   keys_values[0].key() = key;
-  keys_values[0].nc_pair.second = value;
+  keys_values[0].value() = value;
  
   for(auto& child : children) {
 
@@ -469,7 +469,7 @@ template<class Key, class Value> template<class... Args>  tree23<Key, Value>::No
 {
   keys_values[0].key() = key;
 
-  void *location = &keys_values[0].nc_pair.second;
+  void *location = &keys_values[0].value();
 
   new(location)  Value(std::forward<Args>(arg)...);
  
@@ -1640,7 +1640,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& t
   }
 
   key() = lhs.key();
-  nc_pair.second = std::move(lhs.nc_pair.second);
+  nc_pair.second = std::move(lhs.value());
 
   return *this; 
 }
@@ -1652,7 +1652,7 @@ template<class Key, class Value> inline  typename tree23<Key, Value>::KeyValue& 
   }
 
   key() = lhs.key();
-  nc_pair.second = lhs.nc_pair.second;
+  nc_pair.second = lhs.value();
 
   return *this; 
 }
@@ -1985,7 +1985,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
                copied = true;
                keys_values[dest].key() = new_key; 
-               keys_values[dest].nc_pair.second = new_value; 
+               keys_values[dest].value() = new_value; 
                ++dest;
 
          }  else {
@@ -1998,7 +1998,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
    
    if (!copied) {
         keys_values[dest].key() = new_key; 
-        keys_values[dest].nc_pair.second = new_value; 
+        keys_values[dest].value() = new_value; 
    }
      
    for(auto& child : children) {
@@ -2037,7 +2037,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
       {
         keys_values[0].key() = key; // key is the smallest value, so we put in the first position... 
-        keys_values[0].nc_pair.second = value;
+        keys_values[0].value() = value;
 
         //...followed by the current p3node's keys and values
         for(auto i = 0; i < Node::ThreeNode; ++i) {
@@ -2063,7 +2063,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
         keys_values[0] = p3node->keys_values[0];
  
         keys_values[1].key() = key;
-        keys_values[1].nc_pair.second = value; 
+        keys_values[1].value() = value; 
         
         keys_values[2] = p3node->keys_values[1];
 
@@ -2087,7 +2087,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
          } 
     
          keys_values[2].key() = key; // key is the largest value in 4-node
-         keys_values[2].nc_pair.second = value;
+         keys_values[2].value() = value;
     
          for(auto i = 0; i < Node::ThreeNodeChildren; ++i) { // connect p3node's current children in the same order 
     
@@ -2164,7 +2164,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
 
          for (auto i = 0; i < pChild->totalItems; ++i) {  
             
-            ostr << "{ " << pChild->keys_values[i].key() << ", " << pChild->keys_values[i].nc_pair.second << "}, ";
+            ostr << "{ " << pChild->keys_values[i].key() << ", " << pChild->keys_values[i].value() << "}, ";
          } 
 
        }
@@ -2344,7 +2344,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 
   if (found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
 
-       pinsert_start->keys_values[found_index].nc_pair.second = new_value;
+       pinsert_start->keys_values[found_index].value() = new_value;
        return;  
   }
 
@@ -2472,7 +2472,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
   if (found_index != Node::NotFoundIndex) { // if key already exists, overwrite its associated value.
 
        // Destruct the current value by explicitly invoking Value's destructor. 
-       pinsert_start->~keys_values[found_index].nc_pair.second; 
+       pinsert_start->~keys_values[found_index].value(); 
 
        // Now use its location to instantate the new Value with the forwarded arguments.
        void *location = &pinsert_start->keys_values[found_index].const_pair.second;
@@ -2603,20 +2603,20 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
   
   if (pnode == root.get()) {
 
-       // We pass node4.keys_values[1].key() and node4.keys_values[1].nc_pair.second as the Key and Value for the new root.
+       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
        // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
         
-       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second, std::move(root), std::move(larger_2node)); 
+       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
 
   } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node, ...
 
       // ...we convert the parent to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
-      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second, std::move(larger_2node));
+      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(larger_2node));
 
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
-     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second); 
+     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].value()); 
   } 
 
   return;
@@ -2672,20 +2672,20 @@ template<class Key, class Value> template<class... Args> void tree23<Key, Value>
   
   if (pnode == root.get()) {
 
-       // We pass node4.keys_values[1].key() and node4.keys_values[1].nc_pair.second as the Key and Value for the new root.
+       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
        // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
         
-       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second, std::move(root), std::move(larger_2node)); 
+       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
 
   } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node,
 
       // we convert it to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
-      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second, std::move(larger_2node));
+      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(larger_2node));
 
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split it.
-     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].nc_pair.second); 
+     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].value()); 
   } 
 
   return;
@@ -2744,12 +2744,12 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(K
       keys_values[1] = std::move(keys_values[0]);  
 
       keys_values[0].key() = new_key;
-      keys_values[0].nc_pair.second = new_value; 
+      keys_values[0].value() = new_value; 
 
   } else {
 
       keys_values[1].key() = new_key;
-      keys_values[1].nc_pair.second = new_value;
+      keys_values[1].value() = new_value;
 
       // Note: This tells us that newChild will be the right most child, and the existing children do not need to move.
   }
@@ -2811,12 +2811,12 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::insertKey
        keys_values[1]= std::move(keys_values[0]);
 
        keys_values[0].key() = key;
-       keys_values[0].nc_pair.second = new_value;
+       keys_values[0].value() = new_value;
 
    } else { // key > keys_values[0].key()
 
        keys_values[1].key() = key;
-       keys_values[1].nc_pair.second = new_value;  
+       keys_values[1].value() = new_value;  
    }
 
    ++totalItems;
@@ -2833,12 +2833,12 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::insertKey
        keys_values[1] = std::move(keys_values[0]); 
 
        keys_values[0].key() = key;
-       keys_values[0].nc_pair.second = std::move(new_value);
+       keys_values[0].value() = std::move(new_value);
 
    } else { // key > keys_values[0].key()
 
        keys_values[1].key() = key;
-       keys_values[1].nc_pair.second = std::move(new_value);  
+       keys_values[1].value() = std::move(new_value);  
    }
 
    totalItems = Node::ThreeNode; 
