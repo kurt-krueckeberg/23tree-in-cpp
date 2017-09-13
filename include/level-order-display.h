@@ -4,9 +4,9 @@
 #include <string>
 
 /* 
- *  "template design pattern" functor class for displaying tree23<Key, Value>::node_type instances in level order. Its function call operator
+ *  "template design pattern" functor class for displaying tree23<Key, Value>::Node23 instances in level order. Its function call operator
 
-    void operator()(const Tree::node_type& node)
+    void operator()(const Tree::Node23& node)
 
    calls two virtual methods that derived classes override: 
 
@@ -49,6 +49,7 @@ class levelOrderDisplay  {
     virtual void display_level(std::ostream& ostr,  int level) noexcept;
     
 };
+
 template<class Tree>
 inline levelOrderDisplay<Tree>::levelOrderDisplay(const Tree& in_tree, std::ostream& ostr_lhs) : tree{in_tree}, ostr{ostr_lhs}
 {
@@ -68,15 +69,14 @@ inline levelOrderDisplay<Tree>::levelOrderDisplay(const levelOrderDisplay& lhs) 
   current_level = 0;
 }
 
-
 template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tree::node_type& node, int level) noexcept
 {
    // Did current_level change?
    if (current_level != level) { 
 
-         current_level = level;
+       current_level = level;
 
-         display_level(ostr, level);       
+       display_level(ostr, level);       
    }
    
    display_node(ostr, node); 
@@ -106,7 +106,7 @@ void levelOrderDisplay<Tree>::display_level(std::ostream& ostr, int level) noexc
   
   std::string str( num, ' ');
   
-  ostr << str;
+  ostr << str; 
 }
 
 // Default implementation streams the node 
