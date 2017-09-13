@@ -14,6 +14,7 @@
 #include <utility>
 #include "debug.h"
 #include "level-order-invariant-report.h"
+#include "level-order-display.h"
 
 template<class Key, class Value> class tree23; // Forward declaration... 
 
@@ -417,6 +418,9 @@ template<class Key, class Value> class tree23 {
     int getHeight() const noexcept;
     void insert(Key key, const Value& value);
     bool isEmpty() const noexcept;
+
+    void printlevelOrder(std::ostream&) const noexcept;
+    void printInOrder(std::ostream& ostr) const noexcept;   
 
     // TODO: Should emplace() return an iterator?
     template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
@@ -2292,6 +2296,19 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
   }
 
   return false;
+}
+
+template<typename Key, typename Value> inline void tree23<Key, Value>::printlevelOrder(std::ostream& ostr) const noexcept
+{
+  levelOrderDisplay<tree23<Key, Value>> tree_printer(*this, ostr);  
+  
+  levelOrderTraverse(tree_printer);
+}
+
+template<typename Key, typename Value> inline void tree23<Key, Value>::printInOrder(std::ostream& ostr) const noexcept
+{
+  auto lambda = [&](const std::pair<Key, Value>& pr) { ostr << pr.first << ' '; };
+  inOrderTraverse(lambda); 
 }
 
 template<class Key, class Value> inline void tree23<Key, Value>::CreateRoot(Key key, const Value& value) noexcept
