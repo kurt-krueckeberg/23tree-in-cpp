@@ -1640,7 +1640,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::KeyValue& t
   }
 
   key() = lhs.key();
-  nc_pair.second = std::move(lhs.value());
+  value() = std::move(lhs.value());
 
   return *this; 
 }
@@ -1652,7 +1652,7 @@ template<class Key, class Value> inline  typename tree23<Key, Value>::KeyValue& 
   }
 
   key() = lhs.key();
-  nc_pair.second = lhs.value();
+  value() = lhs.value();
 
   return *this; 
 }
