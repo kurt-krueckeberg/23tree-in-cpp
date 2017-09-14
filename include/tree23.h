@@ -1501,7 +1501,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            const Node *__parent = pnode->parent;
            
            // Ascend the tree, the parent pointers, as long as pnode is the right most child of its parent. 
-           while(pnode == __parent->getRightMostChild())  { 
+           for(;pnode == __parent->getRightMostChild(); __parent = __parent->parent)  { 
            
                // pnode is still the right most child. If it is also the root, there is no successor (because pnode was the largest node in the tree). 
                if (__parent == tree.root.get()) {
@@ -1511,7 +1511,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
            
                prior_child = pnode;
                pnode = __parent;
-               __parent = __parent->parent;
            }
            
            prior_child = pnode; 
