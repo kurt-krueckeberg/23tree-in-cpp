@@ -1496,36 +1496,34 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     
       again, 60 is the successor by applying the same reasoning.
       */
-        {
-           const Node *prior_child = pnode;
-           const Node *__parent = pnode->parent;
+       {
+           const Node *parent = pnode->parent;
            
-           // Ascend the tree, the parent pointers, as long as pnode is the right most child of its parent. 
-           for(;pnode == __parent->getRightMostChild(); __parent = __parent->parent)  { 
+           // Ascend the parent pointers as long as nodes continue to be the right most child of their parents. 
+           for(;pnode == parent->getRightMostChild(); parent = parent->parent)  { 
            
                // pnode is still the right most child. If it is also the root, there is no successor (because pnode was the largest node in the tree). 
-               if (__parent == tree.root.get()) {
+               if (parent == tree.root.get()) {
                   
-                   return std::make_pair(nullptr, 0);  // To indicate no-successor we set current to nullptr and key_index to 0.
+                   return std::make_pair(nullptr, 0);  // To indicate no-successor we return Node * of nullptr and key_index of 0.
                }
            
-               prior_child = pnode;
-               pnode = __parent;
+               pnode = parent;
            }
            
-           prior_child = pnode; 
-           pnode = __parent;
- 
            // If pnode is a 3-node, determine if we ascended from the first child, children[0], or the middle child, children[1], and set suc_key_index accordingly. 
-           if (pnode->isThreeNode()) {
+           if (parent->isThreeNode()) {
 
-              suc_key_index = (prior_child == pnode->children[0].get()) ? 0 : 1; 
+              suc_key_index = (pnode == parent->children[0].get()) ? 0 : 1; 
 
            } else { // pnode is a 2-node
 
               suc_key_index = 0;
            }
+
+           return std::make_pair(parent, suc_key_index);
          }
+
          break;
 
     default:
