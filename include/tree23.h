@@ -16,7 +16,7 @@
 #include "level-order-invariant-report.h"
 #include "level-order-display.h"
 
-template<class Key, class Value> class tree23; // Forward declaration... 
+template<class Key, class Value> class tree23; // This forward declaration... 
 
 //...is required by these friend functions
 template<class Key, class Value> std::ostream& operator<<(std::ostream& ostr, const typename tree23<Key, Value>::Node& node23); 
@@ -268,11 +268,11 @@ template<class Key, class Value> class tree23 {
    /*  enum iterator_position represents one of the three possible finite states: 
 
      1. end --  the logical state of one-past the last, largest key/value in the tree. When the iterator is at the 'end' state, the value
-        of current and key_index will be the same as for the last, largest key/value.  
+        of current and key_index will always be the same: the last, largest key/value.  
 
      2. beg -- the logical state representing the first element.
 
-     3. in_between -- the state of being in-between beg and end.
+     3. in_between -- the state of being in-between beg and end: !beg && !end
     */
                                 
     enum class iterator_position {beg, in_between, end}; 
@@ -287,10 +287,10 @@ template<class Key, class Value> class tree23 {
          const typename tree23<Key, Value>::Node *current;
 
          /*
-         Relationship of iterator_position to key_index:
+         Relationship of iterator_position to key_index and vice versa:
     
-         The value of key_index will be zero when the state is beg. 
-         The value of key_index will be (current->totalItems - 1) when the state is end.
+          key_index will be zero if and only if state is beg. 
+          key_index will be (current->totalItems - 1) if and only if state is end
           */
          int key_index;  
 
@@ -1077,10 +1077,11 @@ template<class Key, class Value> int tree23<Key, Value>::iterator::getChildIndex
 }
 
 /*
-Two cases have to be considered: when current is an internal node and when current is a leaf node.
-If current is a leaf node, we check if it is a 3-node. If it is, and if key_index is 0, the predecessor is the second
-key of current. However, if key_index is 0, then we ascend the parent nodes as long as the parent is the right-most
-child (of its parent). If we reach the root, there is no predecessor.
+ TODO: The comments here sometimes be confuse predecessor with successor; likewise, the comments for iterator::getSuccessor confuse the successor with the predecessor!
+
+Two cases are possible: 1.) when current is an internal node and 2.) when current is a leaf node.
+If current is a leaf node, we check if it is a 3-node. If it is, and if key_index is 1, the predecessor is the first key of current. 
+However, if key_index is 0, then we ascend the parent nodes as long as the parent is the right-most (or left-most???) child (of its parent). If we reach the root, there is no predecessor.
 Else upon reaching a parent (before the root) that is a middle or left-most child (of its parent), we find the smallest key in the parent's "right" subtree.
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getPredecessor(const typename  tree23<Key, Value>::Node *current, int key_index) const noexcept
@@ -1329,6 +1330,9 @@ pair<const Node *, int>, where the Node pointer is the node with the next key an
 Node::keys_values[].  If the last key has already been visited, the pointer returned will be nullptr.
 Questions: Will position ever be end or beg, or do the callers increment() and decrement() ensure that it is never end or beg?
 pseudo code for getting successor from: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
+
+ TODO: The comments here sometimes be confuse predecessor with successor; likewise, the comments for iterator::getSuccessor confuse the successor with the predecessor!
+
 If left child exists, predecessor is the right most node of the left subtree. Internal node's of a 2 3 tree always have a right branch because 2 3 trees are
 balanced.
 Else walk up the ancestor chain until you traverse the first right child pointer (find 
