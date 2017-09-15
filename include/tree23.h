@@ -1308,28 +1308,17 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 Finding the successor of a given node 
 -------------------------------------
 Requires:
-1. If position is beg, current and key_index MUST point to first key in tree. 
-2. If position is end,  current and key_index MUST point to last key in tree.
-  
-3. If position is in_between, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
-the state can only be in_between if the first node is a 3-node.
-Returns:
-pair<const Node *, int>, where the Node pointer is the node with the next key and value in in-order sequence. key_index is the index into
-Node::keys_values[].  If the last key has already been visited, the pointer returned will be nullptr.
-Questions: Will position ever be end or beg, or do the callers increment() and decrement() ensure that it is never end or beg?
-pseudo code for getting successor from: http://ee.usc.edu/~redekopp/cs104/slides/L19_BalancedBST_23.pdf
 
- TODO: The comments here sometimes be confuse predecessor with successor; likewise, the comments for iterator::getSuccessor confuse the successor with the predecessor!
+    1. If position is beg, current and key_index MUST point to first key in tree. 
+    2. If position is end,  current and key_index MUST point to last key in tree.
+      
+    3. If position is in_between, current and key_index do not point to either the first key in the tree or last key in tree. If the tree has only one node,
+       the state can only be in_between if the first node is a 3-node.
 
-If left child exists, predecessor is the right most node of the left subtree. Internal node's of a 2 3 tree always have a right branch because 2 3 trees are
-balanced.
-Else walk up the ancestor chain until you traverse the first right child pointer (find 
-the first node who is a right child of his parent...that parent is the predecessor)
-If you get to the root w/o finding a node who is a right child, there is no predecessor
-May set:
-1. current
-2. key_index
-3. position
+    Returns:
+    pair<const Node *, int>, first is the node with the next in-order key, and second is the index into keys_values[]. If the last key has already been visited,
+    the pointer returned will be nullptr.
+
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getSuccessor(const Node *current,\
                                                                                                            int index_of_key) const noexcept
@@ -1338,7 +1327,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
      
      if (current == tree.root.get()) { // root is leaf      
 
-         if (tree.root->isThreeNode() && key_index == 0) { // TODO: ??? This needs to be double checked
+         if (tree.root->isThreeNode() && key_index == 0) { 
 
              return std::make_pair(current, 1);
          }
@@ -1358,36 +1347,22 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
 /* 
    Requires:
+
    1. pnode is an internal node not a leaf node.
    2. If pnode is a 3-node, key_index is 1 not 0.
+
    Returns:
-   pointer to successor node.
-Note: When a 2 3 tree node is a 3-node, it has two "right" chidren from the point of view of its first key and two "left" children from the point of view of its
-second key.
+   The smallest node in the subtree rooted at the right child of the pnode->keys_values[key_index]; i.e., the left most node of the subtree root as the right child.
+   Here "right child" means the pnode->children[key_index + 1]
+
+    Note: When a 2 3 tree node is a 3-node, it has two "right" chidren from the point of view of its first key and two "left" children from the point of view of its
+    second key.
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, \
- int index_of_key) const noexcept	    
+ int key_index) const noexcept	    
 {
- // Get next right child node of pnode based on key_index.
- const Node *rightChild;
+ const Node *rightChild = pnode->children[key_index + 1].get();
 
- if (pnode->isThreeNode()) {
-
-      if (index_of_key == 0) {
-
-        rightChild = pnode->children[1].get();
-
-      } else { // it is 1     
-
-        rightChild = pnode->children[2].get(); 
-      }
-
- } else { // It is a 2-node
-
-        rightChild = pnode->children[1].get();
- }
-
- // Question: Does it take into account that fact that a node may have already been visited in order?
  // Get the smallest node in the subtree rooted at the rightChild, i.e., its left most node...
  for (const Node *cursor = rightChild; cursor != nullptr; cursor = cursor->children[0].get()) {
 
@@ -1470,7 +1445,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     case 2: 
    /* 
-     parent of pnode is either a 2-node or 3-node in these possibilites cases: 
+     pnode is the third child of its parent, and pnode is either a 2-node or 3-node; giving us these four possible scenarios: 
 
        (a)   [20]    (b)   [20]       (c)   [20,   40]     (d)   [20,   40]        
              / \           /  \            /    |    \          /    |    \        
@@ -1478,9 +1453,9 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     In (a), pnode is [30]. In (b), pnode is [30, 32] and key_index is 1. In (c), pnode is [50]. In (d), pnode is [50, 60] and key_index of 1.
 
-    In all four cases, we walk up the ancestor chain until we traverse the first left child pointer; in other words, we find the first node that is
-    a left child of its parent. That parent is the successor. If we get to the root without finding a node that is a left child, there is no successor
-    (because pnode and key_index is the max key).
+    To find the successor in all four cases, we walk up the ancestor chain until we traverse the first left child pointer: the first node that is
+    a left child of its parent. That parent contains the successor. However, if we get to the root without finding a node that is a left child, there
+    is no successor (because pnode and key_index is the max key).
 
     Note: In a 2 3 tree, a "left child pointer" isn't always the first child. A "left child pointer" simply means a pointer to a subtree with smaller values than
     the parent. For example, the middle child pointer of a 3-node parent is a "left child pointer" of the 2nd key because all the values of the subtree rooted at
