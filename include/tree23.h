@@ -304,7 +304,7 @@ template<class Key, class Value> class tree23 {
 
          std::pair<const Node *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, int index_of_key) const noexcept;
 
-         std::pair<const typename tree23<Key, Value>::Node *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node *, int) const noexcept;
+         std::pair<const typename tree23<Key, Value>::Node *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node *, int) const;
 
          std::pair<const Node *, int> getPredecessor(const Node *current, int key_index) const noexcept;
 
@@ -1398,11 +1398,14 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 }
 /*
  Requires:
- 1. pnode is a leaf node, either a 2 or 3-node
- 2. If pnode is 3-node, then key_index, the key index into pnode->keys_values[].key() must be 1, the second key. It can never be 0, the first key.
+ 1. pnode is a either 2- or 3-node leaf node. 
+ 2. If pnode is 3-node, then key_index must be one: pnode->keys_values[1].key(), must be 1. It can never be 0, the first key.
+
+ Promises:
+  To return the in-order successor represented by the pair { const Node *pnode; int key_index }.
  */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getLeafNodeSuccessor(const \
- typename tree23<Key, Value>::Node *pnode, int index_of_key) const noexcept
+ typename tree23<Key, Value>::Node *pnode, int index_of_key) const 
 {
   // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
   if (pnode->isThreeNode() && index_of_key == 0) {
@@ -1417,23 +1420,24 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   /*
    Handle easy cases first:
-   1. If child_index is 0, then the successor -- when pnode is either a 2-node of 3-node -- is pnode->parent and the suc_key_index is 0.
+   1. If child_index is 0, then the successor is pnode->parent->keys_values[0].
    2. If child_index is 1 and parent is a 3-node, the successor is pnode->parent and suc_key_index is 1.
    */
   switch (child_index) {
 
-      case 0: /*
+      case 0:
+           /*
              pnode is either the left most child of either a 2-node or 3-node parent. If pnode is a 3-node, its key_index equals 1 (because if it is was 0,
              this was already handled at the beginning of this method. 
              The possibilities are:
-            (a)   [20]       (b) [20]    (c)   [20, 40]       (d) [20,  40]    
-                  / \            /  \          /   |  \            /   |  \ 
-               [15]  [x]    [15, 18] [x]    [15]  [ ]  [ ]   [15, 18] [ ] [ ]   Note: if leaf is a 3-node, key_index is 1.
-          In all four scenarios above, we advance to the first key of the parent. 
-               */
-         pnode = pnode->parent;
-         suc_key_index = 0;
-         break;
+
+             (a)   [20]       (b) [20]    (c)   [20, 40]       (d) [20,  40]    
+                   / \            /  \          /   |  \            /   |  \ 
+                [15]  [x]    [15, 18] [x]    [15]  [ ]  [ ]   [15, 18] [ ] [ ]   
+
+            Note: if leaf is a 3-node, key_index is 1. In all four scenarios above, we advance to the first key of the parent. 
+          */
+         return std::make_pair(pnode->parent, 0);
  
       case 1: 
          /* 
@@ -1455,19 +1459,18 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                 [x]  [30] [ ]     [x]  [30,32] [ ] 
            
             In (c) above, key_index is 0. In (d), key_index is 1. 
-               
         */ 
+
          if (pnode->parent->isThreeNode()) { // This is the trivial case, we advance to the 2nd key of the parent 3-node. 
 
-            pnode = pnode->parent;
-            suc_key_index = 1;
-            break;
+            return std::make_pair(pnode->parent, 1);
          } 
 
-    /* If the parent is a 2-node, we fall through to 'case 2' */
+    /* Note: If the parent is a 2-node, we fall through to 'case 2' */
 
     case 2: 
-   /* parent of pnode is either a 2-node or 3-node in these possibilites cases: 
+   /* 
+     parent of pnode is either a 2-node or 3-node in these possibilites cases: 
 
        (a)   [20]    (b)   [20]       (c)   [20,   40]     (d)   [20,   40]        
              / \           /  \            /    |    \          /    |    \        
@@ -1475,9 +1478,9 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
     In (a), pnode is [30]. In (b), pnode is [30, 32] and key_index is 1. In (c), pnode is [50]. In (d), pnode is [50, 60] and key_index of 1.
 
-    In all four cases, the logic is identical: We walk up the ancestor chain until we traverse the first left child pointer; that is, we find the first node that is
-    a left child of its parent. That parent is the successor. If we get to the root without finding a node that is a left child, then there is no successor (because
-    pnode and key_index is the max key).
+    In all four cases, we walk up the ancestor chain until we traverse the first left child pointer; in other words, we find the first node that is
+    a left child of its parent. That parent is the successor. If we get to the root without finding a node that is a left child, there is no successor
+    (because pnode and key_index is the max key).
 
     Note: In a 2 3 tree, a "left child pointer" isn't always the first child. A "left child pointer" simply means a pointer to a subtree with smaller values than
     the parent. For example, the middle child pointer of a 3-node parent is a "left child pointer" of the 2nd key because all the values of the subtree rooted at
@@ -1509,7 +1512,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
           0   0 0   0 0   0 0  0  ... 
     
       60 is the successor of 50.
-      */
+    */
        {
            const Node *parent = pnode->parent;
            
@@ -1545,7 +1548,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   } // end switch
 
-  return std::make_pair(pnode, suc_key_index); 
+  throw std::logic_error("An unexpected case occurred in getLeafNodeSuccessor that should never happend");
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::iterator& tree23<Key, Value>::iterator::increment() noexcept	    
@@ -1605,8 +1608,8 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
      break;
 
    case iterator_position::in_between: // 'in_between' means current and key_index range from the second key/value in tree and its last key/value.
-                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
-                                        //  first key/value.  
+                                       // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
+                                       //  first key/value.  
     {      
        std::pair<const Node *,int> pair = getPredecessor(current, key_index); // returns current and key_index of predecessor
 
@@ -1888,8 +1891,6 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
       {    
             destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
              
-            //destNode->parent = srcNode->parent; // TODO: Is this redundant? And is it correct? Aren't we setting the destNode::parent incorrectly? 
-            
             CloneTree(srcNode->children[0], destNode->children[0], destNode.get()); 
             
             CloneTree(srcNode->children[1], destNode->children[1], destNode.get()); 
@@ -1901,8 +1902,6 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
       {
             destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems); 
 
-            //destNode->parent = srcNode->parent;// TODO: Isn't this redundant? 
-            
             CloneTree(srcNode->children[0], destNode->children[0], destNode.get());
             
             CloneTree(srcNode->children[1], destNode->children[1], destNode.get());
@@ -1988,27 +1987,29 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
    while (src < Node::ThreeNode) {
   
-         if (!copied && new_key < p3node->keys_values[src].key()) {
+       if (!copied && new_key < p3node->keys_values[src].key()) {
 
-               copied = true;
-               keys_values[dest].key() = new_key; 
-               keys_values[dest].value() = new_value; 
-               ++dest;
+           copied = true;
+           keys_values[dest].key() = new_key; 
+           keys_values[dest].value() = new_value; 
+           ++dest;
 
-         }  else {
+       }  else {
 
-               keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
-               ++dest;
-               ++src;
-         } 
+           keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
+           ++dest;
+           ++src;
+       } 
    }
    
    if (!copied) {
+
         keys_values[dest].key() = new_key; 
         keys_values[dest].value() = new_value; 
    }
      
    for(auto& child : children) {
+
       child = nullptr;
    }
 }
@@ -2016,22 +2017,27 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 /*
  * This constructor is called when split() encounters an internal 3-node. 
  *
-Parameter requirements:
-1. p3node is an internal 3-node.
-2. child_index is such that
-   p3node->children[child_index].get() == the prior lower level 3-node that split just handled, in which it downsized to this prior level 3-node to a
-   2-node. 
-3. key (and its associated value) are values split "pushed up" one level when it recursed.
-4. heap_2node is the 2-node allocated on the heap in the prior call to split. 
-Overview if how it works:
-child_index is such that
-   p3node->children[child_index].get() == the prior lower level 3-node that was downsized to a 2-node in the immediately-prior call to split
-child_index is used to:
-1.) determine the index to use in inserting key into Node4::keys[], and 
-2.) to maintain the same general child relationships in the 4-node that existed within the 3-node. We know, for example, that heap_2node will always be
-to the right the previous p3node. We also use child_index to determine where heap_2node should be placed in Node4::children[]. 
-heap_2node is the 2-node allocated on the heap in the prior call to split when the 4-node created on the stack was split into two 2-nodes. heap_2node is the
-larger of those two 2-nodes. 
+    Parameter requirements:
+
+    1. p3node is an internal 3-node.
+    2. child_index is such that
+       p3node->children[child_index].get() == the prior lower level 3-node that split just handled, in which it downsized to this prior level 3-node to a
+       2-node. 
+    3. key (and its associated value) are values split "pushed up" one level when it recursed.
+    4. heap_2node is the 2-node allocated on the heap in the prior call to split. 
+
+    Overview if how it works:
+
+    child_index is such that p3node->children[child_index].get() == the prior lower level 3-node that was downsized to a 2-node in the immediately-prior call to split.
+
+    child_index is used to:
+
+    1.) determine the index to use in inserting key into Node4::keys[], and 
+
+    2.) to maintain the same general child relationships in the 4-node that existed within the 3-node. We know, for example, that heap_2node
+        will always be to the right the previous p3node. We also use child_index to determine where heap_2node should be placed in Node4::children[]. 
+        heap_2node is the 2-node allocated on the heap in the prior call to split when the 4-node created on the stack was split into two 2-nodes.
+        heap_2node is the larger of those two 2-nodes. 
 */
 
 template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, Key key, const Value& value, int child_index, \
