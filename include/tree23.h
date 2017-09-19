@@ -1117,10 +1117,6 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getInternalNodePredecessor(\
      const typename tree23<Key, Value>::Node *pnode, int key_index) const noexcept	    
 {
-
- // Get next left child node of pnode based on key_index. For a 2-node, key_index is always 0. While in a 3-node, it may be 1. 
- int index =  key_index == 1 ? 1 : 0;  
-
  const Node *leftChild = pnode->children[index].get();
 
  for (const Node *cursor = leftChild; cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
@@ -1145,7 +1141,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   // Handle trivial case: if the leaf node is a 3-node and key_index points to the second key, simply set key_index to 0. 
   if (pnode->isThreeNode() && index == 1) {
 
-      return std::make_pair(current, 0); 
+      return std::make_pair(pnode, 0); 
   }
 
   // Determine child_index such that pnode == pnode->parent->children[child_index]
