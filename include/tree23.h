@@ -1515,6 +1515,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
      // no op. Since current and key_index still point to smallest key and its value., we don't change them. 
      break;
 
+   case iterator_position::end:
    case iterator_position::in_between: // 'in_between' means current and key_index range from the second key/value in tree and its last key/value.
                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
                                        //  first key/value.  
@@ -1534,15 +1535,10 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
 
            current = pair.first;
            key_index = pair.second;
+           position = iterator_position::in_between;
        }
     }
     break;
-
-   case iterator_position::end:
-
-        // current and key_index already point to last key/value, so we merely change the position state to indicate they are 'in_between'.
-        position = iterator_position::in_between;
-        break;
 
    default:
         break;
