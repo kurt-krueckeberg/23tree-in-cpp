@@ -1,6 +1,24 @@
 ## Possible Bug
 
-Is the exception thrown in main() valid or not?
+The reverse\_iterator prints--I think-- the last element twice when used in a loop like this:
+
+.. code-block:: cpp
+
+    template<class Key, class Value> void rprint(const tree234<Key, Value>& tree, ostream& ostr)
+    {
+       // This has a  bug. 
+       auto end = tree.rend();
+    
+       for(auto iter = tree.rbegin(); iter != end; ++iter) {
+     
+          auto& pr = *iter;
+    
+          ostr << pr.first << ", " << flush;
+       }
+       
+       ostr << endl;
+    }
+
 
 ## Thoughts on emplace()
 
