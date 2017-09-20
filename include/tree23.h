@@ -935,7 +935,6 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::initialize(t
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(const iterator& lhs) : tree{lhs.tree}, current{lhs.current}, \
          key_index{lhs.key_index}, position{lhs.position} 
 {
-  initialize(position);
 }
 
 // non const tree23<Key, Value>& passed to ctor. Called only by end()
