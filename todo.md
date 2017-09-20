@@ -2,8 +2,6 @@
 
 The reverse\_iterator prints--I think-- the last element twice when used in a loop like this:
 
-.. code-block:: cpp
-
     template<class Key, class Value> void rprint(const tree234<Key, Value>& tree, ostream& ostr)
     {
        // This has a  bug. 
@@ -18,7 +16,8 @@ The reverse\_iterator prints--I think-- the last element twice when used in a lo
        
        ostr << endl;
     }
-
+    
+This is probably a bug in iterator::operator==() and !=.
 
 ## Thoughts on emplace()
 
