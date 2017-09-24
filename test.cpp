@@ -314,7 +314,7 @@ void print_with_backward_iterator(const tree23<int, int>& tree)
 
  auto iter_begin = tree.begin();
 
- --iter;
+ //--iter;
 
  for(; iter != iter_begin; --iter) {
 
@@ -331,28 +331,9 @@ void test_reverse_iterators(const vector<int>& input)
 {
    tree23<int, int> tree{ insert_vec_into_tree(input) };
 
-   print_with_nonconst_reverse_iterator(tree);
-
    print_with_const_reverse_iterator(tree);
 }
 
-void print_with_nonconst_reverse_iterator(tree23<int, int>& tree)
-{
- using tree23_int = tree23<int, int>;
-
- tree23<int, int>& tree23 = const_cast<tree23_int&>(tree);
-
- auto riter = tree.rbegin();
- auto riter_end = tree.rend();
-  
- for(; riter != riter_end; ++riter) {
-
-    const auto& key_value = *riter; // causes compiler error.
-
-    //--cout << key_value.key << ", " << flush;
-    cout << key_value.first << ", " << flush;
- }
-}
 
 void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 {

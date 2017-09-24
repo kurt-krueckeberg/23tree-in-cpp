@@ -6,8 +6,7 @@
 #include <ostream>  
 #include "level-order-display.h"
 
-template<class Tree>
-class DebugPrinter : public levelOrderDisplay<Tree> {
+template<class Tree> class DebugPrinter : public levelOrderDisplay<Tree> {
 
   public:
      
