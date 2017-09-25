@@ -31,11 +31,11 @@ void print_with_nonconst_reverse_iterator(tree23<int, int>& tree);
 
 void debug_print_tree(const tree23<int, int> & tree);
 
-void print_with_forward_iterator(const tree23<int, int>& the_tree);
+void print_with_iterator(const tree23<int, int>& the_tree);
 
 void test_backward_iterator(const std::vector<int>& input);
 
-void print_with_backward_iterator(const tree23<int, int>& the_tree);
+void print_with_reverse_iterator(const tree23<int, int>& the_tree);
 
 void test_reverse_iterators(const std::vector<int>& vec);
 

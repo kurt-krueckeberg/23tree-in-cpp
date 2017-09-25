@@ -1,24 +1,3 @@
-## Possible Bug
-
-The reverse\_iterator prints--I think--the last element twice when used in a loop like this:
-
-    template<class Key, class Value> void rprint(const tree234<Key, Value>& tree, ostream& ostr)
-    {
-       // This has a  bug. 
-       auto end = tree.rend();
-    
-       for(auto iter = tree.rbegin(); iter != end; ++iter) {
-     
-          auto& pr = *iter;
-    
-          ostr << pr.first << ", " << flush;
-       }
-       
-       ostr << endl;
-    }
-    
-This is probably a bug in iterator::operator==() and !=, or in rend()?
-
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the

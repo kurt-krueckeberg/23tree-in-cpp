@@ -248,7 +248,7 @@ void test_forward_iterator(const std::vector<int>& test_case)
 
   try {
 
-    print_with_forward_iterator(tree);
+    print_with_iterator(tree);
 
   } catch (std::exception& e) {
 
@@ -259,15 +259,11 @@ void test_forward_iterator(const std::vector<int>& test_case)
   return; 
 }
 
-void print_with_forward_iterator(const tree23<int, int>& tree)
+void print_with_iterator(const tree23<int, int>& tree)
 {
-  for (const auto& pr : tree) { 
+  for (const auto& pr : tree) 
+       cout << pr.first << ", " << flush;
 
-       //cout << (*citer).first << ", ";
-       cout << pr.first << ", ";
-       cout << flush;
-
-  }
 }
 
 void test_backward_iterator(const std::vector<int>& input)
@@ -285,17 +281,15 @@ void test_backward_iterator(const std::vector<int>& input)
 
   level_order_print(tree);
  
-  cout << "\n\nIn order print of tree:\n";
+  cout << "\n\nPrinting tree with iterator:\n";
   
-  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ", "; };
-
-  tree.inOrderTraverse(lambda_closure);
+  print_with_iterator(tree); 
   
-  cout << flush << "\nPrinting tree with backward iterator:\n";
+  cout << flush << "\nPrinting tree with reverse iterator:\n";
 
   try {
 
-     print_with_backward_iterator(tree);
+     print_with_reverse_iterator(tree);
 
   } catch (std::exception& e) {
 
@@ -306,19 +300,10 @@ void test_backward_iterator(const std::vector<int>& input)
   return; 
 }
 
-void print_with_backward_iterator(const tree23<int, int>& tree)
+void print_with_reverse_iterator(const tree23<int, int>& tree)
 {
- 
- auto iter = tree.end();
-
- auto iter_begin = tree.begin();
-
- for(; iter != iter_begin; --iter) {
-
-   const tree23<int, int>::value_type& key_value = *iter;
-
-   cout << key_value.first << ", " << flush;
- } 
+ for (auto it = tree.rbegin(); it != tree.rend(); ++it) 
+     cout << (*it).first << ", " << flush;
  
 }
 
@@ -338,10 +323,8 @@ void print_with_const_reverse_iterator(const tree23<int, int>& tree)
 
  for(; riter != riter_end; ++riter) {
 
-   //--const tree23<int, int>::KeyValue& key_value = *riter;
    const tree23<int, int>::value_type& key_value = *riter;
 
-   //--cout << key_value.key << ", " << flush;
    cout << key_value.first << ", " << flush;
  } 
 }
