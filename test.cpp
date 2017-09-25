@@ -260,16 +260,14 @@ void test_forward_iterator(const std::vector<int>& test_case)
 }
 
 void print_with_forward_iterator(const tree23<int, int>& tree)
-{ 
-  auto citer = tree.begin();
-  auto cend_iter = tree.end();
+{
+  for (const auto& pr : tree) { 
 
-  for( ; citer != cend_iter; ++citer) {
-
-       //--cout << (*citer).key << ", ";
-       cout << (*citer).first << ", ";
+       //cout << (*citer).first << ", ";
+       cout << pr.first << ", ";
        cout << flush;
-  } 
+
+  }
 }
 
 void test_backward_iterator(const std::vector<int>& input)
@@ -310,21 +308,18 @@ void test_backward_iterator(const std::vector<int>& input)
 
 void print_with_backward_iterator(const tree23<int, int>& tree)
 {
+ 
  auto iter = tree.end();
 
  auto iter_begin = tree.begin();
 
- //--iter;
-
  for(; iter != iter_begin; --iter) {
 
-   //--const tree23<int, int>::KeyValue& key_value = *iter;
    const tree23<int, int>::value_type& key_value = *iter;
 
-   //--cout << key_value.key << ", " << flush;
    cout << key_value.first << ", " << flush;
  } 
-
+ 
 }
 
 void test_reverse_iterators(const vector<int>& input)
