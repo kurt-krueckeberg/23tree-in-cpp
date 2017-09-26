@@ -26,7 +26,7 @@ template<class Key, class Value> class tree23 {
     
   private:
 
-  union KeyValue { // A union is used to hold to two types of pairs, one of which (nc_pair) has a non-const Key; the other has a const Key.
+  union KeyValue { // A union is used to hold to two types of pairs, one of has const key, the other a non-const Key/
       friend class tree23<Key, Value>;
  
       std::pair<Key, Value>        nc_pair;  // ...this eliminates constantly casting of const_cast<Key>(p.first) = some_noconst_key;
@@ -39,7 +39,7 @@ template<class Key, class Value> class tree23 {
       
       KeyValue(Key k, Value&& v) : nc_pair{k, std::move(v)} {} 
 
-      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}//nc_pair{lhs.key(), std::move(lhs.value())} {}
+      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}
 
       KeyValue& operator=(const KeyValue& lhs);  
       KeyValue& operator=(KeyValue&& lhs); 
@@ -255,7 +255,7 @@ template<class Key, class Value> class tree23 {
    void DestroyTree(std::unique_ptr<Node> &root) noexcept; 
 
   public:
-    // Container typedef's used by STL.
+    // STL container "typedef's"
 
     using value_type      = std::pair<const Key, Value>; 
     using difference_type = long int;
@@ -294,7 +294,7 @@ template<class Key, class Value> class tree23 {
 
          iterator_position position;
 
-         void initialize(iterator_position pos); // reuseable constructor code. 
+         void initialize(iterator_position pos); // reusable constructor code. 
 
          int getChildIndex(const typename tree23<Key, Value>::Node *p) const noexcept;
 
@@ -1035,8 +1035,8 @@ template<class Key, class Value> bool tree23<Key, Value>::iterator::operator==(c
 {
  if (&lhs.tree == &tree) {
 
-    // If we are not in_between...
-    if (lhs.position == iterator_position::end && position == iterator_position::end) { // check whethert both iterators are at the end...
+    // If we are not in_between...check whether both iterators are at the end...
+    if (lhs.position == iterator_position::end && position == iterator_position::end) { 
 
         return true;
 
@@ -1148,7 +1148,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
   int pred_key_index;
 
-  if (child_index != 0) { // IF pnode is not the left-most child, the predecessor is in the parent
+  if (child_index != 0) { // If pnode is not the left-most child, the predecessor is in the parent
 
       return  std::make_pair(pnode->parent, child_index - 1); 
 
