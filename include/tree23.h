@@ -547,202 +547,6 @@ template<class Key, class Value> typename tree23<Key, Value>::Node& tree23<Key, 
   move_children(node23); 
 
 }
-
-template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::test_parent_ptr(std::ostream& ostr, const Node *root) const noexcept
-{
-   if (this == root) { // If this is the root...
-       
-        if (parent != nullptr) {
-
- 	  ostr << " node is root and parent is not nullptr ";
-        }
-
-   } else if (this == parent || parent == nullptr) { // ...otherwise, just check that it is not nullptr or this.
-
-	ostr << " parent pointer wrong ";
-   }	   
-   return ostr;
-}	
-
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_remove_invariant(std::ostream& ostr) const noexcept
-{
-  if (isLeaf()) {
-
-     ostr << " empty leaf node implies key was removed.";
-     return ostr;
-  }
-
-  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty
-  // 2-node leaf is itself also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one
-  //  non-nullptr child.
-  int count = 0;
-
-  for(auto i = 0; i < TwoNodeChildren; ++i) {
-
-      if (children[i] == nullptr) ++count;
-  } 
-
-  ostr <<  " is an internal node recursive remove case. The node has " << count << " children. ";  
-
-  if (count != 1) {
-
-     ostr << "It should only have one."; 
-  }	  
-
-  for(auto i = 0; i < TwoNodeChildren; ++i) {
-
-      if (children[i] != nullptr) {
-
-	  if (children[i]->parent != this) {
- 
-              ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
-	  }
-      }
-  } 
-
-  return ostr;
-} 
-
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_2node_invariant(std::ostream& ostr, const Node *root) const noexcept
-{
- //  test parent pointer	
-  test_parent_ptr(ostr, root);
-	 
-  if (isLeaf()) return ostr;
-
-  // check ordering of children's keys with respect to parent. 
-  for (int child_index = 0; child_index < Node::TwoNodeChildren; ++child_index) {
-
-       if (children[child_index] == nullptr) {
-     
-            ostr << "error: children[" << child_index << "] is nullptr\n";
-            continue;
-       } 
-
-       for (auto i = 0; i < children[child_index]->totalItems; ++i) {
-          
-           switch (child_index) {
-
-             case 0:
-
-              if (children[0]->keys_values[i].key() >= keys_values[0].key()) { // If any are greater than or equal to keys_values.keys[0], then it is an error.
-              
-                 ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
-              }  
-
-              break;
-
-              case 1:
-
-                if (children[1]->keys_values[i].key() <= keys_values[0].key()) { // are any less than or equal to keys_values.keys[0], then it is an error.
-          
-                   ostr << "error: children[1]->keys_values[" << i << "].key()= " << children[1]->keys_values[i].key() << " is not greater than " << keys_values[0].key() << ".\n";
-                }
-
-                break;
-  
-              default:
-                ostr << "error: totalItems = " << totalItems << ".\n";
-                break;
-
-          } // end switch 
-       }  // end inner for    
-  } // end outer for
-          
-  const Node *child; 
-
-  // test children's parent point. 
-  for (auto i = 0; i < TwoNodeChildren; ++i) {
-
-       if (children[i] == nullptr) continue; // skip if nullptr 
-      
-       child = children[i].get();   
-       
-       if (child->parent != this)	 {
-
-            ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
-       } 
-  }
-}
-
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept
-{
-  //  test parent pointer	
-  test_parent_ptr(ostr, root);
-
-  // Test keys ordering
-  if (keys_values[0].key() >= keys_values[1].key() ) {
-
-      ostr <<  keys_values[0].key() << " is greater than " <<keys_values[1].key();
-  }
-
-  if (isLeaf()) return ostr; 
-
-  for (int child_index = 0; child_index < Node::ThreeNodeChildren; ++child_index) {
-
-     if (children[child_index] == nullptr) {
-   
-          ostr << "error: children[" << child_index << "] is nullptr\n";
-          continue;
-     }
-
-    for (auto i = 0; i < children[child_index]->totalItems; ++i) {
-
-      switch (child_index) {
-
-       case 0:  
-       // Test that all left child's keys are less than node's keys_values.key()[0]
-     
-           if (children[0]->keys_values[i].key() >= keys_values[0].key() ) { // If any are greater than or equal to keys_values.key()[0], it is an error
-     
-              // problem
-              ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
-           }  
-       break; 
-
-       case 1:
- 
-       // Test middle child's keys, key, are such that: keys_values.key() [0] < key < keys_values.key()[1]
-           if (!(children[1]->keys_values[i].key() > keys_values[0].key() && children[1]->keys_values[i].key() < keys_values[1].key())) {
-     
-              // problem
-              ostr << "error: children[1]->keys_values[" << i << "].key() = " << children[1]->keys_values[i].key() << " is not between " << keys_values[0].key() << " and " << keys_values[1].key() << ".\n";
-           }
-
-       break;
-
-      case 2:     
-       // Test right child's keys are all greater than nodes sole key
-     
-           if (children[2]->keys_values[i].key() <= keys_values[1].key()) { // If any are less than or equal to keys_values.key()[1], it is an error.
-     
-              // problem
-              ostr << "error: children[2]->keys_values[" << i << "].key() = " << children[2]->keys_values[i].key() << " is not greater than " << keys_values[1].key() << ".\n";
-           }
-
-       break;
-
-      default:
-         ostr << "error: totalItems = " << totalItems << ".\n";
-         break;
-     } // end switch
-   } // end inner for
- } // end outer for
-     
- // test children's parent point. 
- for (auto i = 0; i < ThreeNodeChildren; ++i) {
-
-    if (children[i] == nullptr) continue; // skip if nullptr 
-
-    if (children[i]->parent != this)	 {
-
-        ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
-    } 
- }
-
-  return ostr; 
-}
-
 template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept
 {
   return root == nullptr ? true : false;
@@ -2313,13 +2117,13 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
   }
 
 /*
-  new_key will be inserted between the next largest value in the tree and the next smallest: in order predecessor key < new_key < in order successor key
+  new_key will be inserted between the next largest value in the tree and the prior next smallest: predecessor_key < new_key < successor_key
 
-   "stack<int> child_indecies" tracks each branch taken descending to the leaf in which new_key should be inserted. This aids in creating 4-nodes
+   "stack<int> child_indecies" tracks each branch taken when descending to the leaf into which the new_key will be inserted. This stack aids in creating 4-nodes
    from internal 3-nodes. child_indecies tells us the branches taken from the root to pinsert_start. 
 
-   Thus, for example, in the code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
-   branches, "branches" can then be used to duplicate the exact descent braches taken from the root to the leaf where new_key insertion should begin:
+   Thus, for example, in code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
+   branches, branches can be used to duplicate the exact descent branches taken from the root to the leaf where the insertion of new_key should begin:
 
        // convert stack to deque
        deque<int> branches;
@@ -3495,6 +3299,202 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
 
   return node2Delete;
 }
+
+template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::test_parent_ptr(std::ostream& ostr, const Node *root) const noexcept
+{
+   if (this == root) { // If this is the root...
+       
+        if (parent != nullptr) {
+
+ 	  ostr << " node is root and parent is not nullptr ";
+        }
+
+   } else if (this == parent || parent == nullptr) { // ...otherwise, just check that it is not nullptr or this.
+
+	ostr << " parent pointer wrong ";
+   }	   
+   return ostr;
+}	
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_remove_invariant(std::ostream& ostr) const noexcept
+{
+  if (isLeaf()) {
+
+     ostr << " empty leaf node implies key was removed.";
+     return ostr;
+  }
+
+  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty
+  // 2-node leaf is itself also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one
+  //  non-nullptr child.
+  int count = 0;
+
+  for(auto i = 0; i < TwoNodeChildren; ++i) {
+
+      if (children[i] == nullptr) ++count;
+  } 
+
+  ostr <<  " is an internal node recursive remove case. The node has " << count << " children. ";  
+
+  if (count != 1) {
+
+     ostr << "It should only have one."; 
+  }	  
+
+  for(auto i = 0; i < TwoNodeChildren; ++i) {
+
+      if (children[i] != nullptr) {
+
+	  if (children[i]->parent != this) {
+ 
+              ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+	  }
+      }
+  } 
+
+  return ostr;
+} 
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_2node_invariant(std::ostream& ostr, const Node *root) const noexcept
+{
+ //  test parent pointer	
+  test_parent_ptr(ostr, root);
+	 
+  if (isLeaf()) return ostr;
+
+  // check ordering of children's keys with respect to parent. 
+  for (int child_index = 0; child_index < Node::TwoNodeChildren; ++child_index) {
+
+       if (children[child_index] == nullptr) {
+     
+            ostr << "error: children[" << child_index << "] is nullptr\n";
+            continue;
+       } 
+
+       for (auto i = 0; i < children[child_index]->totalItems; ++i) {
+          
+           switch (child_index) {
+
+             case 0:
+
+              if (children[0]->keys_values[i].key() >= keys_values[0].key()) { // If any are greater than or equal to keys_values.keys[0], then it is an error.
+              
+                 ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
+              }  
+
+              break;
+
+              case 1:
+
+                if (children[1]->keys_values[i].key() <= keys_values[0].key()) { // are any less than or equal to keys_values.keys[0], then it is an error.
+          
+                   ostr << "error: children[1]->keys_values[" << i << "].key()= " << children[1]->keys_values[i].key() << " is not greater than " << keys_values[0].key() << ".\n";
+                }
+
+                break;
+  
+              default:
+                ostr << "error: totalItems = " << totalItems << ".\n";
+                break;
+
+          } // end switch 
+       }  // end inner for    
+  } // end outer for
+          
+  const Node *child; 
+
+  // test children's parent point. 
+  for (auto i = 0; i < TwoNodeChildren; ++i) {
+
+       if (children[i] == nullptr) continue; // skip if nullptr 
+      
+       child = children[i].get();   
+       
+       if (child->parent != this)	 {
+
+            ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+       } 
+  }
+}
+
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept
+{
+  //  test parent pointer	
+  test_parent_ptr(ostr, root);
+
+  // Test keys ordering
+  if (keys_values[0].key() >= keys_values[1].key() ) {
+
+      ostr <<  keys_values[0].key() << " is greater than " <<keys_values[1].key();
+  }
+
+  if (isLeaf()) return ostr; 
+
+  for (int child_index = 0; child_index < Node::ThreeNodeChildren; ++child_index) {
+
+     if (children[child_index] == nullptr) {
+   
+          ostr << "error: children[" << child_index << "] is nullptr\n";
+          continue;
+     }
+
+    for (auto i = 0; i < children[child_index]->totalItems; ++i) {
+
+      switch (child_index) {
+
+       case 0:  
+       // Test that all left child's keys are less than node's keys_values.key()[0]
+     
+           if (children[0]->keys_values[i].key() >= keys_values[0].key() ) { // If any are greater than or equal to keys_values.key()[0], it is an error
+     
+              // problem
+              ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
+           }  
+       break; 
+
+       case 1:
+ 
+       // Test middle child's keys, key, are such that: keys_values.key() [0] < key < keys_values.key()[1]
+           if (!(children[1]->keys_values[i].key() > keys_values[0].key() && children[1]->keys_values[i].key() < keys_values[1].key())) {
+     
+              // problem
+              ostr << "error: children[1]->keys_values[" << i << "].key() = " << children[1]->keys_values[i].key() << " is not between " << keys_values[0].key() << " and " << keys_values[1].key() << ".\n";
+           }
+
+       break;
+
+      case 2:     
+       // Test right child's keys are all greater than nodes sole key
+     
+           if (children[2]->keys_values[i].key() <= keys_values[1].key()) { // If any are less than or equal to keys_values.key()[1], it is an error.
+     
+              // problem
+              ostr << "error: children[2]->keys_values[" << i << "].key() = " << children[2]->keys_values[i].key() << " is not greater than " << keys_values[1].key() << ".\n";
+           }
+
+       break;
+
+      default:
+         ostr << "error: totalItems = " << totalItems << ".\n";
+         break;
+     } // end switch
+   } // end inner for
+ } // end outer for
+     
+ // test children's parent point. 
+ for (auto i = 0; i < ThreeNodeChildren; ++i) {
+
+    if (children[i] == nullptr) continue; // skip if nullptr 
+
+    if (children[i]->parent != this)	 {
+
+        ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
+    } 
+ }
+
+  return ostr; 
+}
+
 /* rvalue version  TODO: finish later
 template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
 {
