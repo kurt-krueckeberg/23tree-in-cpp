@@ -879,20 +879,6 @@ template<class Key, class Value> int tree23<Key, Value>::iterator::getChildIndex
   return child_index;
 }
 
-/*
- TODO: The comments here sometimes be confuse predecessor with successor; likewise, the comments for iterator::getSuccessor confuse the successor with the predecessor!
-
-Two cases are possible: 1.) when current is an internal node and 2.) when current is a leaf node.
-
-case 2:
-If current is a leaf node, and if it is a a 3-node and key-index is 1, then the predecessor is trivial: the first key is the predecessor. If, however, the key_index is 0, we ascend the parent
-chain until we enounter the first parent that is not a left most-child (of its parent). If the root is enounter before such a parent is found, then there is no predecessor.
-
-
-
- nodes as long as the parent is the right-most (or left-most???) child (of its parent). If we reach the root, there is no predecessor.
-Else upon reaching a parent (before the root) that is a middle or left-most child (of its parent), we find the smallest key in the parent's "right" subtree.
- */
 template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::iterator::getPredecessor(const typename  tree23<Key, Value>::Node *current, int key_index) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
