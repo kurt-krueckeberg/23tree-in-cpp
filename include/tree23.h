@@ -1817,8 +1817,8 @@ template<class Key, class Value> typename tree23<Key, Value>::Node4& tree23<Key,
   keys_values = std::move(lhs.keys_values);
 
   children = std::move(lhs.children); /* This invokes std::array<Node>'s move assignment operater. For Node copy or move construction one must not do this,
-                           but rather call Node::connectChild() for each child, which properly sets the parent pointer in the node; but for Node4 construction
-                         the parent pointer does not need to be properly set--I believe--because Node4 is only owns the children temporarily, until it is split
+                         but rather call Node::connectChild() for each child, which properly sets the parent pointer in the node; but for Node4 construction
+                         the parent pointer does not need to be properly set--I believe--because Node4 only owns the children temporarily, until it is split
                          into two Nodes, at which time Node::connectChild() is call to properly set the node's parent pointer. */
                                      
   parent = lhs.parent;
@@ -1833,7 +1833,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectC
  /*
   Because Node4::parent is of type Node *, we cannot do
         parent = this;
-  since 'this' is of type, Node4 *. 
+  since 'this' is of type 'Node4 *'. 
   */
 
   Node *parent_of_node23 = (child == nullptr) ? nullptr : child->parent; 
@@ -2393,10 +2393,10 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
   
   if (pnode == root.get()) {
 
-       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
-       // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
+      // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
+      // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
         
-       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
+      CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
 
   } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node, ...
 
