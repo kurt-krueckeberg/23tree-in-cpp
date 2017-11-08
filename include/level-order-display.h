@@ -59,7 +59,7 @@ inline levelOrderDisplay<Tree>::levelOrderDisplay(const Tree& in_tree, std::ostr
 template<class Tree>
 inline void levelOrderDisplay<Tree>::initializeTraverse() noexcept
 {
-   height = tree.getHeight();	
+   height = tree.height();	
    current_level = 0;
 }
 

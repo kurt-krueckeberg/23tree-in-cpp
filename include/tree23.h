@@ -12,6 +12,7 @@
 #include <exception>
 #include <iterator>
 #include <utility>
+#include <algorithm>
 #include "debug.h"
 #include "level-order-invariant-report.h"
 #include "level-order-display.h"
@@ -105,9 +106,6 @@ template<class Key, class Value> class tree23 {
 
         bool siblingHasTwoItems(int child_index, int& sibling_index) const noexcept;
 
-        std::ostream& test_remove_invariant(std::ostream& ostr) const noexcept; 
-
-        std::ostream& test_2node_invariant(std::ostream& ostr, const Node *root) const noexcept;
 
         std::ostream& test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept;
 
@@ -202,8 +200,6 @@ template<class Key, class Value> class tree23 {
 
     std::unique_ptr<Node> root; 
 
-    int height;   // adjusted only by insert() and remove()
-
     // Subroutines called by insert()
     int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node *&pinsert_start) const noexcept;
 
@@ -253,6 +249,11 @@ template<class Key, class Value> class tree23 {
    // Called by copy constructor and copy assignment operators, respectively.
    void CloneTree(const std::unique_ptr<Node>& Node2Copy, std::unique_ptr<Node>& NodeCopy, const Node * parent) noexcept;
    void DestroyTree(std::unique_ptr<Node> &root) noexcept; 
+
+   int  height(const Node *pnode) const noexcept;
+   
+   int  depth(const Node *pnode) const noexcept;
+   bool isBalanced(const Node *pnode) const noexcept;
 
   public:
     // STL container "typedef's"
@@ -403,8 +404,6 @@ template<class Key, class Value> class tree23 {
 
     std::ostream& test_height(std::ostream& ostr) const noexcept;
 
-    std::string test_invariant(const Node& p) const noexcept; 
-
     tree23(const tree23&) noexcept; 
 
     tree23& operator=(const tree23&) noexcept; 
@@ -412,8 +411,7 @@ template<class Key, class Value> class tree23 {
     tree23(tree23&&) noexcept; // move constructor
 
     tree23& operator=(tree23&&) noexcept; // move assignemtn
-
-    int getHeight() const noexcept;
+    
     void insert(Key key, const Value& value);
     bool isEmpty() const noexcept;
 
@@ -438,6 +436,9 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void inOrderTraverse(Functor f) const noexcept;
     template<typename Functor> void preOrderTraverse(Functor f) const noexcept;
     template<typename Functor> void postOrderTraverse(Functor f) const noexcept;
+
+    int  height() const noexcept;
+    bool isBalanced() const noexcept;
 };
 
 
@@ -550,66 +551,6 @@ template<class Key, class Value> typename tree23<Key, Value>::Node& tree23<Key, 
 template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept
 {
   return root == nullptr ? true : false;
-}
-
-template<class Key, class Value> inline void tree23<Key, Value>::test_invariant() const noexcept
-{
-  levelOrderInvariantReport<tree23<Key, Value>> reporter(const_cast<const tree23<Key,Value>&>(*this), std::cout);
-
-  levelOrderTraverse(reporter); 
-}
-
-template<class Key, class Value> std::ostream& tree23<Key, Value>::test_height(std::ostream& ostr) const noexcept
-{
-  // Test that height is correct
-  int depth = 0;
-
-  for (auto current = root.get(); current != nullptr; current = current->children[0].get()) {
-
-       ++depth;
-  }
-
-  if (height != depth) {
-     ostr << "error: The height is " << height << " but actual calculated height is " << depth << ".\n";
-  }
-}
-
-template<class Key, class Value> std::string tree23<Key, Value>::test_invariant(const Node& const_node) const noexcept
-{
-  std::ostringstream oss;
-
-  Node& node = const_cast<Node&>(const_node);
-
-  switch(node.totalItems) {
-
-      case 0:
-         node.test_remove_invariant(oss);
-         break;
-
-      case Node::TwoNode:
-
-         node.test_2node_invariant(oss, root.get());
-         break;   
-      
-      case Node::ThreeNode:
-
-         node.test_3node_invariant(oss, root.get());
-         break;   
-    
-      default:
-         // If we come here, then node.totalItems is wrong.
-         oss << " error: node.totalItems is " << node.totalItems << ".\n"; 
-         break;
-  }
-
-  std::string msg;
-
-  if (oss.str().length() > 0) { 
-
-     msg = " --> " + oss.str();
-  } 
-
-  return msg; 
 }
 
 template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::debug_print(std::ostream& ostr, bool show_addresses) const 
@@ -1541,7 +1482,7 @@ template<class Key, class Value> bool tree23<Key, Value>::Node::siblingHasTwoIte
   return true;   
 }
 
-template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}, height{0} 
+template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}
 {
 
 }   
@@ -1562,8 +1503,6 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
   }
 
   DestroyTree(root); // free all the nodes of the current tree 
-
-  height = lhs.height;
   
   // Traverse in pre-order using the clone functor. See todo.txt
   CloneTree(lhs.root, root, nullptr);
@@ -1629,9 +1568,9 @@ template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::uniqu
 }
 
 // Move constructorusing external iterator
-template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)}, height{lhs.height}
+template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)}
 {
-  lhs.height = 0;
+  
 }   
 
 // Copy assignment
@@ -1660,10 +1599,7 @@ template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::
   }
   
   root = std::move(lhs.root);  
-  
-  height = lhs.height;
-  
-  lhs.height = 0;
+
   return *this;
 }   
 
@@ -1879,11 +1815,6 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
    return ostr;
 }
 
-template<class Key, class Value> inline int tree23<Key, Value>::getHeight() const noexcept
-{
-  return height;
-}
-
 template<class Key, class Value> template<typename Functor> inline void tree23<Key, Value>::inOrderTraverse(Functor f) const noexcept
 {
    DoInOrderTraverse(f, root);
@@ -2086,7 +2017,6 @@ template<typename Key, typename Value> inline void tree23<Key, Value>::printInOr
 template<class Key, class Value> inline void tree23<Key, Value>::CreateRoot(Key key, const Value& value) noexcept
 {
    root = std::make_unique<Node>(key, value);
-   height = 1; // first node added to tree, the root.
 }
 /* 
    If new_key is already in the tree, we overwrite its associate value with new_value. If it is not in the tree, we descend to the leaf where the
@@ -2503,9 +2433,6 @@ template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_
 
    // 4. Make new_root the actual root.
    root = std::move(new_root);
-
-   // 5. increase tree's height
-   ++height;
 }
 
 /*
@@ -2855,10 +2782,6 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
    // node pointer before doing the assignment.
       root = std::move(root->getNonNullChild());  
       root->parent = nullptr;   
-   }
-   
-   if (height > 0 ) {
-      --height;
    }
 }
 
@@ -3302,107 +3225,6 @@ template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::
    return ostr;
 }	
 
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_remove_invariant(std::ostream& ostr) const noexcept
-{
-  if (isLeaf()) {
-
-     ostr << " empty leaf node implies key was removed.";
-     return ostr;
-  }
-
-  // If it is not a leaf, then it is an internal node. This is the recursive remove case when the parent of the inital empty
-  // 2-node leaf is itself also a 2-node that will be merged with its sole non-empty child. Thus, we test for one and only one
-  //  non-nullptr child.
-  int count = 0;
-
-  for(auto i = 0; i < TwoNodeChildren; ++i) {
-
-      if (children[i] == nullptr) ++count;
-  } 
-
-  ostr <<  " is an internal node recursive remove case. The node has " << count << " children. ";  
-
-  if (count != 1) {
-
-     ostr << "It should only have one."; 
-  }	  
-
-  for(auto i = 0; i < TwoNodeChildren; ++i) {
-
-      if (children[i] != nullptr) {
-
-	  if (children[i]->parent != this) {
- 
-              ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
-	  }
-      }
-  } 
-
-  return ostr;
-} 
-
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_2node_invariant(std::ostream& ostr, const Node *root) const noexcept
-{
- //  test parent pointer	
-  test_parent_ptr(ostr, root);
-	 
-  if (isLeaf()) return ostr;
-
-  // check ordering of children's keys with respect to parent. 
-  for (int child_index = 0; child_index < Node::TwoNodeChildren; ++child_index) {
-
-       if (children[child_index] == nullptr) {
-     
-            ostr << "error: children[" << child_index << "] is nullptr\n";
-            continue;
-       } 
-
-       for (auto i = 0; i < children[child_index]->totalItems; ++i) {
-          
-           switch (child_index) {
-
-             case 0:
-
-              if (children[0]->keys_values[i].key() >= keys_values[0].key()) { // If any are greater than or equal to keys_values.keys[0], then it is an error.
-              
-                 ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
-              }  
-
-              break;
-
-              case 1:
-
-                if (children[1]->keys_values[i].key() <= keys_values[0].key()) { // are any less than or equal to keys_values.keys[0], then it is an error.
-          
-                   ostr << "error: children[1]->keys_values[" << i << "].key()= " << children[1]->keys_values[i].key() << " is not greater than " << keys_values[0].key() << ".\n";
-                }
-
-                break;
-  
-              default:
-                ostr << "error: totalItems = " << totalItems << ".\n";
-                break;
-
-          } // end switch 
-       }  // end inner for    
-  } // end outer for
-          
-  const Node *child; 
-
-  // test children's parent point. 
-  for (auto i = 0; i < TwoNodeChildren; ++i) {
-
-       if (children[i] == nullptr) continue; // skip if nullptr 
-      
-       child = children[i].get();   
-       
-       if (child->parent != this)	 {
-
-            ostr << "children[" << i << "]->parent does not point to 'this', which is " << this << ").";
-       } 
-  }
-}
-
 template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept
 {
   //  test parent pointer	
@@ -3481,6 +3303,119 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
   return ostr; 
 }
 
+/*
+ * Returns -1 is pnode not in tree
+ * Returns: 0 for root
+ *          1 for level immediately below root
+ *          2 for level immediately below level 1
+ *          3 for level immediately below level 2
+ *          etc. 
+ */
+template<class Key, class Value> int tree23<Key, Value>::depth(const Node *pnode) const noexcept
+{
+    if (pnode == nullptr) return -1;
+
+    int depth = 0;
+      
+    for (const Node *current = root; current != nullptr; ++depth) {
+
+      if (current->key() == pnode->key()) {
+
+          return depth;
+
+      } else if (pnode->key() < current->key()) {
+
+          current = current->left;
+
+      } else {
+
+          current = current->right;
+      }
+    }
+
+    return -1; // not found
+}
+
+template<class Key, class Value> inline int tree23<Key, Value>::height() const noexcept
+{
+   return height(root.get());
+}
+
+template<class Key, class Value> int tree23<Key, Value>::height(const Node* pnode) const noexcept
+{
+   if (pnode == nullptr) {
+
+       return -1;
+
+   } else {
+       
+      std::array<int, Node::ThreeNodeChildren> heights;
+      
+      int num_children = pnode->getChildCount();
+      
+      for (auto i = 0; i < num_children; ++i) {
+          
+         heights[i] = height(pnode->children[i].get());
+      }
+      
+      int max = *std::max_element(heights.begin(), heights.begin() + num_children);
+      
+      return 1 + max;
+   }
+}
+
+/*
+  Input: pnode must be in tree
+ */
+template<class Key, class Value> bool tree23<Key, Value>::isBalanced(const Node* pnode) const noexcept
+{
+    if (pnode == nullptr) return false; 
+
+    std::array<int, Node::ThreeNodeChildren> heights; // four is max number of children.
+    
+    int child_num = pnode->getChildCount();
+    
+    for (auto i = 0; i < child_num; ++i) {
+
+         heights[i] = height(pnode->children[i].get());
+    }
+    
+    int minHeight = *std::min_element(heights.begin(), heights.begin() + child_num);
+    
+    int maxHeight = *std::max_element(heights.begin(), heights.begin() + child_num);
+
+    // Get absolute value of difference between max height and min of height of children.
+    int diff = std::abs(maxHeight - minHeight);
+
+    return (diff == 1 || diff ==0) ? true : false; // return true is absolute value is 0 or 1.
+}
+
+// Visits each Node in level order, testing whether it is balanced. Returns false if any node is not balanced.
+template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noexcept
+{
+    std::stack<const Node *> nodes;
+
+    nodes.push(root.get());
+
+    while (!nodes.empty()) {
+
+       const Node *current = nodes.top();
+       
+       nodes.pop(); // remove top element
+       
+       if (isBalanced(current) == false)  return false; 
+
+       // push its children onto the stack 
+       for (auto i = 0; i < current->getChildCount(); ++i) {
+          
+           if (current->children[i] != nullptr) {
+               
+               nodes.push(current->children[i].get());
+           }   
+       }
+    }
+    return true; // All Nodes were balanced.
+}
 /* rvalue version  TODO: finish later
 template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
 {
