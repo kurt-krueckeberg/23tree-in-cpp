@@ -3393,15 +3393,15 @@ template<class Key, class Value> bool tree23<Key, Value>::isBalanced(const Node*
 // Visits each Node in level order, testing whether it is balanced. Returns false if any node is not balanced.
 template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noexcept
 {
-    std::stack<const Node *> nodes;
+    std::queue<const Node *> nodes;
 
     nodes.push(root.get());
 
     while (!nodes.empty()) {
 
-       const Node *current = nodes.top();
+       const Node *current = nodes.front();
        
-       nodes.pop(); // remove top element
+       nodes.pop(); // remove first element
        
        if (isBalanced(current) == false)  return false; 
 
@@ -3415,6 +3415,7 @@ template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noe
        }
     }
     return true; // All Nodes were balanced.
+
 }
 /* rvalue version  TODO: finish later
 template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
