@@ -69,6 +69,16 @@ template<class Key, class Value> class tree23 {
 
      public:   
         Node(Key key, const Value& value, Node *ptr2parent=nullptr);
+       ~Node()
+        { 
+           /* For debugging
+            std::cout << "~Node: [ ";
+            for(auto i = 0; i < getTotalItems(); ++i)
+                  std::cout << keys_values[i].key() << ',' << std::flush;
+            std::cout << ']' << std::flush;
+            */ 
+         }
+
 
         // Used when tree23::emplace(arg...) is called.
         // TODO: Is this actually used--check to confirm.

@@ -80,7 +80,7 @@ int main(int argc, char** argv)
       
            cerr << "An exception occured:\n" << e.what() << endl;
        }
-  }
+    }
     
   return 0;
 }
