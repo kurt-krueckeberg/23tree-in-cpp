@@ -1947,11 +1947,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
    while (!queue.empty()) {
 
-        std::pair<const Node *, int> pair_ = queue.front();
-
-        const tree23<Key, Value>::Node *current = pair_.first;
-
-        int current_tree_level = pair_.second;
+        auto[current, current_tree_level] =  queue.front(); // Use of C++17 unpacking
 
         f(*current, current_tree_level);  
         
@@ -3077,7 +3073,7 @@ tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
 {
     Node *parent = pnode->parent;
 
-    // If pnode is a leaf, then all children are nullptrs. soleChild is only needed when pnode is an internal node.
+    // If pnode is a leaf, then all children are nullptrs. The non-null child is only needed when pnode is an internal node.
     std::unique_ptr<Node> soleChild = (!pnode->isLeaf()) ? std::move(pnode->getNonNullChild()) : nullptr; 
 
     std::unique_ptr<Node> node2Delete;
@@ -3201,7 +3197,7 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
       return node2Delete; 
   } 
 
-  // Recursive case: This only occurs if fixTreewe adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
+  // Recursive case: This only occurs if fixTree adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
   std::unique_ptr<Node>& nonemptyChild = pnode->getNonNullChild();
 
   // Is sibling to the left? 

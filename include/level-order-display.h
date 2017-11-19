@@ -99,7 +99,7 @@ template<class Tree> void levelOrderDisplay<Tree>::operator()(const typename Tre
 template<class Tree>
 void levelOrderDisplay<Tree>::display_level(std::ostream& ostr, int level) noexcept
 {
-  ostr << "\n\n" << "current_level = " <<  current_level; 
+  ostr << "\n\n" << "current_level = " <<  current_level << "  "; 
      
   // Provide some basic spacing to tree appearance.
   std::size_t num = height - current_level + 1;
