@@ -14,8 +14,7 @@
 #include <utility>
 #include <algorithm>
 #include "debug.h"
-#include "level-order-invariant-report.h"
-#include "level-order-display.h"
+//--#include "level-order-invariant-report.h"
 
 template<class Key, class Value> class tree23; // This forward declaration... 
 
@@ -60,7 +59,6 @@ template<class Key, class Value> class tree23 {
 
   class Node4;   // Fwd declaration 
 
-  public:
   
    // The tree's heap-allocated Node nodes are managed by std::unique_ptr<Node>s.
     class Node {
@@ -162,9 +160,48 @@ template<class Key, class Value> class tree23 {
 
            void insertKeyInLeaf(Key key, const Value& value);
            void insertKeyInLeaf(Key key, Value&& new_value);
-      }; 
+    }; 
+
+
+  class NodeLevelOrderPrinter {
+
+      std::ostream& ostr;
+      int current_level;
+      int height;
+
+      void display_level(std::ostream& ostr, int level) const noexcept
+      {
+        ostr << "\n\n" << "current_level = " <<  current_level << ' '; 
+           
+        // Provide some basic spacing to tree appearance.
+        std::size_t num = height - current_level + 1;
+        
+        std::string str( num, ' ');
+        
+        ostr << str; 
+      }
+    
+     public: 
+        
+     NodeLevelOrderPrinter (int hght, std::ostream& ostr_in): height (hght), ostr (ostr_in), current_level (0) {}
+
+     NodeLevelOrderPrinter (const NodeLevelOrderPrinter& lhs): height{lhs.height}, ostr{lhs.ostr}, current_level{lhs.current_level} {}
+
+     void operator ()(const Node *pnode, int level)
+     { 
+         // Did current_level change?
+         if (current_level != level) { 
+        
+             current_level = level;
+        
+             display_level(ostr, level);       
+         }
+        
+         std::cout << *pnode << ' ' << std::flush;
+     }
+  };
+
       
-  private: 
     class Node4 { // Class Node4 is only used to aid insert()
 
        // Always hold three keys and four children. 
@@ -1949,7 +1986,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
         auto[current, current_tree_level] =  queue.front(); // Use of C++17 unpacking
 
-        f(*current, current_tree_level);  
+        f(current, current_tree_level);  
         
         if (current != nullptr && !current->isLeaf()) {
 
@@ -2009,9 +2046,17 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 
 template<typename Key, typename Value> inline void tree23<Key, Value>::printlevelOrder(std::ostream& ostr) const noexcept
 {
+  /*
   levelOrderDisplay<tree23<Key, Value>> tree_printer(*this, ostr);  
   
   levelOrderTraverse(tree_printer);
+  */
+  NodeLevelOrderPrinter tree_printer(height(), ostr);  
+  
+  levelOrderTraverse(tree_printer);
+  
+  ostr << std::flush;
+
 }
 
 template<typename Key, typename Value> inline void tree23<Key, Value>::printInOrder(std::ostream& ostr) const noexcept

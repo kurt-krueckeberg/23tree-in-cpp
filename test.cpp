@@ -1,8 +1,6 @@
 #include "include/test.h"
 #include "include/tree23.h"
-#include "include/level-order-display.h"
-//#include "include/debug-level-order-printer.h"
-#include "include/debug-printer.h"
+//--#include "include/debug-printer.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
@@ -234,7 +232,7 @@ void test_forward_iterator(const std::vector<int>& test_case)
       tree.insert(key, key);
     }
 
-  level_order_print(tree);
+  tree.printlevelOrder(cout);
   
   cout << "\n\nIn order print of tree:\n";
   
@@ -277,7 +275,7 @@ void test_backward_iterator(const std::vector<int>& input)
       tree.insert(key, key);
     }
 
-  level_order_print(tree);
+  tree.printlevelOrder(cout);
  
   cout << "\n\nPrinting tree with iterator:\n";
   
@@ -326,44 +324,20 @@ void print_with_const_reverse_iterator(const tree23<int, int>& tree)
    cout << key_value.first << ", " << flush;
  } 
 }
-
-void level_order_print(const tree23<int, int>& tree)
+void print_tree(const tree23<int, int> & tree)
 {
-  cout << flush << "Level order print of tree: ";
+  for (auto & pr : tree) {
 
-  levelOrderDisplay<tree23<int, int>> printFunctor(tree, cout);
-
-  tree.levelOrderTraverse(printFunctor);
-   
-  cout << flush;
-}
-
-void print_tree(const tree23<int, int>& tree)
-{
-  level_order_print(tree);
-
-  cout << "\n\nIn order print of tree: ";
+     cout << "{ " << pr.first << ", " << pr.second << "}, " << std::flush;
+  } 
   
-  auto lambda_closure = [](const tree23<int, int>::value_type& key_value ){ cout << key_value.first << ' '; };
-/*
-  tree.inOrderTraverse(lambda_closure);
- */ 
-    
-  tree23<int, int>::const_iterator const_iter = tree.begin();
-  
-  for(const auto& key_value : tree) {
-      
-      //--cout << key_value.key << flush;
-      cout << key_value.first << ", " << flush;
-  }
-  cout << endl;
+  cout << endl << flush;
 }
- 
+/* 
 void debug_print_tree(const tree23<int, int> & tree)
 {
-  level_order_print(tree);
+  tree.printlevelOrder(cout);
    
-  //--debug_levelOrderPrinter<tree23<int,int>> debugprintFunctor(tree, cout);
   DebugPrinter<tree23<int,int>> debug_printer(tree, cout);
 
   cout << "\nLevel order debug print of tree: \n" << flush;
@@ -380,3 +354,4 @@ void debug_print_tree(const tree23<int, int> & tree)
   
   cout << endl << flush;
 }
+*/

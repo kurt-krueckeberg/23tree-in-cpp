@@ -5,7 +5,6 @@
 #include <exception>
 #include "include/tree23.h"
 #include "include/test.h"
-#include "include/debug-printer.h"
 
 #include <utility> // debug purposes only
 
@@ -16,15 +15,15 @@ int main(int argc, char** argv)
   tree23<int, int> test_tree = { {50, 50}, {39, 39}, {15, 15}, {65, 65}, {69, 69}, {150, 150}, {125, 125}, {20, 20}, {70, 70}, {100, 100}, {40, 40}, {34, 34}, {37, 37}, {30, 30}, {10, 10}, {33, 33}, {36, 36}, \
    {38, 38}, {85, 85}, {90, 90}, {60, 60}, { 35, 35}, {80, 80}, {89, 89} };
 
-  DebugPrinter<tree23<int, int>> debug_printer{test_tree, cout};
+  //DebugPrinter<tree23<int, int>> debug_printer{test_tree, cout};
 
-  test_tree.levelOrderTraverse(debug_printer); 
+  test_tree.printlevelOrder(cout); 
 
   cout << endl;
 
   tree23<int, int> tree_copy{test_tree};
 
-  tree_copy.levelOrderTraverse(debug_printer); 
+  tree_copy.printlevelOrder(cout); 
     
   tree23<int, int> tree;
 
