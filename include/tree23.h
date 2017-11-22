@@ -14,7 +14,6 @@
 #include <utility>
 #include <algorithm>
 #include "debug.h"
-//--#include "level-order-invariant-report.h"
 
 template<class Key, class Value> class tree23; // This forward declaration... 
 
@@ -117,7 +116,7 @@ template<class Key, class Value> class tree23 {
 
         std::ostream& test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept;
 
-        std::ostream& debug_print(std::ostream& ostr, bool show_addresses=false) const;
+        std::ostream& debug_print(std::ostream& ostr, bool show_addresses=false) const noexcept;
 
         std::ostream& print(std::ostream& ostr) const noexcept;
    
@@ -180,12 +179,14 @@ template<class Key, class Value> class tree23 {
         
         ostr << str; 
       }
-    
+
+      std::ostream& (Node::*pmf)(std::ostream&) const noexcept;
+
      public: 
         
-     NodeLevelOrderPrinter (int hght, std::ostream& ostr_in): height (hght), ostr (ostr_in), current_level (0) {}
+     NodeLevelOrderPrinter (int hght,  std::ostream& (Node::*pmf_)(std::ostream&) const noexcept, std::ostream& ostr_in): height{hght}, ostr{ostr_in}, current_level{0}, pmf{pmf_} {}
 
-     NodeLevelOrderPrinter (const NodeLevelOrderPrinter& lhs): height{lhs.height}, ostr{lhs.ostr}, current_level{lhs.current_level} {}
+     NodeLevelOrderPrinter (const NodeLevelOrderPrinter& lhs): height{lhs.height}, ostr{lhs.ostr}, current_level{lhs.current_level}, pmf{lhs.pmf} {}
 
      void operator ()(const Node *pnode, int level)
      { 
@@ -196,8 +197,10 @@ template<class Key, class Value> class tree23 {
         
              display_level(ostr, level);       
          }
-        
-         std::cout << *pnode << ' ' << std::flush;
+
+         (pnode->*pmf)(std::cout);
+
+         std::cout << ' ' << std::flush;
      }
   };
 
@@ -463,6 +466,8 @@ template<class Key, class Value> class tree23 {
     bool isEmpty() const noexcept;
 
     void printlevelOrder(std::ostream&) const noexcept;
+    void debug_printlevelOrder(std::ostream& ostr) const noexcept;
+    
     void printInOrder(std::ostream& ostr) const noexcept;   
 
     // TODO: Should emplace() return an iterator?
@@ -600,7 +605,7 @@ template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const
   return root == nullptr ? true : false;
 }
 
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::debug_print(std::ostream& ostr, bool show_addresses) const 
+template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::debug_print(std::ostream& ostr, bool show_addresses) const noexcept
 {
    ostr << " { ["; 
    
@@ -2046,18 +2051,23 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 
 template<typename Key, typename Value> inline void tree23<Key, Value>::printlevelOrder(std::ostream& ostr) const noexcept
 {
-  /*
-  levelOrderDisplay<tree23<Key, Value>> tree_printer(*this, ostr);  
-  
-  levelOrderTraverse(tree_printer);
-  */
-  NodeLevelOrderPrinter tree_printer(height(), ostr);  
+  NodeLevelOrderPrinter tree_printer(height(), &Node::print, ostr);  
   
   levelOrderTraverse(tree_printer);
   
   ostr << std::flush;
 
 }
+
+template<typename Key, typename Value> void tree23<Key, Value>::debug_printlevelOrder(std::ostream& ostr) const noexcept
+{
+  NodeLevelOrderPrinter tree_printer(height(), &Node::debug_print, ostr);  
+  
+  levelOrderTraverse(tree_printer);
+  
+  ostr << std::flush;
+}
+
 
 template<typename Key, typename Value> inline void tree23<Key, Value>::printInOrder(std::ostream& ostr) const noexcept
 {
