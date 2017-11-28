@@ -68,7 +68,7 @@ template<class Key, class Value> class tree23 {
         Node(Key key, const Value& value, Node *ptr2parent=nullptr);
        ~Node()
         { 
-           /* For debugging
+           /* For debugging uncomment.
             std::cout << "~Node: [ ";
             for(auto i = 0; i < getTotalItems(); ++i)
                   std::cout << keys_values[i].key() << ',' << std::flush;
@@ -926,12 +926,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
       return std::make_pair(pnode, 0); 
   }
 
-  // Determine child_index such that pnode == pnode->parent->children[child_index]
-  int child_index = getChildIndex(pnode);
-
-  int pred_key_index;
-
-  if (child_index != 0) { // If pnode is not the left-most child, the predecessor is in the parent
+  if (int child_index = getChildIndex(pnode); child_index != 0) { // If pnode is not the left-most child, the predecessor is in the parent
 
       return  std::make_pair(pnode->parent, child_index - 1); 
 
@@ -1010,12 +1005,12 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
           pnode = parent;
       }
                                                                                                                                                                    
-      int child_index = pnode == parent->children[1].get() ? 1 : 2; // If parent is a 2-node, then pnode will always be parent->children[1].get().
+      int index_of_child = pnode == parent->children[1].get() ? 1 : 2; // If parent is a 2-node, then pnode will always be parent->children[1].get().
                                                                     // If parent is a 3-node, we must compare pnode to parent->children[1].get(), because  
                                                                     // if pnode is not the second child, it must be the third child.
                                                                                                                                                           
-      // Using child_index, we know the key of the next smallest key will be child_index -1.
-      return std::make_pair(parent, child_index - 1);
+      // Using index_of_child, we know the key of the next smallest key will be child_index -1.
+      return std::make_pair(parent, index_of_child - 1);
   }   
 }
 
@@ -1103,17 +1098,16 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
       return std::make_pair(current, 1); 
   }
 
-  // Determine child_index such that pnode == pnode->parent->children[child_index]
-  int child_index = getChildIndex(pnode); // BUG: This blows up if pnode == root.get())
-
   int suc_key_index;
+
+  // Determine child_index such that pnode == pnode->parent->children[child_index]
 
   /*
    Handle easy cases first:
    1. If child_index is 0, then the successor is pnode->parent->keys_values[0].
    2. If child_index is 1 and parent is a 3-node, the successor is pnode->parent and suc_key_index is 1.
    */
-  switch (child_index) {
+  switch (int child_index = getChildIndex(pnode); child_index) {
 
       case 0:
            /*
@@ -1307,9 +1301,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
                                        //  first key/value.  
     {      
-       std::pair<const Node *,int> pair = getPredecessor(current, key_index); // returns current and key_index of predecessor
-
-       if (pair.first == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
+       if (std::pair<const Node *,int> pair = getPredecessor(current, key_index); pair.first == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
 
             // Therefore current doesn't change, nor key_index, but the state becomes 'beg'. 
             position = iterator_position::beg;
@@ -1465,10 +1457,8 @@ template<class Key, class Value> bool tree23<Key, Value>::Node::siblingHasTwoIte
 {
 
  if (parent->isTwoNode()) { // In a recursive case, the parent has 0 totalItems, and it has only one non-nullptr child.
-
-     sibling_index = !child_index;
-     
-     if (parent->children[sibling_index]->isThreeNode()) { // toggle between 0 or 1
+          
+     if (sibling_index = !child_index; parent->children[sibling_index]->isThreeNode()) { // toggle between 0 or 1
 
         return true;
 
@@ -2120,9 +2110,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 
   Node *pinsert_start;
 
-  int found_index = findInsertNode(new_key, child_indecies, pinsert_start);
-
-  if (found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
+  if (int found_index = findInsertNode(new_key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
 
        pinsert_start->keys_values[found_index].value() = new_value;
        return;  
@@ -2248,9 +2236,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
 
   Node *pinsert_start;
 
-  int found_index = findInsertNode(key, child_indecies, pinsert_start);
-
-  if (found_index != Node::NotFoundIndex) { // if key already exists, overwrite its associated value.
+  if (int found_index = findInsertNode(key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // if key already exists, overwrite its associated value.
 
        // Destruct the current value by explicitly invoking Value's destructor. 
        pinsert_start->~keys_values[found_index].value(); 
@@ -2380,9 +2366,8 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
 
   // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key(), and whose children are the two right most children of node4
   //    the children of pnode. This is what the Node constructor that takes a Node4 does.
-  std::unique_ptr<Node> larger_2node{std::make_unique<Node>(node4)}; 
   
-  if (pnode == root.get()) {
+  if (std::unique_ptr<Node> larger_2node{std::make_unique<Node>(node4)}; pnode == root.get()) {
 
       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
       // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
@@ -2788,9 +2773,8 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
   descent_indecies.pop();
 
   // case 1. If the empty node has a sibling with two keys, then we can shift keys and barrow a key for pnode from its parent. 
-  int sibling_index;
 
-  if (pnode->siblingHasTwoItems(child_index, sibling_index)) { 
+  if (int sibling_index; pnode->siblingHasTwoItems(child_index, sibling_index)) { 
 
       barrowSiblingKey(pnode, child_index, sibling_index);
      
@@ -3032,10 +3016,9 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node
   if (node->isLeaf()) return;
 
   // Determine which child of node is non-nullptr.
-  int sole_child = node->getSoleChildIndex();
 
   // If sole_child is 1, then shift it left.
-  if (sole_child == 1) {
+  if (int sole_child = node->getSoleChildIndex(); sole_child == 1) {
 
       node->connectChild(0, std::move(node->children[1]));  
    }
@@ -3053,11 +3036,8 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
 {
   if (node->isLeaf()) return;
 
-  // Determine which child of node is non-nullptr.
-  int sole_child = node->getSoleChildIndex();
-  
-  // If sole_child is 0, then shift it right.
-  if (sole_child == 0) {
+  // Determine which child of node is non-nullptr. If the sole child is 0, then shift it right.
+  if (node->getSoleChildIndex() == 0) {
 
      node->connectChild(1, std::move(node->children[0]));  
   }
@@ -3072,11 +3052,8 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenLeft(Node
 {
   if (node->isLeaf()) return;
 
-  // Determine which child of node is non-nullptr.
-  int sole_child = node->getSoleChildIndex();
-
-  // If sole_child is 1, then shift it left.
-  if (sole_child == 1) {
+  // If sole child is 1, then shift it left.
+  if (node->getSoleChildIndex()== 1) {
 
       node->connectChild(0, std::move(node->children[1]));  
    }
@@ -3097,10 +3074,9 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
 {
   if (node->isLeaf()) return;
 
-  // Determine which child of node is non-nullptr.
-  int sole_child = node->getSoleChildIndex();
+  // If first child is sole child
 
-  if (sole_child == 0) {
+  if (node->getSoleChildIndex()== 0) {
 
      node->connectChild(1, std::move(node->children[0]));  
   }
