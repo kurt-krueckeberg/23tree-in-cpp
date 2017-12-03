@@ -879,11 +879,11 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
      if (current == tree.root.get()) { // root is leaf      
 
          if (tree.root->isThreeNode() && key_index == 1) {
-
-             return std::make_pair(current, 0);
+             
+             return {current, 0};
          }
                   
-         return std::make_pair(nullptr, 0);
+         return {nullptr, 0};
             
      } else {
 
@@ -906,7 +906,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     pnode = cursor;
  }
 
- return std::make_pair(pnode, pnode->totalItems - 1); 
+ return {pnode, pnode->totalItems - 1}; 
 }
 /* 
 Finding the predecessor of a given node 
@@ -923,12 +923,12 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   // Handle trivial case: if the leaf node is a 3-node and key_index points to the second key, simply set key_index to 0. 
   if (pnode->isThreeNode() && index == 1) {
 
-      return std::make_pair(pnode, 0); 
+      return {pnode, 0}; 
   }
 
   if (int child_index = getChildIndex(pnode); child_index != 0) { // If pnode is not the left-most child, the predecessor is in the parent
 
-      return  std::make_pair(pnode->parent, child_index - 1); 
+      return  {pnode->parent, child_index - 1}; 
 
   } else {
 
@@ -1000,7 +1000,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
           // pnode is still the left most child, but if its is the root, we cannot ascend further and there is no predecessor.  
           if (parent == tree.root.get()) {
                 
-              return std::make_pair(nullptr, 0);  // To indicate this we set current, the member of the pair, to nullptr and key_index, the second member, to 0.
+              return {nullptr, 0};  // To indicate this we set current, the member of the pair, to nullptr and key_index, the second member, to 0.
           }
           pnode = parent;
       }
@@ -1010,7 +1010,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                                                                     // if pnode is not the second child, it must be the third child.
                                                                                                                                                           
       // Using index_of_child, we know the key of the next smallest key will be child_index -1.
-      return std::make_pair(parent, index_of_child - 1);
+      return {parent, index_of_child - 1};
   }   
 }
 
@@ -1039,10 +1039,10 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
          if (tree.root->isThreeNode() && key_index == 0) { 
 
-             return std::make_pair(current, 1);
+             return {current, 1};
          }
                   
-         return std::make_pair(nullptr, 0);
+         return {nullptr, 0};
  
      } else {
 
@@ -1079,7 +1079,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
     pnode = cursor;
  }
 
- return std::make_pair(const_cast<Node *>(pnode), 0);
+ return {const_cast<Node *>(pnode), 0};
 }
 /*
  Requires:
@@ -1095,7 +1095,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
   // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
   if (pnode->isThreeNode() && index_of_key == 0) {
 
-      return std::make_pair(current, 1); 
+      return {current, 1}; 
   }
 
   int suc_key_index;
@@ -1121,7 +1121,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
             Note: if leaf is a 3-node, key_index is 1. In all four scenarios above, we advance to the first key of the parent. 
           */
-         return std::make_pair(pnode->parent, 0);
+         return {pnode->parent, 0};
  
       case 1: 
          /* 
@@ -1147,7 +1147,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 
          if (pnode->parent->isThreeNode()) { // This is the trivial case, we advance to the 2nd key of the parent 3-node. 
 
-            return std::make_pair(pnode->parent, 1);
+            return {pnode->parent, 1};
          } 
 
     /* Note: If the parent is a 2-node, we fall through to 'case 2' */
@@ -1206,7 +1206,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
                // pnode is still the right most child, but if it is also the root, then, there is no successor (because pnode was the largest node in the tree). 
                if (parent == tree.root.get()) {
                   
-                   return std::make_pair(nullptr, 0);  // To indicate "no-successor" we return the pair: {nullptr, 0}.
+                   return {nullptr, 0};  // To indicate "no-successor" we return the pair: {nullptr, 0}.
                }
            
                pnode = parent;
@@ -1222,7 +1222,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
               suc_key_index = 0;
            }
 
-           return std::make_pair(parent, suc_key_index);
+           return {parent, suc_key_index};
          }
 
          break;
@@ -1564,7 +1564,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
       case 1: // two node
       {    
             destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
-             
+                         
             CloneTree(srcNode->children[0], destNode->children[0], destNode.get()); 
             
             CloneTree(srcNode->children[1], destNode->children[1], destNode.get()); 
@@ -1975,7 +1975,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
    
    // 1. pair.first  is: const tree<Key, Value>::Node*, the current node to visit.
    // 2. pair.second is: current level of tree.
-   queue.push(std::make_pair(proot, initial_level));
+   queue.push({proot, initial_level});
 
    while (!queue.empty()) {
 
@@ -1988,14 +1988,14 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
             if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily  ...
 
                    //...when only and only one of the empty 2-node's children will be nullptr. 
-                   queue.push( std::make_pair( (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1) ); 
-                   queue.push( std::make_pair( (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1) ); 
+                   queue.push( { (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1 }); 
+                   queue.push( { (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1 }); 
 
 	    } else {
             
                 for(auto i = 0; i < current->getChildCount(); ++i) {
     
-                   queue.push(std::make_pair(current->children[i].get(), current_tree_level + 1));  
+                   queue.push({current->children[i].get(), current_tree_level + 1});  
                 }
 	    }
         }
@@ -2213,7 +2213,7 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 
 template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... args) noexcept
 {
-   root = std::make_unique<Node>(key, std::forward<Args>(args)...); // Uses Node's variadic template constructor.
+   root = {key, std::forward<Args>(args)...}; // Uses Node's variadic template constructor.
    height = 1; // first node added to tree, the root.
 }
 
