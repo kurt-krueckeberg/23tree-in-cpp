@@ -1656,11 +1656,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
         keys_values[dest].key() = new_key; 
         keys_values[dest].value() = new_value; 
    }
-     
-   for(auto& child : children) {
-
-      child = nullptr;
-   }
+   
 }
 
 /*
@@ -2443,7 +2439,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo2Node(N
   totalItems = Node::TwoNode; 
 
   // Take ownership of the two left most children of node4 
-  connectChild(0, std::move(node4.children[0]));
+  connectChild(0, std::move(node4.children[0])); // TODO: Is this necessary--since the children are nullptr--right?
   connectChild(1, std::move(node4.children[1]));
 } 
 

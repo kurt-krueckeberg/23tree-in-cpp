@@ -1,0 +1,3 @@
+#   #!/usr/bin/env bash
+mv include/tree23.h include/ntree23.h
+mv include/tree23.h.orig include/tree23.h
