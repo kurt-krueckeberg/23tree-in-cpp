@@ -1,4 +1,0 @@
-#   #!/usr/bin/env bash
-date
-mv include/tree23.h include/tree23.h.orig
-mv include/ntree23.h include/tree23.h
