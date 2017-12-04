@@ -105,7 +105,7 @@ template<class Key, class Value> class tree23 {
 
         constexpr const Node *getRightMostChild() const noexcept { return children[getTotalItems()].get(); }
 
-        constexpr std::unique_ptr<Node>& getNonNullChild() noexcept;
+        constexpr std::shared_ptr<Node>& getNonNullChild() noexcept;
 
         constexpr int getSoleChildIndex() const noexcept; // called from subroutine's of tree23<Key,Value>::remove(Key)
 
@@ -139,20 +139,20 @@ template<class Key, class Value> class tree23 {
 
            std::array<std::shared_ptr<Node>, 3> children;
 
-           void move_keys_values(std::array<std::unique_ptr<KeyValue>, 2>&& lhs);
+           void move_keys_values(std::array<std::shared_ptr<KeyValue>, 2>&& lhs);
 
-           void move_children(std::array<std::unique_ptr<Node>, 3>&& lhs);
+           void move_children(std::array<std::shared_ptr<Node>, 3>&& lhs);
 
            void removeLeafKey(Key key) noexcept;
        
            int totalItems; // set to either Node::TwoNode or Node::ThreeNode
 
-           void connectChild(int childIndex, std::unique_ptr<Node> child)  noexcept;
-           void connectChild(std::unique_ptr<Node>& dest, std::unique_ptr<Node> src)  noexcept;
+           void connectChild(int childIndex, std::shared_ptr<Node> child)  noexcept;
+           void connectChild(std::share_dptr<Node>& dest, std::shared_ptr<Node> src)  noexcept;
           
            void convertTo2Node(Node4&& node4) noexcept; 
 
-           void convertTo3Node(Key key, const Value& value, std::unique_ptr<Node> pnode23) noexcept; 
+           void convertTo3Node(Key key, const Value& value, std::shared_ptr<Node> pnode23) noexcept; 
 
            bool NodeDescentSearch(Key value, int& index, Node *next) noexcept;          // called during find()  
            bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
@@ -214,20 +214,20 @@ template<class Key, class Value> class tree23 {
          std::array<KeyValue, 3> keys_values;
 
          // Takes ownership of four 23-nodes 
-         std::array<std::unique_ptr<Node>, 4> children; 
+         std::array<std::shared_ptr<Node>, 4> children; // shared_ptr? was unique_ptr
 
          Node *parent; // Set to the parent of the 3-node passed to its constructor 
 
          static const int FourNodeItems = 3;
          static const int FourNodeChildren = 4;
 
-         void connectChild(int childIndex, std::unique_ptr<Node> child)  noexcept;
+         void connectChild(int childIndex, std::shared_ptr<Node> child)  noexcept;
                       
     public: 
         Node4() noexcept {}
 
         // Constructor that takes an internal 3-node 
-        Node4(Node *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node> heap_2node) noexcept;
+        Node4(Node *threeNode, Key new_key, const Value& value, int child_index, std::shared_ptr<Node> heap_2node) noexcept;
 
         // Constructor for a leaf 3-node, all child pointers will be zero. 
         Node4(Node *p3node, Key new_key, const Value& new_value) noexcept;
@@ -253,13 +253,13 @@ template<class Key, class Value> class tree23 {
     // Subroutines called by insert()
     int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node *&pinsert_start) const noexcept;
 
-    void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> leftChild, std::unique_ptr<Node> rightChild) noexcept;  
+    void CreateNewRoot(Key new_key, const Value& new_value, std::shared_ptr<Node> leftChild, std::shared_ptr<Node> rightChild) noexcept;  
    
     void CreateRoot(Key key, const Value& value) noexcept;
 
     template<class... Args> void EmplaceRoot(Key key, Args&&... arg) noexcept;
 
-    void split(Node *current, std::stack<int>& child_indecies, std::unique_ptr<Node> heap_2node, \
+    void split(Node *current, std::stack<int>& child_indecies, std::shared_ptr<Node>& heap_2node, \
                Key new_key, const Value& new_value) noexcept;
     /*
      Prospective method:
@@ -286,8 +286,8 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node *node, Node *sibling) noexcept;
     void shiftChildrenLeft(Node *node, Node *middleChild, Node *sibling) noexcept;
 
-    std::unique_ptr<Node> merge2Nodes(Node *pnode, int child_index) noexcept;
-    std::unique_ptr<Node> merge3NodeWith2Node(Node *pnode, int child_index) noexcept;
+    std::shared_ptr<Node> merge2Nodes(Node *pnode, int child_index) noexcept;
+    std::shared_ptr<Node> merge3NodeWith2Node(Node *pnode, int child_index) noexcept;
 
     void shiftChildren(Node *node, Node *sibling, int node_index, int sibling_index) noexcept;
      
@@ -297,7 +297,7 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void DoPreOrderTraverse(Functor f, const Node *proot) const noexcept;
 
    // Called by copy constructor and copy assignment operators, respectively.
-   void CloneTree(const std::unique_ptr<Node>& Node2Copy, std::unique_ptr<Node>& NodeCopy, const Node * parent) noexcept;
+   void CloneTree(const std::shared_ptr<Node>& Node2Copy, std::shared_ptr<Node>& NodeCopy, const Node * parent) noexcept;
 
    int  height(const Node *pnode) const noexcept;
    
@@ -537,7 +537,7 @@ template<class Key, class Value> template<class... Args>  tree23<Key, Value>::No
 /*
  "this" must be 2-node with only one non-nullptr child
  */
-template<class Key, class Value> inline constexpr std::unique_ptr<typename tree23<Key, Value>::Node>& tree23<Key, Value>::Node::getNonNullChild() noexcept
+template<class Key, class Value> inline constexpr std::shared_ptr<typename tree23<Key, Value>::Node>& tree23<Key, Value>::Node::getNonNullChild() noexcept
 {
   return (children[0] == nullptr) ?  children[1] : children[0];
 }
@@ -550,7 +550,7 @@ template<class Key, class Value> inline constexpr int tree23<Key, Value>::Node::
   return (children[0] != nullptr) ? 0 : 1; 
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::Node::move_keys_values(std::array<std::unique_ptr<KeyValue>, 2>&& lhs)
+template<class Key, class Value> inline void tree23<Key, Value>::Node::move_keys_values(std::array<std::shared_ptr<KeyValue>, 2>&& lhs)
 {
   for (auto i = 0; i < totalItems; ++i) {
 
@@ -558,7 +558,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::move_keys
   }
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::Node::move_children(std::array<std::unique_ptr<Node>, 3>&& lhs)
+template<class Key, class Value> inline void tree23<Key, Value>::Node::move_children(std::array<std::shared_ptr<Node>, 3>&& lhs)
 {
   for (auto i = 0; i < getChildCount(); ++i) {
 
@@ -1553,8 +1553,8 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<
  Does a pre-order traversal, using recursion and copying the source node, the first parameter, into the destination node, the second parameter.
  Note: We don't want to copy the parent of srcNode (only its key and value) into destNode. Instead we pass in the previously clone parent node of destNode.
  */
-template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node>& srcNode, \
-        std::unique_ptr<typename tree23<Key, Value>::Node>& destNode, const typename tree23<Key, Value>::Node *parent) noexcept
+template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::shared_ptr<typename tree23<Key, Value>::Node>& srcNode, \
+        std::shared_ptr<typename tree23<Key, Value>::Node>& destNode, const typename tree23<Key, Value>::Node *parent) noexcept
 {
   if (srcNode != nullptr) { 
                               
@@ -1689,7 +1689,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 */
 
 template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, Key key, const Value& value, int child_index, \
-  std::unique_ptr<Node> heap_2node) noexcept : parent{p3node->parent} 
+  std::shared_ptr<Node> heap_2node) noexcept : parent{p3node->parent} 
 {
   switch(child_index) {
  
@@ -1783,7 +1783,7 @@ template<class Key, class Value> typename tree23<Key, Value>::Node4& tree23<Key,
   return *this; 
 }
 
-template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectChild(int childIndex, std::unique_ptr<typename tree23<Key, Value>::Node> child) noexcept 
+template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectChild(int childIndex, std::shared_ptr<typename tree23<Key, Value>::Node> child) noexcept 
 {
  /*
   Because Node4::parent is of type Node *, we cannot do
@@ -1793,7 +1793,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectC
 
   Node *parent_of_node23 = (child == nullptr) ? nullptr : child->parent; 
   
-  children[childIndex] = std::move(child); // invokes move assignment of std::unique_ptr<Node>.
+  children[childIndex] = std::move(child); 
 
   parent = parent_of_node23;
 }            
@@ -2055,7 +2055,6 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 {
   if (root == nullptr) {
       
-      // Create the initial unique_ptr<Node> in the tree.
       CreateRoot(new_key, new_value);
       return;
   }
@@ -2178,7 +2177,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
 {
   if (root == nullptr) {
       
-      // Create the initial unique_ptr<Node> in the tree.
+      // Create the initial shared_ptr<Node> in the tree.
       EmplaceRoot(key, std::forward<Args>(args)...); // TODO: Can I overload CreateRoot()?
       return;
   }
@@ -2211,7 +2210,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
       //
       // TODO: Create a template<class... Args> version of split()?
       // This version of split() not yet implemented.
-      split(pinsert_start, key, child_indecies, std::unique_ptr<Node>{nullptr}, std::forward<Args>(args)...);  
+      split(pinsert_start, key, child_indecies, std::shared_ptr<Node>{nullptr}, std::forward<Args>(args)...);  
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
 
@@ -2279,7 +2278,7 @@ and we are done. If the parent is a 3-node, we recurse, which may ulimately resu
  }
 */
 
-template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std::stack<int>& child_indecies, std::shared_ptr<Node> heap_2node, \
+template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std::stack<int>& child_indecies, std::shared_ptr<Node>& heap_2node, \
                                                                 Key new_key, const Value& new_value) noexcept
 {
   // get the actual parent              
@@ -2418,14 +2417,14 @@ template<class Key, class Value> template<class... Args> void tree23<Key, Value>
             growing the tree upward one level. 
   Promises: A new root is added growing the tree upward one level.
  */
-template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> currentRoot, \
-                  std::unique_ptr<Node> rightChild) noexcept
+template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::shared_ptr<Node>& currentRoot, \
+                  std::shared_ptr<Node> rightChild) noexcept
 {
    // 1. create new root node.
-   std::unique_ptr<Node> new_root = std::make_unique<Node>(new_key, new_value);
+   std::shared_ptr<Node> new_root = std::make_unique<Node>(new_key, new_value);
 
    // 2. Release the current root, so that it does not inadvertanely get deleted during a move(). It will be the leftChild or new_root.
-   std::shared_ptr<Node> leftChild { currentRoot.release() }; // ???
+   std::shared_ptr<Node> leftChild { currentRoot.release() }; // <-----???
  
    // 3. connect left and right children.
    new_root->connectChild(0, std::move(leftChild));
@@ -2454,7 +2453,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo2Node(N
  Requires: this must be a 2-node
  Promises: creates a 3-node.
  */
-template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(Key new_key, const Value& new_value, std::unique_ptr<Node> newChild) noexcept
+template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(Key new_key, const Value& new_value, std::shared_ptr<Node> newChild) noexcept
 { 
   if (keys_values[0].key() > new_key) {
 
