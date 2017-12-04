@@ -1531,6 +1531,10 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : 
 template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initializer_list<typename tree23<Key, Value>::value_type> list) 
 {
    for (auto& v : list) {
+       // debug
+       printlevelOrder(std::cout);
+       std::cout << std::endl; // TODO: Remove
+       
        insert(v.first, v.second);  
    }
 }
@@ -2420,14 +2424,11 @@ template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_
    // 1. create new root node.
    std::shared_ptr<Node> new_root = std::make_unique<Node>(new_key, new_value);
 
-   // 2. Release the current root, so that it does not inadvertanely get deleted during a move(). It will be the leftChild or new_root.
-   std::shared_ptr<Node> leftChild { currentRoot.release() }; // <-----???
- 
-   // 3. connect left and right children.
-   new_root->connectChild(0, std::move(leftChild));
-   new_root->connectChild(1, std::move(rightChild));
+   // 2. connect left and right children.
+   new_root->connectChild(0, std::move(currentRoot));
+   new_root->connectChild(0, std::move(rightChild));
 
-   // 4. Make new_root the actual root.
+   // 3. Make new_root the actual root.
    root = std::move(new_root);
 }
 
