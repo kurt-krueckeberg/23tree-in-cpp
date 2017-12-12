@@ -25,12 +25,12 @@ template<class Key, class Value> class tree23 {
     
   private:
 
-  union KeyValue { // A union is used to hold to two types of pairs, one of has const key, the other a non-const Key/
-      friend class tree23<Key, Value>;
+  union KeyValue { // A union is used to hold to two types of pairs, one of has const Key, the other a non-const Key
  
       std::pair<Key, Value>        nc_pair;  // ...this eliminates constantly casting of const_cast<Key>(p.first) = some_noconst_key;
       std::pair<const Key, Value>  const_pair;  // but always return this member of the union.
-      
+
+     public: 
       KeyValue() {} 
       KeyValue(Key key, const Value& value) : nc_pair{key, value} {}
       
