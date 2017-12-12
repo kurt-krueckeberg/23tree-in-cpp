@@ -49,6 +49,10 @@ template<class Key, class Value> class tree23 {
      constexpr Value&  value()  { return nc_pair.second; }
      constexpr const Value& value() const { return const_pair.second; }
      
+     constexpr std::pair<Key, Value>& pair()  { return nc_pair; }
+     
+     constexpr const std::pair<const Key, Value>& pair() const { return const_pair; }
+          
      friend std::ostream& operator<<(std::ostream& ostr, const KeyValue& key_value)
      {
          ostr << "{" << key_value.key() << ',' <<  key_value.value() <<  "}, ";
@@ -92,6 +96,15 @@ template<class Key, class Value> class tree23 {
 
         // Constructor for just coping the keys and values. 
 	Node(const std::array<KeyValue, 2>& lhs_keys_values, Node * const lhs_parent, int lhs_totalItems) noexcept; 
+
+        constexpr Key& key(int i) { return keys_values[i].key(); }
+        constexpr const Key& key(int i) const { return keys_values[i].key(); }
+
+        constexpr Key& value(int i) { return keys_values[i].value(); }
+        constexpr const Key& value(int i) const { return keys_values[i].value(); }
+
+        constexpr std::pair<Key, Value>& pair(int i) { return keys_values[i].pair(); }
+        constexpr const std::pair<const Key, Value>& pair(int i) const { return keys_values[i].pair(); }
 
         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
         constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
@@ -236,6 +249,12 @@ template<class Key, class Value> class tree23 {
         Node4& operator=(const Node4& lhs) = delete;
 
         const Key& operator[](int i) const noexcept { return keys_values[i].key; }  
+
+        constexpr Key& key(int i) { return keys_values[i].key(); }
+        constexpr const Key& key(int i) const { return keys_values[i].key(); }
+
+        constexpr Key& value(int i) { return keys_values[i].value(); }
+        constexpr const Key& value(int i) const { return keys_values[i].value(); }
 
         std::ostream& print(std::ostream& ostr) const noexcept;
         std::ostream& debug_print(std::ostream& ostr) const noexcept;
@@ -1559,12 +1578,12 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 {
   if (srcNode != nullptr) { 
                               
+   destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
+
    switch (srcNode->totalItems) {
 
       case 1: // two node
       {    
-            destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
-                         
             CloneTree(srcNode->children[0], destNode->children[0], destNode.get()); 
             
             CloneTree(srcNode->children[1], destNode->children[1], destNode.get()); 
@@ -1574,8 +1593,6 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
       }   
       case 2: // three node
       {
-            destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems); 
-
             CloneTree(srcNode->children[0], destNode->children[0], destNode.get());
             
             CloneTree(srcNode->children[1], destNode->children[1], destNode.get());
@@ -1711,7 +1728,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
         heap_2node is the larger of those two 2-nodes. 
 */
 
-template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, Key key, const Value& value, int child_index, \
+template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, Key in_key, const Value& in_value, int child_index, \
   std::unique_ptr<Node> heap_2node) noexcept : parent{p3node->parent} 
 {
   switch(child_index) {
@@ -1720,8 +1737,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 	     // smallest value in the 4-node.
 
       {
-        keys_values[0].key() = key; // key is the smallest value, so we put in the first position... 
-        keys_values[0].value() = value;
+        key(0) = in_key; // key is the smallest value, so we put in the first position... 
+        value(0) = in_value;
 
         //...followed by the current p3node's keys and values
         for(auto i = 0; i < Node::ThreeNode; ++i) {
@@ -1746,8 +1763,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
       {  
         keys_values[0] = p3node->keys_values[0];
  
-        keys_values[1].key() = key;
-        keys_values[1].value() = value; 
+        key(1) = in_key;
+        value(1) = in_value; 
         
         keys_values[2] = p3node->keys_values[1];
 
@@ -1770,8 +1787,8 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
                keys_values[i] = p3node->keys_values[i]; 
          } 
     
-         keys_values[2].key() = key; // key is the largest value in 4-node
-         keys_values[2].value() = value;
+         key(2) = in_key; // key is the largest value in 4-node
+         value(2) = in_value;
     
          for(auto i = 0; i < Node::ThreeNodeChildren; ++i) { // connect p3node's current children in the same order 
     
@@ -1833,7 +1850,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
 
    for (auto i = 0; i < Node4::FourNodeItems; ++i) {
 
-       ostr << "{ " << keys_values[i].key() << ", " << keys_values[i].second << "}, "; 
+       ostr << "{ " << key(i) << ", " << value(i) << "}, "; 
    }
    
    ostr << "] children:  [ ";  
@@ -1848,7 +1865,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
 
          for (auto i = 0; i < pChild->totalItems; ++i) {  
             
-            ostr << "{ " << pChild->keys_values[i].key() << ", " << pChild->keys_values[i].value() << "}, ";
+            ostr << "{ " << pChild->key(i) << ", " << pChild->value(i) << "}, ";
          } 
 
        }
@@ -1883,8 +1900,8 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
       case 1: // two node
             DoInOrderTraverse(f, current->children[0].get());
- 
-            f(current->keys_values[0].const_pair);   // current->key(1)
+            //--f(current->keys_values[0].const_pair);   // current->key(1)
+            f(current->pair(0));   // current->key(1)
 
             DoInOrderTraverse(f, current->children[1].get());
             break;
@@ -1892,11 +1909,11 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 2: // three node
             DoInOrderTraverse(f, current->children[0].get());
 
-            f(current->keys_values[0].const_pair);
+            f(current->pair(0));
 
             DoInOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[1].const_pair);
+            f(current->pair(1));
 
             DoInOrderTraverse(f, current->children[2].get());
             break;
@@ -1912,7 +1929,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
    switch (current->getTotalItems()) {
 
       case 1: // two node
-            f(current->keys_values[0].const_pair);   
+            f(current->pair(0));   
 
             DoPreOrderTraverse(f, current->children[0].get());
  
@@ -1920,13 +1937,13 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
             break;
 
       case 2: // three node
-            f(current->keys_values[0].const_pair);
+            f(current->pair(0));
 
             DoPreOrderTraverse(f, current->children[0].get());
 
             DoPreOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[1].const_pair);
+            f(current->pair(1));
 
             break;
    }
@@ -1946,7 +1963,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
             DoPostOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[0].const_pair);   
+            f(current->pair(0));   
             break;
 
       case 2: // three node
@@ -1954,11 +1971,11 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
             DoPostOrderTraverse(f, current->children[1].get());
 
-            f(current->keys_values[0].const_pair);
+            f(current->pair(0));
 
             DoPostOrderTraverse(f, current->children[2].get());
  
-            f(current->keys_values[1].const_pair);
+            f(current->pair(1));
             break;
    }
 }
@@ -2019,12 +2036,12 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 
        for(; i < totalItems; ++i) {
 
-           if (key < current->keys_values[i].key()) {
+           if (key < current->key(i)) {
 
                 current = current->children[i].get();
                 break;
 
-           } else if (key == current->keys_values[i].key()) {
+           } else if (key == current->key(i)) {
 
                 return true;
            } 
@@ -2112,7 +2129,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
 
   if (int found_index = findInsertNode(new_key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
 
-       pinsert_start->keys_values[found_index].value() = new_value;
+       pinsert_start->value(found_index) = new_value;
        return;  
   }
 
@@ -2168,12 +2185,12 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 {
   for(auto i = 0; i < totalItems; ++i) {
 
-     if (new_key < keys_values[i].key()) {
+     if (new_key < key(i)) {
             
          next = children[i].get(); 
          return false;
 
-     } else if (keys_values[i].key() == new_key) {
+     } else if (key(i) == new_key) {
 
          found_index = i;
          return true;
@@ -2192,12 +2209,12 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 {
   for(auto i = 0; i < totalItems; ++i) {
 
-     if (new_key < keys_values[i].key()) {
+     if (new_key < key(i)) {
             
          next_child_index = i; 
          return false;
 
-     } else if (keys_values[i].key() == new_key) {
+     } else if (key(i) == new_key) {
 
          found_index = i;
          return true;
@@ -2372,17 +2389,17 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
       // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
         
-      CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
+      CreateNewRoot(node4.key(1), node4.value(1), std::move(root), std::move(larger_2node)); 
 
   } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node, ...
 
       // ...we convert the parent to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
-      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(larger_2node));
+      parent->convertTo3Node(node4.key(1), node4.value(1), std::move(larger_2node));
 
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
-     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].value()); 
+     split(parent, child_indecies, std::move(larger_2node), node4.key(1), node4.value(1)); 
   } 
 
   return;
@@ -2506,13 +2523,13 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(K
 
       keys_values[1] = std::move(keys_values[0]);  
 
-      keys_values[0].key() = new_key;
-      keys_values[0].value() = new_value; 
+      key(0) = new_key;
+      value(0) = new_value; 
 
   } else {
 
-      keys_values[1].key() = new_key;
-      keys_values[1].value() = new_value;
+      key(1) = new_key;
+      value(1) = new_value;
 
       // Note: This tells us that newChild will be the right most child, and the existing children do not need to move.
   }
@@ -2522,7 +2539,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(K
 
   for (; child_index < Node::TwoNodeChildren; ++child_index) {
        
-       if (newChild->keys_values[0].key() < children[child_index]->keys_values[0].key()) { 
+       if (newChild->key(0) < children[child_index]->key(0)) { 
            break;
        }
   }
@@ -2567,19 +2584,19 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::connectCh
  Requires: this is a 2-node leaf
  Promises: To insert key in the right position
  */
-template<class Key, class Value> inline void tree23<Key, Value>::Node::insertKeyInLeaf(Key key, const Value& new_value)
+template<class Key, class Value> inline void tree23<Key, Value>::Node::insertKeyInLeaf(Key in_key, const Value& new_value)
 {
-   if (key < keys_values[0].key()) {
+   if (in_key < keys_values[0].key()) {
 
        keys_values[1]= std::move(keys_values[0]);
 
-       keys_values[0].key() = key;
-       keys_values[0].value() = new_value;
+       key(0) = in_key;
+       value(0) = new_value;
 
    } else { // key > keys_values[0].key()
 
-       keys_values[1].key() = key;
-       keys_values[1].value() = new_value;  
+       key(1) = in_key;
+       value(1) = new_value;  
    }
 
    ++totalItems;
@@ -2595,13 +2612,13 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::insertKey
 
        keys_values[1] = std::move(keys_values[0]); 
 
-       keys_values[0].key() = key;
-       keys_values[0].value() = std::move(new_value);
+       key(0) = key;
+       value(0) = std::move(new_value);
 
    } else { // key > keys_values[0].key()
 
-       keys_values[1].key() = key;
-       keys_values[1].value() = std::move(new_value);  
+       key(1) = key;
+       value(1) = std::move(new_value);  
    }
 
    totalItems = Node::ThreeNode; 
@@ -3293,7 +3310,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
            if (children[0]->keys_values[i].key() >= keys_values[0].key() ) { // If any are greater than or equal to keys_values.key()[0], it is an error
      
               // problem
-              ostr << "error: children[0]->keys_values[" << i << "].key() = " << children[0]->keys_values[i].key() << " is not less than " << keys_values[0].key() << ".\n";
+              ostr << "error: children[0]->key(" << i << " is not less than " << key(0) << ".\n";
            }  
        break; 
 
