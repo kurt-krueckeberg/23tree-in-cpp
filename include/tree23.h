@@ -3320,7 +3320,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
            if (!(children[1]->keys_values[i].key() > keys_values[0].key() && children[1]->keys_values[i].key() < keys_values[1].key())) {
      
               // problem
-              ostr << "error: children[1]->keys_values[" << i << "].key() = " << children[1]->keys_values[i].key() << " is not between " << keys_values[0].key() << " and " << keys_values[1].key() << ".\n";
+              ostr << "error: children[1]->key(" << i << " = " << children[1]->key(i) << " is not between " << key(0) << " and " << key(1) << ".\n";
            }
 
        break;
@@ -3331,7 +3331,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
            if (children[2]->keys_values[i].key() <= keys_values[1].key()) { // If any are less than or equal to keys_values.key()[1], it is an error.
      
               // problem
-              ostr << "error: children[2]->keys_values[" << i << "].key() = " << children[2]->keys_values[i].key() << " is not greater than " << keys_values[1].key() << ".\n";
+              ostr << "error: children[2]->key(" << i << ") = " << children[2]->key(2) << " is not greater than " << key(1) << ".\n";
            }
 
        break;
