@@ -13,6 +13,7 @@
 #include <iterator>
 #include <utility>
 #include <algorithm>
+#include <tuple>
 #include "debug.h"
 
 template<class Key, class Value> class tree23; // This forward declaration... 
@@ -2197,12 +2198,12 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
     auto result_tuple = current->find(key);
 
     if (std::get<0>(result_tuple)) { // found
-        
-        return std::tuple_cat(result_tuple, std::move(indecies)); 
+            
+        return std::tuple_cat(std::move(result_tuple), std::tuple{std::move(indecies)}  ); //{std::move(indecies)}); 
 
     } else if (current->isLeaf()) { // not in tree
 
-        return {false, nullptr, std::move(indecies)};
+        return {false, nullptr, 0, std::move(indecies)};
 
     } else {
 
@@ -2217,15 +2218,15 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
  TODO: Change this to return a tuple or struct and not use references params to do this.
  */
 //--template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
-template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key) noexcept
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key_in) noexcept
 {
   for(auto i = 0; i < getTotalItems(); ++i) {
 
-     if (key < key(i)) {
+     if (key_in < key(i)) {
             
          return {false, children[i].get(), i};
 
-     } else if (key(i) == key) {
+     } else if (key_in = key(i)) {
 
          return {true, this, i};
      }
@@ -2237,6 +2238,7 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
  */
+/*
 template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, int& next_child_index) noexcept
 {
   for(auto i = 0; i < totalItems; ++i) {
@@ -2258,6 +2260,7 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 
   return false;
 }
+ */ 
 // can I rename this CreateRoot()?
 
 template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... args) noexcept
@@ -2723,29 +2726,27 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 /*
  * Assumes tree is not empty. root is not nullptr.
  */ 
+// TODO: Make this without reference return values. Compare with code in tree23.h.orig
+// TODO: Is it essentially the same code as findInsertStartNode>?
+
 template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree23<Key, Value>::findRemovalStartNode(Key key, std::stack<int>& child_indecies,\
                                                                                                                  int& found_index) const noexcept
 {
   found_index = Node::NotFoundIndex;
 
-  Node *premove_start = root.get();
+  Node *current = root.get();
   
   int child_index; 
 
-  // TODO: Change this to use new Node::find(key)
-  while(!premove_start->NodeDescentSearch(key, found_index, child_index)) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
+  // TODO: See findInsertStartNode() and original code in tree23.h.orig
+  while (true) { 
 
-    if (premove_start->isLeaf()) {
+     auto result_tuple = current->find(key);  // Search for key until found, or we reach a leaf and it is not found when we simply return.
 
-        return nullptr;
-    } 
-        
-    child_indecies.push(child_index); // ...remembering which child node branch we took.
-
-    premove_start = premove_start->children[child_index].get();
+     if (get<0>(result_tuple)) ... 
   }  
  
-  return premove_start;
+  return current;
 }
 /*
  Finds the in order successor of pnode, which must be an internal node.
