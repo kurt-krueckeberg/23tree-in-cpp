@@ -1,3 +1,7 @@
+##
+
+Eliminate reference parameters as return values and instread use return value optimization to return tuples or structs.
+
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the

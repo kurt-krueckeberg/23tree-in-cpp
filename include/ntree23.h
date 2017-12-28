@@ -126,7 +126,6 @@ template<class Key, class Value> class tree23 {
 
         bool siblingHasTwoItems(int child_index, int& sibling_index) const noexcept;
 
-
         std::ostream& test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept;
 
         std::ostream& debug_print(std::ostream& ostr, bool show_addresses=false) const noexcept;
@@ -167,7 +166,9 @@ template<class Key, class Value> class tree23 {
 
            void convertTo3Node(Key key, const Value& value, std::unique_ptr<Node> pnode23) noexcept; 
 
+           //TODO: Change this to return a tuple or struct and not use references params to do this.
            bool NodeDescentSearch(Key value, int& index, Node *next) noexcept;          // called during find()  
+
            bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
 
            void insertKeyInLeaf(Key key, const Value& value);
@@ -1686,7 +1687,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
        }  else {
 
-           keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
+           keys_values[dest] = std::move(p3node->keys_values[src]); 
            ++dest;
            ++src;
        } 
@@ -1902,7 +1903,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
       case 1: // two node
             DoInOrderTraverse(f, current->children[0].get());
-            //--f(current->keys_values[0].const_pair);   // current->key(1)
+   
             f(current->pair(0));   // current->key(1)
 
             DoInOrderTraverse(f, current->children[1].get());
@@ -2138,15 +2139,19 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
  1. new_key is the new key to be inserted.  
  2. pinsert_start will be the leaf node where insertion should start, if new_key is not found in the tree; otherwise, it will be the node where new_key was found.
  3. descent_indecies is a stack<int> that will hold the child branches taken descending to pinsert_start
+
  Promises:
  =========
  1. Returns the index into pinsert_start->keys_values[] such that, if new_key already exists in the tree
     new_key == pinsert_start->keys[found_index]. However, if new_key is not in the tree, then the return value is Node::NotFoundIndex.
+
  2. pinsert_start will be the node where new_key was found, if it already exists in the tree; otherwise, it will be the leaf node where insertion should
     begin.
- 3. descent_indecies will hold the child branches take to descend to pinsert_start.
- */
 
+ 3. descent_indecies will hold the child branches take to descend to pinsert_start.
+  
+ TODO: Change this to return a struct or tuple. Don't pass in the reference parameters. Return them.
+ */
 template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_key, std::stack<int>& child_indecies, \
                                                            typename tree23<Key, Value>::Node *&pinsert_start) const noexcept
 {
@@ -2166,8 +2171,38 @@ template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_
 
    return found_index;
 }
+
+// New code
+template<class Key, class Value> std::tuple<bool, std::stack<int>, typename tree23<Key, Value>::Node *> int tree23<Key, Value>::findInsertNode(Key new_key) const noexcept
+{
+  bool found = false;
+
+  int child_index; 
+
+  current = root.get();
+
+  // Search for new_key until found or if we search a leaf node and didn't find the key.
+  while(true) {
+
+      auto tuple =  current->find(new_key);
+
+      if (current->isLeaf()) { 
+
+          break;
+
+      } else {
+   
+          child_indecies.push(child_index); // remember which child node branch we took. Note: If the node is a leaf, nothing will be pushed onto the stack. 
+           
+          current = current->children[child_index].get();
+      }
+ }
+
+ return found;
+}
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
+ TODO: Change this to return a tuple or struct and not use references params to do this.
  */
 template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
 {
