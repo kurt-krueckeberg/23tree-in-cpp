@@ -293,7 +293,7 @@ template<class Key, class Value> class tree23 {
     // Subroutines called by remove()
     Node* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
-    Node *getSuccessor(Node *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+    std::pair<Node *, std::stack<int>> getSuccessor(Node *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
 
     void fixTree(Node *pnode, std::stack<int>& child_indecies) noexcept;
 
@@ -2686,15 +2686,11 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
      return;
   }
 
-  std::stack<int> descent_indecies; 
+  auto [bool_found, premove_start, found_index, descent_indecies] = findNode(key);
 
-  int found_index = Node::NotFoundIndex;
-  
-  Node *premove_start = findRemovalStartNode(key, descent_indecies, found_index);
+  if (!bool_found) return;
 
-  if (premove_start == nullptr) return;
-
-  Node *pLeaf;
+  Nodee *pLeaf;
 
   if (premove_start->isLeaf()) {
       
@@ -2703,15 +2699,17 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   } else {   // premove_start is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key() of a leaf node.
-      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
-          
+      auto pair = getSuccessor(premove_start, found_index, std::move(descent_indecies)); 
+
+      pLeaf = pair.first;
+      descent_indecies = pair.second;
+      
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
        * keys_values[0].key().
        */
       std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
    } 
-  
  
   pLeaf->removeLeafKey(key); // remove key from leaf         
   
@@ -2723,31 +2721,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 
   return;
 }
-/*
- * Assumes tree is not empty. root is not nullptr.
- */ 
-// TODO: Make this without reference return values. Compare with code in tree23.h.orig
-// TODO: Is it essentially the same code as findInsertStartNode>?
 
-template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree23<Key, Value>::findRemovalStartNode(Key key, std::stack<int>& child_indecies,\
-                                                                                                                 int& found_index) const noexcept
-{
-  found_index = Node::NotFoundIndex;
-
-  Node *current = root.get();
-  
-  int child_index; 
-
-  // TODO: See findInsertStartNode() and original code in tree23.h.orig
-  while (true) { 
-
-     auto result_tuple = current->find(key);  // Search for key until found, or we reach a leaf and it is not found when we simply return.
-
-     if (get<0>(result_tuple)) ... 
-  }  
- 
-  return current;
-}
 /*
  Finds the in order successor of pnode, which must be an internal node.
  
@@ -2760,9 +2734,11 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree2
  2. child_indecies traces the descent route to the in order successor.
  3. child_indecies is the stack of indecies into keys[] tracing the descent from the root to the internal node pnode. 
 */
-
-template<class Key, class Value> inline typename tree23<Key, Value>::Node* tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
-                                                                                                  std::stack<int>& child_indecies) const noexcept
+/*
+ TODO: This is another method that is returing values by reference parameter. So maybe this bunch of code was designed with references 
+ */
+template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, std::stack<int>> tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
+                                                                                                  std::stack<int>&& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
 
@@ -2778,7 +2754,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node* tree2
       pnode = pnode->children[child_index].get();
   }
   
-  return pnode;
+  return {pnode, std::move(child_indecies)};
 }
 /*
  Requires: Called only by a leaf not. 
