@@ -2738,7 +2738,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
  TODO: This is another method that is returing values by reference parameter. So maybe this bunch of code was designed with references 
  */
 template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, std::stack<int>> tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
-                                                                                                  std::stack<int>&& child_indecies) const noexcept
+                                                                                                  std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
 
