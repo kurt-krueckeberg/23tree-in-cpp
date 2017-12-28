@@ -169,7 +169,8 @@ template<class Key, class Value> class tree23 {
            //TODO: Change this to return a tuple or struct and not use references params to do this.
            bool NodeDescentSearch(Key value, int& index, Node *next) noexcept;          // called during find()  
 
-           bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
+           //--bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
+           std::tuple<bool, Node *, int> find(Key value) noexcept;    
 
            void insertKeyInLeaf(Key key, const Value& value);
            void insertKeyInLeaf(Key key, Value&& new_value);
@@ -271,7 +272,7 @@ template<class Key, class Value> class tree23 {
     std::unique_ptr<Node> root; 
 
     // Subroutines called by insert()
-    int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node *&pinsert_start) const noexcept;
+    std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findInsertNode(Key new_key) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> leftChild, std::unique_ptr<Node> rightChild) noexcept;  
    
@@ -493,7 +494,7 @@ template<class Key, class Value> class tree23 {
     void printInOrder(std::ostream& ostr) const noexcept;   
 
     // TODO: Should emplace() return an iterator?
-    template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
+    //++template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
        
     bool find(Key key) const noexcept;
 
@@ -2032,8 +2033,10 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 template<class Key, class Value> bool tree23<Key, Value>::find_(const Node *pnode, Key key) const noexcept
 {
    if (pnode == nullptr) return false;
-
-   for (auto i = 0; i < pnode->getTotalItems(); ++i) {
+   
+   auto i = 0;
+   
+   for (; i < pnode->getTotalItems(); ++i) {
 
       if (key < pnode->key(i)) 
          return find_(pnode->children[i].get(), key); 
@@ -2112,21 +2115,21 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
        } 
 */
 
-  std::stack<int> child_indecies; 
+  auto result_tuple= findInsertNode(new_key);
 
-  Node *pinsert_start;
+  if (std::get<0>(result_tuple)) { // new_key already exists, so we overwrite its associated value with the new value.
 
-  if (int found_index = findInsertNode(new_key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
-
-       pinsert_start->value(found_index) = new_value;
+       std::get<1>(result_tuple)->value(std::get<2>(result_tuple)) = new_value;
        return;  
   }
-
+  
+  Node *pinsert_start = std::get<1>(result_tuple);
+  
   // new_key was not found in the tree; therefore we know pinsert_start is a leaf.
   if (pinsert_start->isThreeNode()) { 
     
-      // split() converts pinsert_start from a 3-node to a 2-node.
-      split(pinsert_start, child_indecies, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
+      // split() converts first parameter from a 3-node to a 2-node.
+      split(std::get<1>(result_tuple), std::get<3>(result_tuple), std::unique_ptr<Node>{nullptr}, new_key, new_value); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       
@@ -2152,6 +2155,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
   
  TODO: Change this to return a struct or tuple. Don't pass in the reference parameters. Return them.
  */
+/*
 template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_key, std::stack<int>& child_indecies, \
                                                            typename tree23<Key, Value>::Node *&pinsert_start) const noexcept
 {
@@ -2171,59 +2175,64 @@ template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_
 
    return found_index;
 }
+*/
+/*
+ New code
+ Returns:
 
-// New code
-template<class Key, class Value> std::tuple<bool, std::stack<int>, typename tree23<Key, Value>::Node *> int tree23<Key, Value>::findInsertNode(Key new_key) const noexcept
+   bool -- found or not
+   Node * -- the Node where found or nullptr
+   int -- the index into keys_values where found
+   statck<int> -- stack of child indecies taken--if key not found.
+ */
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> tree23<Key, Value>::findInsertNode(Key key) const noexcept
 {
-  bool found = false;
+  std::stack<int> indecies;
 
-  int child_index; 
-
-  current = root.get();
+  Node *current = root.get();
 
   // Search for new_key until found or if we search a leaf node and didn't find the key.
   while(true) {
 
-      auto tuple =  current->find(new_key);
+    auto result_tuple = current->find(key);
 
-      if (current->isLeaf()) { 
+    if (std::get<0>(result_tuple)) { // found
+        
+        return std::tuple_cat(result_tuple, std::move(indecies)); 
 
-          break;
+    } else if (current->isLeaf()) { // not in tree
 
-      } else {
-   
-          child_indecies.push(child_index); // remember which child node branch we took. Note: If the node is a leaf, nothing will be pushed onto the stack. 
-           
-          current = current->children[child_index].get();
-      }
- }
+        return {false, nullptr, std::move(indecies)};
 
- return found;
+    } else {
+
+       indecies.push(std::get<2>(result_tuple)); // Remember which child node branch we took. 
+         
+       current = std::get<1>(result_tuple);
+    } 
+  }
 }
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
  TODO: Change this to return a tuple or struct and not use references params to do this.
  */
-template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
+//--template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key) noexcept
 {
-  for(auto i = 0; i < totalItems; ++i) {
+  for(auto i = 0; i < getTotalItems(); ++i) {
 
-     if (new_key < key(i)) {
+     if (key < key(i)) {
             
-         next = children[i].get(); 
-         return false;
+         return {false, children[i].get(), i};
 
-     } else if (key(i) == new_key) {
+     } else if (key(i) == key) {
 
-         found_index = i;
-         return true;
+         return {true, this, i};
      }
   }
 
   // It must be greater than the last key (because it is not less than or equal to it).
-  next = children[totalItems].get(); 
-
-  return false;
+  return {false, children[totalItems].get(), 0};
 }
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
@@ -2258,6 +2267,8 @@ template<class Key, class Value> template<class... Args> inline void tree23<Key,
 }
 
 // See split() variadic template method in ~/test/main.cpp
+/*++
+// TODO: Rewrite to work like ::insert() with new Node::find() and new findInsertNode().
 
 template<class Key, class Value> template <class... Args>
 void tree23<Key, Value>::emplace(Key key, Args&&... args)
@@ -2275,7 +2286,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
   std::stack<int> child_indecies; 
 
   Node *pinsert_start;
-
+  
   if (int found_index = findInsertNode(key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // if key already exists, overwrite its associated value.
 
        // Destruct the current value by explicitly invoking Value's destructor. 
@@ -2721,6 +2732,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree2
   
   int child_index; 
 
+  // TODO: Change this to use new Node::find(key)
   while(!premove_start->NodeDescentSearch(key, found_index, child_index)) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
 
     if (premove_start->isLeaf()) {

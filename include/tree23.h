@@ -2031,8 +2031,10 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 template<class Key, class Value> bool tree23<Key, Value>::find_(const Node *pnode, Key key) const noexcept
 {
    if (pnode == nullptr) return false;
-
-   for (auto i = 0; i < pnode->getTotalItems(); ++i) {
+   
+   auto i = 0;
+   
+   for (; i < pnode->getTotalItems(); ++i) {
 
       if (key < pnode->key(i)) 
          return find_(pnode->children[i].get(), key); 
