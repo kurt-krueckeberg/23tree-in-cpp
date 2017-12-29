@@ -273,7 +273,9 @@ template<class Key, class Value> class tree23 {
     std::unique_ptr<Node> root; 
 
     // Subroutines called by insert()
-    std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findInsertNode(Key new_key) const noexcept;
+    //--std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findInsertNode(Key new_key) const noexcept;
+    // called by insert() and remove().
+    std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findNode(Key new_key) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> leftChild, std::unique_ptr<Node> rightChild) noexcept;  
    
@@ -2186,7 +2188,7 @@ template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_
    int -- the index into keys_values where found
    statck<int> -- stack of child indecies taken--if key not found.
  */
-template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> tree23<Key, Value>::findInsertNode(Key key) const noexcept
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> tree23<Key, Value>::findNode(Key key) const noexcept
 {
   std::stack<int> indecies;
 
@@ -2195,11 +2197,13 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
   // Search for new_key until found or if we search a leaf node and didn't find the key.
   while(true) {
 
-    auto result_tuple = current->find(key);
+    //auto result_tuple = current->find(key);
+    auto [bool_found, pnode, index, stack] = current->find(key);
 
-    if (std::get<0>(result_tuple)) { // found
+    if (bool_found) { // found
             
-        return std::tuple_cat(std::move(result_tuple), std::tuple{std::move(indecies)}  ); //{std::move(indecies)}); 
+        //return std::tuple_cat(std::move(result_tuple), std::tuple{std::move(indecies)}  ); //{std::move(indecies)}); 
+        return {bool_found, pnode, index, std::move(indecies)}; //{std::move(indecies)}); 
 
     } else if (current->isLeaf()) { // not in tree
 
@@ -2207,9 +2211,10 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 
     } else {
 
-       indecies.push(std::get<2>(result_tuple)); // Remember which child node branch we took. 
-         
-       current = std::get<1>(result_tuple);
+       indecies.push(index); // Remember which child node branch we took. 
+
+       current = pnode;
+
     } 
   }
 }
@@ -2686,37 +2691,39 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
      return;
   }
 
-  auto [bool_found, premove_start, found_index, descent_indecies] = findNode(key);
+  // Note: findNode() by value a stack<int> as 4th value in tuple. But RVO should eliminate copies/moves--right?
+  // But I can simply use auto &, I think.
+  //auto [bool_found, premove, remove_index, descent_indecies] = findNode(key); // We don't want a copy of descent_indecies, just a reference.
+  auto& [bool_found, premove, remove_index, descent_indecies] = findNode(key); // We don't want a copy of descent_indecies, just a reference.
 
   if (!bool_found) return;
 
-  Nodee *pLeaf;
+  Node *pLeaf;
 
-  if (premove_start->isLeaf()) {
+  if (premove->isLeaf()) {
       
-      pLeaf = premove_start;  // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+      pLeaf = premove;  // ...premove is a leaf, and the key is in premove->keys[remove_index]
        
-  } else {   // premove_start is an internal node...
+  } else {   // premove is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key() of a leaf node.
-      auto pair = getSuccessor(premove_start, found_index, std::move(descent_indecies)); 
+      // Note: getSuccessor() updates its third parameter, which is returns by value in pair::second. But RVO should eliminate copies/moves--right>
+      auto& [psuccessor, descent_indecies_expanded] = getSuccessor(premove, remove_index, std::move(descent_indecies)); 
 
-      pLeaf = pair.first;
-      descent_indecies = pair.second;
-      
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
        * keys_values[0].key().
        */
-      std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
-   } 
+      std::swap(premove->keys_values[remove_index], psuccessor->keys_values[0]); 
+      pLeaf = psuccessor;
+  } 
  
   pLeaf->removeLeafKey(key); // remove key from leaf         
   
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
   if (pLeaf->isEmpty()) { 
       
-      fixTree(pLeaf, descent_indecies);  
+      fixTree(pLeaf, descent_indecies); // TODO: BUG: We want either descent_indecies, if premove was a leaf, or descent_indecies_expanded if it was internal. 
   }
 
   return;
@@ -3498,3 +3505,4 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
 }
 */
 #endif
+
