@@ -2214,7 +2214,6 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
        indecies.push(index); // Remember which child node branch we took. 
 
        current = pnode;
-
     } 
   }
 }
