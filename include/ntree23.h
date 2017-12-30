@@ -295,7 +295,7 @@ template<class Key, class Value> class tree23 {
     // Subroutines called by remove()
     Node* findRemovalStartNode(Key key, std::stack<int>& child_indecies, int& found_index) const noexcept;
 
-    std::pair<Node *, std::stack<int>> getSuccessor(Node *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
+    Node *getSuccessor(Node *pnode, int found_index, std::stack<int>& child_indecies) const noexcept;
 
     void fixTree(Node *pnode, std::stack<int>& child_indecies) noexcept;
 
@@ -2707,7 +2707,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 
       // ...get its in order successor, which will be keys_values[0].key() of a leaf node.
       // Note: getSuccessor() updates its third parameter, which is returns by value in pair::second. But RVO should eliminate copies/moves--right>
-      auto& [psuccessor, descent_indecies_expanded] = getSuccessor(premove, remove_index, std::move(descent_indecies)); 
+      auto& [psuccessor] = getSuccessor(premove, remove_index, descent_indecies); 
 
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
@@ -2722,7 +2722,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
   if (pLeaf->isEmpty()) { 
       
-      fixTree(pLeaf, descent_indecies); // TODO: BUG: We want either descent_indecies, if premove was a leaf, or descent_indecies_expanded if it was internal. 
+      fixTree(pLeaf, descent_indecies); 
   }
 
   return;
@@ -2743,7 +2743,7 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 /*
  TODO: This is another method that is returing values by reference parameter. So maybe this bunch of code was designed with references 
  */
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, std::stack<int>> tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
+template<class Key, class Value> typename tree23<Key, Value>::Node *tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
