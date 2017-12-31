@@ -67,7 +67,11 @@ tree23<int, int> insert_vec_into_tree(const vector<int>& test_case)
 
       cout << "Inserting: " << key << std::endl;
       
-      tree.insert(key, key);
+      tree.insert(key, key);  // debug start
+      
+      cout << "Tree after insert of " << key;
+      tree.printlevelOrder(cout); // debug end
+      cout << std::endl;
   }
 
   return tree;
@@ -107,8 +111,9 @@ void test_remove(const std::vector<int>& test_case)
    
    cout << "Printing the tree before removals start.\n";
    
-   print_tree(tree); 
-   
+   // print_tree(tree); 
+   tree.printlevelOrder(cout);
+      
    for(auto& key : removal_vec) {
 
        cout << "\nRemoving key: " << key << endl;
@@ -324,11 +329,13 @@ void print_with_const_reverse_iterator(const tree23<int, int>& tree)
    cout << key_value.first << ", " << flush;
  } 
 }
+
 void print_tree(const tree23<int, int> & tree)
 {
-  for (auto & pr : tree) {
+  cout << endl;  
+  for (auto &[key, value] : tree) {
 
-     cout << "{ " << pr.first << ", " << pr.second << "}, " << std::flush;
+     cout << "{ " << key << ", " << value << "}, " << std::flush;
   } 
   
   cout << endl << flush;
