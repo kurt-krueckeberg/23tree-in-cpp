@@ -1,6 +1,7 @@
 ##
 
-Started to eliminate reference parameters as return values and instread use return value optimization to return tuples or structs. New code is in ntree23.h.
+The insert() code either is not inserting all the values in the test case, or they are not all being printerd by print_tree() amd tree.printlevelOrder(cout).
+-treetructs. New code is in ntree23.h.
 
 The insert() code replies on a stack<int> of descent indecies.  
 
