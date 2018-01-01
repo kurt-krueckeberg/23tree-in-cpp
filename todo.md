@@ -1,7 +1,5 @@
 ## TODO
 
-New code complete in ntree23.h. Test is more. Test other methods, like iterators, too. If it checks out, overwrite current code. 
-
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the
