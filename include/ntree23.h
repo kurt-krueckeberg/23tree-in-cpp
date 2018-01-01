@@ -39,7 +39,7 @@ template<class Key, class Value> class tree23 {
       
       KeyValue(Key k, Value&& v) : nc_pair{k, std::move(v)} {} 
 
-      KeyValue(KeyValue&& lhs) :  nc_pair{move(lhs.nc_pair)} {}
+      KeyValue(KeyValue&& lhs) :  nc_pair{std::move(lhs.nc_pair)} {}
 
       KeyValue& operator=(const KeyValue& lhs);  
       KeyValue& operator=(KeyValue&& lhs); 
@@ -272,6 +272,8 @@ template<class Key, class Value> class tree23 {
 
     std::unique_ptr<Node> root; 
 
+    int size_; // Number of nodes
+
     // Subroutines called by insert()
     //--std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findInsertNode(Key new_key) const noexcept;
     // called by insert() and remove().
@@ -322,6 +324,7 @@ template<class Key, class Value> class tree23 {
 
    // Called by copy constructor and copy assignment operators, respectively.
    void CloneTree(const std::unique_ptr<Node>& Node2Copy, std::unique_ptr<Node>& NodeCopy, const Node * parent) noexcept;
+
    void DestroyTree(std::unique_ptr<Node> &root) noexcept; 
 
    int  height(const Node *pnode) const noexcept;
@@ -330,6 +333,9 @@ template<class Key, class Value> class tree23 {
    bool isBalanced(const Node *pnode) const noexcept;
 
    bool find_(const Node *pnode, Key key) const noexcept;
+
+   tree23<Key, Value>& clone(tree23<Key, Value>& lhs) noexcept;
+   tree23<Key, Value>& move(tree23<Key, Value>&& lhs) noexcept;
 
   public:
     // STL container "typedef's"
@@ -479,8 +485,6 @@ template<class Key, class Value> class tree23 {
 
     tree23(std::initializer_list<value_type> list); 
 
-    void test_invariant() const noexcept;
-
     std::ostream& test_height(std::ostream& ostr) const noexcept;
 
     tree23(const tree23&) noexcept; 
@@ -520,6 +524,13 @@ template<class Key, class Value> class tree23 {
 
     int  height() const noexcept;
     bool isBalanced() const noexcept;
+
+    int size() const 
+    {
+        return size_;
+    }
+
+    bool test_invariant() const noexcept;
 };
 
 
@@ -1652,24 +1663,34 @@ template<class Key, class Value> tree23<Key, Value>& tree23<Key, Value>::operato
   
   DestroyTree(root); // free all the nodes of the current tree 
 
-  height = lhs.height;
-  
-  // Traverse in pre-order using the clone functor. See todo.txt
-  CloneTree(lhs.root, root);
-
-   return *this;
+  return clone(lhs);
 }
+
+template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::clone(tree23<Key, Value>& lhs) noexcept
+{
+  size_ = lhs.size_;
+    
+  CloneTree(lhs.root, root);
+  return *this;
+}
+
+template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::move(tree23<Key, Value>&& lhs) noexcept 
+{
+  root = std::move(lhs.root);  
+  size_ = lhs.size_;
+
+  return *this;
+}
+
 // Move assignment
 template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::operator=(tree23<Key, Value>&& lhs) noexcept
 {
   if (this == &lhs)  {
       
-      return *this;
+     return *this;
   }
-  
-  root = std::move(lhs.root);  
 
-  return *this;
+  return move(std::move(lhs));   
 }   
 
 /*
@@ -2107,9 +2128,11 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
    Thus, for example, in code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
    branches, branches can be used to duplicate the exact descent branches taken from the root to the leaf where the insertion of new_key should begin:
 
-       // convert stack to deque
+       // Convert stack to deque
        deque<int> branches;
+
        while (!child_indecies.empty()) {
+
               branches.push_back(stk.top());
               child_indecies.pop();
        }
@@ -2141,6 +2164,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
       
      pinsert_start->insertKeyInLeaf(new_key, new_value);
   }
+  ++size_;
 }
 /*
  Requires:
@@ -2273,7 +2297,6 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... args) noexcept
 {
    root = {key, std::forward<Args>(args)...}; // Uses Node's variadic template constructor.
-   height = 1; // first node added to tree, the root.
 }
 
 // See split() variadic template method in ~/test/main.cpp
@@ -2724,9 +2747,10 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
   if (pLeaf->isEmpty()) { 
       
-      fixTree(pLeaf, descent_indecies); // TODO: BUG: We want either descent_indecies, if premove was a leaf, or descent_indecies_expanded if it was internal. 
+      fixTree(pLeaf, descent_indecies); 
   }
 
+  --size_;  
   return;
 }
 
@@ -3489,6 +3513,26 @@ template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noe
        }
     }
     return true; // All Nodes were balanced.
+
+}
+
+template<class Key, class Value> bool tree23<Key, Value>::test_invariant() const noexcept
+{
+  // Compare size with a count of the number of nodes from traversing the tree.
+  auto end_iter = end();
+
+  auto  count = 0;
+  for (auto iter : *this)  {
+
+      ++count; 
+  }
+
+  if (size_ != count) {
+
+      std::cout << "The manual node count is " << count << ", and the value of size is " << size_  << '.' << std::endl;
+  }
+
+  return (size_ == count) ? true : false;
 
 }
 /* rvalue version  TODO: finish later

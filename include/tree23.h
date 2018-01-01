@@ -13,6 +13,7 @@
 #include <iterator>
 #include <utility>
 #include <algorithm>
+#include <tuple>
 #include "debug.h"
 
 template<class Key, class Value> class tree23; // This forward declaration... 
@@ -126,7 +127,6 @@ template<class Key, class Value> class tree23 {
 
         bool siblingHasTwoItems(int child_index, int& sibling_index) const noexcept;
 
-
         std::ostream& test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept;
 
         std::ostream& debug_print(std::ostream& ostr, bool show_addresses=false) const noexcept;
@@ -167,8 +167,11 @@ template<class Key, class Value> class tree23 {
 
            void convertTo3Node(Key key, const Value& value, std::unique_ptr<Node> pnode23) noexcept; 
 
+           //TODO: Change this to return a tuple or struct and not use references params to do this.
            bool NodeDescentSearch(Key value, int& index, Node *next) noexcept;          // called during find()  
-           bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
+
+           //--bool NodeDescentSearch(Key value, int& index, int& next_child_index) noexcept; // called during insert()
+           std::tuple<bool, Node *, int> find(Key value) noexcept;    
 
            void insertKeyInLeaf(Key key, const Value& value);
            void insertKeyInLeaf(Key key, Value&& new_value);
@@ -269,8 +272,12 @@ template<class Key, class Value> class tree23 {
 
     std::unique_ptr<Node> root; 
 
+    int size_; // Number of nodes
+
     // Subroutines called by insert()
-    int findInsertNode(Key new_key, std::stack<int>& descent_indecies, Node *&pinsert_start) const noexcept;
+    //--std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findInsertNode(Key new_key) const noexcept;
+    // called by insert() and remove().
+    std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findNode(Key new_key) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> leftChild, std::unique_ptr<Node> rightChild) noexcept;  
    
@@ -404,10 +411,13 @@ template<class Key, class Value> class tree23 {
          bool operator==(const iterator& lhs) const;
          constexpr bool operator!=(const iterator& lhs) const { return !operator==(lhs); }
 
-         constexpr reference dereference() noexcept { return const_cast<std::pair<const Key, Value>&>(current->keys_values[key_index].const_pair); } 
+         constexpr reference dereference() noexcept 
+         { 
+             return const_cast<std::pair<const Key, Value>&>(current->keys_values[key_index].pair());  
+         }
 
          constexpr const std::pair<const Key, Value>& dereference() const noexcept { \
-                         return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].const_pair);} 
+                         return const_cast<const std::pair<const Key, Value>&>( current->keys_values[key_index].pair());} 
 
          iterator& operator++() noexcept; 
          iterator operator++(int) noexcept;
@@ -471,8 +481,6 @@ template<class Key, class Value> class tree23 {
 
     tree23(std::initializer_list<value_type> list); 
 
-    void test_invariant() const noexcept;
-
     std::ostream& test_height(std::ostream& ostr) const noexcept;
 
     tree23(const tree23&) noexcept; 
@@ -492,7 +500,7 @@ template<class Key, class Value> class tree23 {
     void printInOrder(std::ostream& ostr) const noexcept;   
 
     // TODO: Should emplace() return an iterator?
-    template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
+    //++template<class... Args> void emplace(Key key, Args&&... args); // <-- Implementation not complete.
        
     bool find(Key key) const noexcept;
 
@@ -512,6 +520,13 @@ template<class Key, class Value> class tree23 {
 
     int  height() const noexcept;
     bool isBalanced() const noexcept;
+
+    int size() const 
+    {
+        return size_;
+    }
+
+    bool test_invariant() const noexcept;
 };
 
 
@@ -1686,7 +1701,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
        }  else {
 
-           keys_values[dest] = std::move(p3node->keys_values[src]);  // This was done to improper efficiency.
+           keys_values[dest] = std::move(p3node->keys_values[src]); 
            ++dest;
            ++src;
        } 
@@ -1902,7 +1917,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
       case 1: // two node
             DoInOrderTraverse(f, current->children[0].get());
-            //--f(current->keys_values[0].const_pair);   // current->key(1)
+   
             f(current->pair(0));   // current->key(1)
 
             DoInOrderTraverse(f, current->children[1].get());
@@ -2099,9 +2114,11 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
    Thus, for example, in code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
    branches, branches can be used to duplicate the exact descent branches taken from the root to the leaf where the insertion of new_key should begin:
 
-       // convert stack to deque
+       // Convert stack to deque
        deque<int> branches;
+
        while (!child_indecies.empty()) {
+
               branches.push_back(stk.top());
               child_indecies.pop();
        }
@@ -2113,26 +2130,27 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
        } 
 */
 
-  std::stack<int> child_indecies; 
+  auto result_tuple= findNode(new_key);
 
-  Node *pinsert_start;
+  if (std::get<0>(result_tuple)) { // new_key already exists, so we overwrite its associated value with the new value.
 
-  if (int found_index = findInsertNode(new_key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // new_key already exists, so we overwrite its associated value with the new value.
-
-       pinsert_start->value(found_index) = new_value;
+       std::get<1>(result_tuple)->value(std::get<2>(result_tuple)) = new_value;
        return;  
   }
-
+  
+  Node *pinsert_start = std::get<1>(result_tuple);
+  
   // new_key was not found in the tree; therefore we know pinsert_start is a leaf.
   if (pinsert_start->isThreeNode()) { 
     
-      // split() converts pinsert_start from a 3-node to a 2-node.
-      split(pinsert_start, child_indecies, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
+      // split() converts first parameter from a 3-node to a 2-node.
+      split(std::get<1>(result_tuple), std::get<3>(result_tuple), std::unique_ptr<Node>{nullptr}, new_key, new_value); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       
      pinsert_start->insertKeyInLeaf(new_key, new_value);
   }
+  ++size_;
 }
 /*
  Requires:
@@ -2140,15 +2158,20 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
  1. new_key is the new key to be inserted.  
  2. pinsert_start will be the leaf node where insertion should start, if new_key is not found in the tree; otherwise, it will be the node where new_key was found.
  3. descent_indecies is a stack<int> that will hold the child branches taken descending to pinsert_start
+
  Promises:
  =========
  1. Returns the index into pinsert_start->keys_values[] such that, if new_key already exists in the tree
     new_key == pinsert_start->keys[found_index]. However, if new_key is not in the tree, then the return value is Node::NotFoundIndex.
+
  2. pinsert_start will be the node where new_key was found, if it already exists in the tree; otherwise, it will be the leaf node where insertion should
     begin.
- 3. descent_indecies will hold the child branches take to descend to pinsert_start.
- */
 
+ 3. descent_indecies will hold the child branches take to descend to pinsert_start.
+  
+ TODO: Change this to return a struct or tuple. Don't pass in the reference parameters. Return them.
+ */
+/*
 template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_key, std::stack<int>& child_indecies, \
                                                            typename tree23<Key, Value>::Node *&pinsert_start) const noexcept
 {
@@ -2168,33 +2191,71 @@ template<class Key, class Value> int tree23<Key, Value>::findInsertNode(Key new_
 
    return found_index;
 }
+*/
+/*
+ New code
+ Returns:
+
+   bool -- found or not
+   Node * -- the Node where found or leaf node where search ended.
+   int -- the index into keys_values where found, or 0 if not found.
+   statck<int> -- stack of child indecies taken--if key not found.
+ */
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> tree23<Key, Value>::findNode(Key key) const noexcept
+{
+  std::stack<int> indecies;
+
+  Node *current = root.get();
+
+  // Search for new_key until found or if we search a leaf node and didn't find the key.
+  while(true) {
+
+    //auto result_tuple = current->find(key);
+    auto [bool_found, pnode, index] = current->find(key);
+
+    if (bool_found) { // found
+            
+        //return std::tuple_cat(std::move(result_tuple), std::tuple{std::move(indecies)}  ); //{std::move(indecies)}); 
+        return {bool_found, pnode, index, std::move(indecies)}; //{std::move(indecies)}); 
+
+    } else if (current->isLeaf()) { // not in tree. If leaf, return current.
+
+        return {false, current, 0, std::move(indecies)};
+
+    } else {
+
+       indecies.push(index); // Remember which child node branch we took. 
+
+       current = pnode;
+    } 
+  }
+}
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
+ TODO: Change this to return a tuple or struct and not use references params to do this.
  */
-template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
+//--template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
+template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key_in) noexcept
 {
-  for(auto i = 0; i < totalItems; ++i) {
+  for(auto i = 0; i < getTotalItems(); ++i) {
 
-     if (new_key < key(i)) {
+     if (key_in < key(i)) {
             
-         next = children[i].get(); 
-         return false;
+         return {false, children[i].get(), i};
 
-     } else if (key(i) == new_key) {
+     } else if (key_in = key(i)) {
 
-         found_index = i;
-         return true;
+         return {true, this, i};
      }
   }
 
   // It must be greater than the last key (because it is not less than or equal to it).
-  next = children[totalItems].get(); 
-
-  return false;
+  return {false, children[totalItems].get(), 0};
 }
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
  */
+/*
 template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, int& next_child_index) noexcept
 {
   for(auto i = 0; i < totalItems; ++i) {
@@ -2216,6 +2277,7 @@ template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDesce
 
   return false;
 }
+ */ 
 // can I rename this CreateRoot()?
 
 template<class Key, class Value> template<class... Args> inline void tree23<Key, Value>::EmplaceRoot(Key key, Args&&... args) noexcept
@@ -2225,6 +2287,8 @@ template<class Key, class Value> template<class... Args> inline void tree23<Key,
 }
 
 // See split() variadic template method in ~/test/main.cpp
+/*++
+// TODO: Rewrite to work like ::insert() with new Node::find() and new findInsertNode().
 
 template<class Key, class Value> template <class... Args>
 void tree23<Key, Value>::emplace(Key key, Args&&... args)
@@ -2242,7 +2306,7 @@ void tree23<Key, Value>::emplace(Key key, Args&&... args)
   std::stack<int> child_indecies; 
 
   Node *pinsert_start;
-
+  
   if (int found_index = findInsertNode(key, child_indecies, pinsert_start); found_index != Node::NotFoundIndex) { // if key already exists, overwrite its associated value.
 
        // Destruct the current value by explicitly invoking Value's destructor. 
@@ -2639,69 +2703,44 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
      return;
   }
 
-  std::stack<int> descent_indecies; 
+  // Note: findNode() by value a stack<int> as 4th value in tuple. But RVO should eliminate copies/moves--right?
+  // But I can simply use auto &, I think.
+  auto [bool_found, premove, remove_index, descent_indecies] = findNode(key); // We don't want a copy of descent_indecies, just a reference.
 
-  int found_index = Node::NotFoundIndex;
+  if (!bool_found) return;
   
-  Node *premove_start = findRemovalStartNode(key, descent_indecies, found_index);
-
-  if (premove_start == nullptr) return;
-
   Node *pLeaf;
 
-  if (premove_start->isLeaf()) {
+  if (premove->isLeaf()) {
       
-      pLeaf = premove_start;  // ...premove_start is a leaf, and the key is in premove_start->keys[found_index]
+      pLeaf = premove;  // ...premove is a leaf, and the key is in premove->keys[remove_index]
        
-  } else {   // premove_start is an internal node...
+  } else {   // premove is an internal node...
 
       // ...get its in order successor, which will be keys_values[0].key() of a leaf node.
-      pLeaf = getSuccessor(premove_start, found_index, descent_indecies); 
-          
+      // Note: getSuccessor() updates its third parameter, which is returns by value in pair::second. But RVO should eliminate copies/moves--right>
+      pLeaf = getSuccessor(premove, remove_index, descent_indecies); 
+
       /*  
        * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
        * keys_values[0].key().
        */
-      std::swap(premove_start->keys_values[found_index], pLeaf->keys_values[0]); 
-   } 
-  
+      
+      std::swap(premove->keys_values[remove_index], pLeaf->keys_values[0]); 
+  } 
  
   pLeaf->removeLeafKey(key); // remove key from leaf         
   
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
   if (pLeaf->isEmpty()) { 
       
-      fixTree(pLeaf, descent_indecies);  
+      fixTree(pLeaf, descent_indecies); 
   }
 
+  --size_;  
   return;
 }
-/*
- * Assumes tree is not empty. root is not nullptr.
- */ 
-template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree23<Key, Value>::findRemovalStartNode(Key key, std::stack<int>& child_indecies,\
-                                                                                                                 int& found_index) const noexcept
-{
-  found_index = Node::NotFoundIndex;
 
-  Node *premove_start = root.get();
-  
-  int child_index; 
-
-  while(!premove_start->NodeDescentSearch(key, found_index, child_index)) { // Search for key until found, or we reach a leaf and it is not found when we simply return.
-
-    if (premove_start->isLeaf()) {
-
-        return nullptr;
-    } 
-        
-    child_indecies.push(child_index); // ...remembering which child node branch we took.
-
-    premove_start = premove_start->children[child_index].get();
-  }  
- 
-  return premove_start;
-}
 /*
  Finds the in order successor of pnode, which must be an internal node.
  
@@ -2714,8 +2753,10 @@ template<class Key, class Value> inline typename tree23<Key, Value>::Node *tree2
  2. child_indecies traces the descent route to the in order successor.
  3. child_indecies is the stack of indecies into keys[] tracing the descent from the root to the internal node pnode. 
 */
-
-template<class Key, class Value> inline typename tree23<Key, Value>::Node* tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
+/*
+ TODO: This is another method that is returing values by reference parameter. So maybe this bunch of code was designed with references 
+ */
+template<class Key, class Value> typename tree23<Key, Value>::Node * tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
   int child_index = found_index + 1;
@@ -3461,6 +3502,26 @@ template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noe
     return true; // All Nodes were balanced.
 
 }
+
+template<class Key, class Value> bool tree23<Key, Value>::test_invariant() const noexcept
+{
+  // Compare size with a count of the number of nodes from traversing the tree.
+  auto end_iter = end();
+
+  auto  count = 0;
+  for (auto iter : *this)  {
+
+      ++count; 
+  }
+
+  if (size != count) {
+
+      std::cout << "The manual node count is " << count << ", and the value of size is " << size  << '.' << std::endl;
+  }
+
+  return (size == count) ? true : false;
+
+}
 /* rvalue version  TODO: finish later
 template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
 {
@@ -3476,3 +3537,4 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&
 }
 */
 #endif
+
