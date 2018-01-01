@@ -1,11 +1,6 @@
 ## TODO
 
-The insert() code is not inserting all the values in the test case.
-Rewrite NodeLevelPrinter--whatever. Just use a functor/lambada.
-
--treetructs. New code is in ntree23.h.
-
-The insert() code replies on a stack<int> of descent indecies.  
+New code complete in ntree23.h. Test is more. Test other methods, like iterators, too. If it checks out, overwrite current code. 
 
 ## Thoughts on emplace()
 

@@ -1564,19 +1564,19 @@ template<class Key, class Value> bool tree23<Key, Value>::Node::siblingHasTwoIte
   return true;   
 }
 
-template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}
+template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}, size_{0}
 {
 
 }   
 
-template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initializer_list<typename tree23<Key, Value>::value_type> list) 
+template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initializer_list<typename tree23<Key, Value>::value_type> list) : size_{0}
 {
    for (auto& v : list) {
        insert(v.first, v.second);  
    }
 }
 
-template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept
+template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept 
 {
   // traverse the tree copying each of its nodes
  if (root == lhs.root) { // are they the same?
@@ -1648,9 +1648,9 @@ template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::uniqu
 }
 
 // Move constructorusing external iterator
-template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept : root{std::move(lhs.root)}
+template<class Key, class Value> inline tree23<Key, Value>::tree23(tree23<Key, Value>&& lhs) noexcept 
 {
-  
+    move(std::move(lhs));
 }   
 
 // Copy assignment
@@ -2116,6 +2116,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
       
       // Create the initial unique_ptr<Node> in the tree.
       CreateRoot(new_key, new_value);
+      ++size_;
       return;
   }
 
@@ -2248,23 +2249,24 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
  Advances cursor next if key not found in current node. If found sets found_index.
  TODO: Change this to return a tuple or struct and not use references params to do this.
  */
-//--template<class Key, class Value> inline bool tree23<Key, Value>::Node::NodeDescentSearch(Key new_key, int& found_index, Node *next) noexcept
 template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key_in) noexcept
 {
-  for(auto i = 0; i < getTotalItems(); ++i) {
+  auto i = 0;
+  
+  for(; i < getTotalItems(); ++i) {
 
      if (key_in < key(i)) {
             
          return {false, children[i].get(), i};
 
-     } else if (key_in = key(i)) {
+     } else if (key_in == key(i)) {
 
          return {true, this, i};
      }
   }
 
   // It must be greater than the last key (because it is not less than or equal to it).
-  return {false, children[totalItems].get(), 0};
+  return {false, children[totalItems].get(), i};
 }
 /*
  Advances cursor next if key not found in current node. If found sets found_index.
@@ -3529,7 +3531,7 @@ template<class Key, class Value> bool tree23<Key, Value>::test_invariant() const
 
   if (size_ != count) {
 
-      std::cout << "The manual node count is " << count << ", and the value of size is " << size_  << '.' << std::endl;
+      std::cout << "The manual node count is " << count << ", and the value of size_ is " << size_  << '.' << std::endl;
   }
 
   return (size_ == count) ? true : false;
