@@ -275,7 +275,7 @@ template<class Key, class Value> class tree23 {
     // called by insert() and remove().
     std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findNode(Key new_key) const noexcept;
 
-    void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> leftChild, std::unique_ptr<Node> rightChild) noexcept;  
+    void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node>&& leftChild, std::unique_ptr<Node>&& rightChild) noexcept;  
    
     void CreateRoot(Key key, const Value& value) noexcept;
 
@@ -2481,8 +2481,8 @@ template<class Key, class Value> template<class... Args> void tree23<Key, Value>
             growing the tree upward one level. 
   Promises: A new root is added growing the tree upward one level.
  */
-template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node> currentRoot, \
-                  std::unique_ptr<Node> rightChild) noexcept
+template<class Key, class Value> void tree23<Key, Value>::CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node>&& currentRoot, \
+                  std::unique_ptr<Node>&& rightChild) noexcept
 {
    // 1. create new root node.
    std::unique_ptr<Node> new_root = std::make_unique<Node>(new_key, new_value);
