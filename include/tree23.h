@@ -1928,7 +1928,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 1: // two node
             DoInOrderTraverse(f, current->children[0].get());
    
-            f(current->pair(0));   // current->key(1)
+            f(current->pair(0));   
 
             DoInOrderTraverse(f, current->children[1].get());
             break;
@@ -2542,10 +2542,6 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(K
        if (newChild->key(0) < children[child_index]->key(0)) { 
            break;
        }
-  }
-
-  if (child_index == Node::TwoNodeChildren) {
-       child_index = 2; 
   }
 
   // shift children to right as needed 
