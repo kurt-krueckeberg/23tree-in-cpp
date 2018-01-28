@@ -580,7 +580,7 @@ template<class Key, class Value> inline constexpr std::unique_ptr<typename tree2
 }
 
 /*
- Only called from tree23<Key,Value>::remove(Key kye)'s subroutines when a 2-node being deleted briefly has only one non-nullptr child.
+ Only called from tree23<Key,Value>::remove(Key key)'s subroutines when a 2-node being deleted briefly has only one non-nullptr child.
  */
 template<class Key, class Value> inline constexpr int tree23<Key, Value>::Node::getSoleChildIndex() const noexcept
 {
@@ -2663,19 +2663,14 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
        
   } else {   // premove is an internal node...
 
-      // ...get its in order successor, which will be keys_values[0].key() of a leaf node.
-      // Note: getSuccessor() updates its third parameter, which is returns by value in pair::second. But RVO should eliminate copies/moves--right>
+      // We will swap the internal node key/value with its leaf node in order successor.
+      // getSuccessor() will update its third parameter. 
       pLeaf = getSuccessor(premove, remove_index, descent_indecies); 
 
-      /*  
-       * Swap the internal key( and its associated value) with its in order successor key and value. The in order successor is always in
-       * keys_values[0].key().
-       */
-      
       std::swap(premove->keys_values[remove_index], pLeaf->keys_values[0]); 
   } 
  
-  pLeaf->removeLeafKey(key); // remove key from leaf         
+  pLeaf->removeLeafKey(key); // Remove key from leaf         
   
   // We now have reduced the problem to removing the key (and its value) from a leaf node, pLeaf. 
   if (pLeaf->isEmpty()) { 
@@ -2688,20 +2683,16 @@ template<class Key, class Value> void tree23<Key, Value>::remove(Key key)
 }
 
 /*
- Finds the in order successor of pnode, which must be an internal node.
+ Finds the in order successor of internal node pnode, which is the left most child of pnode's immediate right subtree.
  
  Input:
  1. pnode must be an internal node.
  2. found_index is the index of the key being removed within pnode->keys[].
- 3. reference to child_indecies (see Output). 
+ 3. reference to child_indecies that hold the descent path from the root to pnode. 
  Output:
  1. pointer to leaf node of in order successor
- 2. child_indecies traces the descent route to the in order successor.
- 3. child_indecies is the stack of indecies into keys[] tracing the descent from the root to the internal node pnode. 
+ 2. child_indecies is updated so it now holds the descent path from the root to pnode and then from pnode to its in order successor.
 */
-/*
- TODO: This is another method that is returing values by reference parameter. So maybe this bunch of code was designed with references 
- */
 template<class Key, class Value> typename tree23<Key, Value>::Node * tree23<Key, Value>::getSuccessor(Node *pnode, int found_index, \
                                                                                                   std::stack<int>& child_indecies) const noexcept
 {
@@ -2746,11 +2737,9 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::removeLea
  If the parent of pnode has now become empty (because merge2Nodes was called), a recursive call to fixTree is made.
  Parameters
  ==========
- 1. pnode: an empty node, initially a leaf. During recursive calls, pnode is an empty internal 2-node with only one non-nullptr child.  
- 2. child_index: The child index in the parent such that 
-       pnode->parent->children[child_index] == pnode 
+ 1. pnode: an empty node, initially a leaf. During recursive calls to fixTree, pnode is an empty internal 2-node with only one non-nullptr child.  
+ 2. child_index: The child index in the parent such that: pnode->parent->children[child_index] == pnode 
 */
-
 template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree23<Key, Value>::Node *pnode, std::stack<int>& descent_indecies) noexcept
 {
   if (pnode == root.get()) {
