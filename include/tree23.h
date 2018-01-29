@@ -1491,11 +1491,10 @@ template<class Key, class Value> inline typename tree23<Key, Value>::const_itera
  */
 template<class Key, class Value> std::pair<bool, int> tree23<Key, Value>::Node::siblingHasTwoItems(int child_index) const noexcept
 {
- int sibling_index = 0;
  
  if (parent->isTwoNode()) { // In a recursive case, the parent has 0 totalItems, and it has only one non-nullptr child.
 
-     if (sibling_index = !child_index; parent->children[sibling_index]->isThreeNode()) { // toggle between 0 or 1
+     if (int sibling_index = !child_index; parent->children[sibling_index]->isThreeNode()) { // toggle between 0 or 1
 
         return {true, sibling_index};
 
@@ -1514,51 +1513,43 @@ template<class Key, class Value> std::pair<bool, int> tree23<Key, Value>::Node::
 
         if (parent->children[1]->isThreeNode()) {
   
-            sibling_index = 1;  
+            return {true, 1};  
   
         } else if (parent->children[2]->isThreeNode()) {
   
-            sibling_index = 2;  
+            return {true, 2};  
   
-        } else {
-
-	    return {false, 0};
-        }
+        } 
         break;
 
       case 1:
         if (parent->children[0]->isThreeNode()) {
   
-            sibling_index = 0;  
+            return {true, 0};  
   
         } else if (parent->children[2]->isThreeNode()) {
   
-            sibling_index = 2;  
+            return {true, 2};  
   
-        } else {
-	    return {false, 0};
-        }
+        } 
         break;
   
       case 2:
         if (parent->children[1]->isThreeNode()) {
   
-            sibling_index = 1;  
+            return {true, 1};  
   
         } else if (parent->children[0]->isThreeNode()) {
   
-            sibling_index = 0;  
+            return {true, 0};  
   
-        } else {
-  
-	    return {false, 0};
-        }
+        } 
         break;
 
       default:
        break; 
   }
-  return {true, sibling_index};   
+  return {false, 0};
 }
 
 template<class Key, class Value> inline tree23<Key, Value>::tree23() noexcept : root{nullptr}, size_{0}
