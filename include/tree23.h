@@ -2765,24 +2765,21 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
       Node *parent = pnode->parent;
 
-      // pnode_child_index is such that: parent->children[pnode_child_index] == pnode
+      // pnode_child_index is such that pnode == parent->children[pnode_child_index].
       std::unique_ptr<Node> node2Delete;
 
       if (pnode->parent->isTwoNode()) { 
-          /* 
-             When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
-             pnode's sibling, which is pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
-             by again calling fixTree(). 
-           */
-           node2Delete = merge2Nodes(pnode, !pnode_child_index); 
+         
+           // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
+           // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
+           // by again calling fixTree(). 
+         node2Delete = merge2Nodes(pnode, !pnode_child_index); 
     
       } else { 
     
-          /* 
-           * parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
-           * its associated value) with a sibling. This now makes the parent a 2-node. We move the affected children involved appropriately.  We can then
-           * safely delete pnode from the tree.
-           */
+           // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
+           // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
+           // safely delete pnode from the tree.
     
          node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
      }
@@ -2796,7 +2793,6 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
      }
   }   
 }
-
 template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
 {
    // The root is a leaf
