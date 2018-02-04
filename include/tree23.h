@@ -26,10 +26,10 @@ template<class Key, class Value> class tree23 {
     
   private:
 
-  union KeyValue { // A union is used to hold to two types of pairs, one of has const Key, the other a non-const Key
+  union KeyValue { // This union is used to hold to two types of pairs, one of has const Key, the other a non-const Key to eliminate...
  
-      std::pair<Key, Value>        nc_pair;  // ...this eliminates constantly casting of const_cast<Key>(p.first) = some_noconst_key;
-      std::pair<const Key, Value>  const_pair;  // but always return this member of the union.
+      std::pair<Key, Value>        nc_pair;  // ...constantly casting of const_cast<Key>(p.first) = some_noconst_key;
+      std::pair<const Key, Value>  const_pair;  // We return this member of the union when we are not changing the Key in the pair.
 
      public: 
       KeyValue() {} 
@@ -216,55 +216,54 @@ template<class Key, class Value> class tree23 {
      }
   };
 
-      
-    class Node4 { // Class Node4 is only used to aid insert()
+  class Node4 { // Class Node4 is only used to aid the insert() algorithm.
 
-       // Always hold three keys and four children. 
-      friend class tree23<Key, Value>; 
-     
-      private:
-         std::array<KeyValue, 3> keys_values;
+     // Always hold three keys and four children. 
+    friend class tree23<Key, Value>; 
+   
+    private:
+       std::array<KeyValue, 3> keys_values;
 
-         // Takes ownership of four 23-nodes 
-         std::array<std::unique_ptr<Node>, 4> children; 
+       // Takes ownership of four 23-nodes 
+       std::array<std::unique_ptr<Node>, 4> children; 
 
-         Node *parent; // Set to the parent of the 3-node passed to its constructor 
+       Node *parent; // Set to the parent of the 3-node passed to its constructor 
 
-         static const int FourNodeItems = 3;
-         static const int FourNodeChildren = 4;
+       static const int FourNodeItems = 3;
+       static const int FourNodeChildren = 4;
 
-         void connectChild(int childIndex, std::unique_ptr<Node> child)  noexcept;
-                      
-    public: 
-        Node4() noexcept {}
+       void connectChild(int childIndex, std::unique_ptr<Node> child)  noexcept;
+                    
+  public: 
+      Node4() noexcept {}
 
-        // Constructor that takes an internal 3-node 
-        Node4(Node *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node> heap_2node) noexcept;
+      // Constructor that takes an internal 3-node 
+      Node4(Node *threeNode, Key new_key, const Value& value, int child_index, std::unique_ptr<Node> heap_2node) noexcept;
 
-        // Constructor for a leaf 3-node, all child pointers will be zero. 
-        Node4(Node *p3node, Key new_key, const Value& new_value) noexcept;
+      // Constructor for a leaf 3-node, all child pointers will be zero. 
+      Node4(Node *p3node, Key new_key, const Value& new_value) noexcept;
 
-        Node4& operator=(Node4&& lhs) noexcept;
-        Node4& operator=(const Node4& lhs) = delete;
+      Node4& operator=(Node4&& lhs) noexcept;
+      Node4& operator=(const Node4& lhs) = delete;
 
-        const Key& operator[](int i) const noexcept { return keys_values[i].key; }  
+      const Key& operator[](int i) const noexcept { return keys_values[i].key; }  
 
-        constexpr Key& key(int i) { return keys_values[i].key(); }
-        constexpr const Key& key(int i) const { return keys_values[i].key(); }
+      constexpr Key& key(int i) { return keys_values[i].key(); }
+      constexpr const Key& key(int i) const { return keys_values[i].key(); }
 
-        constexpr Key& value(int i) { return keys_values[i].value(); }
-        constexpr const Key& value(int i) const { return keys_values[i].value(); }
+      constexpr Key& value(int i) { return keys_values[i].value(); }
+      constexpr const Key& value(int i) const { return keys_values[i].value(); }
 
-        std::ostream& print(std::ostream& ostr) const noexcept;
-        std::ostream& debug_print(std::ostream& ostr) const noexcept;
+      std::ostream& print(std::ostream& ostr) const noexcept;
+      std::ostream& debug_print(std::ostream& ostr) const noexcept;
 
-        constexpr bool isLeaf() const noexcept { return (children[0] == nullptr) ? true : false; } 
+      constexpr bool isLeaf() const noexcept { return (children[0] == nullptr) ? true : false; } 
 
-        friend std::ostream& operator<<(std::ostream& ostr, const Node4& node4) 
-        { 
-            return node4.print(ostr); 
-        }
-    };
+      friend std::ostream& operator<<(std::ostream& ostr, const Node4& node4) 
+      { 
+          return node4.print(ostr); 
+      }
+  };
 
     std::unique_ptr<Node> root; 
 
@@ -333,7 +332,7 @@ template<class Key, class Value> class tree23 {
    tree23<Key, Value>& move(tree23<Key, Value>&& lhs) noexcept;
 
   public:
-    // STL container "typedef's"
+    // For STL compatibility, there are the required container "typedef's"/using.
 
     using value_type      = std::pair<const Key, Value>; 
     using difference_type = long int;
@@ -527,7 +526,6 @@ template<class Key, class Value> class tree23 {
 
     bool test_invariant() const noexcept;
 };
-
 
 /*
   Constructs a new 2-node from a Node4: its key will be the node4.keys_values[2].key, largest key in node4, and its associate value. 
