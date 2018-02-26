@@ -2791,7 +2791,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
 
    } else {
    // recursive remove() case:
-   // If the root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
+   // The root has a sole non-empty child, make it the new root. unique_ptr's assignment operator will first delete the current empty root
    // node pointer before doing the assignment.
       root = std::move(root->getNonNullChild());  
       root->parent = nullptr;   
@@ -3196,7 +3196,7 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
       return node2Delete; 
   } 
 
-  // Recursive case: This only occurs if fixTree adopt the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
+  // Recursive case: This only occurs if fixTree adopted the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
   std::unique_ptr<Node>& nonemptyChild = pnode->getNonNullChild();
 
   // Is sibling to the left? 
