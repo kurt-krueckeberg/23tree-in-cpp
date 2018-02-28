@@ -2752,27 +2752,25 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
      
   } else  { // No sibling has two items, so we merge a key/value from pnode's parent with the appropriate sibling. 
 
-      Node *parent = pnode->parent;
-
-      // pnode_child_index is such that pnode == parent->children[pnode_child_index].
-      if (pnode->parent->isTwoNode()) { 
+     Node *parent = pnode->parent;
+      
+     if (pnode->parent->isThreeNode()) { 
          
-           // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
-           // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
-           // by again calling fixTree(). 
+         // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
+         // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
+         // safely delete pnode from the tree.
+    
+         std::unique_ptr<Node> node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
+                    
+      } else { 
+    
+          // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
+          // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
+          // by again calling fixTree(). 
           std::unique_ptr<Node>  node2Delete = merge2Nodes(pnode, !pnode_child_index); 
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
-          
-      } else { 
-    
-           // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
-           // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
-           // safely delete pnode from the tree.
-    
-         std::unique_ptr<Node> node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
-         
      }
      // <--- node2Delete implicitly deleted as it goes out of scope. 
   }   
