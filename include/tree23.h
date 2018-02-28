@@ -2772,7 +2772,6 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
      }
-     // <--- node2Delete implicitly deleted as it goes out of scope. 
   }   
 }
 template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
