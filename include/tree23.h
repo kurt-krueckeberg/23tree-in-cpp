@@ -306,8 +306,8 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node *node, Node *sibling) noexcept;
     void shiftChildrenLeft(Node *node, Node *middleChild, Node *sibling) noexcept;
 
-    std::unique_ptr<Node> merge2Nodes(Node *pnode, int child_index) noexcept;
-    std::unique_ptr<Node> merge3NodeWith2Node(Node *pnode, int child_index) noexcept;
+    void  merge2Nodes(Node *pnode, int child_index) noexcept;
+    void  merge3NodeWith2Node(Node *pnode, int child_index) noexcept;
 
     void shiftChildren(Node *node, Node *sibling, int node_index, int sibling_index) noexcept;
      
@@ -2760,14 +2760,14 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
          // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
          // safely delete pnode from the tree.
     
-         std::unique_ptr<Node> node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
+         merge3NodeWith2Node(pnode, pnode_child_index);
                     
       } else { 
     
           // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
           // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
           // by again calling fixTree(). 
-          std::unique_ptr<Node>  node2Delete = merge2Nodes(pnode, !pnode_child_index); 
+          merge2Nodes(pnode, !pnode_child_index); 
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
@@ -3060,8 +3060,7 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
  a recursive call to fixTree(). 
  
  */
-template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node> \
-tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
+template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
 {
     Node *parent = pnode->parent;
 
@@ -3149,7 +3148,7 @@ tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
          break;  
     }
 
-    return node2Delete;
+    node2Delete.reset();
 }
 /*
 requires
@@ -3162,7 +3161,7 @@ promises:
    child of pnode.
 2. parent will become empty, too.
  */
-template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Value>::Node> tree23<Key, Value>::merge2Nodes(Node *pnode, int sibling_index) noexcept
+template<class Key, class Value> void tree23<Key, Value>::merge2Nodes(Node *pnode, int sibling_index) noexcept
 {
   Node *parent = pnode->parent;
    
@@ -3186,7 +3185,8 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
 
   if (sibling->isLeaf()) {
 
-      return node2Delete; 
+      node2Delete.reset(); 
+      return; 
   } 
 
   // Recursive case: This only occurs if fixTree adopted the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
@@ -3204,7 +3204,7 @@ template<class Key, class Value> inline std::unique_ptr<typename tree23<Key, Val
       sibling->connectChild(0, std::move(nonemptyChild));    
   }
 
-  return node2Delete;
+  node2Delete.reset();
 }
 
 template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::test_parent_ptr(std::ostream& ostr, const Node *root) const noexcept
