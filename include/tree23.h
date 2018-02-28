@@ -2764,7 +2764,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child.
           fixTree(parent, descent_indecies);
-          // <--- implicitly delete node2Delete 
+          
       } else { 
     
            // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
@@ -2772,8 +2772,9 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
            // safely delete pnode from the tree.
     
          std::unique_ptr<Node> node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
-         // <---  implicitly delete node2Delete
+         
      }
+     // <--- node2Delete implicitly deleted as it goes out of scope. 
   }   
 }
 template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() noexcept
