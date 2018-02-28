@@ -2755,30 +2755,24 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
       Node *parent = pnode->parent;
 
       // pnode_child_index is such that pnode == parent->children[pnode_child_index].
-      std::unique_ptr<Node> node2Delete;
-
       if (pnode->parent->isTwoNode()) { 
          
            // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
            // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
            // by again calling fixTree(). 
-         node2Delete = merge2Nodes(pnode, !pnode_child_index); 
-    
+          std::unique_ptr<Node>  node2Delete = merge2Nodes(pnode, !pnode_child_index); 
+
+          // recurse. parent is an internal empty 2-node with only one non-nullptr child.
+          fixTree(parent, descent_indecies);
+          // <--- implicitly delete node2Delete 
       } else { 
     
            // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
            // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
            // safely delete pnode from the tree.
     
-         node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
-     }
-     
-     node2Delete.reset(); // delete node2Delete's managed memory.
-
-     if (parent->isEmpty()) { 
-
-          // recurse. parent is an internal empty 2-node with only one non-nullptr child.
-          fixTree(parent, descent_indecies);
+         std::unique_ptr<Node> node2Delete = merge3NodeWith2Node(pnode, pnode_child_index);
+         // <---  implicitly delete node2Delete
      }
   }   
 }
@@ -3063,8 +3057,8 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
  2. child_index is such that pnode->parent->children[child_index] == pnode
  Requires: The pnode->parent is a 3-node, and all pnode's siblings are 2-nodes.
  Promises: Merges one of the keys/values of pnode->parent with one of pnode's 2-node siblings to rebalance the tree. It shifts the children of the
- effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node (which only occurs during
- a recursive call to fixTree()). 
+ effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node, which only occurs during
+ a recursive call to fixTree(). 
  
  */
 template<class Key, class Value> std::unique_ptr<typename tree23<Key, Value>::Node> \
