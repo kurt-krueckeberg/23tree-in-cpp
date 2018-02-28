@@ -3147,8 +3147,6 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
          }
          break;  
     }
-
-    node2Delete.reset();
 }
 /*
 requires
@@ -3185,7 +3183,6 @@ template<class Key, class Value> void tree23<Key, Value>::merge2Nodes(Node *pnod
 
   if (sibling->isLeaf()) {
 
-      node2Delete.reset(); 
       return; 
   } 
 
@@ -3203,8 +3200,6 @@ template<class Key, class Value> void tree23<Key, Value>::merge2Nodes(Node *pnod
       sibling->connectChild(1, std::move(sibling->children[0]));
       sibling->connectChild(0, std::move(nonemptyChild));    
   }
-
-  node2Delete.reset();
 }
 
 template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::test_parent_ptr(std::ostream& ostr, const Node *root) const noexcept
