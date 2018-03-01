@@ -1294,7 +1294,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator& t
 
            } else if (current == pair.first) {
 
-                key_index = pair.second; // current has no change, but key_index has.
+                key_index = pair.second; // current has not changed, but key_index has.
   
            } else {  // curent has changed, so we adjust current and key_index. To ensure position is no longer 'beg', we unconditionally set position to 'in_between'.
 
