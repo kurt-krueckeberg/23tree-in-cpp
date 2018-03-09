@@ -65,7 +65,9 @@ template<class Key, class Value> class tree23 {
 
   
    // The tree's heap-allocated Node nodes are managed by std::unique_ptr<Node>s.
-    class Node {
+    class Node { // Since Node depends on both of tree23's template parameters Key and Value, it is safe
+                 // to make it a nested class. If it depended on only Key or only Value, it would have been
+                 // define outside of tree23
 
         friend class tree23<Key, Value>;             
 
