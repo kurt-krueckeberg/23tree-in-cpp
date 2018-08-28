@@ -41,6 +41,13 @@ template<class Key, class Value> class tree23 {
 
       KeyValue(KeyValue&& lhs) :  nc_pair{std::move(lhs.nc_pair)} {}
 
+     ~KeyValue() 
+      {
+        
+         const_pair.first.~Key();  // Note: Anonymous unions require explicit destructor calls.
+         const_pair.second.~Value();
+      } 
+ 
       KeyValue& operator=(const KeyValue& lhs);  
       KeyValue& operator=(KeyValue&& lhs); 
  
