@@ -361,8 +361,17 @@ template<class Key, class Value> class tree23 {
                                 
     enum class iterator_position {beg, in_between, end}; 
 
-    class iterator : public std::iterator<std::bidirectional_iterator_tag, typename tree23<Key, Value>::value_type> { 
-                                                 
+    class iterator  { 
+
+      public:
+
+        using difference_type   = std::ptrdiff_t; 
+        using value_type        = tree23<Key, Value>::value_type; 
+        using reference	        = value_type&; 
+        using pointer           = value_type*;
+        
+        using iterator_category = std::bidirectional_iterator_tag; 
+                    
        friend class tree23<Key, Value>;   
 
       private:
@@ -439,12 +448,19 @@ template<class Key, class Value> class tree23 {
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
-    class const_iterator : public std::iterator<std::bidirectional_iterator_tag, const value_type> {
+    class const_iterator {
 
       private:
         iterator iter; 
       public:
-         
+
+        using difference_type   = std::ptrdiff_t; 
+        using value_type        = tree23<Key, Value>::value_type; 
+        using reference	        = const value_type&; 
+        using pointer           = const value_type*;
+        
+        using iterator_category = std::bidirectional_iterator_tag; 
+
          explicit const_iterator(const tree23<Key, Value>& lhs);
 
          const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
@@ -475,8 +491,8 @@ template<class Key, class Value> class tree23 {
     const_iterator begin() const noexcept;  
     const_iterator end() const noexcept;  
   
-    using  reverse_iterator       = std::reverse_iterator<typename tree23<Key, Value>::iterator>; 
-    using  const_reverse_iterator = std::reverse_iterator<typename tree23<Key, Value>::const_iterator>;
+    using  reverse_iterator       = std::reverse_iterator<iterator>; 
+    using  const_reverse_iterator = std::reverse_iterator<const_iterator>;
 
     reverse_iterator rbegin() noexcept;  
     reverse_iterator rend() noexcept;  
