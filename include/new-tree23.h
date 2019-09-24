@@ -367,8 +367,15 @@ template<class Key, class Value> class tree23 {
     using reference       = value_type&; 
     using node_type       = Node; 
 
-   //TODO: Get rid of these state variables if possible and use logic similar to tree234::iterator
+   /*
+     TODO: Get rid of these state variables and the state machine and use logic similar to tree234::iterator, which involves using two 'Node *' pointers:
+     const Node *current;
+     const Node *cursor; //  points to actual "current" node used by dereference()
 
+     It also involves changing the method that set the state machine by using logic from the tree234 iterator class. These methods
+     would include operator==(const iterator&) and operator!=(const iterato&).
+   */  
+    
    /*  enum iterator_position represents one of the three possible finite states: 
 
      1. end --  the logical state of one-past the last, largest key/value in the tree. When the iterator is at the 'end' state, the value
