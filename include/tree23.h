@@ -2165,7 +2165,7 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 
   Node *current = root.get();
 
-  // Search for new_key until found or if we search a leaf node and didn't find the key.
+  // Search for key until found or if we search a leaf node and didn't find the key.
   while(true) {
 
     //auto result_tuple = current->find(key);
@@ -2173,8 +2173,7 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 
     if (bool_found) { // found
             
-        //return std::tuple_cat(std::move(result_tuple), std::tuple{std::move(indecies)}  ); //{std::move(indecies)}); 
-        return {bool_found, pnode, index, std::move(indecies)}; //{std::move(indecies)}); 
+        return {bool_found, pnode, index, std::move(indecies)}; 
 
     } else if (current->isLeaf()) { // not in tree. If leaf, return current.
 
