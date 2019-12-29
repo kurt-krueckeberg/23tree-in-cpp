@@ -552,7 +552,7 @@ template<class Key, class Value> class tree23 {
     /*
      * Is the net effect of the default destructor to do post-order deletion in the same manner as DestroyTree()? 
      */
-    ~tree23() = default;
+    ~tree23() = default; //TODO: Confirm that this does deletions in the correct order--from all children, then the parent--effectively that same a recursive post-order deletiona of nodes.
 
     tree23(std::initializer_list<value_type> list); 
 

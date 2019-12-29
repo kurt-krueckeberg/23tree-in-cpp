@@ -1,5 +1,9 @@
 ## TODO
 
+## Double check ~tree23() functions as expected
+
+That it does the same thing as DestroyTree()--a post order deletion of Nodes.
+
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the
