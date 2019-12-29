@@ -280,8 +280,7 @@ template<class Key, class Value> class tree23 {
 
     int size_; // Number of nodes
 
-    // Subroutines called by insert()
-    // called by insert() and remove().
+    // Subroutines immediately below are called by insert() and remove().
     std::tuple<bool, typename tree23<Key, Value>::Node *, int, std::stack<int>> findNode(Key new_key) const noexcept;
 
     void CreateNewRoot(Key new_key, const Value& new_value, std::unique_ptr<Node>&& leftChild, std::unique_ptr<Node>&& rightChild) noexcept;  
@@ -551,6 +550,10 @@ template<class Key, class Value> class tree23 {
     const_reverse_iterator rend() const noexcept;  
      
     tree23() noexcept;
+    /*
+     * Is the net effect of the default destructor to do post-order deletion in the same manner as DestroyTree()? 
+     */
+    ~tree23() = default;
 
     tree23(std::initializer_list<value_type> list); 
 
@@ -1561,12 +1564,6 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initiali
 
 template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept 
 {
-  // traverse the tree copying each of its nodes
- if (root == lhs.root) { // are they the same?
-
-      return;
-  }
-
   DestroyTree(root); // free all the nodes of the current tree 
   
   // Traverse in pre-order using the clone functor. See todo.txt
