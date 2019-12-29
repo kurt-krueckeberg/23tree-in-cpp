@@ -338,7 +338,6 @@ template<class Key, class Value> class tree23 {
 
    bool find_(const Node *pnode, Key key) const noexcept;
 
-   tree23<Key, Value>& clone(tree23<Key, Value>& lhs) noexcept;
    tree23<Key, Value>& move(tree23<Key, Value>&& lhs) noexcept;
 
    // Methods used by class iterator.
@@ -1642,16 +1641,11 @@ template<class Key, class Value> tree23<Key, Value>& tree23<Key, Value>::operato
   }
   
   DestroyTree(root); // free all the nodes of the current tree 
-
-  return clone(lhs);
-}
-
-template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::clone(tree23<Key, Value>& lhs) noexcept
-{
   size_ = lhs.size_;
     
   CloneTree(lhs.root, root);
-  return *this;
+
+  return *this; 
 }
 
 template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::move(tree23<Key, Value>&& lhs) noexcept 
