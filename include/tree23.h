@@ -184,7 +184,6 @@ template<class Key, class Value> class tree23 {
           void insertKeyInLeaf(Key key, Value&& new_value);
    }; 
 
-
   class NodeLevelOrderPrinter {
 
       std::ostream& ostr;
