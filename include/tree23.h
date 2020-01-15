@@ -326,9 +326,9 @@ template<class Key, class Value> class tree23 {
     template<typename Functor> void DoPreOrderTraverse(Functor f, const Node *proot) const noexcept;
 
    // Called by copy constructor and copy assignment operators, respectively.
-   void CloneTree(const std::unique_ptr<Node>& Node2Copy, std::unique_ptr<Node>& NodeCopy, const Node * parent) noexcept;
+   void clone_tree(const std::unique_ptr<Node>& Node2Copy, std::unique_ptr<Node>& NodeCopy, const Node * parent) noexcept;
 
-   void DestroyTree(std::unique_ptr<Node> &root) noexcept; 
+   void destroy_tree(std::unique_ptr<Node> &root) noexcept; 
 
    int  height(const Node *pnode) const noexcept;
    
@@ -548,7 +548,7 @@ template<class Key, class Value> class tree23 {
      
     tree23() noexcept;
     /*
-     * Is the net effect of the default destructor to do post-order deletion in the same manner as DestroyTree()? 
+     * Is the net effect of the default destructor to do post-order deletion in the same manner as destroy_tree()? 
      */
     ~tree23() = default; 
 
@@ -1562,17 +1562,17 @@ template<class Key, class Value> inline tree23<Key, Value>::tree23(std::initiali
 
 template<class Key, class Value> inline tree23<Key, Value>::tree23(const tree23<Key, Value>& lhs) noexcept 
 {
-  DestroyTree(root); // free all the nodes of the current tree 
+  destroy_tree(root); // free all the nodes of the current tree 
   
   // Traverse in pre-order using the clone functor. See todo.txt
-  CloneTree(lhs.root, root, nullptr);
+  clone_tree(lhs.root, root, nullptr);
 }   
 
 /*
  Does a pre-order traversal, using recursion and copying the source node, the first parameter, into the destination node, the second parameter.
  Note: We don't want to copy the parent of srcNode (only its key and value) into destNode. Instead we pass in the previously clone parent node of destNode.
  */
-template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::unique_ptr<typename tree23<Key, Value>::Node>& srcNode, \
+template<class Key, class Value>  void tree23<Key, Value>::clone_tree(const std::unique_ptr<typename tree23<Key, Value>::Node>& srcNode, \
         std::unique_ptr<typename tree23<Key, Value>::Node>& destNode, const typename tree23<Key, Value>::Node *parent) noexcept
 {
   if (srcNode != nullptr) { 
@@ -1581,7 +1581,7 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 
    for(auto i = 0; i < destNode->getChildCount(); ++i) {    
 
-          CloneTree(srcNode->children[i], destNode->children[i], destNode.get()); 
+          clone_tree(srcNode->children[i], destNode->children[i], destNode.get()); 
    }
   } else {
 
@@ -1592,16 +1592,13 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
 /*
  * Does a post order tree traversal, using recursion and deleting nodes as they are visited.
  */
-template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::unique_ptr<Node> &current) noexcept 
+template<class Key, class Value> void tree23<Key, Value>::destroy_tree(std::unique_ptr<Node> &current) noexcept 
 {
-  if (current == nullptr) {
+  if (current == nullptr) return;
 
-      return;
-  }
-  
   for(auto i = 0; i < current->totalItems; ++i) {
 
-       DestroyTree(current->children[i]);
+       destroy_tree(current->children[i]);
    }
 
    current.reset(); // deletes the underlying pointer. 
@@ -1621,10 +1618,10 @@ template<class Key, class Value> tree23<Key, Value>& tree23<Key, Value>::operato
       return *this;
   }
   
-  DestroyTree(root); // free all the nodes of the current tree 
+  destroy_tree(root); // free all the nodes of the current tree 
   size_ = lhs.size_;
     
-  CloneTree(lhs.root, root);
+  clone_tree(lhs.root, root);
 
   return *this; 
 }
