@@ -404,7 +404,6 @@ template<class Key, class Value> class tree23 {
 
          iterator_position position;
 
-         //TODO: Move these methods to tree23
          void seekToSmallest();    
          void seekToLargest();    
 
@@ -551,7 +550,7 @@ template<class Key, class Value> class tree23 {
     /*
      * Is the net effect of the default destructor to do post-order deletion in the same manner as DestroyTree()? 
      */
-    ~tree23() = default; //TODO: Confirm that this does deletions in the correct order--from all children, then the parent--effectively that same a recursive post-order deletiona of nodes.
+    ~tree23() = default; 
 
     tree23(std::initializer_list<value_type> list); 
 
@@ -1343,23 +1342,24 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator& t
      case iterator_position::beg:
      case iterator_position::in_between:
      {
-           std::pair<const Node *, int> pair = tree.getSuccessor(current, key_index);
+           auto[pnode, index] = tree.getSuccessor(current, key_index);
 
-           if (pair.first == nullptr) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
+           if (pnode == nullptr) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
 
                 // Therefore current doesn't change, nor key_index, but the state becomes 'end', one-past last key. 
                 position = iterator_position::end;
 
-           } else if (current == pair.first) {
+           } else if (current == pnode) {
 
-                key_index = pair.second; // current has not changed, but key_index has.
+                key_index = index; // current has not changed, but key_index has.
   
            } else {  // curent has changed, so we adjust current and key_index. To ensure position is no longer 'beg', we unconditionally set position to 'in_between'.
 
-               current = pair.first;
-               key_index = pair.second;
+               current = pnode;
+               key_index = index;
                position = iterator_position::in_between; 
            }
+
      }
            break;
      default:
@@ -1392,15 +1392,15 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
                                        //  first key/value.  
     {      
-       if (std::pair<const Node *,int> pair = tree.getPredecessor(current, key_index); pair.first == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
+       if (auto[pnode, index] = tree.getPredecessor(current, key_index); pnode == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
 
             // Therefore current doesn't change, nor key_index, but the state becomes 'beg'. 
             position = iterator_position::beg;
 
        } else {
  
-           current = pair.first;
-           key_index = pair.second;
+           current = pnode;
+           key_index = index;
        }
     }
     break;
@@ -1579,29 +1579,11 @@ template<class Key, class Value>  void tree23<Key, Value>::CloneTree(const std::
                               
    destNode = std::make_unique<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
 
-   switch (srcNode->totalItems) {
+   for(auto i = 0; i < destNode->getChildCount(); ++i) {    
 
-      case 1: // two node
-      {    
-            CloneTree(srcNode->children[0], destNode->children[0], destNode.get()); 
-            
-            CloneTree(srcNode->children[1], destNode->children[1], destNode.get()); 
-
-            break;
-
-      }   
-      case 2: // three node
-      {
-            CloneTree(srcNode->children[0], destNode->children[0], destNode.get());
-            
-            CloneTree(srcNode->children[1], destNode->children[1], destNode.get());
-            
-            CloneTree(srcNode->children[2], destNode->children[2], destNode.get());
-
-            break;
-      } // end case
-   }  // end switch
- } else {
+          CloneTree(srcNode->children[i], destNode->children[i], destNode.get()); 
+   }
+  } else {
 
     destNode = nullptr;
  } 
@@ -1619,7 +1601,7 @@ template<class Key, class Value> void tree23<Key, Value>::DestroyTree(std::uniqu
   
   for(auto i = 0; i < current->totalItems; ++i) {
 
-        DestroyTree(current->children[i]);
+       DestroyTree(current->children[i]);
    }
 
    current.reset(); // deletes the underlying pointer. 
