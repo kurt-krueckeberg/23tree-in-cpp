@@ -2052,7 +2052,7 @@ template<typename Key, typename Value> inline void tree23<Key, Value>::printInOr
 
 template<class Key, class Value> inline void tree23<Key, Value>::CreateRoot(Key key, const Value& value) noexcept
 {
-   root = std::make_unique<Node>(key, value);
+   root = std::make_shared<Node>(key, value);
 }
 /* 
    If new_key is already in the tree, we overwrite its associate value with new_value. If it is not in the tree, we descend to the leaf where the
@@ -2130,12 +2130,18 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
  */
 template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::findNode(const Node *current, Key lhs_key, std::stack<int>& indecies) const noexcept
 {
+    // TODO: I want the leaf not.
   auto i = 0;
   
   for(; i < current->getTotalItems(); ++i) {
 
      if (lhs_key < current->key(i)) {
-            
+         
+         if (current->isLeaf()) {
+
+            return {false, const_cast<Node *>(current), 0};
+         }          
+         
          indecies.push(i); // Remember which child node branch we took. 
 
          return findNode(current->children[i].get(), lhs_key, indecies);
@@ -2145,12 +2151,12 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
          return {true, const_cast<Node *>(current), i}; 
      }
   }
-
+  
   if (current->isLeaf()) {
 
      return {false, const_cast<Node *>(current), 0};
   } 
-
+  
   // It must be greater than the last key (because it is not less than or equal to it).
   indecies.push(current->getTotalItems()); // Remember which child node branch we took. 
 
@@ -2335,7 +2341,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
     
       2.) We allocate a new Node 2-node on the heap that will hold the largest value in node4, nod4.nc_pair.keys_values[2]. Its two children will be the
           two right most children of node4. The code to do this this is the Node constructor that takes a Node4 reference as input.
-          std::shared_ptr<Node> larger_2node{std::make_unique<Node>(node4)}; 
+          std::shared_ptr<Node> larger_2node{std::make_shared<Node>(node4)}; 
    */
   pnode->convertTo2Node(std::move(node4)); 
 
@@ -2403,7 +2409,7 @@ template<class Key, class Value> template<class... Args> void tree23<Key, Value>
   //  
   //    2.) We allocate a new Node 2-node on the heap that will hold the largest value in node4, nod4.nc_pair.keys_values[2]. Its two children will be the
   //        two right most children of node4. The code to do this this is the Node constructor that takes a Node4 reference as input.
-  //        std::shared_ptr<Node> larger_2node{std::make_unique<Node>(node4)}; 
+  //        std::shared_ptr<Node> larger_2node{std::make_shared<Node>(node4)}; 
   //
   pnode->convertTo2Node(std::move(node4)); 
 
