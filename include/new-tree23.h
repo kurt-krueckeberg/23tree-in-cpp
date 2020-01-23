@@ -334,7 +334,7 @@ template<class Key, class Value> class tree23 {
    int  depth(const Node *pnode) const noexcept;
    bool isBalanced(const Node *pnode) const noexcept;
 
-   bool find_(const Node *pnode, Key key) const noexcept;
+   bool find(const Node *pnode, Key key) const noexcept;
 
    tree23<Key, Value>& move(tree23<Key, Value>&& lhs) noexcept;
 
@@ -2003,10 +2003,10 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
 template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const noexcept
 {
-  return find_(root.get(), key);
+  return find(root.get(), key);
 } 
 // TODO: This is like findNode(). What method call find_()>
-template<class Key, class Value> bool tree23<Key, Value>::find_(const Node *pnode, Key key) const noexcept
+template<class Key, class Value> bool tree23<Key, Value>::find(const Node *pnode, Key key) const noexcept
 {
    if (pnode == nullptr) return false;
    
@@ -2015,13 +2015,13 @@ template<class Key, class Value> bool tree23<Key, Value>::find_(const Node *pnod
    for (; i < pnode->getTotalItems(); ++i) {
 
       if (key < pnode->key(i)) 
-         return find_(pnode->children[i].get(), key); 
+         return find(pnode->children[i].get(), key); 
     
       else if (key == pnode->key(i)) 
          return true;
    }
 
-   return find_(pnode->children[i].get(), key);
+   return find(pnode->children[i].get(), key);
 }
 
 template<typename Key, typename Value> inline void tree23<Key, Value>::printlevelOrder(std::ostream& ostr) const noexcept
@@ -2142,13 +2142,13 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 
      } else if (lhs_key == current->key(i)) {
 
-         return std::tuple<bool, Node*, int>{true, current, i}; 
+         return {true, const_cast<Node *>(current), i}; 
      }
   }
 
   if (current->isLeaf()) {
 
-     return {false, current, 0};
+     return {false, const_cast<Node *>(current), 0};
   } 
 
   // It must be greater than the last key (because it is not less than or equal to it).
