@@ -1,14 +1,5 @@
 ## TODO
 
-## Double check ~tree23() functions as expected
-
-1. Change to use the default ~tree23() {}. It should work fine. 
-2. And change use of unique\_ptr to shared\_ptr.
-
-
-findNode() return 'Node *' and not 'const Node *' which leads to compiler errors. Is findNode() itself 'findNode() const'?
-I need have to review these basic points of logic, and I need to complete the code with the ~/t4 code, and I will need to review the basic 2-3 tree insert and remove algorithms, ...etc.
-
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the
