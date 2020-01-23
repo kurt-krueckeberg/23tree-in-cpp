@@ -2,7 +2,11 @@
 
 ## Double check ~tree23() functions as expected
 
-Change to use the default ~tree23() {}. It should work fine. Change use of unique\_ptr to shared\_ptr.
+1. Change to use the default ~tree23() {}. It should work fine. 
+2. And change use of unique\_ptr to shared\_ptr.
+
+
+findNode() return 'Node *' and not 'const Node *' which leads to compiler errors.
 
 ## Thoughts on emplace()
 
