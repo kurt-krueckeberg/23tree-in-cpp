@@ -6,7 +6,8 @@
 2. And change use of unique\_ptr to shared\_ptr.
 
 
-findNode() return 'Node *' and not 'const Node *' which leads to compiler errors.
+findNode() return 'Node *' and not 'const Node *' which leads to compiler errors. Is findNode() itself 'findNode() const'?
+I need have to review these basic points of logic, and I need to complete the code with the ~/t4 code, and I will need to review the basic 2-3 tree insert and remove algorithms, ...etc.
 
 ## Thoughts on emplace()
 
