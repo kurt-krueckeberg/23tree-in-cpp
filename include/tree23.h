@@ -373,10 +373,15 @@ template<class Key, class Value> class tree23 {
      3. in_between -- the state of being in-between beg and end: !beg && !end
     */
                                 
-    enum class iterator_position {beg, in_between, end};// TODO: Can this be made a nested enum of class iterator? 
-
+    enum class iterator_position {beg, in_between, end};
+    
+    class const_iterator;
+    
     class iterator  { 
-
+        
+        friend class tree23<Key, Value>;   
+        friend class const_iterator;
+        
       public:
         // required "traits" type definitions.
         using difference_type   = std::ptrdiff_t; 
@@ -385,12 +390,11 @@ template<class Key, class Value> class tree23 {
         using pointer           = value_type*;
         
         using iterator_category = std::bidirectional_iterator_tag; 
-                    
-        friend class tree23<Key, Value>;   
-
+             
       private:
          tree23<Key, Value>& tree; 
-
+         
+         
          const typename tree23<Key, Value>::Node *current;
 
          /*
@@ -414,7 +418,7 @@ template<class Key, class Value> class tree23 {
 
          explicit iterator(tree23<Key, Value>&); 
 
-         iterator(tree23<Key, Value>& lhs, tree23<Key, Value>::iterator_position);  
+         iterator(tree23<Key, Value>& lhs, iterator_position);  
 
          iterator(const iterator& lhs); // What does explicit do?
 
@@ -468,10 +472,11 @@ template<class Key, class Value> class tree23 {
          typename tree23<Key, Value>::KeyValue *operator->() noexcept;
     };
 
-    class const_iterator {
+    class const_iterator  {
 
       private:
         iterator iter; 
+        
       public:
 
         using difference_type   = std::ptrdiff_t; 
@@ -484,7 +489,7 @@ template<class Key, class Value> class tree23 {
          explicit const_iterator(const tree23<Key, Value>& lhs);
 
          const_iterator(const tree23<Key, Value>& lhs, iterator_position pos); 
-
+         
          const_iterator(const const_iterator& lhs);
          const_iterator(const_iterator&& lhs); 
          const_iterator(const iterator& lhs);
@@ -809,7 +814,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 }
 
 // non const tree23<Key, Value>& passed to ctor. Called only by end()
-template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree, typename tree23<Key, Value>::iterator_position pos) : tree{lhs_tree}, position{pos} 
+template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree, iterator_position pos) : tree{lhs_tree}, position{pos} 
 {
   // If the tree is empty, there is nothing over which to iterate...
    if (tree.root.get() == nullptr) {
@@ -858,7 +863,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator tr
 
 template<class Key, class Value> inline typename tree23<Key, Value>::const_iterator tree23<Key, Value>::end() const noexcept
 {
-   return const_iterator(const_cast<tree23<Key, Value>&>(*this), tree23<Key, Value>::iterator_position::end);
+   return const_iterator(const_cast<tree23<Key, Value>&>(*this), iterator_position::end);
 }
 
 template<class Key, class Value> inline typename tree23<Key, Value>::reverse_iterator tree23<Key, Value>::rbegin() noexcept
@@ -1999,7 +2004,7 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 {
   return find(root.get(), key);
 } 
-// TODO: This is like findNode(). What method call find_()>
+
 template<class Key, class Value> bool tree23<Key, Value>::find(const Node *pnode, Key key) const noexcept
 {
    if (pnode == nullptr) return false;
@@ -2156,32 +2161,6 @@ template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::N
 
   return findNode(current->children[current->getTotalItems()].get(), lhs_key, indecies);
 }
-
-/*
- Advances cursor next if key not found in current node. If found sets found_index.
- TODO: Change this to return a tuple or struct and not use references params to do this.
- */
-/* TODO: Duplicate of find_()
-template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::Node::find(Key key_in) noexcept
-{
-  auto i = 0;
-  
-  for(; i < getTotalItems(); ++i) {
-
-     if (key_in < key(i)) {
-            
-         return {false, children[i].get(), i};
-
-     } else if (key_in == key(i)) {
-
-         return {true, this, i};
-     }
-  }
-
-  // It must be greater than the last key (because it is not less than or equal to it).
-  return {false, children[totalItems].get(), i};
-}
-*/
 
 // Can I rename this CreateRoot()?
 
@@ -2357,82 +2336,11 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
-     //<---- TODO: Code blows up first time split() recurses. 
      split(parent, child_indecies, std::move(larger_2node), node4.key(1), node4.value(1)); 
   } 
 
   return;
 }
-/* TODO: Not yet implemented. See TODOes
-template<class Key, class Value> template<class... Args> void tree23<Key, Value>::split(Node *pnode, std::stack<int>& child_indecies, \
-                                                                          Key new_key, std::shared_ptr<Node> heap_2node, Args&&...args) noexcept
-{
-  // get the actual parent              
-  Node *parent = pnode->parent;
-  
-  // Debug only next line:
-  Node *pheap_2node = heap_2node.get(); // debug-only line?
-      
-  // Create 4-node on stack that will aid in splitting the 3-node that receives new_key (and new_value).
-  Node4 node4;
-
-  int child_index;
- 
-  if (pnode->isLeaf()) { // pnode->isLeaf() if and only if heap_2node == nullptr
-
-      //--node4 = Node4{pnode, new_key, new_value}; // We construct a 4-node from the 3-node leaf. The = invokes move assignment--right? 
-      node4 = Node4{pnode, new_key, std::forward<Args>(args)...}; // TODO: We need a variadic version of Node4 apparently.
-
-  } else { // It is an internal leaf, so we need to get its child_index such that:
-           // pnode == pnode->parent->children[child_index]. 
-
-      child_index = child_indecies.top();
-      child_indecies.pop();
-
-      //--node4 = Node4{pnode, new_key, new_value, child_index, std::move(heap_2node)}; 
-      node4 = Node4{pnode, std::move(heap_2node), new_key, std::forward<Args>(args)...}; // TODO: Variadic version needed
-  }
-   
-  // 
-  //   Next we check if the 3-node, pnode, is the root. If so, we create a new top level Node and make it the new root.
-  //   If not, we use node4 to 
-  //  
-  //    1.) We downsize pnode to a 2-node, holding the smallest value in the 4-node, node4.keys_values[0], and we connect the two left most
-  //        children of node4 as the two children of pnode. The code to do this is
-  //  
-  //           pnode->convertTo2Node(node4); 
-  //  
-  //    2.) We allocate a new Node 2-node on the heap that will hold the largest value in node4, nod4.nc_pair.keys_values[2]. Its two children will be the
-  //        two right most children of node4. The code to do this this is the Node constructor that takes a Node4 reference as input.
-  //        std::shared_ptr<Node> larger_2node{std::make_shared<Node>(node4)}; 
-  //
-  pnode->convertTo2Node(std::move(node4)); 
-
-  // 2. Create an entirely new 2-node that contains the largest value in node4, node4.keys_values[2].key(), and whose children are the two right most children of node4
-  //    the children of pnode. This is what the Node constructor that takes a Node4 does.
-  std::shared_ptr<Node> larger_2node{std::shared_unique<Node>(node4)}; 
-  
-  if (pnode == root.get()) {
-
-       // We pass node4.keys_values[1].key() and node4.keys_values[1].value() as the Key and Value for the new root.
-       // pnode == root.get(), and pnode is now a 2-node. larger_2node is the 2-node holding node4.keys_values[2].key().
-        
-       CreateNewRoot(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(root), std::move(larger_2node)); 
-
-  } else if (parent->isTwoNode()) { // Since pnode is not the root, its parent is an internal node. If it, too, is a 2-node,
-
-      // we convert it to a 3-node by inserting the middle value into the parent, and passing it the larger 2-node, which it will adopt.
-      parent->convertTo3Node(node4.keys_values[1].key(), node4.keys_values[1].value(), std::move(larger_2node));
-
-  } else { // parent is a 3-node, so we recurse.
-
-     // parent now has three items, so we can't insert the middle item. We recurse to split it.
-     split(parent, child_indecies, std::move(larger_2node), node4.keys_values[1].key(), node4.keys_values[1].value()); 
-  } 
-
-  return;
-}
-*/
 /*
   Requires: currentRoot is the root. tree::root was moved to the parameter currentRoot by the caller. currentRoot has been down sized to a 2-node.
             rightChild is a heap allocated 2-node shared_ptr<Node> holding the largest key (and its associated value) in the formerly 3-node root.   
@@ -2526,10 +2434,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::connectCh
 {  
   dest = std::move(src); 
   
-  if (dest != nullptr) { 
-
-      dest->parent = this; 
-  }
+  if (dest != nullptr) dest->parent = this; 
 }            
 
 /*
@@ -3118,16 +3023,17 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
     }
 }
 /*
-requires
-1. pnode is an empty 2-node, and its parent is a 2-node. 
-2. sibling_index is the index of pnode's sibling in parent->children[].
-overview:
-Its sibling will accept its parent's key and associated value.
-promises:
-1. the sibling of pnode will accept the parent's key and associated value, and it will adopt, if pnode is not a leaf, the sole non-empty
-   child of pnode.
-2. parent will become empty, too.
- */
+   Requires
+   1. pnode is an empty 2-node, and its parent is a 2-node. 
+   2. sibling_index is the index of pnode's sibling in parent->children[].
+
+   Overview:
+   Its sibling will accept its parent's key and associated value.
+   promises:
+   1. the sibling of pnode will accept the parent's key and associated value, and it will adopt, if pnode is not a leaf, the sole non-empty
+      child of pnode.
+   2. parent will become empty, too.
+*/
 template<class Key, class Value> void tree23<Key, Value>::merge2Nodes(Node *pnode, int sibling_index) noexcept
 {
   Node *parent = pnode->parent;
@@ -3399,19 +3305,4 @@ template<class Key, class Value> bool tree23<Key, Value>::test_invariant() const
   return (size_ == count) ? true : false;
 
 }
-/* rvalue version  TODO: finish later
-template<class Key, class Value> void tree23<Key, Value>::insert(Key key, Value&& value)
-{
-  int index;
-  if (root == nullptr) {
-      return;
-  }
-  Node *pleaf = find(key, index, root.get()); // How do we determine if it wasn't in tree? Should I return pair<bool, Node *>.
-  if (!pleaf->isLeaf()) {
-       return;  // already exists.
-  }
-  // Further test that it is not in the leaf
-}
-*/
 #endif
-
