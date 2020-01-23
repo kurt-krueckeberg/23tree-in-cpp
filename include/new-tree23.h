@@ -1650,36 +1650,28 @@ template<class Key, class Value> inline tree23<Key, Value>& tree23<Key, Value>::
 template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, Key new_key, const Value& new_value) noexcept : parent{p3node->parent} 
 {
    bool copied = false;
-   int dest = 0;
-   int src = 0;
+   int i_dest = 0;
+   int i_src = 0;
 
-   while (src < Node::ThreeNode) {
+   for (auto i_dest = 0; i_src < Node::ThreeNode; ++i_dest) {
   
-       if (!copied && new_key < p3node->keys_values[src].key()) {
+       if (!copied && new_key < p3node->keys_values[i_src].key()) {
 
            copied = true;
-           keys_values[dest].key() = new_key; 
-           keys_values[dest].value() = new_value; 
-           ++dest;
+           keys_values[i_dest].key() = new_key; 
+           keys_values[i_dest].value() = new_value; 
 
-       }  else {
-
-           keys_values[dest] = std::move(p3node->keys_values[src]); 
-           ++dest;
-           ++src;
-       } 
+       }  else 
+           keys_values[i_dest] = std::move(p3node->keys_values[i_src++]); 
    }
    
    if (!copied) {
 
-        keys_values[dest].key() = new_key; 
-        keys_values[dest].value() = new_value; 
+        keys_values[i_dest].key() = new_key; 
+        keys_values[i_dest].value() = new_value; 
    }
      
-   for(auto& child : children) {
-
-      child = nullptr;
-   }
+   for(auto& child : children) child = nullptr;
 }
 
 /*
@@ -2363,6 +2355,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
+     //<---- TODO: Code blows up first time split() recurses. 
      split(parent, child_indecies, std::move(larger_2node), node4.key(1), node4.value(1)); 
   } 
 
