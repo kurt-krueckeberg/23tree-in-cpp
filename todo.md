@@ -5,6 +5,8 @@
  TODO: How can a Node operated on by fixTree() sometimes have only one non-nullptr child? Is there a way to improved the logic so we don't have such an "strange" case of a node with
  only one real child when pnode is an internal node, and can we eliminate testing for this special case in each of switch case statements(near the end of each)
 
+ TODO: Clarify the comments first, so the remove algorithm is clear.
+
 ## Thoughts on emplace()
 
 The 4-node is used to combine a 3-node and a new key, initially the key to be inserted. The question is, what do we do with the value associated with the key, or in the

@@ -2589,15 +2589,20 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::removeLea
 /*
  Overview
  ========
- fixTree() is initially called when a leaf node becomes empty, and therefore the tree needs to be rebalanced. It first attempts to barrow a key from a 3-node sibling and calls 
- silbingHasTwoItems() is called. If a 3-node sibling exits, barrowSiblingKey() returns its child_index such that
+ fixTree() is initially called when a leaf node becomes empty, and the tree needs to be rebalanced. It attempts:
 
-   p3node_sibling ==  pnode->parent->children[child_index]
+ 1. first to barrow a key from a 3-node sibling and calls silbingHasTwoItems(), and if true, then barrowSiblingKey(), passing the 'child_index' returned by siblingHasTwoItems() such that
 
- and passes child_index to then shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
- If no adjacent sibling is a 3-node, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
- sibling. Upon return, pnode is deleted from the tree by a calling to shared_ptr<Node>::reset().  
- If the parent of pnode has now become empty (because merge2Nodes was called), a recursive call to fixTree is made.
+       p3node_sibling ==  pnode->parent->children[child_index]
+
+    the ??? shift it left or right so that the tree is re-balanced, and the empty node is filled with a key/value.  
+
+ 2. If there is is a 3-node sibling, a key/value from the parent is brought down and merged with a sibling of pnode. Any non-empty children of pnode are moved to the 
+    sibling. Upon return, pnode's reference count is decreased by a calling to shared_ptr<Node>::reset(). <--- TODO: Double check  
+    If the parent of pnode has now become empty (because merge2Nodes was called), a recursive call to fixTree() is made.
+
+ TODO: How and when does a node come to only have one non-nullptr child?
+
  Parameters
  ==========
  1. pnode: an empty node, initially a leaf. During recursive calls to fixTree, pnode is an empty internal 2-node with only one non-nullptr child.  
@@ -2686,7 +2691,8 @@ template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node 
   Node *parent = pnode->parent; 
   Node *sibling = parent->children[sibling_index].get();
 
- // If node is an internal node, this implies fixTree() has recursed, and node will have only subtree, one non-nullptr child.
+ // If node is an internal node, then we know fixTree() has recursed (because it is always first call for a leaf), and node will have only subtree(TODO: huh, what does only one
+ // subtree even mean--one child?), one non-nullptr child.
  if (parent->isTwoNode()) {
 
      // bring down parent key and its associated value. 
