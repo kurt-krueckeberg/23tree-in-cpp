@@ -2129,7 +2129,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(Key new_key, co
  */
 template<class Key, class Value> std::tuple<bool, typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::findNode(const Node *current, Key lhs_key, std::stack<int>& indecies) const noexcept
 {
-    // TODO: I want the leaf not.
+  // TODO: I want the leaf not.
   auto i = 0;
   
   for(; i < current->getTotalItems(); ++i) {
@@ -2629,7 +2629,7 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
       barrowSiblingKey(pnode, pnode_child_index, sibling_index);
      
-  } else  { // No sibling has two items (is a 3-node).
+  } else  { // case 2. No sibling has two items (is a 3-node).
 
      Node *parent = pnode->parent;
       
@@ -2641,8 +2641,9 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
          merge3NodeWith2Node(pnode, pnode_child_index);
                     
       } else { 
+          // Recursive case.... 
     
-          // When the parent is a 2-node, then both pnode's only sibling and the parent have one key. We merge the parent's sole key/value with
+          // When the parent is a 2-node and pnode's only sibling is a 2-node, we merge the parent's sole key/value with
           // pnode's sibling locatied at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively 
           // by calling fixTree() again. 
           merge2Nodes(pnode, !pnode_child_index); 
