@@ -305,9 +305,9 @@ template<class Key, class Value> class tree23 {
 
     void reassignRoot() noexcept;
 
-    void barrowSiblingKey(Node *pnode, int child_index, int sibling_index) noexcept;
+    void rotate_keys(Node *pnode, int child_index, int sibling_index) noexcept;
  
-    // Subroutines called by barrowSiblingKey()
+    // Subroutines called by rotate_keys()
     void shiftChildrenRight(Node *node, Node *sibling) noexcept;
     void shiftChildrenRight(Node *node, Node *middleChild, Node *sibling) noexcept;
 
@@ -2591,7 +2591,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::removeLea
  ========
  fixTree() is initially called when a leaf node becomes empty, and the tree needs to be rebalanced. It attempts:
 
- 1. first to barrow a key from a 3-node sibling and calls silbingHasTwoItems(), and if true, then barrowSiblingKey(), passing the 'child_index' returned by siblingHasTwoItems() such that
+ 1. first to barrow a key from a 3-node sibling and calls silbingHasTwoItems(), and if true, then rotate_keys(), passing the 'child_index' returned by siblingHasTwoItems() such that
 
        p3node_sibling ==  pnode->parent->children[child_index]
 
@@ -2627,12 +2627,14 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
   if (auto [has_two_items, sibling_index] = pnode->siblingHasTwoItems(pnode_child_index); has_two_items) { 
 
-      barrowSiblingKey(pnode, pnode_child_index, sibling_index);
+      rotate_keys(pnode, pnode_child_index, sibling_index);
      
   } else  { // case 2. No sibling has two items (is a 3-node).
 
      Node *parent = pnode->parent;
-      
+
+     // TODO: Make one merge_keys() call here and move the if test below into it.
+
      if (pnode->parent->isThreeNode()) { // If the parent is a 3-node, since we know the sibling(s) are both 2-node, too....
          
          // ...we merge one of the parent keys (and its associated value) with one of the sibling. This converts the 3-node parent into a 2-node. We also move the children affected by the
@@ -2670,23 +2672,44 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
    }
 }
 
-/* Parameters 
- * ==========
+/* 
+ * Input parameters
+ * ================
  * 
- *  1. node is the empty 2-node that needs a key/value.
- *  2. child_index is such that node->parent->children[child_index] == node.
- *  3. silbing_index is the sibling with two keys/values from which we barrow key/value.
- *
-    Comments:
-    ---------
-    If the node parameter is not a leaf node, then barrowSiblingKey() was called during a recursive call to fixTree(), and node is an internal node.
+ *  1. pnode is the empty 2-node into which we will move a key, restoring balance to the tree.
+ *  2. child_index is such that: pnode->parent->children[child_index] == pnode.
+ *  3. silbing_index is a 3-node sibling from which we will remove a key as described below.
+  
+   Algorithm 
+   =========
+
+    pnode is empty. We fix this and restore balance by moving a key into pnode. We redistribute keys between the 3-node sibling (TODO: is it on the left or right), its parent and pnode like this:
+
+    case 1: parent is a 2-node
+
+        [90 ]                       [80]    
+        /   \             ==>       / \    keys are rotated to rebalance the tree.   
+       /     \                     /   \   The sibling with two keys now has only one. 
+    [70, 80]  [empty pnode]     [70]  [90]
+
+    case 2: parent is a 3-node
+
+        [90,  120]                       [80, 110]             
+        /    |   \              ==>      /    |   \      We restribute keys by rotating them             
+       /     |    \                     /     |    \     The sibling that had two keys now has only one       
+   [70, 80] [110] [empty pnode]      [70]   [90]  [120]
+
+    Funky special case:
+    -------------------
+
+    If the node parameter is not a leaf node, then rotate_keys() was called during a recursive call to fixTree(), and node is an internal node.
     A recursive call only occurs after a 2-node is merged with one of its 2-node children. Its other child was deleted from the tree in the previous
     call to fixTree.  This means node has only one non-nullptr child, namely, the merged node created by merge2Nodes() in the prior call to fixTree(). 
     Recursion can be checked by testing if node is a leaf node (as remove always starts with a leaf). If it is an internal node, this is a recursive call,
     and we determine which child--0 or 1--is the non-nullptr child of node. This is done in the shiftChildrenXXX() routines. 
  *
  */                                                              
-template<class Key, class Value> void tree23<Key, Value>::barrowSiblingKey(Node *pnode, int child_index, int sibling_index) noexcept
+template<class Key, class Value> void tree23<Key, Value>::rotate_keys(Node *pnode, int child_index, int sibling_index) noexcept
 {
   Node *parent = pnode->parent; 
   Node *sibling = parent->children[sibling_index].get();
