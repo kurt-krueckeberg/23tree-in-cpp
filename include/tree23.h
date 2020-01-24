@@ -135,7 +135,7 @@ template<class Key, class Value> class tree23 {
    
          std::ostream& test_parent_ptr(std::ostream& ostr, const Node *root) const noexcept;
    
-         std::pair<bool, int> siblingHasTwoItems(int child_index) const noexcept;
+         std::pair<bool, int> any3NodeSiblings(int child_index) const noexcept;
    
          std::ostream& test_3node_invariant(std::ostream& ostr, const Node *root) const noexcept;
    
@@ -1489,7 +1489,7 @@ template<class Key, class Value> inline  bool tree23<Key, Value>::const_iterator
     pnode->parent->children[child_index] == p3node_sibling
  
  */
-template<class Key, class Value> std::pair<bool, int> tree23<Key, Value>::Node::siblingHasTwoItems(int child_index) const noexcept
+template<class Key, class Value> std::pair<bool, int> tree23<Key, Value>::Node::any3NodeSiblings(int child_index) const noexcept
 {
  
  if (parent->isTwoNode()) { // In a recursive case, the parent has 0 totalItems, and it has only one non-nullptr child.
@@ -2591,7 +2591,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::removeLea
  ========
  fixTree() is initially called when a leaf node becomes empty, and the tree needs to be rebalanced. It attempts:
 
- 1. first to barrow a key from a 3-node sibling and calls silbingHasTwoItems(), and if true, then rotate_keys(), passing the 'child_index' returned by siblingHasTwoItems() such that
+ 1. first to barrow a key from a 3-node sibling and calls silbingHasTwoItems(), and if true, then rotate_keys(), passing the 'child_index' returned by any3NodeSiblings() such that
 
        p3node_sibling ==  pnode->parent->children[child_index]
 
@@ -2619,17 +2619,17 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
      return;
   }
 
-  int pnode_child_index = descent_indecies.top();
+  int child_index = descent_indecies.top();
 
   descent_indecies.pop();
 
   // case 1. If the empty node has a sibling with two keys, then we can shift keys and barrow a key for pnode from its parent. 
 
-  if (auto [has_two_items, sibling_index] = pnode->siblingHasTwoItems(pnode_child_index); has_two_items) { 
+  if (auto [bYes, sibling_index] = pnode->any3NodeSiblings(child_index); bYes) { 
 
-      rotate_keys(pnode, pnode_child_index, sibling_index);
+      rotate_keys(pnode, child_index, sibling_index);
      
-  } else  { // case 2. No sibling has two items (is a 3-node).
+  } else  { // case 2. No 3-node sibling exist, so we will merge nodes.
 
      Node *parent = pnode->parent;
 
@@ -2640,15 +2640,15 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
          // ...we merge one of the parent keys (and its associated value) with one of the sibling. This converts the 3-node parent into a 2-node. We also move the children affected by the
          // merge appropriately. We can now safely delete pnode from the tree because its parent has been downsize to a 2-node.
     
-         merge3NodeWith2Node(pnode, pnode_child_index);
+         merge3NodeWith2Node(pnode, child_index);
                     
       } else { 
           // Recursive case.... 
     
           // When the parent is a 2-node and pnode's only sibling is a 2-node, we merge the parent's sole key/value with
-          // pnode's sibling locatied at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively 
+          // pnode's sibling locatied at pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively 
           // by calling fixTree() again. 
-          merge2Nodes(pnode, !pnode_child_index); 
+          merge2Nodes(pnode, !child_index); 
 
           // recurse. parent is an internal empty 2-node with only one non-nullptr child. <--- TODO: This is not clearly worded. Include a picture of what is going on.
           fixTree(parent, descent_indecies);
