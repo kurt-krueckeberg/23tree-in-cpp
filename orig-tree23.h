@@ -129,7 +129,7 @@ template<class Key, class Value> class tree23 {
    
          constexpr const Node *getRightMostChild() const noexcept { return children[getTotalItems()].get(); }
    
-         constexpr std::shared_ptr<Node>& getNonNullChild() noexcept;
+         constexpr std::shared_ptr<Node>& getOnlyChild() noexcept;
    
          constexpr int getSoleChildIndex() const noexcept; // called from subroutine's of tree23<Key,Value>::remove(Key)
    
@@ -314,6 +314,9 @@ template<class Key, class Value> class tree23 {
     void shiftChildrenLeft(Node *node, Node *sibling) noexcept;
     void shiftChildrenLeft(Node *node, Node *middleChild, Node *sibling) noexcept;
 
+    bool merge_nodes(Node *pnode, int child_index) noexcept;
+
+    // subroutines of merge_node()
     void  merge2Nodes(Node *pnode, int child_index) noexcept;
     void  merge3NodeWith2Node(Node *pnode, int child_index) noexcept;
 
@@ -650,7 +653,7 @@ template<class Key, class Value> template<class... Args>  tree23<Key, Value>::No
 /*
  "this" must be 2-node with only one non-nullptr child
  */
-template<class Key, class Value> inline constexpr std::shared_ptr<typename tree23<Key, Value>::Node>& tree23<Key, Value>::Node::getNonNullChild() noexcept
+template<class Key, class Value> inline constexpr std::shared_ptr<typename tree23<Key, Value>::Node>& tree23<Key, Value>::Node::getOnlyChild() noexcept
 {
   return (children[0] == nullptr) ?  children[1] : children[0];
 }
@@ -2623,36 +2626,19 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
   descent_indecies.pop();
 
+  auto parent = pnode->parent;
+
   // case 1. If the empty node has a sibling with two keys, then we can shift keys and barrow a key for pnode from its parent. 
 
   if (auto [bYes, index_3node] = pnode->any3NodeSiblings(child_index); bYes) { 
 
       rotate_keys(pnode, child_index, index_3node);
-     
-  } else  { // case 2. No 3-node sibling exist, so we will merge nodes.
 
-     Node *parent = pnode->parent;
+  // case 2. No 3-node sibling exist, so we will merge nodes.
+  } else if (auto bFix_parent = merge_nodes(pnode, child_index); bFix_parent){ 
 
-     // TODO: Make one merge_keys() call here and move the if test below into it.
-
-     if (pnode->parent->isThreeNode()) { // If the parent is a 3-node, since we know the sibling(s) are both 2-node, too....
-         
-         // ...we merge one of the parent keys (and its associated value) with one of the sibling. This converts the 3-node parent into a 2-node. We also move the children affected by the
-         // merge appropriately. We can now safely delete pnode from the tree because its parent has been downsize to a 2-node.
-    
-         merge3NodeWith2Node(pnode, child_index);
-                    
-      } else { 
-          // Recursive case.... 
-    
-          // When the parent is a 2-node and pnode's only sibling is a 2-node, we merge the parent's sole key/value with
-          // pnode's sibling locatied at pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively 
-          // by calling fixTree() again. 
-          merge2Nodes(pnode, !child_index); 
-
-          // recurse. parent is an internal empty 2-node with only one non-nullptr child. <--- TODO: This is not clearly worded. Include a picture of what is going on.
-          fixTree(parent, descent_indecies);
-     }
+      // parent is now empty and has an empty child, too.
+      fixTree(parent, descent_indecies);
   }   
 }
 
@@ -2667,7 +2653,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
    // recursive remove() case:
    // The root has a sole non-empty child, make it the new root.
    // node pointer before doing the assignment.
-      root = std::move(root->getNonNullChild());  
+      root = std::move(root->getOnlyChild());  
       root->parent = nullptr;   
    }
 }
@@ -2951,6 +2937,36 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
   middleChild->connectChild(0 , std::move(sibling->children[2]));
 }
 /*
+ Calls either merge3NodeWith2Node() and returns true, meaning tree is now balances
+ or merge2Nodes() and returns false, meaning tree still not balanced, must call fixTree passing in the parent.
+ 
+ */
+template<class Key, class Value> inline bool tree23<Key, Value>::merge_nodes(Node *pnode, int child_index) noexcept
+{
+   Node *parent = pnode->parent;
+   bool bRc = false;
+
+   if (pnode->parent->isThreeNode()) { // If the parent is a 3-node, since we know the sibling(s) are both 2-node, too....
+       
+       // ...we merge one of the parent keys (and its associated value) with one of the sibling. This converts the 3-node parent into a 2-node. We also move the children affected by the
+       // merge appropriately. We can now safely delete pnode from the tree because its parent has been downsize to a 2-node.
+  
+       merge3NodeWith2Node(pnode, child_index);
+                  
+    } else { 
+
+        // Recursive case.... 
+  
+        // When the parent is a 2-node and pnode's only sibling is a 2-node, we merge the parent's sole key/value with
+        // pnode's sibling locatied at pnode->parent->children[!child_index]. This leaves the parent empty, which we handle recursively 
+        // by calling fixTree() again. 
+        merge2Nodes(pnode, !child_index); 
+        bRc = true;
+    }
+
+    return bRc; 
+}
+/*
  Overview
  ========
  
@@ -2970,9 +2986,10 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
 {
     Node *parent = pnode->parent;
 
-    // If pnode is a leaf, then all children are nullptrs. The non-null child is only needed when pnode is an internal node.
-    std::shared_ptr<Node> soleChild = (!pnode->isLeaf()) ? std::move(pnode->getNonNullChild()) : nullptr; 
-
+    // If pnode is a leaf, then all children are nullptrs. pnode is internal if and only if it has an empty child, that is, only one non-nullptr child.
+   
+    std::shared_ptr<Node> soleChild = (!pnode->isLeaf()) ? std::move(pnode->getOnlyChild()) : nullptr; 
+    
     std::shared_ptr<Node> node2Delete;
 
     // In all three cases below, we are only moving the parent's grandchildren. We also need to move the immediate children of the
@@ -3027,6 +3044,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
 	      // making it the 3rd child. 
               parent->children[0]->connectChild(2, std::move(soleChild)); 
 	  }
+
           // Move the parent's right children one position left, so the parent has only two children.
           parent->connectChild(1, std::move(parent->children[2]));
          } 
@@ -3095,7 +3113,7 @@ template<class Key, class Value> void tree23<Key, Value>::merge2Nodes(Node *pnod
   } 
 
   // Recursive case: This only occurs if fixTree adopted the sole child of pnode. The other child was deleted from the tree and so sibling->children[!child_index] == nullptr.
-  std::shared_ptr<Node>& nonemptyChild = pnode->getNonNullChild();
+  std::shared_ptr<Node>& nonemptyChild = pnode->getOnlyChild();
 
   // Is sibling to the left? 
   if (sibling_index == 0) {
