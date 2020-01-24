@@ -2658,7 +2658,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::reassignRoot() 
 
    } else {
    // recursive remove() case:
-   // The root has a sole non-empty child, make it the new root. shared_ptr's assignment operator will first delete the current empty root <-- TODO: NOT TRUE ANYMORE
+   // The root has a sole non-empty child, make it the new root.
    // node pointer before doing the assignment.
       root = std::move(root->getNonNullChild());  
       root->parent = nullptr;   
@@ -2932,6 +2932,9 @@ template<class Key, class Value> void tree23<Key, Value>::shiftChildrenRight(Nod
  Promises: Merges one of the keys/values of pnode->parent with one of pnode's 2-node siblings to rebalance the tree. It shifts the children of the
  effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node, which only occurs during
  a recursive call to fixTree(). 
+
+ TODO: How can pnode sometimes have only one non-nullptr child? Is there a way to improved the logic so we don't have such an "strange" case of a node with
+ only one real child when pnode is an internal node, and can we eliminate testing for this special case in each of switch case statements(near the end of each).
  
  */
 template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
@@ -2967,6 +2970,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
 	       // move children appropriately. This is the recursive case when pnode is an internal node.
                parent->children[1]->connectChild(2, std::move(parent->children[1]->children[1])); 
                parent->children[1]->connectChild(1, std::move(parent->children[1]->children[0])); 
+
                parent->children[1]->connectChild(0, std::move(soleChild)); 
 	  }
           
