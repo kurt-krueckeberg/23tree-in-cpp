@@ -2,10 +2,9 @@
 
 ## FixTree() has an special case that seems "odd" and must be checked in many places
 
- TODO: How can a Node operated on by fixTree() sometimes have only one non-nullptr child? Is there a way to improved the logic so we don't have such an "strange" case of a node with
- only one real child when pnode is an internal node, and can we eliminate testing for this special case in each of switch case statements(near the end of each)
-
  TODO: Clarify the comments first, so the remove algorithm is clear.
+ fixTree() starts at a leaf node and can recurse if the parent becomes empty. If the root is reached--what happen
+ How can a Node operated on by fixTree() sometimes have only one non-nullptr child? This happens in one case: ....
 
 ## Thoughts on emplace()
 
