@@ -2629,26 +2629,25 @@ template<class Key, class Value> void tree23<Key, Value>::fixTree(typename tree2
 
       barrowSiblingKey(pnode, pnode_child_index, sibling_index);
      
-  } else  { // No sibling has two items, so we merge a key/value from pnode's parent with the appropriate sibling. 
+  } else  { // No sibling has two items (is a 3-node).
 
      Node *parent = pnode->parent;
       
-     if (pnode->parent->isThreeNode()) { 
+     if (pnode->parent->isThreeNode()) { // If the parent is a 3-node, since we know the sibling(s) are both 2-node, too....
          
-         // parent is a 3-node, but has only 2-node children. In this case, we can successfully rebalance the tree. We merge one of the parent keys (and
-         // its associated value) with a sibling. This now makes the parent a 2-node. We move the children affected by the merge appropriately, and then we can
-         // safely delete pnode from the tree.
+         // ...we merge one of the parent keys (and its associated value) with one of the sibling. This converts the 3-node parent into a 2-node. We also move the children affected by the
+         // merge appropriately. We can now safely delete pnode from the tree because its parent has been downsize to a 2-node.
     
          merge3NodeWith2Node(pnode, pnode_child_index);
                     
       } else { 
     
-          // When the parent is a 2-node, then both pnode's sibling and the parent have one key. We merge the parent's sole key/value with
-          // pnode's sibling at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively below 
-          // by again calling fixTree(). 
+          // When the parent is a 2-node, then both pnode's only sibling and the parent have one key. We merge the parent's sole key/value with
+          // pnode's sibling locatied at pnode->parent->children[!pnode_child_index]. This leaves the parent empty, which we handle recursively 
+          // by calling fixTree() again. 
           merge2Nodes(pnode, !pnode_child_index); 
 
-          // recurse. parent is an internal empty 2-node with only one non-nullptr child.
+          // recurse. parent is an internal empty 2-node with only one non-nullptr child. <--- TODO: This is not clearly worded. Include a picture of what is going on.
           fixTree(parent, descent_indecies);
      }
   }   
