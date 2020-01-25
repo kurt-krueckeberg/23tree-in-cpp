@@ -1,10 +1,8 @@
 ## TODO
 
-## FixTree() has an special case that seems "odd" and must be checked in many places
+## fixTree() 
 
- TODO: Clarify the comments first, so the remove algorithm is clear.
- fixTree() starts at a leaf node and can recurse if the parent becomes empty. If the root is reached--what happen
- How can a Node operated on by fixTree() sometimes have only one non-nullptr child? This happens in one case: ....
+ TODO: Clarify and simplify
 
 ## Thoughts on emplace()
 
