@@ -3009,7 +3009,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
           parent->children[1]->totalItems = Node::ThreeNode;
           parent->totalItems = Node::TwoNode;
 
-          node2Delete = std::move(parent->children[0]); // TODO: Can I just do parent->children[0].reset() instead ?
+          node2Delete = std::move(parent->children[0]); 
 
           if (soleChild != nullptr) { // We need to shift the 2 right-most children (of the former 3-node) left since their
 		                               // parent is now a 2-node.
