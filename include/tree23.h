@@ -2977,9 +2977,6 @@ template<class Key, class Value> inline bool tree23<Key, Value>::merge_nodes(Nod
  Promises: Merges one of the keys/values of pnode->parent with one of pnode's 2-node siblings to rebalance the tree. It shifts the children of the
  effected siblings appropriately, transfering ownership of the sole non-nullptr child of pnode, when pnode is an internal node, which only occurs during
  a recursive call to fixTree(). 
-
- TODO: How can pnode sometimes have only one non-nullptr child? Is there a way to improved the logic so we don't have such an "strange" case of a node with
- only one real child when pnode is an internal node, and can we eliminate testing for this special case in each of switch case statements(near the end of each).
  
  */
 template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(Node *pnode, int child_index) noexcept
@@ -3009,10 +3006,9 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
           parent->children[1]->totalItems = Node::ThreeNode;
           parent->totalItems = Node::TwoNode;
 
-          node2Delete = std::move(parent->children[0]); 
+          parent->children[0].reset(); 
 
-          if (soleChild != nullptr) { // We need to shift the 2 right-most children (of the former 3-node) left since their
-		                               // parent is now a 2-node.
+          if (soleChild != nullptr) { // We need to shift the 2 right-most children (of the former 3-node) left since their parent is now a 2-node.
 	       // move children appropriately. This is the recursive case when pnode is an internal node.
                parent->children[1]->connectChild(2, std::move(parent->children[1]->children[1])); 
                parent->children[1]->connectChild(1, std::move(parent->children[1]->children[0])); 
@@ -3036,7 +3032,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
           parent->children[0]->totalItems = Node::ThreeNode;
           parent->totalItems = Node::TwoNode;
 
-          node2Delete = std::move(parent->children[1]); 
+          parent->children[1].reset();
 
           if (soleChild != nullptr) {// We still need to shift the children[2] to be children[1] because its parent is now a 2-node.		  
 
@@ -3059,7 +3055,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
           parent->children[1]->totalItems = Node::ThreeNode;
           parent->totalItems = Node::TwoNode;
     
-          node2Delete = std::move(parent->children[2]); 
+          parent->children[2].reset(); 
 
           if (soleChild != nullptr) {// If it is a leaf, we don't need to shift the existing children of children[1] because there is no "gap" to fill.
 
