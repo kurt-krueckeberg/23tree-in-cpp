@@ -1,8 +1,11 @@
 ## TODO
 
-## fixTree() 
+### Design Bug
 
- TODO: Clarify and simplify
+Using shared\_ptr<Node> improves efficiency. For example, when we copy a tree, we only have to copy a shared\_ptr, but there is a drawback. For the details see:
+
+* `C++11 Smart Pointer – Part 5: shared_ptr, Binary trees and the problem of Cyclic References <https://thispointer.com/shared_ptr-binary-trees-and-the-problem-of-cyclic-references/>`_
+* `Implementation of Binary Search Trees ViaSmart Pointer <https://thispointer.com/shared_ptr-binary-trees-and-the-problem-of-cyclic-references/>`_
 
 ## Thoughts on emplace()
 

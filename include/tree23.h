@@ -43,7 +43,6 @@ template<class Key, class Value> class tree23 {
 
      ~KeyValue() 
       {
-        
          const_pair.first.~Key();  // Note: Anonymous unions require explicit destructor calls.
          const_pair.second.~Value();
       } 
@@ -1585,7 +1584,7 @@ template<class Key, class Value>  void tree23<Key, Value>::clone_tree(const std:
         std::shared_ptr<typename tree23<Key, Value>::Node>& destNode, const typename tree23<Key, Value>::Node *parent) noexcept
 {
   if (srcNode != nullptr) { 
-                              
+    // Wrong we don't want to call make_shared because it calls new, reallocating the same key/value pair on the heap.                          
     destNode = std::make_shared<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
 
     for(auto i = 0; i < destNode->getChildCount(); ++i) clone_tree(srcNode->children[i], destNode->children[i], destNode.get()); 
