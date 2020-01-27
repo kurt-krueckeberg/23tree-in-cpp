@@ -96,7 +96,7 @@ template<class Key, class Value> class tree23 {
          Node(Node4&);
    
          // We disallow copy construction and assignment...
-         Node(const Node&) = delete; 
+         Node(const Node&) = delete; //TODO: <--- This needs to change--I believe. 
          Node& operator=(const Node&) = delete; 
    
          Node(Node&&); // ...but we allow move assignment and move construction.
@@ -329,7 +329,7 @@ template<class Key, class Value> class tree23 {
    // Called by copy constructor and copy assignment operators, respectively.
    void clone_tree(const std::shared_ptr<Node>& Node2Copy, std::shared_ptr<Node>& NodeCopy, const Node * parent) noexcept;
 
-   void destroy_tree(std::shared_ptr<Node> &root) noexcept; 
+   void destroy_tree(std::shared_ptr<Node> &root) noexcept; // TODO: root.reset() is equivalent to this method. 
 
    int  height(const Node *pnode) const noexcept;
    
@@ -1584,7 +1584,8 @@ template<class Key, class Value>  void tree23<Key, Value>::clone_tree(const std:
         std::shared_ptr<typename tree23<Key, Value>::Node>& destNode, const typename tree23<Key, Value>::Node *parent) noexcept
 {
   if (srcNode != nullptr) { 
-    // Wrong we don't want to call make_shared because it calls new, reallocating the same key/value pair on the heap.                          
+
+    // TODO: Wrong we don't want to call make_shared because it calls new, reallocating the same key/value pair on the heap.                          
     destNode = std::make_shared<Node>(srcNode->keys_values, const_cast<Node *>(parent), srcNode->totalItems);
 
     for(auto i = 0; i < destNode->getChildCount(); ++i) clone_tree(srcNode->children[i], destNode->children[i], destNode.get()); 

@@ -1,6 +1,11 @@
 TODO
 ----
 
+"Bug"s
+------
+
+destroy_tree is not needed because 'root.reset()' is sufficient.
+
 Design Bug
 ~~~~~~~~~~
 
@@ -9,6 +14,8 @@ Using shared_ptr improves efficiency. For example, when we copy a tree, we only 
 -  ``C++11 Smart Pointer – Part 5: shared_ptr, Binary trees and the problem of Cyclic References <https://thispointer.com/shared_ptr-binary-trees-and-the-problem-of-cyclic-references/>``\ \_
 -  ``Implementation of Binary Search Trees ViaSmart Pointer <https://thispointer.com/shared_ptr-binary-trees-and-the-problem-of-cyclic-references/>``\ \_
 -  ``Implementation of Binary Search Trees ViaSmart Pointer <https://thispointer.com/shared_ptr-binary-trees-and-the-problem-of-cyclic-references/>``\ \_
+
+Problem with this thinking: See comments in ~/bst/todo.rst 
 
 shared_ptr Considerations
 ^^^^^^^^^^^^^^^^^^^^^^^^^
