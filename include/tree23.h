@@ -32,7 +32,7 @@ template<class Key, class Value> class tree23 {
       using key_type   = Key;
       using mapped_type = Value;
   
-      using value_type = __value_type<Key, Value>::value_type;// = std::pair<const Key, Value>;  
+      using value_type = typename __value_type<Key, Value>::value_type;// = std::pair<const Key, Value>;  
       using difference_type = long int;
       using pointer         = value_type*; 
       using reference       = value_type&; 
@@ -311,17 +311,17 @@ template<class Key, class Value> class tree23 {
    tree23<Key, Value>& move(tree23<Key, Value>&& lhs) noexcept;
 
    // Methods used by class iterator.
-   std::pair<Node *, int> getSuccessor(const Node *current, int key_index) const noexcept;
+   std::pair<const Node *, int> getSuccessor(const Node *current, int key_index) const noexcept;
 
-   std::pair<Node *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, int index_of_key) const noexcept;
+   std::pair<const Node *, int> getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, int index_of_key) const noexcept;
 
-   std::pair<typename tree23<Key, Value>::Node *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node *, int) const;
+   std::pair<const typename tree23<Key, Value>::Node *, int>  getLeafNodeSuccessor(const typename tree23<Key, Value>::Node *, int) const;
 
-   std::pair<Node *, int> getPredecessor(const Node *current, int key_index) const noexcept;
+   std::pair<const Node *, int> getPredecessor(const Node *current, int key_index) const noexcept;
 
-   std::pair<Node *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node *pnode, int index) const noexcept;
+   std::pair<const Node *, int> getInternalNodePredecessor(const typename tree23<Key, Value>::Node *pnode, int index) const noexcept;
 
-   std::pair<Node *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node *p, int index) const noexcept;
+   std::pair<const Node *, int>  getLeafNodePredecessor(const typename tree23<Key, Value>::Node *p, int index) const noexcept;
 
    void seekToSmallest();    
    void seekToLargest();    
@@ -956,7 +956,7 @@ template<class Key, class Value> int tree23<Key, Value>::Node::getChildIndex() c
   return child_index;
 }
 
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getPredecessor(const typename  tree23<Key, Value>::Node *current, int key_index) const noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getPredecessor(const typename  tree23<Key, Value>::Node *current, int key_index) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
 
@@ -980,7 +980,7 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, 
   }
 }
 
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getInternalNodePredecessor(\
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getInternalNodePredecessor(\
      const typename tree23<Key, Value>::Node *pnode, int key_index) const noexcept	    
 {
   const Node *leftChild = pnode->children[key_index].get();
@@ -1002,7 +1002,7 @@ Finding the predecessor of a given node
   If you get to the root w/o finding a node that is a right child, there is no predecessor
 */
 
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getLeafNodePredecessor(const typename tree23<Key, Value>::Node *pnode, int index) const noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getLeafNodePredecessor(const typename tree23<Key, Value>::Node *pnode, int index) const noexcept
 {
   // Handle trivial case: if the leaf node is a 3-node and key_index points to the second key, simply set key_index to 0. 
   if (pnode->isThreeNode() && index == 1) {
@@ -1114,7 +1114,7 @@ Requires:
     the pointer returned will be nullptr.
 */
 
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getSuccessor(const Node *current, int key_index) const noexcept
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getSuccessor(const Node *current, int key_index) const noexcept
 {
   if (current->isLeaf()) { // If leaf node
      
@@ -1150,7 +1150,7 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, 
     Note: When a 2 3 tree node is a 3-node, it has two "right" chidren from the point of view of its first key and two "left" children from the point of view of its
     second key.
  */
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, int key_index) const noexcept	    
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getInternalNodeSuccessor(const typename tree23<Key, Value>::Node *pnode, int key_index) const noexcept	    
 {
    const Node *rightChild = pnode->children[key_index + 1].get();
 
@@ -1172,7 +1172,7 @@ template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, 
   To return the in-order successor represented by the pair { const Node *pnode; int key_index }.
 */
 
-template<class Key, class Value> std::pair<typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getLeafNodeSuccessor(const \
+template<class Key, class Value> std::pair<const typename tree23<Key, Value>::Node *, int> tree23<Key, Value>::getLeafNodeSuccessor(const \
  typename tree23<Key, Value>::Node *pnode, int index_of_key) const 
 {
   // If the leaf node is a 3-node and key_index points to the first key, this is trivial: we simply set key_index to 1. 
@@ -2196,7 +2196,7 @@ template<class Key, class Value> void tree23<Key, Value>::Node::convertTo2Node(N
  */
 template<class Key, class Value> void tree23<Key, Value>::Node::convertTo3Node(const Key& new_key, const Value& new_value, std::unique_ptr<Node> newChild) noexcept
 {
-  auto to_insert = make_pair<const int&, const int&>(new_key, new_value);
+  auto to_insert = std::pair<const int&, const int&>(new_key, new_value);
 
   if (key(0) > new_key) {
 
