@@ -1,7 +1,6 @@
 #ifndef test_23493274923
 #define test_23493274923
 #include <vector>
-#include  "tree23.h"
 
 template<class Key, class Value> class tree23; // Forward declaration of template class tree23...
 
