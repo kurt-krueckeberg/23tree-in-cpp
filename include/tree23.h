@@ -131,6 +131,16 @@ template<class Key, class Value> class tree23 {
             static const int NotFoundIndex = -1;
                 
             std::array<__value_type<Key, Value>, 2> keys_values;
+
+            value_type& get_value(int i) noexcept
+            {
+               return keys_values[i].__get_value();
+            }
+
+            const value_type& get_value(int i) const noexcept
+            {
+               return keys_values[i].__get_value();
+            }
    
             std::array<std::unique_ptr<Node>, 3> children;
    
@@ -1805,7 +1815,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 1: // two node
             DoInOrderTraverse(f, current->children[0].get());
    
-            f(current->keys_values[0].__get_value());   
+            f(current->get_value(0));   
 
             DoInOrderTraverse(f, current->children[1].get());
             break;
@@ -1813,11 +1823,11 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
       case 2: // three node
             DoInOrderTraverse(f, current->children[0].get());
 
-            f(current->keys_values[0].__get_value());
+            f(current->get_value(0));
 
             DoInOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[1].__get_value());
+            f(current->get_value(1));
 
             DoInOrderTraverse(f, current->children[2].get());
             break;
@@ -1833,7 +1843,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
    switch (current->getTotalItems()) {
 
       case 1: // two node
-            f(current->keys_values[0].__get_value());   
+            f(current->get_value(0));   
 
             DoPreOrderTraverse(f, current->children[0].get());
  
@@ -1841,13 +1851,13 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
             break;
 
       case 2: // three node
-            f(current->keys_values[0].__get_value());
+            f(current->get_value(0));
 
             DoPreOrderTraverse(f, current->children[0].get());
 
             DoPreOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[1].__get_value());
+            f(current->get_value(1));
 
             break;
    }
@@ -1867,7 +1877,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
             DoPostOrderTraverse(f, current->children[1].get());
  
-            f(current->keys_values[0].__get_value());   
+            f(current->get_value(0));   
             break;
 
       case 2: // three node
@@ -1875,11 +1885,11 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
             DoPostOrderTraverse(f, current->children[1].get());
 
-            f(current->keys_values[0].__get_value());
+            f(current->get_value(0));
 
             DoPostOrderTraverse(f, current->children[2].get());
  
-            f(current->keys_values[1].__get_value());
+            f(current->get_value(1));
             break;
    }
 }

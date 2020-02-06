@@ -15,6 +15,8 @@ int main(int argc, char** argv)
   tree23<int, int> test_tree = { {50, 50}, {39, 39}, {15, 15}, {65, 65}, {69, 69}, {150, 150}, {125, 125}, {20, 20}, {70, 70}, {100, 100}, {40, 40}, {34, 34}, {37, 37}, {30, 30}, {10, 10}, {33, 33}, {36, 36}, \
    {38, 38}, {85, 85}, {90, 90}, {60, 60}, { 35, 35}, {80, 80}, {89, 89} };
 
+  test_tree.inOrderTraverse( [](const auto& vt) { cout << vt.first << ", ";}
+                           );
   //DebugPrinter<tree23<int, int>> debug_printer{test_tree, cout};
 
   test_tree.printlevelOrder(cout); 
