@@ -4,29 +4,26 @@
 #include <memory>
 
 /*
- These type aliases are from the libc++ <map> header at /usr/lib/llvm-9/include/c++/v1/map. In map's private area we have these type aliases involving __value_type
-
+ These type aliases are from the LLVM C++ standard library implemention <map> header file: 
+ 
     //  __value_type alias
     using  __value_type    = std::__value_type<key_type, mapped_type>;                   
 
-    // Its subsequent uses 
+    // Its subsequent uses in the <map> header:
     using  __vc            = __map_value_compare<key_type, __value_type, key_compare>;  
 
     using __allocator_type = typename __rebind_alloc_helper<allocator_traits<allocator_type>, __value_type>::type; 
 
-    // Its critical use: defining __base = __tree<__value_type, __vc, __allocator_type> .... 
+    // Its really critical use is, defining the map private member __base
 
     using __base           = __tree<__value_type, __vc, __allocator_type>;    
-    //
     // ... because __base is the type of the actual __tree type of the member variable used in map, __tree_
-
     __base __tree_;                                                           
-
 */
 
 
 /*
- * The code below is from the libc++ file /usr/lib/llvm-9/include/c++/v1/type_traits
+ * Code from the libc++ <map> header
  */ 
 template <class _Tp>
 struct __uncvref  {
@@ -96,7 +93,7 @@ template <class _Key, class _Value> struct __value_type {
     /*
        The assigment operator for lvalues or rvalues of type 'pair<const key_type, mapped_type>' or const/volatile or reference to these types.  
 
-       To see this observe that...
+       To see this is the case, observe that...
 
            __is_same_uncvref<typename T1, typename T2> 
 
@@ -108,7 +105,6 @@ template <class _Key, class _Value> struct __value_type {
           template<_ValueTp> __value_type& operator=(_ValueTp&& __v)
 
        is called whenever an lvaule reference or rvalue reference of type pair<const key_type, mapped_type> is assigned to a __value_type.  
-
 
        It forwards the assigment to 'template<typename T1, typename T2> std::pair<Key, Value>::operator=(std::pair<T1, T2>&& lhs);
 
