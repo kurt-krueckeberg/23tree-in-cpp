@@ -87,7 +87,7 @@ template<class Key, class Value> class tree23 {
 
          constexpr Value& value(int i) { return keys_values[i].__get_value().second; }
    
-         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr && children[1] == nullptr) ? true : false; } 
+         constexpr bool isLeaf() const noexcept { return (!children[0] && !children[1]) ? true : false; } 
          constexpr bool isEmpty() const noexcept { return (totalItems == 0) ? true : false; } 
    
          constexpr bool isThreeNode() const noexcept { return (totalItems == Node::ThreeNode) ? true : false; }
@@ -252,7 +252,7 @@ template<class Key, class Value> class tree23 {
          std::ostream& print(std::ostream& ostr) const noexcept;
          std::ostream& debug_print(std::ostream& ostr) const noexcept;
    
-         constexpr bool isLeaf() const noexcept { return (children[0] == nullptr) ? true : false; } 
+         constexpr bool isLeaf() const noexcept { return (!children[0]) ? true : false; } 
    
          friend std::ostream& operator<<(std::ostream& ostr, const Node4& node4) 
          { 
@@ -612,7 +612,7 @@ template<class Key, class Value> tree23<Key, Value>::Node::Node(const Key& key, 
 
 template<typename Key, typename Value> inline  tree23<Key, Value>::Node::Node(const Node& lhs)  noexcept : totalItems{lhs.totalItems},  keys_values{lhs.keys_values}
 {
-  if (lhs.parent == nullptr) // If lhs is the root, then set parent to nullptr.
+  if (!lhs.parent) // If lhs is the root, then set parent to nullptr.
       parent = nullptr;
 
   if (lhs.isLeaf()) { 
@@ -668,7 +668,7 @@ template<class Key, class Value> template<class... Args>  tree23<Key, Value>::No
  */
 template<class Key, class Value> inline constexpr std::unique_ptr<typename tree23<Key, Value>::Node>& tree23<Key, Value>::Node::getOnlyChild() noexcept
 {
-  return (children[0] == nullptr) ?  children[1] : children[0];
+  return (!children[0]) ?  children[1] : children[0];
 }
 
 /*
@@ -676,7 +676,7 @@ template<class Key, class Value> inline constexpr std::unique_ptr<typename tree2
  */
 template<class Key, class Value> inline constexpr int tree23<Key, Value>::Node::getSoleChildIndex() const noexcept
 {
-  return (children[0] != nullptr) ? 0 : 1; 
+  return (children[0]) ? 0 : 1; 
 }
 
 /*
@@ -713,7 +713,7 @@ template<class Key, class Value> typename tree23<Key, Value>::Node& tree23<Key, 
 }
 template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const noexcept
 {
-  return root == nullptr ? true : false;
+  return !root ? true : false;
 }
 /*
 template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::debug_print(std::ostream& ostr, bool show_addresses) const noexcept
@@ -817,7 +817,7 @@ template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(t
 template<class Key, class Value> inline tree23<Key, Value>::iterator::iterator(tree23<Key, Value>& lhs_tree, iterator_position pos) : tree{lhs_tree}, position{pos} 
 {
   // If the tree is empty, there is nothing over which to iterate...
-   if (tree.root.get() == nullptr) {
+   if (!tree.root) {
          
       current = nullptr;
       key_index = 0;
@@ -899,7 +899,7 @@ template<class Key, class Value> void tree23<Key, Value>::iterator::seekToSmalle
       throw std::logic_error("iterator constructor called with wrong position paramater");
   }
 
-  for (const Node *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[0].get()) 
+  for (const Node *cursor = tree.root.get(); cursor; cursor = cursor->children[0].get()) 
       current = cursor;
 
   key_index = 0;
@@ -912,7 +912,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::iterator::seekT
       throw std::logic_error("iterator constructor called with wrong position paramater");
   }
 
-  for (const Node *cursor = tree.root.get(); cursor != nullptr; cursor = cursor->children[cursor->totalItems].get())
+  for (const Node *cursor = tree.root.get(); cursor; cursor = cursor->children[cursor->totalItems].get())
        current = cursor;
 
   key_index = (current->isThreeNode()) ? 1 : 0;
@@ -995,7 +995,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
 {
   const Node *leftChild = pnode->children[key_index].get();
 
-  for (const Node *cursor = leftChild; cursor != nullptr; cursor = cursor->children[cursor->totalItems].get()) {
+  for (const Node *cursor = leftChild; cursor; cursor = cursor->children[cursor->totalItems].get()) {
 
       pnode = cursor;
   }
@@ -1165,7 +1165,7 @@ template<class Key, class Value> std::pair<const typename tree23<Key, Value>::No
    const Node *rightChild = pnode->children[key_index + 1].get();
 
    // Get the smallest node in the subtree rooted at the rightChild, i.e., its left most node...
-   for (const Node *cursor = rightChild; cursor != nullptr; cursor = cursor->children[0].get()) {
+   for (const Node *cursor = rightChild; cursor; cursor = cursor->children[0].get()) {
 
       pnode = cursor;
    }
@@ -1348,7 +1348,7 @@ template<class Key, class Value> inline typename tree23<Key, Value>::iterator& t
      {
            auto[pnode, index] = tree.getSuccessor(current, key_index);
 
-           if (pnode == nullptr) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
+           if (!pnode) { // nullptr implies there is no successor. Therefore current and key_index already pointed to last key/value in tree.
 
                 // Therefore current doesn't change, nor key_index, but the state becomes 'end', one-past last key. 
                 position = iterator_position::end;
@@ -1396,7 +1396,7 @@ template<class Key, class Value> typename tree23<Key, Value>::iterator& tree23<K
                                        // 'in_between' corresponds to the inclusive half interval [second key, last key), while 'beg' refers only to
                                        //  first key/value.  
     {      
-       if (auto[pnode, index] = tree.getPredecessor(current, key_index); pnode == nullptr) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
+       if (auto[pnode, index] = tree.getPredecessor(current, key_index); !pnode) { // If nullptr, there is no successor: current and key_index already point to the first key/value in the tree. 
 
             // Therefore current doesn't change, nor key_index, but the state becomes 'beg'. 
             position = iterator_position::beg;
@@ -1745,7 +1745,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node4::connectC
   since 'this' is of type 'Node4 *'. 
   */
 
-  Node *parent_of_node23 = (child == nullptr) ? nullptr : child->parent; 
+  Node *parent_of_node23 = (!child) ? nullptr : child->parent; 
   
   children[childIndex] = std::move(child); // invokes move assignment of std::unique_ptr<Node>.
 
@@ -1771,7 +1771,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node4::print(
    
    for (auto& pChild : children) {
        
-       if (pChild == nullptr) {
+       if (!pChild) {
            
            ostr << "nullptr, ";   
            
@@ -1805,7 +1805,7 @@ template<class Key, class Value> template<typename Functor> inline void tree23<K
 
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoInOrderTraverse(Functor f, const Node *current) const noexcept
 {
-   if (current == nullptr) {
+   if (!current) {
 
       return;
    }
@@ -1835,7 +1835,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 }
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoPreOrderTraverse(Functor f, const Node *current) const noexcept
 {
-   if (current == nullptr) {
+   if (!current) {
 
       return;
    }
@@ -1865,7 +1865,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
 template<class Key, class Value> template<typename Functor> void tree23<Key, Value>::DoPostOrderTraverse(Functor f, const Node *current) const noexcept
 {
-   if (current == nullptr) {
+   if (!current) {
 
       return;
    }
@@ -1900,7 +1900,7 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
    Node *proot = root.get();
 
-   if (proot == nullptr) return;
+   if (!proot) return;
       
    auto initial_level = 1; // initial, top root level is 1.
    
@@ -1914,13 +1914,13 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
 
         f(current, current_tree_level);  
         
-        if (current != nullptr && !current->isLeaf()) {
+        if (current && !current->isLeaf()) {
 
             if (current->totalItems == 0) { // This can happen only during remove() when an internal 2-node becomes empty temporarily  ...
 
                    //...when only and only one of the empty 2-node's children will be nullptr. 
-                   queue.push( { (current->children[0] == nullptr) ? nullptr : current->children[0].get(), current_tree_level + 1 }); 
-                   queue.push( { (current->children[1] == nullptr) ? nullptr : current->children[1].get(), current_tree_level + 1 }); 
+                   queue.push( { (!current->children[0]) ? nullptr : current->children[0].get(), current_tree_level + 1 }); 
+                   queue.push( { (!current->children[1]) ? nullptr : current->children[1].get(), current_tree_level + 1 }); 
 
 	    } else {
             
@@ -1942,7 +1942,7 @@ template<class Key, class Value> bool tree23<Key, Value>::find(Key key) const no
 
 template<class Key, class Value> bool tree23<Key, Value>::find(const Node *pnode, Key key) const noexcept
 {
-   if (pnode == nullptr) return false;
+   if (!pnode) return false;
    
    auto i = 0;
    
@@ -1993,7 +1993,7 @@ template<typename Key, typename Value> inline void tree23<Key, Value>::printInOr
  */
 template<class Key, class Value> void tree23<Key, Value>::insert(const Key& new_key, const Value& new_value)
 {
-  if (root == nullptr) {
+  if (!root) {
       
       // Create the initial unique_ptr<Node> in the tree.
       root = std::make_unique<Node>(new_key, new_value);
@@ -2242,7 +2242,7 @@ template<class Key, class Value> void  tree23<Key, Value>::Node::connectChild(in
 {
   children[childIndex] = std::move(child); 
   
-  if (children[childIndex] != nullptr) { 
+  if (children[childIndex]) { 
 
        children[childIndex]->parent = this; 
   }
@@ -2253,7 +2253,7 @@ template<class Key, class Value> inline void tree23<Key, Value>::Node::connectCh
 {  
   dest = std::move(src); 
   
-  if (dest != nullptr) dest->parent = this; 
+  if (dest) dest->parent = this; 
 }            
 
 /*
@@ -2543,7 +2543,7 @@ template<class Key, class Value> void tree23<Key, Value>::rotate_keys(Node *pnod
 
          // ...detemine if the left child is the non-nullptr child, make it the right child; otherwise, 
 	 // leave it alone.
-         if (pnode->children[0] != nullptr) {
+         if (pnode->children[0]) {
  
             pnode->connectChild(1, std::move(pnode->children[0])); // Shift the non-nullptr child, the sole child of node, to be the right child of
 	                                                         // node.
@@ -2554,7 +2554,7 @@ template<class Key, class Value> void tree23<Key, Value>::rotate_keys(Node *pnod
      } else { // it is to the right of node
 
 	 // ...determine if the right child of node is the sole child. If so, make it the left child.    
-         if (pnode->children[1] != nullptr) {
+         if (pnode->children[1]) {
 		 
             // Shift the non-nullptr child, the sole child of node, to position 0.
             pnode->connectChild(0, std::move(pnode->children[1]));
@@ -2822,7 +2822,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
 
           parent->children[0].reset(); 
 
-          if (soleChild != nullptr) { // We need to shift the 2 right-most children (of the former 3-node) left since their parent is now a 2-node.
+          if (soleChild) { // We need to shift the 2 right-most children (of the former 3-node) left since their parent is now a 2-node.
 	       // move children appropriately. This is the recursive case when pnode is an internal node.
                parent->children[1]->connectChild(2, std::move(parent->children[1]->children[1])); 
                parent->children[1]->connectChild(1, std::move(parent->children[1]->children[0])); 
@@ -2848,7 +2848,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
 
           parent->children[1].reset();
 
-          if (soleChild != nullptr) {// We still need to shift the children[2] to be children[1] because its parent is now a 2-node.		  
+          if (soleChild) {// We still need to shift the children[2] to be children[1] because its parent is now a 2-node.		  
 
 	      // This is the recursive case when pnode is an internal node. We move the sole child of the empty node to the parent's first child,
 	      // making it the 3rd child. 
@@ -2871,7 +2871,7 @@ template<class Key, class Value> void  tree23<Key, Value>::merge3NodeWith2Node(N
     
           parent->children[2].reset(); 
 
-          if (soleChild != nullptr) {// If it is a leaf, we don't need to shift the existing children of children[1] because there is no "gap" to fill.
+          if (soleChild) {// If it is a leaf, we don't need to shift the existing children of children[1] because there is no "gap" to fill.
 
              // Adopt sole child of pnode.  This is the recursive case when pnode is an internal node.
              parent->children[1]->connectChild(2,  std::move(soleChild)); 
@@ -2941,12 +2941,12 @@ template<class Key, class Value> inline std::ostream& tree23<Key, Value>::Node::
 {
    if (this == root) { // If this is the root...
        
-        if (parent != nullptr) {
+        if (parent) {
 
  	  ostr << " node is root and parent is not nullptr ";
         }
 
-   } else if (this == parent || parent == nullptr) { // ...otherwise, just check that it is not nullptr or this.
+   } else if (this == parent || !parent) { // ...otherwise, just check that it is not nullptr or this.
 
 	ostr << " parent pointer wrong ";
    }	   
@@ -2968,7 +2968,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
 
   for (int child_index = 0; child_index < Node::ThreeNodeChildren; ++child_index) {
 
-     if (children[child_index] == nullptr) {
+     if (!children[child_index]) {
    
           ostr << "error: children[" << child_index << "] is nullptr\n";
           continue;
@@ -3020,7 +3020,7 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
  // test children's parent point. 
  for (auto i = 0; i < ThreeNodeChildren; ++i) {
 
-    if (children[i] == nullptr) continue; // skip if nullptr 
+    if (!children[i]) continue; // skip if nullptr 
 
     if (children[i]->parent != this)	 {
 
@@ -3041,11 +3041,11 @@ template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::test_3n
  */
 template<class Key, class Value> int tree23<Key, Value>::depth(const Node *pnode) const noexcept
 {
-    if (pnode == nullptr) return -1;
+    if (!pnode) return -1;
 
     int depth = 0;
       
-    for (const Node *current = root; current != nullptr; ++depth) {
+    for (const Node *current = root; current; ++depth) {
 
       if (current->key() == pnode->key()) {
 
@@ -3071,7 +3071,7 @@ template<class Key, class Value> inline int tree23<Key, Value>::height() const n
 
 template<class Key, class Value> int tree23<Key, Value>::height(const Node* pnode) const noexcept
 {
-   if (pnode == nullptr) {
+   if (!pnode) {
 
        return -1;
 
@@ -3097,7 +3097,7 @@ template<class Key, class Value> int tree23<Key, Value>::height(const Node* pnod
  */
 template<class Key, class Value> bool tree23<Key, Value>::isBalanced(const Node* pnode) const noexcept
 {
-    if (pnode == nullptr) return false; 
+    if (!pnode ) return false; 
 
     std::array<int, Node::ThreeNodeChildren> heights; // four is max number of children.
     
@@ -3136,7 +3136,7 @@ template<class Key, class Value> bool tree23<Key, Value>::isBalanced() const noe
        // push its children onto the stack 
        for (auto i = 0; i < current->getChildCount(); ++i) {
           
-           if (current->children[i] != nullptr) {
+           if (current->children[i]) {
                
                nodes.push(current->children[i].get());
            }   
