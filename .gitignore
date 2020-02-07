@@ -12,6 +12,7 @@ x
 *~
 *.txt
 .*~
+.dep.inc
 .*.un~
 *.cmd
 *.bat
