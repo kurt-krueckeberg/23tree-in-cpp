@@ -336,6 +336,8 @@ template<class Key, class Value> class tree23 {
    void seekToSmallest();    
    void seekToLargest();    
 
+  void destroy_subtree(std::unique_ptr<Node>& current) noexcept;
+
   public:
      
     using node_type       = Node; 
@@ -543,9 +545,13 @@ template<class Key, class Value> class tree23 {
      
     tree23() noexcept;
     /*
-     * The net effect of the default destructor is post-order deletion in the same manner as destroy_tree(). 
+     * To avoid stack overflow that the default destructor might cause, since it will recursively invoke (in one call) every Node destruction in the tree, we
+     * do a post-order traversal calling the unique_ptr's reset() method.
      */
-    ~tree23() = default; 
+   ~tree23()// = default; 
+    {
+       destroy_subtree(root);
+    }
 
     tree23(std::initializer_list<value_type> list); 
 
@@ -1721,8 +1727,6 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
 
 template<class Key, class Value> typename tree23<Key, Value>::Node4& tree23<Key, Value>::Node4::operator=(Node4&& lhs) noexcept
 {
-  if (this == &lhs) return *this;
-
   keys_values = std::move(lhs.keys_values);
 
   children = std::move(lhs.children); /* This invokes std::array<Node>'s move assignment operater. For Node copy or move construction one must not do this,
@@ -1859,6 +1863,32 @@ template<class Key, class Value> template<typename Functor> void tree23<Key, Val
  
             f(current->get_value(1));
 
+            break;
+   }
+}
+
+template<typename Key, typename Value> void tree23<Key, Value>::destroy_subtree(std::unique_ptr<Node>& current) noexcept
+{  
+   if (!current) return;
+
+   switch (current->getTotalItems()) {
+
+      case 1: // two node
+            destroy_subtree(current->children[0]);
+
+            destroy_subtree(current->children[1]);
+
+            current.reset();
+            break;
+
+      case 2: // three node
+            destroy_subtree(current->children[0]);
+
+            destroy_subtree(current->children[1]);
+
+            destroy_subtree(current->children[2]);
+
+            current.reset();
             break;
    }
 }
