@@ -32,7 +32,7 @@ template<class Key, class Value> class tree23 {
       using key_type   = Key;
       using mapped_type = Value;
   
-      using value_type = typename __value_type<Key, Value>::value_type;// = std::pair<const Key, Value>;  
+      using value_type = typename __value_type<Key, Value>::value_type; // std::pair<const Key, Value>;  
       using difference_type = long int;
       using pointer         = value_type*; 
       using reference       = value_type&; 
@@ -49,8 +49,6 @@ template<class Key, class Value> class tree23 {
    
       public:   
           
-         //--Node(Key key, const Value& value, Node *ptr2parent=nullptr);
-         
         ~Node()
          { 
             /* For debugging uncomment.
@@ -61,12 +59,7 @@ template<class Key, class Value> class tree23 {
              */ 
           }
    
-   
-         // Used when tree23::emplace(arg...) is called.
-         // TODO: Is this actually used--check to confirm.
-         //template<class... Args> Node(Key key, Args... arg, Node *ptr2parent=nullptr);
-         
-         Node(Node4&);
+        Node(Node4&);
    
          Node(const Node&) noexcept; 
 
@@ -225,7 +218,7 @@ template<class Key, class Value> class tree23 {
          Node4() noexcept {}
    
          // Constructor that takes an internal 3-node 
-         Node4(Node *threeNode, const Key& new_key, const Value& value, int child_index, std::unique_ptr<Node> heap_2node) noexcept;
+         Node4(Node *threeNode, const Key& new_key, const Value& value, int child_index, std::unique_ptr<Node>& heap_2node) noexcept;
    
          // Constructor for a leaf 3-node, all child pointers will be zero. 
          Node4(Node *p3node, const Key& new_key, const Value& new_value) noexcept;
@@ -270,8 +263,12 @@ template<class Key, class Value> class tree23 {
     void CreateNewRoot(const Key& new_key, const Value& new_value, std::unique_ptr<Node>&& leftChild, std::unique_ptr<Node>&& rightChild) noexcept;  
    
     template<class... Args> void EmplaceRoot(Key key, Args&&... arg) noexcept;
-
+    /*--
     void split(Node *current, std::stack<int>& child_indecies, std::unique_ptr<Node> heap_2node, \
+               Key new_key, const Value& new_value) noexcept;
+     */
+
+    void split(Node *current, std::stack<int>& child_indecies, std::unique_ptr<Node>& heap_2node, \
                Key new_key, const Value& new_value) noexcept;
     /*
      Prospective method:
@@ -379,8 +376,9 @@ template<class Key, class Value> class tree23 {
          /*
           The relationship of iterator_position to key_index and vice versa is:
     
-            key_index == 0 if and only if state is beg. 
-            key_index == (current->totalItems - 1) if and only if state is end.
+           1. key_index == 0 <--> position is iterator_postion::beg
+           2. key_index == (current->totalItems - 1) <--> poistion is iterator_position::end 
+
           */
          int key_index;  
 
@@ -548,7 +546,7 @@ template<class Key, class Value> class tree23 {
      * To avoid stack overflow that the default destructor might cause, since it will recursively invoke (in one call) every Node destruction in the tree, we
      * do a post-order traversal calling the unique_ptr's reset() method.
      */
-   ~tree23()// = default; 
+   ~tree23()
     {
        destroy_subtree(root);
     }
@@ -610,10 +608,12 @@ template<class Key, class Value> tree23<Key, Value>::Node::Node(const Key& key, 
 {
    keys_values[0].__ref() = std::pair<const Key&, const Value&>{key, value};
 
-  for(auto& child : children) { // TODO: Is this the implicit behavior?
+  /*
+  for(auto& child : children) { // This is the implicit initialization
 
        child = nullptr; 
   } 
+  */
 }
 
 template<typename Key, typename Value> inline  tree23<Key, Value>::Node::Node(const Node& lhs)  noexcept : totalItems{lhs.totalItems},  keys_values{lhs.keys_values}
@@ -721,71 +721,6 @@ template<class Key, class Value> inline bool tree23<Key, Value>::isEmpty() const
 {
   return !root ? true : false;
 }
-/*
-template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::debug_print(std::ostream& ostr, bool show_addresses) const noexcept
-{
-   ostr << " { ["; 
-   
-   if (totalItems == 0) { // remove() situation when merge2Nodes() is called
-
-       ostr << "empty"; 
-
-   } else {
-
-        for (auto i = 0; i < totalItems; ++i) {
-
-            ostr << keys_values[i].key(); // or to print both keys and values do: ostr << keys_values[i]
-
-            if (i + 1 == totalItems)  {
-                continue;
-
-            } else { 
-                ostr << ", ";
-            }
-        }
-   }
-
-   ostr << "] : parent(" << parent << "), " << this;
-
-   if (parent == this) { 
-      
-      ostr << " BUG: parent == this " << std::flush;
-      
-      std::ostringstream oss;
-      
-      oss << "parent == this for node [";
-      
-      for (auto i = 0; i < totalItems; ++i) {
-
-         ostr << keys_values[i] << "}, ";
-       }
-      
-      oss << "]";
-   } 
-
-   if (show_addresses) {
-
-      ostr << ' ';
-
-      for (auto i = 0; i < getChildCount(); ++i) {
-          
-   
-               if (children[i] == nullptr) {
-   
-                    ostr <<  "nullptr" << ", ";
-   
-               } else {
-     
-                   ostr <<  children[i].get() << ", ";
-               }
-      }
-   
-   }
-   ostr << "] }";
-
-   return ostr;
-}
-*/
 
 template<class Key, class Value> std::ostream& tree23<Key, Value>::Node::print(std::ostream& ostr) const noexcept
 {
@@ -1651,8 +1586,7 @@ template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, 
         heap_2node is the 2-node allocated on the heap in the prior call to split when the 4-node created on the stack was split into two 2-nodes.
         heap_2node is the larger of those two 2-nodes. 
 */
-// TODO: Can't pass unique_ptr<Node> by value.
-template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, const Key& in_key, const Value& in_value, int child_index, std::unique_ptr<Node> heap_2node) noexcept : parent{p3node->parent} 
+template<class Key, class Value> tree23<Key, Value>::Node4::Node4(Node *p3node, const Key& in_key, const Value& in_value, int child_index, std::unique_ptr<Node>& heap_2node) noexcept : parent{p3node->parent} 
 {
   switch(child_index) {
  
@@ -2070,7 +2004,9 @@ template<class Key, class Value> void tree23<Key, Value>::insert(const Key& new_
   if (pinsert_start->isThreeNode()) { 
     
       // split() converts first parameter from a 3-node to a 2-node.
-      split(pinsert_start, indexes, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
+      //split(pinsert_start, indexes, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
+      std::unique_ptr<Node> unique_nullptr;
+      split(pinsert_start, indexes, unique_nullptr, new_key, new_value); 
 
   } else { // else we have room to insert new_new_key/new_value into leaf node.
       
@@ -2131,8 +2067,12 @@ template<class Key, class Value> template<class... Args> inline void tree23<Key,
 }
 
 // See split() variadic template method in ~/test/main.cpp
-
+/*--
 template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std::stack<int>& child_indecies, std::unique_ptr<Node> heap_2node, \
+                                                                Key new_key, const Value& new_value) noexcept
+*/
+
+template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std::stack<int>& child_indecies, std::unique_ptr<Node>& heap_2node, \
                                                                 Key new_key, const Value& new_value) noexcept
 {
   // get the actual parent              
@@ -2153,7 +2093,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
       child_index = child_indecies.top();
       child_indecies.pop();
 
-      node4 = Node4{pnode, new_key, new_value, child_index, std::move(heap_2node)}; 
+      node4 = Node4{pnode, new_key, new_value, child_index, heap_2node}; 
   }
    
   /* 
@@ -2189,7 +2129,7 @@ template<class Key, class Value> void tree23<Key, Value>::split(Node *pnode, std
   } else { // parent is a 3-node, so we recurse.
 
      // parent now has three items, so we can't insert the middle item. We recurse to split the parent.
-     split(parent, child_indecies, std::move(larger_2node), node4.key(1), node4.value(1)); 
+     split(parent, child_indecies, larger_2node, node4.key(1), node4.value(1)); 
   } 
 
   return;
