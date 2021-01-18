@@ -1966,27 +1966,27 @@ template<class Key, class Value> void tree23<Key, Value>::insert(const Key& new_
   }
 
 /*
-  new_key will be inserted into a leaf node. It will be inserted between the next largest value in the tree and the prior next smallest:
-  predecessor_key < new_key < successor_key
+  new_key will be inserted into a leaf node such that: predecessor_key < new_key < successor_key.
 
-  "stack<int> child_indecies" tracks each branch taken when descending to the leaf node into which the new_key will be inserted. This stack aids in creating 4-nodes
-  from internal 3-nodes. child_indecies tells us the branches taken from the root to insert leaf node, pinsert_start. 
+  'stack<int> child_indecies' below keeps track of each child branch taken as we descend to the leaf node, pinsert_start (into which the new key will
+  be inserted). It aids in creating 4-nodes (from internal 3-nodes). 
 
-   Thus, for example, in code like that below, which converts the descent branches contained in the stack<int> named child_indecies into a deque<int> named
-   branches, deque branches can be used to duplicate the exact descent branches taken from the root to the leaf where the insertion of new_key should begin:
+  For example, in the code below the descent-branches in stack child_indecies are converted into a deque<int> 'branches', which duplicate the exact descent
+  taken from the root to the leaf where the insertion of new_key should begin:
 
        // Convert stack to deque
        deque<int> branches;
 
        while (!child_indecies.empty()) {
 
-              branches.push_back(stk.top());
+              branches.push_back(child_indecies.top());
               child_indecies.pop();
        }
- 
+
+       // Now mimic the descent to pinsert_start from root
        Node *current = root.get();
        
-       for (auto branch : branches) { // Mimic the descent to pinsert_start from root
+       for (auto branch : branches) { 
             current = current->children[branch]; 
        } 
 */
@@ -2004,7 +2004,7 @@ template<class Key, class Value> void tree23<Key, Value>::insert(const Key& new_
   if (pinsert_start->isThreeNode()) { 
     
       // split() converts first parameter from a 3-node to a 2-node.
-      //split(pinsert_start, indexes, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
+      // split(pinsert_start, indexes, std::unique_ptr<Node>{nullptr}, new_key, new_value); 
       std::unique_ptr<Node> unique_nullptr;
       split(pinsert_start, indexes, unique_nullptr, new_key, new_value); 
 
