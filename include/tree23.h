@@ -49,17 +49,7 @@ template<class Key, class Value> class tree23 {
    
       public:   
           
-        ~Node()
-         { 
-            /* For debugging uncomment.
-             std::cout << "~Node: [ ";
-             for(auto i = 0; i < getTotalItems(); ++i)
-                   std::cout << key(i) << ',' << std::flush;
-             std::cout << ']' << std::flush;
-             */ 
-          }
-   
-        Node(Node4&);
+         Node(Node4&);
    
          Node(const Node&) noexcept; 
 
